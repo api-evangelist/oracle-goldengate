@@ -1,0 +1,4132 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate REST API
+  description: >-
+    RESTful API for managing Oracle GoldenGate Microservices Architecture,
+    including deployment configuration, extract and replicat process management,
+    credentials, database connections, distribution and receiver services,
+    performance metrics, and monitoring. Based on Oracle GoldenGate 21c
+    Microservices Architecture REST API documentation.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
+      description: Oracle GoldenGate REST API Reference 21c
+    - url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
+      description: Oracle GoldenGate REST API Reference 26ai
+servers:
+  - url: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate Microservices server
+    variables:
+      goldengate-host:
+        default: localhost
+        description: GoldenGate Microservices host
+      port:
+        default: '443'
+        description: HTTPS port for the service
+security:
+  - basicAuth: []
+tags:
+  - name: Deployments
+    description: Manage GoldenGate deployments via the Service Manager
+  - name: Services
+    description: Manage services within a deployment
+  - name: Extracts
+    description: Configure and manage Extract processes
+  - name: Replicats
+    description: Configure and manage Replicat processes
+  - name: Credentials
+    description: Manage credential store domains and aliases
+  - name: Connections
+    description: Manage database connections
+  - name: Heartbeat
+    description: Manage heartbeat tables for lag monitoring
+  - name: Configuration
+    description: Manage configuration settings and files
+  - name: Encryption
+    description: Manage encryption keys and profiles
+  - name: Trails
+    description: Manage trail files
+  - name: Distribution
+    description: Manage distribution paths for data delivery
+  - name: Receiver
+    description: Manage receiver/collector paths
+  - name: Monitoring
+    description: Performance metrics and monitoring
+  - name: Tasks
+    description: Manage automated tasks
+  - name: Users
+    description: User management and authorization
+  - name: Certificates
+    description: Manage SSL/TLS certificates
+  - name: Logs
+    description: Access service and process logs
+  - name: Commands
+    description: Execute GoldenGate commands
+paths:
+  /services:
+    get:
+      operationId: getApiVersions
+      summary: Retrieve API versions
+      description: Returns the list of available REST API versions supported by this GoldenGate instance.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Successfully retrieved API versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiVersionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2:
+    get:
+      operationId: describeApiVersion
+      summary: Describe API version v2
+      description: Returns details about the v2 REST API including available resources and metadata.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Successfully retrieved API version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiVersionDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/summary:
+    get:
+      operationId: getConfigSummary
+      summary: Get service configuration summary
+      description: Returns a summary of the current service configuration.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Configuration summary retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/health:
+    get:
+      operationId: getServiceHealthDetails
+      summary: Get service health details
+      description: Returns detailed health information for the GoldenGate service, including status of all components.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Service health details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceHealthDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/health/check:
+    get:
+      operationId: getServiceHealthCheck
+      summary: Get service health summary check
+      description: Returns a quick health check summary indicating overall service status.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Health check passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/deployments:
+    get:
+      operationId: listDeployments
+      summary: List all deployments
+      description: Returns a list of all GoldenGate deployments managed by the Service Manager.
+      tags:
+        - Deployments
+      responses:
+        '200':
+          description: Successfully retrieved deployment list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/deployments/{deployment}:
+    get:
+      operationId: getDeployment
+      summary: Retrieve a deployment
+      description: Returns the configuration details of a specific GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '200':
+          description: Deployment details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createDeployment
+      summary: Create a deployment
+      description: Creates a new GoldenGate deployment with the specified configuration.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentRequest'
+      responses:
+        '201':
+          description: Deployment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    patch:
+      operationId: updateDeployment
+      summary: Update a deployment
+      description: Updates configuration properties of an existing GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentRequest'
+      responses:
+        '200':
+          description: Deployment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDeployment
+      summary: Remove a deployment
+      description: Removes a GoldenGate deployment and its associated services.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '204':
+          description: Deployment removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/deployments/{deployment}/services:
+    get:
+      operationId: listServices
+      summary: List services for a deployment
+      description: Returns a list of all services configured within a specific deployment.
+      tags:
+        - Services
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '200':
+          description: Successfully retrieved service list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/deployments/{deployment}/services/{service}:
+    get:
+      operationId: getService
+      summary: Retrieve a service
+      description: Returns the configuration and status of a specific service within a deployment.
+      tags:
+        - Services
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+        - $ref: '#/components/parameters/serviceParam'
+      responses:
+        '200':
+          description: Service details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createService
+      summary: Create a service
+      description: Creates a new service within a deployment.
+      tags:
+        - Services
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+        - $ref: '#/components/parameters/serviceParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServiceRequest'
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateService
+      summary: Update service properties
+      description: Updates the configuration properties of an existing service.
+      tags:
+        - Services
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+        - $ref: '#/components/parameters/serviceParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServiceRequest'
+      responses:
+        '200':
+          description: Service updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteService
+      summary: Remove a service
+      description: Removes a service from a deployment.
+      tags:
+        - Services
+      parameters:
+        - $ref: '#/components/parameters/deploymentParam'
+        - $ref: '#/components/parameters/serviceParam'
+      responses:
+        '204':
+          description: Service removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts:
+    get:
+      operationId: listExtracts
+      summary: List all Extract processes
+      description: Returns a list of all Extract processes configured in the GoldenGate instance.
+      tags:
+        - Extracts
+      responses:
+        '200':
+          description: Successfully retrieved extract list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/extracts/{extract}:
+    get:
+      operationId: getExtract
+      summary: Retrieve an Extract process
+      description: Returns the configuration and current status of a specific Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createExtract
+      summary: Create an Extract process
+      description: >-
+        Creates a new Extract process with the specified configuration. Supports
+        initial-load, change-data-capture, and data-pump extract types.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExtractRequest'
+      responses:
+        '201':
+          description: Extract created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    patch:
+      operationId: updateExtract
+      summary: Update an Extract process
+      description: Updates the configuration of an existing Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtractRequest'
+      responses:
+        '200':
+          description: Extract updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteExtract
+      summary: Delete an Extract process
+      description: Deletes an Extract process and optionally its associated trail files.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '204':
+          description: Extract deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/command:
+    post:
+      operationId: issueExtractCommand
+      summary: Issue a command to an Extract
+      description: >-
+        Issues an operational command to an Extract process such as START, STOP,
+        KILL, STATUS, STATS, LAG, or INFO.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+      responses:
+        '200':
+          description: Command executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/status:
+    get:
+      operationId: getExtractStatus
+      summary: Retrieve Extract status
+      description: Returns the current runtime status of an Extract process including lag, checkpoint, and position information.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/checkpoints:
+    get:
+      operationId: getExtractCheckpoints
+      summary: Retrieve Extract checkpoints
+      description: Returns checkpoint information for an Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract checkpoints retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkpoints'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/reports:
+    get:
+      operationId: listExtractReports
+      summary: List Extract reports
+      description: Returns a list of available process reports for an Extract.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract reports listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/reports/{report}:
+    get:
+      operationId: getExtractReport
+      summary: Retrieve a specific Extract report
+      description: Returns the content of a specific Extract process report.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+        - $ref: '#/components/parameters/reportParam'
+      responses:
+        '200':
+          description: Report content retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/logs:
+    get:
+      operationId: listExtractLogs
+      summary: List Extract logs
+      description: Returns a list of available log files for an Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/info/history:
+    get:
+      operationId: getExtractHistory
+      summary: Retrieve Extract history
+      description: Returns the processing history for an Extract.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: History retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessHistory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats:
+    get:
+      operationId: listReplicats
+      summary: List all Replicat processes
+      description: Returns a list of all Replicat processes configured in the GoldenGate instance.
+      tags:
+        - Replicats
+      responses:
+        '200':
+          description: Successfully retrieved replicat list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicatList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/replicats/{replicat}:
+    get:
+      operationId: getReplicat
+      summary: Retrieve a Replicat process
+      description: Returns the configuration and current status of a specific Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createReplicat
+      summary: Create a Replicat process
+      description: >-
+        Creates a new Replicat process. Supports classic, coordinated, integrated,
+        and parallel replicat types.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplicatRequest'
+      responses:
+        '201':
+          description: Replicat created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    patch:
+      operationId: updateReplicat
+      summary: Update a Replicat process
+      description: Updates the configuration of an existing Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicatRequest'
+      responses:
+        '200':
+          description: Replicat updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteReplicat
+      summary: Delete a Replicat process
+      description: Deletes a Replicat process from the GoldenGate instance.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '204':
+          description: Replicat deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/command:
+    post:
+      operationId: issueReplicatCommand
+      summary: Issue a command to a Replicat
+      description: >-
+        Issues an operational command to a Replicat process such as START, STOP,
+        KILL, STATUS, STATS, LAG, or INFO.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+      responses:
+        '200':
+          description: Command executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/info/status:
+    get:
+      operationId: getReplicatStatus
+      summary: Retrieve Replicat status
+      description: Returns the current runtime status of a Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/info/checkpoints:
+    get:
+      operationId: getReplicatCheckpoints
+      summary: Retrieve Replicat checkpoints
+      description: Returns checkpoint information for a Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat checkpoints retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkpoints'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/info/reports:
+    get:
+      operationId: listReplicatReports
+      summary: List Replicat reports
+      description: Returns a list of available process reports for a Replicat.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat reports listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/info/history:
+    get:
+      operationId: getReplicatHistory
+      summary: Retrieve Replicat history
+      description: Returns the processing history for a Replicat.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: History retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessHistory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/credentials:
+    get:
+      operationId: listCredentialDomains
+      summary: List credential domains
+      description: Returns a list of all credential store domains.
+      tags:
+        - Credentials
+      responses:
+        '200':
+          description: Credential domains listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialDomainList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/credentials/{domain}:
+    get:
+      operationId: listDomainAliases
+      summary: List aliases in a credential domain
+      description: Returns all credential aliases within a specified domain.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+      responses:
+        '200':
+          description: Aliases listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAliasList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/credentials/{domain}/{alias}:
+    get:
+      operationId: getCredentialAlias
+      summary: Retrieve a credential alias
+      description: Returns details of a specific credential alias.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      responses:
+        '200':
+          description: Alias details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createCredentialAlias
+      summary: Create a credential alias
+      description: Creates a new credential alias with username and password in the specified domain.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCredentialAliasRequest'
+      responses:
+        '201':
+          description: Alias created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceCredentialAlias
+      summary: Replace a credential alias
+      description: Replaces the username and password for an existing credential alias.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCredentialAliasRequest'
+      responses:
+        '200':
+          description: Alias replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCredentialAlias
+      summary: Delete a credential alias
+      description: Deletes a credential alias from the specified domain.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      responses:
+        '204':
+          description: Alias deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/credentials/{domain}/{alias}/valid:
+    get:
+      operationId: validateCredentialAlias
+      summary: Validate a credential alias
+      description: Validates that a credential alias can successfully connect to its target.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/connections:
+    get:
+      operationId: listConnections
+      summary: List database connections
+      description: Returns a list of all configured database connections.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/connections/{connection}:
+    get:
+      operationId: getConnection
+      summary: Retrieve a database connection
+      description: Returns details of a specific database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Connection details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createConnection
+      summary: Create a database connection
+      description: Creates a new database connection with the specified credentials and connection string.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceConnection
+      summary: Replace a database connection
+      description: Replaces the configuration of an existing database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+      responses:
+        '200':
+          description: Connection replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConnection
+      summary: Delete a database connection
+      description: Deletes a database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '204':
+          description: Connection deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/connections/{connection}/tables/heartbeat:
+    get:
+      operationId: getHeartbeatTable
+      summary: Retrieve heartbeat table configuration
+      description: Returns the heartbeat table configuration for a database connection.
+      tags:
+        - Heartbeat
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Heartbeat table configuration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createHeartbeatTable
+      summary: Create heartbeat table
+      description: Creates the heartbeat table in the target database for lag monitoring.
+      tags:
+        - Heartbeat
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHeartbeatTableRequest'
+      responses:
+        '201':
+          description: Heartbeat table created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateHeartbeatTable
+      summary: Update heartbeat table
+      description: Updates the heartbeat table configuration.
+      tags:
+        - Heartbeat
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateHeartbeatTableRequest'
+      responses:
+        '200':
+          description: Heartbeat table updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteHeartbeatTable
+      summary: Delete heartbeat table
+      description: Deletes the heartbeat table from the database.
+      tags:
+        - Heartbeat
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '204':
+          description: Heartbeat table deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/connections/{connection}/tables/heartbeatData:
+    get:
+      operationId: getHeartbeatEntries
+      summary: Retrieve heartbeat table entries
+      description: Returns the heartbeat data entries showing lag information across processes.
+      tags:
+        - Heartbeat
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Heartbeat entries retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatEntries'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/connections/{connection}/trandata/table:
+    post:
+      operationId: manageTableSupplementalLogging
+      summary: Manage table supplemental logging
+      description: Adds or removes supplemental logging for a specific table to enable change data capture.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrandataRequest'
+      responses:
+        '200':
+          description: Supplemental logging managed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrandataResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/connections/{connection}/trandata/schema:
+    post:
+      operationId: manageSchemaSupplementalLogging
+      summary: Manage schema supplemental logging
+      description: Adds or removes supplemental logging for all tables in a schema.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrandataRequest'
+      responses:
+        '200':
+          description: Schema supplemental logging managed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrandataResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/connections/{connection}/databases:
+    get:
+      operationId: getDatabaseNames
+      summary: Retrieve database names
+      description: Returns available database names for a connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Database names retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseNameList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/connections/{connection}/databases/{database}/{schema}:
+    get:
+      operationId: getDatabaseTables
+      summary: Retrieve database tables
+      description: Returns a list of tables in a specific database schema.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionParam'
+        - name: database
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: schema
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tables retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/trails:
+    get:
+      operationId: listTrails
+      summary: List trail files
+      description: Returns a list of all trail files in the GoldenGate instance.
+      tags:
+        - Trails
+      responses:
+        '200':
+          description: Trail files listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/sources:
+    get:
+      operationId: listDistributionPaths
+      summary: List distribution paths
+      description: Returns a list of all distribution paths configured in the Distribution Server.
+      tags:
+        - Distribution
+      responses:
+        '200':
+          description: Distribution paths listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPathList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/sources/{distpath}:
+    get:
+      operationId: getDistributionPath
+      summary: Retrieve a distribution path
+      description: Returns configuration details of a specific distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '200':
+          description: Distribution path retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createDistributionPath
+      summary: Create a distribution path
+      description: Creates a new distribution path for sending trail data to a remote target.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDistributionPathRequest'
+      responses:
+        '201':
+          description: Distribution path created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateDistributionPath
+      summary: Update a distribution path
+      description: Updates the configuration of an existing distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDistributionPathRequest'
+      responses:
+        '200':
+          description: Distribution path updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDistributionPath
+      summary: Delete a distribution path
+      description: Deletes a distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '204':
+          description: Distribution path deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/sources/{distpath}/stats:
+    get:
+      operationId: getDistributionPathStats
+      summary: Retrieve distribution path statistics
+      description: Returns performance statistics for a distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '200':
+          description: Statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/targets:
+    get:
+      operationId: listCollectorPaths
+      summary: List collector/receiver paths
+      description: Returns a list of all collector paths in the Receiver Server.
+      tags:
+        - Receiver
+      responses:
+        '200':
+          description: Collector paths listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPathList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/targets/{path}:
+    get:
+      operationId: getCollectorPath
+      summary: Retrieve a collector path
+      description: Returns configuration details of a specific collector/receiver path.
+      tags:
+        - Receiver
+      parameters:
+        - $ref: '#/components/parameters/pathParam'
+      responses:
+        '200':
+          description: Collector path retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createCollectorPath
+      summary: Create a collector path
+      description: Creates a new collector path for receiving trail data from a remote source.
+      tags:
+        - Receiver
+      parameters:
+        - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectorPathRequest'
+      responses:
+        '201':
+          description: Collector path created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateCollectorPath
+      summary: Update a collector path
+      description: Updates the configuration of an existing collector path.
+      tags:
+        - Receiver
+      parameters:
+        - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectorPathRequest'
+      responses:
+        '200':
+          description: Collector path updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCollectorPath
+      summary: Delete a collector path
+      description: Deletes a collector path.
+      tags:
+        - Receiver
+      parameters:
+        - $ref: '#/components/parameters/pathParam'
+      responses:
+        '204':
+          description: Collector path deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/commands/execute:
+    post:
+      operationId: executeCommand
+      summary: Execute a GoldenGate command
+      description: Executes a GGSCI-style command against the Administrative Server.
+      tags:
+        - Commands
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteCommandRequest'
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/tasks:
+    get:
+      operationId: listTasks
+      summary: List automated tasks
+      description: Returns a list of all configured automated tasks.
+      tags:
+        - Tasks
+      responses:
+        '200':
+          description: Tasks listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/tasks/{task}:
+    get:
+      operationId: getTask
+      summary: Retrieve a task
+      description: Returns the configuration of a specific automated task.
+      tags:
+        - Tasks
+      parameters:
+        - $ref: '#/components/parameters/taskParam'
+      responses:
+        '200':
+          description: Task details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTask
+      summary: Create a task
+      description: Creates a new automated task for scheduled operations.
+      tags:
+        - Tasks
+      parameters:
+        - $ref: '#/components/parameters/taskParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateTask
+      summary: Update a task
+      description: Updates the configuration of an existing automated task.
+      tags:
+        - Tasks
+      parameters:
+        - $ref: '#/components/parameters/taskParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTask
+      summary: Delete a task
+      description: Deletes an automated task.
+      tags:
+        - Tasks
+      parameters:
+        - $ref: '#/components/parameters/taskParam'
+      responses:
+        '204':
+          description: Task deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/enckeys:
+    get:
+      operationId: listEncryptionKeys
+      summary: List encryption keys
+      description: Returns a list of all encryption keys in the wallet.
+      tags:
+        - Encryption
+      responses:
+        '200':
+          description: Encryption keys listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKeyList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/enckeys/{keyName}:
+    get:
+      operationId: getEncryptionKey
+      summary: Retrieve an encryption key
+      description: Returns details of a specific encryption key.
+      tags:
+        - Encryption
+      parameters:
+        - name: keyName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Encryption key retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createEncryptionKey
+      summary: Create an encryption key
+      description: Creates a new encryption key in the wallet.
+      tags:
+        - Encryption
+      parameters:
+        - name: keyName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Encryption key created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteEncryptionKey
+      summary: Delete an encryption key
+      description: Deletes an encryption key from the wallet.
+      tags:
+        - Encryption
+      parameters:
+        - name: keyName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Encryption key deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/masterkey:
+    get:
+      operationId: listMasterKeyVersions
+      summary: List master key versions
+      description: Returns all versions of the master encryption key.
+      tags:
+        - Encryption
+      responses:
+        '200':
+          description: Master key versions listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterKeyVersionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMasterKeyVersion
+      summary: Create a new master key version
+      description: Creates a new version of the master encryption key.
+      tags:
+        - Encryption
+      responses:
+        '201':
+          description: Master key version created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterKeyVersion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/authorizations:
+    get:
+      operationId: listUserRoles
+      summary: List user roles
+      description: Returns a list of available authorization roles.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Roles listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/authorizations/{role}:
+    get:
+      operationId: listUsers
+      summary: List users for a role
+      description: Returns a list of users assigned to a specific role.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: bulkCreateUsers
+      summary: Bulk create users for a role
+      description: Creates multiple users with the specified role in a single operation.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCreateUsersRequest'
+      responses:
+        '201':
+          description: Users created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/authorizations/{role}/{user}:
+    get:
+      operationId: getUser
+      summary: Retrieve a user
+      description: Returns details of a specific user.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      responses:
+        '200':
+          description: User details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createUser
+      summary: Create a user
+      description: Creates a new user with the specified role.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateUser
+      summary: Update a user
+      description: Updates properties of an existing user.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: Deletes a user from the system.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/currentuser:
+    get:
+      operationId: getCurrentUser
+      summary: Retrieve current user information
+      description: Returns information about the currently authenticated user.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Current user information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: resetCurrentUserInfo
+      summary: Reset current user information
+      description: Resets cached information for the current user.
+      tags:
+        - Users
+      responses:
+        '204':
+          description: User information reset
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/logs:
+    get:
+      operationId: listLogs
+      summary: Retrieve available logs
+      description: Returns a list of available service log files.
+      tags:
+        - Logs
+      responses:
+        '200':
+          description: Logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/logs/{log}:
+    get:
+      operationId: getLog
+      summary: Retrieve a log file
+      description: Returns the content of a specific service log file.
+      tags:
+        - Logs
+      parameters:
+        - name: log
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Log content retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogContent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: modifyLogProperties
+      summary: Modify log properties
+      description: Modifies the properties of a log such as log level.
+      tags:
+        - Logs
+      parameters:
+        - name: log
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyLogRequest'
+      responses:
+        '200':
+          description: Log properties updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/logs/events:
+    get:
+      operationId: getCriticalEvents
+      summary: Get critical events
+      description: Returns critical event log entries.
+      tags:
+        - Logs
+      responses:
+        '200':
+          description: Critical events retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/certificates:
+    get:
+      operationId: listCertificateTypes
+      summary: Retrieve available certificate types
+      description: Returns the list of available certificate types (trusted, server, client).
+      tags:
+        - Certificates
+      responses:
+        '200':
+          description: Certificate types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateTypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/certificates/{type}:
+    get:
+      operationId: listCertificates
+      summary: Retrieve certificate names
+      description: Returns a list of certificate names for a specific type.
+      tags:
+        - Certificates
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - trusted
+              - server
+              - client
+      responses:
+        '200':
+          description: Certificates listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateNameList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/certificates/{type}/{certificate}:
+    get:
+      operationId: getCertificate
+      summary: Retrieve a certificate
+      description: Returns the details of a specific certificate.
+      tags:
+        - Certificates
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: certificate
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/processes:
+    get:
+      operationId: listProcessMetrics
+      summary: Retrieve all process metrics
+      description: Returns performance metrics for all running GoldenGate processes.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Process metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessMetricsList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/mpoints/{item}/process:
+    get:
+      operationId: getProcessMetrics
+      summary: Retrieve process metrics for a specific process
+      description: Returns detailed performance metrics for a specific GoldenGate process.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Process metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/{item}/statisticsExtract:
+    get:
+      operationId: getExtractDatabaseStats
+      summary: Retrieve Extract database statistics
+      description: Returns database-level statistics for an Extract process.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Extract statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/{item}/statisticsReplicat:
+    get:
+      operationId: getReplicatDatabaseStats
+      summary: Retrieve Replicat database statistics
+      description: Returns database-level statistics for a Replicat process.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Replicat statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/{item}/heartbeat:
+    get:
+      operationId: getHeartbeatMetrics
+      summary: Retrieve heartbeat timing metrics
+      description: Returns heartbeat timing information used to measure replication lag.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Heartbeat metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/{item}/cacheStatistics:
+    get:
+      operationId: getCacheStatistics
+      summary: Retrieve cache manager statistics
+      description: Returns cache manager statistics for a process.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Cache statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/mpoints/{item}/processPerformance:
+    get:
+      operationId: getProcessPerformance
+      summary: Retrieve process performance utilization
+      description: Returns CPU and memory utilization metrics for a GoldenGate process.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Performance metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessPerformance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/monitoring/messages:
+    get:
+      operationId: listMonitoringMessages
+      summary: Retrieve process messages
+      description: Returns messages from all monitored processes.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringMessageList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/monitoring/statusChanges:
+    get:
+      operationId: listStatusChanges
+      summary: Retrieve process status changes
+      description: Returns a log of process status changes across all monitored processes.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Status changes retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusChangeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/messages:
+    get:
+      operationId: listMessages
+      summary: Retrieve administrative messages
+      description: Returns administrative messages from the server.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/requests:
+    get:
+      operationId: listBackgroundRequests
+      summary: Retrieve background requests
+      description: Returns a list of background requests that are being processed.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Background requests listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/requests/{request}:
+    get:
+      operationId: getRequestStatus
+      summary: Retrieve request status
+      description: Returns the status of a specific background request.
+      tags:
+        - Monitoring
+      parameters:
+        - name: request
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Request status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/config/types:
+    get:
+      operationId: listConfigTypes
+      summary: List configuration data types
+      description: Returns a list of available configuration data types.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Configuration types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigTypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/files:
+    get:
+      operationId: listConfigFiles
+      summary: List configuration files
+      description: Returns a list of all configuration files.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Configuration files listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFileList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/files/{file}:
+    get:
+      operationId: getConfigFile
+      summary: Retrieve a configuration file
+      description: Returns the content of a specific configuration file (e.g., parameter file).
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Configuration file retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createConfigFile
+      summary: Create a configuration file
+      description: Creates a new configuration file.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+      responses:
+        '201':
+          description: Configuration file created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceConfigFile
+      summary: Replace a configuration file
+      description: Replaces the content of an existing configuration file.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+      responses:
+        '200':
+          description: Configuration file replaced
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConfigFile
+      summary: Delete a configuration file
+      description: Deletes a configuration file.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Configuration file deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/parameters:
+    get:
+      operationId: listParameters
+      summary: List parameter names
+      description: Returns a list of all available GoldenGate parameter names.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Parameters listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterNameList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/parameters/{parameter}:
+    get:
+      operationId: getParameterInfo
+      summary: Retrieve parameter information
+      description: Returns detailed information about a specific GoldenGate parameter.
+      tags:
+        - Configuration
+      parameters:
+        - name: parameter
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Parameter information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/oggerr:
+    get:
+      operationId: listMessageCodes
+      summary: List message codes
+      description: Returns a list of GoldenGate error and informational message codes.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Message codes listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageCodeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/oggerr/{message}:
+    get:
+      operationId: getMessageExplanation
+      summary: Retrieve message explanation
+      description: Returns a detailed explanation and recommended action for a specific message code.
+      tags:
+        - Monitoring
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Message explanation retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageExplanation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/exttrails:
+    get:
+      operationId: listExtractTrails
+      summary: List deployment extracts with trail files
+      description: Returns a list of extracts and their associated trail files for the Distribution Server.
+      tags:
+        - Distribution
+      responses:
+        '200':
+          description: Extract trails listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractTrailList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with GoldenGate user credentials
+  parameters:
+    deploymentParam:
+      name: deployment
+      in: path
+      required: true
+      description: Name of the GoldenGate deployment
+      schema:
+        type: string
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
+      schema:
+        type: string
+    extractParam:
+      name: extract
+      in: path
+      required: true
+      description: Name of the Extract process
+      schema:
+        type: string
+    replicatParam:
+      name: replicat
+      in: path
+      required: true
+      description: Name of the Replicat process
+      schema:
+        type: string
+    domainParam:
+      name: domain
+      in: path
+      required: true
+      description: Credential store domain name
+      schema:
+        type: string
+    aliasParam:
+      name: alias
+      in: path
+      required: true
+      description: Credential alias name
+      schema:
+        type: string
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
+    distpathParam:
+      name: distpath
+      in: path
+      required: true
+      description: Name of the distribution path
+      schema:
+        type: string
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: Name of the collector/receiver path
+      schema:
+        type: string
+    taskParam:
+      name: task
+      in: path
+      required: true
+      description: Name of the automated task
+      schema:
+        type: string
+    roleParam:
+      name: role
+      in: path
+      required: true
+      description: Authorization role name
+      schema:
+        type: string
+        enum:
+          - Security
+          - Administrator
+          - Operator
+          - User
+    userParam:
+      name: user
+      in: path
+      required: true
+      description: Username
+      schema:
+        type: string
+    reportParam:
+      name: report
+      in: path
+      required: true
+      description: Report identifier
+      schema:
+        type: string
+    mpointItemParam:
+      name: item
+      in: path
+      required: true
+      description: Process name or identifier for metrics
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message
+        severity:
+          type: string
+          description: Error severity level
+    ApiVersionList:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+              isLatest:
+                type: boolean
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+    ApiVersionDetails:
+      type: object
+      properties:
+        version:
+          type: string
+        isLatest:
+          type: boolean
+        lifecycle:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+        mediaType:
+          type: string
+    ConfigSummary:
+      type: object
+      properties:
+        serviceType:
+          type: string
+        status:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        deploymentName:
+          type: string
+    ServiceHealthDetails:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+        services:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              port:
+                type: integer
+              secure:
+                type: boolean
+    HealthCheckSummary:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    DeploymentList:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary'
+    DeploymentSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        description:
+          type: string
+    Deployment:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Unique name of the deployment
+        status:
+          type: string
+          description: Current status of the deployment
+          enum:
+            - running
+            - stopped
+            - error
+        description:
+          type: string
+          description: Description of the deployment
+        oggHome:
+          type: string
+          description: Oracle GoldenGate home directory
+        oggVersion:
+          type: string
+          description: GoldenGate software version
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+    CreateDeploymentRequest:
+      type: object
+      required:
+        - oggHome
+      properties:
+        oggHome:
+          type: string
+          description: Oracle GoldenGate home directory path
+        description:
+          type: string
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+        autoStart:
+          type: boolean
+          description: Whether to automatically start the deployment
+    UpdateDeploymentRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+        autoStart:
+          type: boolean
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        port:
+          type: integer
+    Service:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Service name
+        type:
+          type: string
+          description: Service type
+          enum:
+            - AdminServer
+            - DistributionServer
+            - ReceiverServer
+            - PerformanceMetricsServer
+        status:
+          type: string
+          description: Service status
+          enum:
+            - running
+            - stopped
+            - error
+        port:
+          type: integer
+          description: Service listening port
+        secure:
+          type: boolean
+          description: Whether the service uses SSL/TLS
+    CreateServiceRequest:
+      type: object
+      required:
+        - type
+        - port
+      properties:
+        type:
+          type: string
+          enum:
+            - AdminServer
+            - DistributionServer
+            - ReceiverServer
+            - PerformanceMetricsServer
+        port:
+          type: integer
+        secure:
+          type: boolean
+    UpdateServiceRequest:
+      type: object
+      properties:
+        port:
+          type: integer
+        secure:
+          type: boolean
+        status:
+          type: string
+    ExtractList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractSummary'
+    ExtractSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        trail:
+          type: string
+    Extract:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Extract process name
+        type:
+          type: string
+          description: Type of extract
+          enum:
+            - cdc
+            - initialload
+            - datapump
+        status:
+          type: string
+          description: Current process status
+          enum:
+            - running
+            - stopped
+            - abended
+            - starting
+        description:
+          type: string
+        begin:
+          type: string
+          description: Begin position (NOW, SCN value, or timestamp)
+        trail:
+          type: string
+          description: Trail file path
+        trailSize:
+          type: integer
+          description: Trail file size in MB
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content lines
+        registration:
+          type: string
+          description: Database registration alias
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    CreateExtractRequest:
+      type: object
+      required:
+        - type
+        - trail
+        - config
+      properties:
+        type:
+          type: string
+          enum:
+            - cdc
+            - initialload
+            - datapump
+        description:
+          type: string
+        begin:
+          type: string
+          description: Begin position (NOW, SCN value, or timestamp)
+        trail:
+          type: string
+          description: Trail file prefix (e.g., aa)
+        trailSize:
+          type: integer
+          description: Trail file size in MB (default 500)
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content
+        registration:
+          type: string
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    UpdateExtractRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+        begin:
+          type: string
+        status:
+          type: string
+    ReplicatList:
+      type: object
+      properties:
+        replicats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicatSummary'
+    ReplicatSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+    Replicat:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Replicat process name
+        type:
+          type: string
+          description: Type of replicat
+          enum:
+            - classic
+            - coordinated
+            - integrated
+            - parallel
+        status:
+          type: string
+          description: Current process status
+          enum:
+            - running
+            - stopped
+            - abended
+            - starting
+        description:
+          type: string
+        trail:
+          type: string
+          description: Source trail file path
+        checkpointTable:
+          type: string
+          description: Checkpoint table name
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content lines
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    CreateReplicatRequest:
+      type: object
+      required:
+        - type
+        - trail
+        - config
+      properties:
+        type:
+          type: string
+          enum:
+            - classic
+            - coordinated
+            - integrated
+            - parallel
+        description:
+          type: string
+        trail:
+          type: string
+          description: Source trail file prefix
+        checkpointTable:
+          type: string
+          description: Checkpoint table in format schema.table
+        begin:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    UpdateReplicatRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+        begin:
+          type: string
+        status:
+          type: string
+    ProcessCommand:
+      type: object
+      required:
+        - action
+      properties:
+        action:
+          type: string
+          description: Command action to execute
+          enum:
+            - start
+            - stop
+            - kill
+            - forcestop
+            - status
+            - stats
+            - lag
+            - info
+            - getlag
+        options:
+          type: string
+          description: Additional command options
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        lag:
+          type: string
+          description: Process lag in seconds
+        checkpoint:
+          type: string
+        since:
+          type: string
+          format: date-time
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+    Report:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    LogList:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
+    CredentialDomainList:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              aliasCount:
+                type: integer
+    CredentialAliasList:
+      type: object
+      properties:
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialAlias'
+    CredentialAlias:
+      type: object
+      properties:
+        domain:
+          type: string
+        alias:
+          type: string
+        userid:
+          type: string
+    CreateCredentialAliasRequest:
+      type: object
+      required:
+        - userid
+        - password
+      properties:
+        userid:
+          type: string
+          description: Database user ID including connect string
+        password:
+          type: string
+          description: Password for the user
+          format: password
+    ValidationResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        message:
+          type: string
+    ConnectionList:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseConnection'
+    DatabaseConnection:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Connection name
+        type:
+          type: string
+          description: Database type
+        connectionString:
+          type: string
+          description: Database connection string
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    CreateConnectionRequest:
+      type: object
+      required:
+        - credentials
+      properties:
+        type:
+          type: string
+        connectionString:
+          type: string
+        credentials:
+          type: object
+          required:
+            - domain
+            - alias
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+    HeartbeatTable:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: Schema owner of the heartbeat table
+        table:
+          type: string
+          description: Heartbeat table name
+        retentionTime:
+          type: integer
+          description: Retention time in days
+        frequency:
+          type: integer
+          description: Update frequency in seconds
+        purgeFrequency:
+          type: integer
+          description: Purge frequency in minutes
+    CreateHeartbeatTableRequest:
+      type: object
+      properties:
+        owner:
+          type: string
+        retentionTime:
+          type: integer
+        frequency:
+          type: integer
+        purgeFrequency:
+          type: integer
+    UpdateHeartbeatTableRequest:
+      type: object
+      properties:
+        retentionTime:
+          type: integer
+        frequency:
+          type: integer
+        purgeFrequency:
+          type: integer
+    HeartbeatEntries:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceProcess:
+                type: string
+              targetProcess:
+                type: string
+              lastHeartbeatSent:
+                type: string
+                format: date-time
+              lastHeartbeatReceived:
+                type: string
+                format: date-time
+              lagInSeconds:
+                type: number
+    TrandataRequest:
+      type: object
+      required:
+        - operation
+      properties:
+        operation:
+          type: string
+          enum:
+            - add
+            - delete
+            - info
+        name:
+          type: string
+          description: Table or schema name
+    TrandataResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        message:
+          type: string
+    DatabaseNameList:
+      type: object
+      properties:
+        databases:
+          type: array
+          items:
+            type: string
+    TableList:
+      type: object
+      properties:
+        tables:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              owner:
+                type: string
+    TrailList:
+      type: object
+      properties:
+        trails:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+              sequence:
+                type: integer
+              size:
+                type: integer
+    DistributionPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionPathSummary'
+    DistributionPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        source:
+          type: string
+        target:
+          type: string
+    DistributionPath:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Distribution path name
+        status:
+          type: string
+          enum:
+            - running
+            - stopped
+            - error
+        source:
+          type: string
+          description: Source trail file
+        target:
+          type: string
+          description: Target receiver URL
+        targetType:
+          type: string
+          description: Target data type
+        ruleName:
+          type: string
+          description: Filter rule name
+    CreateDistributionPathRequest:
+      type: object
+      required:
+        - source
+        - target
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        targetType:
+          type: string
+        ruleName:
+          type: string
+    UpdateDistributionPathRequest:
+      type: object
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        status:
+          type: string
+    PathStatistics:
+      type: object
+      properties:
+        name:
+          type: string
+        bytesProcessed:
+          type: integer
+          format: int64
+        messagesProcessed:
+          type: integer
+          format: int64
+        lag:
+          type: string
+    CollectorPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorPathSummary'
+    CollectorPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+    CollectorPath:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+            - running
+            - stopped
+            - error
+        trail:
+          type: string
+          description: Target trail file
+        port:
+          type: integer
+    CreateCollectorPathRequest:
+      type: object
+      required:
+        - trail
+      properties:
+        trail:
+          type: string
+        port:
+          type: integer
+    UpdateCollectorPathRequest:
+      type: object
+      properties:
+        trail:
+          type: string
+        port:
+          type: integer
+        status:
+          type: string
+    ExecuteCommandRequest:
+      type: object
+      required:
+        - command
+      properties:
+        command:
+          type: string
+          description: GGSCI command to execute (e.g., INFO ALL, STATUS EXTRACT *)
+    TaskList:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSummary'
+    TaskSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        schedule:
+          type: string
+    Task:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+        description:
+          type: string
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - once
+                - recurring
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+        action:
+          type: object
+          properties:
+            type:
+              type: string
+            target:
+              type: string
+            command:
+              type: string
+    CreateTaskRequest:
+      type: object
+      required:
+        - schedule
+        - action
+      properties:
+        description:
+          type: string
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+        action:
+          type: object
+          properties:
+            type:
+              type: string
+            target:
+              type: string
+            command:
+              type: string
+    UpdateTaskRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        status:
+          type: string
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+    EncryptionKeyList:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptionKey'
+    EncryptionKey:
+      type: object
+      properties:
+        name:
+          type: string
+        algorithm:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    MasterKeyVersionList:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterKeyVersion'
+    MasterKeyVersion:
+      type: object
+      properties:
+        version:
+          type: integer
+        status:
+          type: string
+          enum:
+            - current
+            - retired
+        createdAt:
+          type: string
+          format: date-time
+    RoleList:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        description:
+          type: string
+    CreateUserRequest:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string
+          format: password
+        description:
+          type: string
+    UpdateUserRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          format: password
+        description:
+          type: string
+    BulkCreateUsersRequest:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              password:
+                type: string
+                format: password
+    LogContent:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+        size:
+          type: integer
+    ModifyLogRequest:
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+            - ERROR
+            - WARNING
+            - INFO
+            - DEBUG
+    EventList:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              severity:
+                type: string
+              source:
+                type: string
+              message:
+                type: string
+    CertificateTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+    CertificateNameList:
+      type: object
+      properties:
+        certificates:
+          type: array
+          items:
+            type: string
+    Certificate:
+      type: object
+      properties:
+        alias:
+          type: string
+        subject:
+          type: string
+        issuer:
+          type: string
+        serialNumber:
+          type: string
+        notBefore:
+          type: string
+          format: date-time
+        notAfter:
+          type: string
+          format: date-time
+    ProcessMetricsList:
+      type: object
+      properties:
+        processes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessMetrics'
+    ProcessMetrics:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        lag:
+          type: number
+        checkpointLag:
+          type: number
+        inputBytes:
+          type: integer
+          format: int64
+        outputBytes:
+          type: integer
+          format: int64
+        operationsProcessed:
+          type: integer
+          format: int64
+    DatabaseStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+        totalOperations:
+          type: integer
+          format: int64
+        inserts:
+          type: integer
+          format: int64
+        updates:
+          type: integer
+          format: int64
+        deletes:
+          type: integer
+          format: int64
+        truncates:
+          type: integer
+          format: int64
+    HeartbeatMetrics:
+      type: object
+      properties:
+        processName:
+          type: string
+        lastHeartbeat:
+          type: string
+          format: date-time
+        lagInSeconds:
+          type: number
+    CacheStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+        cacheSize:
+          type: integer
+          format: int64
+        cacheUsed:
+          type: integer
+          format: int64
+        cacheHitRatio:
+          type: number
+    ProcessPerformance:
+      type: object
+      properties:
+        processName:
+          type: string
+        cpuUsage:
+          type: number
+        memoryUsage:
+          type: integer
+          format: int64
+        threadCount:
+          type: integer
+    MonitoringMessageList:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              timestamp:
+                type: string
+                format: date-time
+              process:
+                type: string
+              severity:
+                type: string
+              message:
+                type: string
+    StatusChangeList:
+      type: object
+      properties:
+        statusChanges:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              timestamp:
+                type: string
+                format: date-time
+              process:
+                type: string
+              previousStatus:
+                type: string
+              currentStatus:
+                type: string
+    MessageList:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              severity:
+                type: string
+              message:
+                type: string
+    RequestList:
+      type: object
+      properties:
+        requests:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              status:
+                type: string
+              type:
+                type: string
+              startTime:
+                type: string
+                format: date-time
+    RequestStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - running
+            - completed
+            - failed
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        result:
+          type: string
+    ConfigTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+    ConfigFileList:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              lastModified:
+                type: string
+                format: date-time
+    ConfigFile:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+    ConfigFileContent:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          description: File content
+    ParameterNameList:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            type: string
+    ParameterInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        defaultValue:
+          type: string
+        validValues:
+          type: array
+          items:
+            type: string
+    MessageCodeList:
+      type: object
+      properties:
+        codes:
+          type: array
+          items:
+            type: string
+    MessageExplanation:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        explanation:
+          type: string
+        action:
+          type: string
+    ExtractTrailList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            type: object
+            properties:
+              extractName:
+                type: string
+              trail:
+                type: string
+              trailPath:
+                type: string

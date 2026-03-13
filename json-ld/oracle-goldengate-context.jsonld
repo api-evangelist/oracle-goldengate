@@ -1,0 +1,254 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "ogg": "https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/",
+    "oci": "https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/20200407/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Deployment": {
+      "@id": "schema:SoftwareApplication",
+      "@context": {
+        "name": "schema:name",
+        "displayName": "schema:alternateName",
+        "description": "schema:description",
+        "status": "schema:serverStatus",
+        "oggVersion": "schema:softwareVersion",
+        "deploymentUrl": "schema:url",
+        "publicIpAddress": "schema:identifier",
+        "fqdn": "schema:url",
+        "timeCreated": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "timeUpdated": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "cpuCoreCount": {
+          "@id": "schema:processorRequirements",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Service": {
+      "@id": "schema:WebAPI",
+      "@context": {
+        "name": "schema:name",
+        "type": "schema:category",
+        "status": "schema:serverStatus",
+        "port": {
+          "@id": "schema:identifier",
+          "@type": "xsd:integer"
+        },
+        "secure": {
+          "@id": "schema:isFamilyFriendly",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Extract": {
+      "@id": "schema:Action",
+      "@context": {
+        "name": "schema:name",
+        "type": "schema:category",
+        "status": "schema:actionStatus",
+        "description": "schema:description",
+        "trail": "schema:result",
+        "lag": {
+          "@id": "schema:duration",
+          "@type": "xsd:decimal"
+        },
+        "config": "schema:documentation"
+      }
+    },
+
+    "Replicat": {
+      "@id": "schema:Action",
+      "@context": {
+        "name": "schema:name",
+        "type": "schema:category",
+        "status": "schema:actionStatus",
+        "description": "schema:description",
+        "trail": "schema:object",
+        "checkpointTable": "schema:identifier",
+        "lag": {
+          "@id": "schema:duration",
+          "@type": "xsd:decimal"
+        },
+        "config": "schema:documentation"
+      }
+    },
+
+    "Connection": {
+      "@id": "schema:EntryPoint",
+      "@context": {
+        "name": "schema:name",
+        "type": "schema:category",
+        "connectionString": "schema:url",
+        "host": "schema:url",
+        "port": {
+          "@id": "schema:identifier",
+          "@type": "xsd:integer"
+        },
+        "databaseType": "schema:applicationCategory"
+      }
+    },
+
+    "DistributionPath": {
+      "@id": "schema:DataFeed",
+      "@context": {
+        "name": "schema:name",
+        "status": "schema:creativeWorkStatus",
+        "source": "schema:isBasedOn",
+        "target": "schema:url"
+      }
+    },
+
+    "DataStream": {
+      "@id": "schema:DataFeed",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "schema:creativeWorkStatus",
+        "source": "schema:isBasedOn",
+        "target": "schema:url",
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "CredentialAlias": {
+      "@id": "schema:PropertyValue",
+      "@context": {
+        "domain": "schema:propertyID",
+        "alias": "schema:name",
+        "userid": "schema:value"
+      }
+    },
+
+    "CompareGroup": {
+      "@id": "schema:ItemList",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "sourceConnectionId": "schema:isBasedOn",
+        "targetConnectionId": "schema:url"
+      }
+    },
+
+    "ComparePair": {
+      "@id": "schema:ListItem",
+      "@context": {
+        "sourceSchema": "schema:isPartOf",
+        "sourceTable": "schema:name",
+        "targetSchema": "schema:isPartOf",
+        "targetTable": "schema:name"
+      }
+    },
+
+    "ComparisonJob": {
+      "@id": "schema:Action",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "schema:actionStatus",
+        "startTime": {
+          "@id": "schema:startTime",
+          "@type": "xsd:dateTime"
+        },
+        "endTime": {
+          "@id": "schema:endTime",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Pipeline": {
+      "@id": "schema:SoftwareSourceCode",
+      "@context": {
+        "name": "schema:name",
+        "displayName": "schema:alternateName",
+        "description": "schema:description",
+        "status": "schema:creativeWorkStatus",
+        "timeCreated": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Certificate": {
+      "@id": "schema:DigitalDocument",
+      "@context": {
+        "alias": "schema:name",
+        "subject": "schema:about",
+        "issuer": "schema:creator",
+        "serialNumber": "schema:identifier",
+        "notBefore": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "notAfter": {
+          "@id": "schema:expires",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DeploymentBackup": {
+      "@id": "schema:CreativeWork",
+      "@context": {
+        "displayName": "schema:name",
+        "deploymentId": "schema:isPartOf",
+        "backupType": "schema:category",
+        "sizeInBytes": {
+          "@id": "schema:contentSize",
+          "@type": "xsd:integer"
+        },
+        "timeCreated": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WorkRequest": {
+      "@id": "schema:Action",
+      "@context": {
+        "operationType": "schema:name",
+        "status": "schema:actionStatus",
+        "percentComplete": {
+          "@id": "schema:position",
+          "@type": "xsd:decimal"
+        },
+        "timeAccepted": {
+          "@id": "schema:startTime",
+          "@type": "xsd:dateTime"
+        },
+        "timeFinished": {
+          "@id": "schema:endTime",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "schema:Person",
+      "@context": {
+        "name": "schema:name",
+        "username": "schema:identifier",
+        "email": "schema:email",
+        "role": "schema:jobTitle"
+      }
+    }
+  }
+}

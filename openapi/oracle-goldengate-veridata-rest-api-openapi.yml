@@ -1,0 +1,2403 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate Veridata REST API
+  description: >-
+    REST API for Oracle GoldenGate Veridata, a data comparison and repair
+    solution that verifies data consistency between source and target databases.
+    Provides operations for managing connections, compare groups, compare pairs,
+    jobs, profiles, monitoring comparison results, and repairing out-of-sync
+    data. Based on Oracle GoldenGate Veridata 23c REST API documentation.
+  version: '1.0'
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en/middleware/goldengate/veridata/23/ggvra/rest-endpoints.html
+      description: Oracle GoldenGate Veridata REST API Reference
+servers:
+  - url: https://{veridata-host}:{port}/veridata/v1
+    description: Oracle GoldenGate Veridata server
+    variables:
+      veridata-host:
+        default: localhost
+        description: Veridata server host
+      port:
+        default: '8830'
+        description: Veridata HTTPS port
+security:
+  - basicAuth: []
+tags:
+  - name: Server
+    description: Server information and configuration
+  - name: Connections
+    description: Manage source and target database connections
+  - name: Groups
+    description: Manage compare groups
+  - name: Compare Pairs
+    description: Manage compare pairs within groups
+  - name: Jobs
+    description: Manage and execute comparison jobs
+  - name: Profiles
+    description: Manage comparison profiles
+  - name: Monitoring
+    description: Monitor comparison and repair statistics
+  - name: Execution
+    description: Run and stop comparison jobs
+  - name: Repair
+    description: Repair out-of-sync data
+  - name: Import/Export
+    description: Import and export Veridata configurations
+  - name: Users
+    description: User and user group management
+  - name: Logs
+    description: Access server logs
+  - name: Validation
+    description: Validate connections and configurations
+paths:
+  /services/server/info:
+    get:
+      operationId: getServerInfo
+      summary: Retrieve server details
+      description: Returns server information including version, uptime, and system details.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: Server information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/server/configuration:
+    get:
+      operationId: getServerConfiguration
+      summary: Retrieve server configurations
+      description: Returns the current server configuration settings.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: Configuration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateServerConfiguration
+      summary: Update server configurations
+      description: Updates server configuration settings.
+      tags:
+        - Server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServerConfigurationRequest'
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/server/configuration/reset:
+    put:
+      operationId: resetServerConfiguration
+      summary: Reset server configurations to default
+      description: Resets all server configuration settings to their factory default values.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: Configuration reset to defaults
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/connections:
+    get:
+      operationId: listConnections
+      summary: Retrieve all connections
+      description: Returns a list of all configured source and target database connections.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createConnection
+      summary: Create a connection
+      description: Creates a new database connection for use as a source or target in comparisons.
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/connections/{Id}:
+    get:
+      operationId: getConnection
+      summary: Retrieve a connection
+      description: Returns the details of a specific database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      responses:
+        '200':
+          description: Connection retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateConnection
+      summary: Update a connection
+      description: Updates properties of an existing database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionRequest'
+      responses:
+        '200':
+          description: Connection updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConnection
+      summary: Delete a connection
+      description: Deletes a database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      responses:
+        '204':
+          description: Connection deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/connections/{Id}/status:
+    get:
+      operationId: getConnectionStatus
+      summary: Retrieve connection status
+      description: Returns the connectivity status of a database connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      responses:
+        '200':
+          description: Connection status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/connections/{Id}/metadata:
+    post:
+      operationId: getConnectionMetadata
+      summary: Retrieve connection metadata
+      description: Returns database metadata (schemas, tables, columns) for a connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataRequest'
+      responses:
+        '200':
+          description: Metadata retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionMetadata'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/groups:
+    get:
+      operationId: listGroups
+      summary: Retrieve all compare groups
+      description: Returns a list of all compare groups configured in Veridata.
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: Groups listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createGroup
+      summary: Create a compare group
+      description: Creates a new compare group linking source and target connections for data comparison.
+      tags:
+        - Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/groups/{Id}:
+    get:
+      operationId: getGroup
+      summary: Retrieve a compare group
+      description: Returns the details of a specific compare group including its source and target connections.
+      tags:
+        - Groups
+      parameters:
+        - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '200':
+          description: Group retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateGroup
+      summary: Update a compare group
+      description: Updates properties of an existing compare group.
+      tags:
+        - Groups
+      parameters:
+        - $ref: '#/components/parameters/groupIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+      responses:
+        '200':
+          description: Group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteGroup
+      summary: Delete a compare group
+      description: Deletes a compare group and its associated compare pairs.
+      tags:
+        - Groups
+      parameters:
+        - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '204':
+          description: Group deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/groups/clone/{Id}:
+    post:
+      operationId: cloneGroup
+      summary: Clone a compare group
+      description: Creates a copy of an existing compare group including all its compare pairs.
+      tags:
+        - Groups
+      parameters:
+        - $ref: '#/components/parameters/groupIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneGroupRequest'
+      responses:
+        '201':
+          description: Group cloned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/groups/validate/{Id}:
+    post:
+      operationId: validateGroup
+      summary: Validate a compare group
+      description: Validates the configuration of a compare group including connection and table accessibility.
+      tags:
+        - Validation
+      parameters:
+        - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/cps/group/{groupId}:
+    post:
+      operationId: createComparePairs
+      summary: Create compare pairs in a group
+      description: Creates one or more compare pairs within a specific compare group.
+      tags:
+        - Compare Pairs
+      parameters:
+        - $ref: '#/components/parameters/groupIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateComparePairsRequest'
+      responses:
+        '201':
+          description: Compare pairs created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePairList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/cps/{Id}:
+    get:
+      operationId: getComparePair
+      summary: Retrieve a compare pair
+      description: Returns the details of a specific compare pair including source and target table mappings.
+      tags:
+        - Compare Pairs
+      parameters:
+        - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Compare pair retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePair'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceComparePair
+      summary: Replace a compare pair
+      description: Replaces the configuration of an existing compare pair.
+      tags:
+        - Compare Pairs
+      parameters:
+        - $ref: '#/components/parameters/comparePairIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceComparePairRequest'
+      responses:
+        '200':
+          description: Compare pair replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePair'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteComparePair
+      summary: Delete a compare pair
+      description: Deletes a compare pair from its group.
+      tags:
+        - Compare Pairs
+      parameters:
+        - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '204':
+          description: Compare pair deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/cps/{Id}/colmap:
+    post:
+      operationId: generateColumnMappings
+      summary: Generate column mapping pairs
+      description: Automatically generates column mappings between source and target tables for a compare pair.
+      tags:
+        - Compare Pairs
+      parameters:
+        - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Column mappings generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ColumnMappingList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/cps/validate/{Id}:
+    post:
+      operationId: validateComparePair
+      summary: Validate a compare pair
+      description: Validates the configuration of a compare pair including table and column accessibility.
+      tags:
+        - Validation
+      parameters:
+        - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/cps/mappings:
+    post:
+      operationId: generateMappingObjects
+      summary: Generate mapping objects from rules
+      description: Generates compare pair mappings based on mapping rules for automatic pair creation.
+      tags:
+        - Compare Pairs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MappingRulesRequest'
+      responses:
+        '200':
+          description: Mapping objects generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingObjectList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/jobs:
+    get:
+      operationId: listJobs
+      summary: Retrieve all jobs
+      description: Returns a list of all comparison jobs configured in Veridata.
+      tags:
+        - Jobs
+      responses:
+        '200':
+          description: Jobs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createJob
+      summary: Create a job
+      description: >-
+        Creates a new comparison job that references one or more compare groups.
+        Jobs control the execution of data comparisons.
+      tags:
+        - Jobs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/jobs/{Id}:
+    get:
+      operationId: getJob
+      summary: Retrieve a job
+      description: Returns the details of a specific comparison job.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/jobIdParam'
+      responses:
+        '200':
+          description: Job retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceJob
+      summary: Replace a job
+      description: Replaces the configuration of an existing comparison job.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/jobIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceJobRequest'
+      responses:
+        '200':
+          description: Job replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteJob
+      summary: Delete a job
+      description: Deletes a comparison job.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/jobIdParam'
+      responses:
+        '204':
+          description: Job deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/profiles:
+    get:
+      operationId: listProfiles
+      summary: Retrieve all profiles
+      description: Returns a list of all comparison profiles that define comparison behavior settings.
+      tags:
+        - Profiles
+      responses:
+        '200':
+          description: Profiles listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProfile
+      summary: Create a profile
+      description: Creates a new comparison profile with custom comparison settings.
+      tags:
+        - Profiles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileRequest'
+      responses:
+        '201':
+          description: Profile created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/profiles/{Id}:
+    get:
+      operationId: getProfile
+      summary: Retrieve a profile
+      description: Returns the details of a specific comparison profile.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '200':
+          description: Profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateProfile
+      summary: Update a profile
+      description: Updates properties of an existing comparison profile.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/profileIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProfile
+      summary: Delete a profile
+      description: Deletes a comparison profile.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '204':
+          description: Profile deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/profiles/{Id}/reset:
+    put:
+      operationId: resetProfile
+      summary: Reset a profile to defaults
+      description: Resets a comparison profile to its default settings.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '200':
+          description: Profile reset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/execution/jobs/{Id}:
+    post:
+      operationId: runJob
+      summary: Run a comparison job
+      description: Starts execution of a comparison job to compare data between source and target databases.
+      tags:
+        - Execution
+      parameters:
+        - $ref: '#/components/parameters/jobIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunJobRequest'
+      responses:
+        '200':
+          description: Job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecution'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/execution/jobs/{runId}/stop:
+    post:
+      operationId: stopJob
+      summary: Stop a running job
+      description: Stops a currently running comparison job or specific compare pairs within it.
+      tags:
+        - Execution
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Job stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecution'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/monitoring/jobs:
+    get:
+      operationId: getJobStatistics
+      summary: Retrieve job statistics
+      description: Returns comparison statistics for completed and running jobs.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Job statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatisticsList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/monitoring/cps:
+    get:
+      operationId: getComparePairStatistics
+      summary: Retrieve compare pair statistics
+      description: Returns detailed comparison statistics at the compare pair level.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Compare pair statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePairStatisticsList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/oos/{runId}:
+    get:
+      operationId: getOutOfSyncData
+      summary: Retrieve out-of-sync data
+      description: Returns the rows identified as out-of-sync during a comparison run.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Out-of-sync data retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutOfSyncData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/monitoring/comparison/{runId}/reports:
+    get:
+      operationId: getComparisonReport
+      summary: Retrieve comparison report
+      description: Returns a detailed comparison report for a specific job run.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Report retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/repair/jobs/{runId}:
+    post:
+      operationId: repairJob
+      summary: Repair out-of-sync data
+      description: Initiates a repair operation to synchronize out-of-sync rows found during a comparison.
+      tags:
+        - Repair
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairJobRequest'
+      responses:
+        '200':
+          description: Repair initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairExecution'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/repair/jobs/{runId}/stop:
+    post:
+      operationId: stopRepairJob
+      summary: Stop a repair job
+      description: Stops a currently running repair operation.
+      tags:
+        - Repair
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair stopped
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/monitoring/repair/jobs:
+    get:
+      operationId: getRepairStatistics
+      summary: Retrieve repair statistics
+      description: Returns statistics for repair operations.
+      tags:
+        - Repair
+      responses:
+        '200':
+          description: Repair statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairStatisticsList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/monitoring/repair/cps/{runId}:
+    get:
+      operationId: getRepairedRowDetails
+      summary: Retrieve repaired row details
+      description: Returns detailed information about rows that were repaired during a repair operation.
+      tags:
+        - Repair
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairedRowDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/monitoring/repair/{runId}/reports:
+    get:
+      operationId: getRepairReport
+      summary: Retrieve repair report
+      description: Returns a detailed repair report for a specific repair run.
+      tags:
+        - Repair
+      parameters:
+        - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair report retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/configuration/export:
+    get:
+      operationId: exportConfiguration
+      summary: Export Veridata configurations
+      description: Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document.
+      tags:
+        - Import/Export
+      responses:
+        '200':
+          description: Configuration exported
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/import:
+    post:
+      operationId: importConfiguration
+      summary: Import Veridata XML configuration
+      description: Imports Veridata configurations from an XML document.
+      tags:
+        - Import/Export
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Configuration imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/configuration/vgpp:
+    post:
+      operationId: importGoldenGateParameterFile
+      summary: Import GoldenGate parameter file
+      description: Imports a GoldenGate parameter file to automatically create compare pairs from table mappings.
+      tags:
+        - Import/Export
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Parameter file imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/admin/users:
+    get:
+      operationId: listUsers
+      summary: Retrieve all users
+      description: Returns a list of all Veridata users.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createUser
+      summary: Create a user
+      description: Creates a new Veridata user account.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/admin/users/{Id}:
+    get:
+      operationId: getUser
+      summary: Retrieve a user
+      description: Returns the details of a specific user.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userIdParam'
+      responses:
+        '200':
+          description: User retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceUser
+      summary: Replace a user
+      description: Replaces user account details.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserRequest'
+      responses:
+        '200':
+          description: User replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUser
+      summary: Delete a user
+      description: Deletes a Veridata user account.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userIdParam'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/admin/usergroups:
+    get:
+      operationId: listUserGroups
+      summary: Retrieve all user groups
+      description: Returns a list of all user groups.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: User groups listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createUserGroup
+      summary: Create a user group
+      description: Creates a new user group with specified permissions.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserGroupRequest'
+      responses:
+        '201':
+          description: User group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/admin/usergroups/{Id}:
+    get:
+      operationId: getUserGroup
+      summary: Retrieve a user group
+      description: Returns the details of a user group.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userGroupIdParam'
+      responses:
+        '200':
+          description: User group retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceUserGroup
+      summary: Replace a user group
+      description: Replaces a user group configuration.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userGroupIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserGroupRequest'
+      responses:
+        '200':
+          description: User group replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUserGroup
+      summary: Delete a user group
+      description: Deletes a user group.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userGroupIdParam'
+      responses:
+        '204':
+          description: User group deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/logs/server:
+    get:
+      operationId: getServerLogs
+      summary: Retrieve server logs
+      description: Returns server log entries.
+      tags:
+        - Logs
+      parameters:
+        - name: logType
+          in: query
+          schema:
+            type: string
+            enum:
+              - api
+              - perf
+              - both
+        - name: logLevel
+          in: query
+          schema:
+            type: string
+            enum:
+              - ERROR
+              - WARNING
+              - INFO
+              - DEBUG
+        - name: lastLines
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Logs retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogs'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/validate/connection:
+    post:
+      operationId: validateAgentConnection
+      summary: Validate agent connection
+      description: Tests connectivity to a Veridata agent.
+      tags:
+        - Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateConnectionRequest'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/validate/connection/db:
+    post:
+      operationId: validateDatabaseConnection
+      summary: Validate database connection
+      description: Tests database connectivity through a Veridata agent.
+      tags:
+        - Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDatabaseRequest'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/purge/stats:
+    delete:
+      operationId: purgeStatistics
+      summary: Purge comparison statistics
+      description: Deletes stored comparison and repair statistics data.
+      tags:
+        - Monitoring
+      responses:
+        '204':
+          description: Statistics purged
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /auth/login:
+    get:
+      operationId: login
+      summary: Login to Veridata
+      description: Authenticates a user and establishes a session.
+      tags:
+        - Server
+      security: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /session/extend:
+    get:
+      operationId: extendSession
+      summary: Extend user session
+      description: Extends the current user session timeout.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: Session extended
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /session/invalidate:
+    get:
+      operationId: invalidateSession
+      summary: Invalidate session (logout)
+      description: Invalidates the current user session.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: Session invalidated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Veridata credentials
+  parameters:
+    connectionIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Connection identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdPathParam:
+      name: groupId
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
+    profileIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Profile identifier
+      schema:
+        type: integer
+        format: int64
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+    userIdParam:
+      name: Id
+      in: path
+      required: true
+      description: User identifier
+      schema:
+        type: integer
+        format: int64
+    userGroupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: User group identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    ServerInfo:
+      type: object
+      properties:
+        version:
+          type: string
+        buildNumber:
+          type: string
+        uptime:
+          type: string
+        javaVersion:
+          type: string
+    ServerConfiguration:
+      type: object
+      properties:
+        maxConcurrentJobs:
+          type: integer
+        maxThreadsPerJob:
+          type: integer
+        reportRetentionDays:
+          type: integer
+        oosRetentionDays:
+          type: integer
+    UpdateServerConfigurationRequest:
+      type: object
+      properties:
+        maxConcurrentJobs:
+          type: integer
+        maxThreadsPerJob:
+          type: integer
+        reportRetentionDays:
+          type: integer
+    ConnectionList:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
+    Connection:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        databaseType:
+          type: string
+          enum:
+            - Oracle
+            - MySQL
+            - SQL Server
+            - PostgreSQL
+            - DB2
+            - Sybase
+            - Teradata
+        host:
+          type: string
+        port:
+          type: integer
+        serviceName:
+          type: string
+        schema:
+          type: string
+        agentHost:
+          type: string
+        agentPort:
+          type: integer
+    CreateConnectionRequest:
+      type: object
+      required:
+        - name
+        - databaseType
+        - host
+        - port
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        databaseType:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        serviceName:
+          type: string
+        schema:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        agentHost:
+          type: string
+        agentPort:
+          type: integer
+    UpdateConnectionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+    ConnectionStatus:
+      type: object
+      properties:
+        connectionId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - connected
+            - disconnected
+            - error
+        message:
+          type: string
+    MetadataRequest:
+      type: object
+      properties:
+        schemaPattern:
+          type: string
+        tablePattern:
+          type: string
+    ConnectionMetadata:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              tables:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    columns:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          dataType:
+                            type: string
+                          nullable:
+                            type: boolean
+                          primaryKey:
+                            type: boolean
+    GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        sourceConnectionId:
+          type: integer
+          format: int64
+        targetConnectionId:
+          type: integer
+          format: int64
+        profileId:
+          type: integer
+          format: int64
+        comparePairCount:
+          type: integer
+    CreateGroupRequest:
+      type: object
+      required:
+        - name
+        - sourceConnectionId
+        - targetConnectionId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sourceConnectionId:
+          type: integer
+          format: int64
+        targetConnectionId:
+          type: integer
+          format: int64
+        profileId:
+          type: integer
+          format: int64
+    UpdateGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        profileId:
+          type: integer
+          format: int64
+    CloneGroupRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+    ComparePairList:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComparePair'
+    ComparePair:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        groupId:
+          type: integer
+          format: int64
+        sourceSchema:
+          type: string
+        sourceTable:
+          type: string
+        targetSchema:
+          type: string
+        targetTable:
+          type: string
+        profileId:
+          type: integer
+          format: int64
+        columnMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+    CreateComparePairsRequest:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            type: object
+            required:
+              - sourceSchema
+              - sourceTable
+              - targetSchema
+              - targetTable
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+    ReplaceComparePairRequest:
+      type: object
+      properties:
+        sourceSchema:
+          type: string
+        sourceTable:
+          type: string
+        targetSchema:
+          type: string
+        targetTable:
+          type: string
+        profileId:
+          type: integer
+          format: int64
+    ColumnMapping:
+      type: object
+      properties:
+        sourceColumn:
+          type: string
+        targetColumn:
+          type: string
+        dataType:
+          type: string
+    ColumnMappingList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+    MappingRulesRequest:
+      type: object
+      properties:
+        sourceSchemaPattern:
+          type: string
+        targetSchemaPattern:
+          type: string
+        tablePattern:
+          type: string
+    MappingObjectList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+    ValidationResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+              message:
+                type: string
+    JobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        profileId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - idle
+            - running
+            - completed
+            - failed
+    CreateJobRequest:
+      type: object
+      required:
+        - name
+        - groupIds
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        profileId:
+          type: integer
+          format: int64
+    ReplaceJobRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        profileId:
+          type: integer
+          format: int64
+    RunJobRequest:
+      type: object
+      properties:
+        profileOverrides:
+          type: object
+          additionalProperties: true
+    JobExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        jobId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - running
+            - completed
+            - stopped
+            - failed
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    ProfileList:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        comparisonMethod:
+          type: string
+          enum:
+            - row
+            - hash
+        maxConcurrentComparePairs:
+          type: integer
+        deltaProcessing:
+          type: boolean
+        reportOutOfSync:
+          type: boolean
+    CreateProfileRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        comparisonMethod:
+          type: string
+          enum:
+            - row
+            - hash
+        maxConcurrentComparePairs:
+          type: integer
+        deltaProcessing:
+          type: boolean
+    UpdateProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        comparisonMethod:
+          type: string
+        maxConcurrentComparePairs:
+          type: integer
+    JobStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              jobName:
+                type: string
+              status:
+                type: string
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              totalComparePairs:
+                type: integer
+              inSyncCount:
+                type: integer
+              outOfSyncCount:
+                type: integer
+              failedCount:
+                type: integer
+    ComparePairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              comparePairId:
+                type: integer
+                format: int64
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              status:
+                type: string
+                enum:
+                  - In Sync
+                  - Out Of Sync
+                  - Failed
+              sourceRowCount:
+                type: integer
+                format: int64
+              targetRowCount:
+                type: integer
+                format: int64
+              outOfSyncRows:
+                type: integer
+                format: int64
+    OutOfSyncData:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              comparePairId:
+                type: integer
+                format: int64
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              oosType:
+                type: string
+                enum:
+                  - missing_in_target
+                  - missing_in_source
+                  - different
+              keyValues:
+                type: object
+                additionalProperties: true
+    ComparisonReport:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        jobName:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        summary:
+          type: object
+          properties:
+            totalComparePairs:
+              type: integer
+            inSync:
+              type: integer
+            outOfSync:
+              type: integer
+            failed:
+              type: integer
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              status:
+                type: string
+              sourceRowCount:
+                type: integer
+                format: int64
+              targetRowCount:
+                type: integer
+                format: int64
+    RepairJobRequest:
+      type: object
+      properties:
+        repairMode:
+          type: string
+          enum:
+            - insert
+            - update
+            - delete
+            - all
+    RepairExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - running
+            - completed
+            - stopped
+            - failed
+        startTime:
+          type: string
+          format: date-time
+    RepairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              status:
+                type: string
+              rowsRepaired:
+                type: integer
+                format: int64
+              rowsFailed:
+                type: integer
+                format: int64
+    RepairedRowDetails:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              table:
+                type: string
+              repairType:
+                type: string
+              status:
+                type: string
+              keyValues:
+                type: object
+                additionalProperties: true
+    RepairReport:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        totalRows:
+          type: integer
+          format: int64
+        repairedRows:
+          type: integer
+          format: int64
+        failedRows:
+          type: integer
+          format: int64
+    ImportResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        itemsImported:
+          type: integer
+        messages:
+          type: array
+          items:
+            type: string
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        userGroupId:
+          type: integer
+          format: int64
+    CreateUserRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        userGroupId:
+          type: integer
+          format: int64
+    ReplaceUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        userGroupId:
+          type: integer
+          format: int64
+    UserGroupList:
+      type: object
+      properties:
+        userGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+    UserGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    CreateUserGroupRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    ReplaceUserGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    ServerLogs:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              level:
+                type: string
+              message:
+                type: string
+    ValidateConnectionRequest:
+      type: object
+      required:
+        - host
+        - port
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+    ValidateDatabaseRequest:
+      type: object
+      required:
+        - host
+        - port
+        - databaseType
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        databaseType:
+          type: string
+        serviceName:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        sessionTimeout:
+          type: integer
+        username:
+          type: string

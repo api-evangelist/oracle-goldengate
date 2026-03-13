@@ -1,0 +1,1943 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate Cloud Service API
+  description: >-
+    Oracle Cloud Infrastructure (OCI) API for managing GoldenGate deployments,
+    connections, deployment backups, database registrations, pipelines,
+    connection assignments, certificates, and work requests in OCI. This is the
+    OCI control-plane API (version 20200407) for provisioning and managing
+    GoldenGate cloud resources. Based on the OCI GoldenGate API documentation
+    and Python SDK reference.
+  version: '20200407'
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/20200407/
+      description: OCI GoldenGate API Reference
+    - url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
+      description: OCI Python SDK - GoldenGate Client
+servers:
+  - url: https://goldengate.{region}.oci.oraclecloud.com
+    description: OCI GoldenGate regional endpoint
+    variables:
+      region:
+        default: us-ashburn-1
+        description: OCI region identifier
+        enum:
+          - us-ashburn-1
+          - us-phoenix-1
+          - eu-frankfurt-1
+          - uk-london-1
+          - ap-tokyo-1
+          - ap-sydney-1
+          - ca-toronto-1
+          - ap-mumbai-1
+          - sa-saopaulo-1
+security:
+  - ociSignature: []
+tags:
+  - name: Deployments
+    description: Manage GoldenGate deployment instances
+  - name: Deployment Backups
+    description: Manage deployment backups
+  - name: Connections
+    description: Manage database and service connections
+  - name: Connection Assignments
+    description: Manage connection-to-deployment assignments
+  - name: Database Registrations
+    description: Manage registered source and target databases
+  - name: Pipelines
+    description: Manage data replication pipelines
+  - name: Certificates
+    description: Manage SSL certificates for deployments
+  - name: Work Requests
+    description: Track asynchronous operations
+  - name: Deployment Versions
+    description: Query available deployment versions
+paths:
+  /20200407/deployments:
+    get:
+      operationId: listDeployments
+      summary: List deployments
+      description: Returns a list of GoldenGate deployments in the specified compartment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/lifecycleStateParam'
+        - $ref: '#/components/parameters/displayNameParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/sortByParam'
+        - $ref: '#/components/parameters/sortOrderParam'
+      responses:
+        '200':
+          description: Deployment list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentCollection'
+          headers:
+            opc-next-page:
+              schema:
+                type: string
+            opc-request-id:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createDeployment
+      summary: Create a deployment
+      description: Creates a new GoldenGate deployment in the specified compartment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/opcRetryTokenParam'
+        - $ref: '#/components/parameters/opcRequestIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentDetails'
+      responses:
+        '200':
+          description: Deployment creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+            opc-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /20200407/deployments/{deploymentId}:
+    get:
+      operationId: getDeployment
+      summary: Get a deployment
+      description: Returns the details of a specific GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+      responses:
+        '200':
+          description: Deployment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDeployment
+      summary: Update a deployment
+      description: Updates the configuration of a GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentDetails'
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDeployment
+      summary: Delete a deployment
+      description: Deletes a GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deployments/{deploymentId}/actions/start:
+    post:
+      operationId: startDeployment
+      summary: Start a deployment
+      description: Starts a stopped GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartDeploymentDetails'
+      responses:
+        '202':
+          description: Start initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deployments/{deploymentId}/actions/stop:
+    post:
+      operationId: stopDeployment
+      summary: Stop a deployment
+      description: Stops a running GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopDeploymentDetails'
+      responses:
+        '202':
+          description: Stop initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deployments/{deploymentId}/actions/upgrade:
+    post:
+      operationId: upgradeDeployment
+      summary: Upgrade a deployment
+      description: Upgrades a GoldenGate deployment to a newer version.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeDeploymentDetails'
+      responses:
+        '202':
+          description: Upgrade initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deployments/{deploymentId}/actions/changeCompartment:
+    post:
+      operationId: changeDeploymentCompartment
+      summary: Change deployment compartment
+      description: Moves a deployment to a different compartment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCompartmentDetails'
+      responses:
+        '202':
+          description: Compartment change initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deployments/{deploymentId}/actions/collectDiagnostics:
+    post:
+      operationId: collectDeploymentDiagnostics
+      summary: Collect deployment diagnostics
+      description: Collects diagnostic information from a GoldenGate deployment.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectDiagnosticsDetails'
+      responses:
+        '202':
+          description: Diagnostic collection initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deploymentBackups:
+    get:
+      operationId: listDeploymentBackups
+      summary: List deployment backups
+      description: Returns a list of deployment backups in the specified compartment.
+      tags:
+        - Deployment Backups
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Backup list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackupCollection'
+    post:
+      operationId: createDeploymentBackup
+      summary: Create a deployment backup
+      description: Creates a backup of a GoldenGate deployment.
+      tags:
+        - Deployment Backups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentBackupDetails'
+      responses:
+        '200':
+          description: Backup creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackup'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/deploymentBackups/{deploymentBackupId}:
+    get:
+      operationId: getDeploymentBackup
+      summary: Get a deployment backup
+      description: Returns the details of a specific deployment backup.
+      tags:
+        - Deployment Backups
+      parameters:
+        - $ref: '#/components/parameters/deploymentBackupIdParam'
+      responses:
+        '200':
+          description: Backup retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackup'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDeploymentBackup
+      summary: Delete a deployment backup
+      description: Deletes a deployment backup.
+      tags:
+        - Deployment Backups
+      parameters:
+        - $ref: '#/components/parameters/deploymentBackupIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/deploymentBackups/{deploymentBackupId}/actions/restore:
+    post:
+      operationId: restoreDeployment
+      summary: Restore a deployment from backup
+      description: Restores a GoldenGate deployment from a backup.
+      tags:
+        - Deployment Backups
+      parameters:
+        - $ref: '#/components/parameters/deploymentBackupIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreDeploymentDetails'
+      responses:
+        '202':
+          description: Restore initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/connections:
+    get:
+      operationId: listConnections
+      summary: List connections
+      description: Returns a list of connections in the specified compartment.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+        - name: connectionType
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - GOLDENGATE
+                - KAFKA
+                - KAFKA_SCHEMA_REGISTRY
+                - MYSQL
+                - POSTGRESQL
+                - ORACLE
+                - MICROSOFT_SQLSERVER
+                - MONGODB
+                - ELASTICSEARCH
+                - AMAZON_S3
+                - AMAZON_KINESIS
+                - AZURE_DATA_LAKE_STORAGE
+                - AZURE_SYNAPSE_ANALYTICS
+                - GOOGLE_BIGQUERY
+                - GOOGLE_CLOUD_STORAGE
+                - HDFS
+                - OCI_OBJECT_STORAGE
+                - REDIS
+                - SNOWFLAKE
+                - JAVA_MESSAGE_SERVICE
+                - DB2
+                - GENERIC
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionCollection'
+    post:
+      operationId: createConnection
+      summary: Create a connection
+      description: >-
+        Creates a new connection for a source or target system. Supports Oracle,
+        MySQL, PostgreSQL, SQL Server, MongoDB, Kafka, Elasticsearch, Amazon S3,
+        Google BigQuery, Snowflake, and many other connection types.
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionDetails'
+      responses:
+        '200':
+          description: Connection creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /20200407/connections/{connectionId}:
+    get:
+      operationId: getConnection
+      summary: Get a connection
+      description: Returns the details of a specific connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+      responses:
+        '200':
+          description: Connection retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateConnection
+      summary: Update a connection
+      description: Updates a connection's configuration.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionDetails'
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConnection
+      summary: Delete a connection
+      description: Deletes a connection.
+      tags:
+        - Connections
+      parameters:
+        - $ref: '#/components/parameters/connectionIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/connectionAssignments:
+    get:
+      operationId: listConnectionAssignments
+      summary: List connection assignments
+      description: Returns connection-to-deployment assignments.
+      tags:
+        - Connection Assignments
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - name: deploymentId
+          in: query
+          schema:
+            type: string
+        - name: connectionId
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Assignments listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignmentCollection'
+    post:
+      operationId: createConnectionAssignment
+      summary: Create a connection assignment
+      description: Assigns a connection to a deployment for use in replication.
+      tags:
+        - Connection Assignments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionAssignmentDetails'
+      responses:
+        '200':
+          description: Assignment creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignment'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/connectionAssignments/{connectionAssignmentId}:
+    get:
+      operationId: getConnectionAssignment
+      summary: Get a connection assignment
+      description: Returns a specific connection assignment.
+      tags:
+        - Connection Assignments
+      parameters:
+        - name: connectionAssignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Assignment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignment'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConnectionAssignment
+      summary: Delete a connection assignment
+      description: Removes a connection assignment from a deployment.
+      tags:
+        - Connection Assignments
+      parameters:
+        - name: connectionAssignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/databaseRegistrations:
+    get:
+      operationId: listDatabaseRegistrations
+      summary: List database registrations
+      description: Returns a list of registered databases.
+      tags:
+        - Database Registrations
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Registrations listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistrationCollection'
+    post:
+      operationId: createDatabaseRegistration
+      summary: Create a database registration
+      description: Registers a database for use with GoldenGate.
+      tags:
+        - Database Registrations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseRegistrationDetails'
+      responses:
+        '200':
+          description: Registration initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistration'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/databaseRegistrations/{databaseRegistrationId}:
+    get:
+      operationId: getDatabaseRegistration
+      summary: Get a database registration
+      description: Returns the details of a database registration.
+      tags:
+        - Database Registrations
+      parameters:
+        - name: databaseRegistrationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Registration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistration'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDatabaseRegistration
+      summary: Update a database registration
+      description: Updates a database registration.
+      tags:
+        - Database Registrations
+      parameters:
+        - name: databaseRegistrationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatabaseRegistrationDetails'
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDatabaseRegistration
+      summary: Delete a database registration
+      description: Deletes a database registration.
+      tags:
+        - Database Registrations
+      parameters:
+        - name: databaseRegistrationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/pipelines:
+    get:
+      operationId: listPipelines
+      summary: List pipelines
+      description: Returns a list of data replication pipelines.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Pipelines listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineCollection'
+    post:
+      operationId: createPipeline
+      summary: Create a pipeline
+      description: Creates a new data replication pipeline.
+      tags:
+        - Pipelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePipelineDetails'
+      responses:
+        '200':
+          description: Pipeline creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/pipelines/{pipelineId}:
+    get:
+      operationId: getPipeline
+      summary: Get a pipeline
+      description: Returns the details of a specific pipeline.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+      responses:
+        '200':
+          description: Pipeline retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePipeline
+      summary: Update a pipeline
+      description: Updates a pipeline configuration.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelineDetails'
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePipeline
+      summary: Delete a pipeline
+      description: Deletes a data replication pipeline.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/pipelines/{pipelineId}/actions/start:
+    post:
+      operationId: startPipeline
+      summary: Start a pipeline
+      description: Starts a stopped pipeline.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Start initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/pipelines/{pipelineId}/actions/stop:
+    post:
+      operationId: stopPipeline
+      summary: Stop a pipeline
+      description: Stops a running pipeline.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+        - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Stop initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/deployments/{deploymentId}/certificates:
+    get:
+      operationId: listCertificates
+      summary: List deployment certificates
+      description: Returns SSL certificates associated with a deployment.
+      tags:
+        - Certificates
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Certificates listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateCollection'
+    post:
+      operationId: createCertificate
+      summary: Add a certificate to a deployment
+      description: Adds a trusted SSL certificate to a GoldenGate deployment.
+      tags:
+        - Certificates
+      parameters:
+        - $ref: '#/components/parameters/deploymentIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCertificateDetails'
+      responses:
+        '200':
+          description: Certificate added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+  /20200407/workRequests:
+    get:
+      operationId: listWorkRequests
+      summary: List work requests
+      description: Returns a list of asynchronous work requests in the specified compartment.
+      tags:
+        - Work Requests
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Work requests listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestCollection'
+  /20200407/workRequests/{workRequestId}:
+    get:
+      operationId: getWorkRequest
+      summary: Get a work request
+      description: Returns the details of a specific asynchronous work request.
+      tags:
+        - Work Requests
+      parameters:
+        - name: workRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Work request retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /20200407/workRequests/{workRequestId}/logs:
+    get:
+      operationId: listWorkRequestLogs
+      summary: List work request logs
+      description: Returns log entries for a work request.
+      tags:
+        - Work Requests
+      parameters:
+        - name: workRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestLogEntryCollection'
+  /20200407/workRequests/{workRequestId}/errors:
+    get:
+      operationId: listWorkRequestErrors
+      summary: List work request errors
+      description: Returns error entries for a work request.
+      tags:
+        - Work Requests
+      parameters:
+        - name: workRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Errors listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestErrorCollection'
+  /20200407/deploymentVersions:
+    get:
+      operationId: listDeploymentVersions
+      summary: List deployment versions
+      description: Returns available GoldenGate deployment versions.
+      tags:
+        - Deployment Versions
+      parameters:
+        - $ref: '#/components/parameters/compartmentIdParam'
+      responses:
+        '200':
+          description: Versions listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentVersionCollection'
+components:
+  securitySchemes:
+    ociSignature:
+      type: http
+      scheme: bearer
+      description: OCI API request signature (RFC 7616) or bearer token authentication
+  parameters:
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    deploymentBackupIdParam:
+      name: deploymentBackupId
+      in: path
+      required: true
+      description: The OCID of the deployment backup
+      schema:
+        type: string
+    connectionIdParam:
+      name: connectionId
+      in: path
+      required: true
+      description: The OCID of the connection
+      schema:
+        type: string
+    pipelineIdParam:
+      name: pipelineId
+      in: path
+      required: true
+      description: The OCID of the pipeline
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    opcRetryTokenParam:
+      name: opc-retry-token
+      in: header
+      description: Idempotent retry token
+      schema:
+        type: string
+    opcRequestIdParam:
+      name: opc-request-id
+      in: header
+      description: Unique request identifier
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    sortByParam:
+      name: sortBy
+      in: query
+      schema:
+        type: string
+        enum:
+          - timeCreated
+          - displayName
+    sortOrderParam:
+      name: sortOrder
+      in: query
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+    lifecycleStateParam:
+      name: lifecycleState
+      in: query
+      schema:
+        type: string
+        enum:
+          - CREATING
+          - UPDATING
+          - ACTIVE
+          - INACTIVE
+          - DELETING
+          - DELETED
+          - FAILED
+          - NEEDS_ATTENTION
+          - IN_PROGRESS
+          - CANCELING
+          - CANCELED
+          - SUCCEEDED
+    displayNameParam:
+      name: displayName
+      in: query
+      description: Filter by display name
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    DeploymentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary'
+    DeploymentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OCID of the deployment
+        displayName:
+          type: string
+        compartmentId:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+        timeUpdated:
+          type: string
+          format: date-time
+    Deployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OCID of the deployment
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        subnetId:
+          type: string
+        licenseModel:
+          type: string
+          enum:
+            - LICENSE_INCLUDED
+            - BRING_YOUR_OWN_LICENSE
+        fqdn:
+          type: string
+        cpuCoreCount:
+          type: integer
+        isAutoScalingEnabled:
+          type: boolean
+        isPublic:
+          type: boolean
+        publicIpAddress:
+          type: string
+        privateIpAddress:
+          type: string
+        deploymentUrl:
+          type: string
+        lifecycleState:
+          type: string
+          enum:
+            - CREATING
+            - UPDATING
+            - ACTIVE
+            - INACTIVE
+            - DELETING
+            - DELETED
+            - FAILED
+            - NEEDS_ATTENTION
+            - IN_PROGRESS
+            - CANCELING
+            - CANCELED
+            - SUCCEEDED
+        oggData:
+          type: object
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            oggVersion:
+              type: string
+            certificate:
+              type: string
+        timeCreated:
+          type: string
+          format: date-time
+        timeUpdated:
+          type: string
+          format: date-time
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+    CreateDeploymentDetails:
+      type: object
+      required:
+        - displayName
+        - compartmentId
+        - subnetId
+        - licenseModel
+        - cpuCoreCount
+        - isAutoScalingEnabled
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        subnetId:
+          type: string
+        licenseModel:
+          type: string
+          enum:
+            - LICENSE_INCLUDED
+            - BRING_YOUR_OWN_LICENSE
+        fqdn:
+          type: string
+        cpuCoreCount:
+          type: integer
+        isAutoScalingEnabled:
+          type: boolean
+        isPublic:
+          type: boolean
+        oggData:
+          type: object
+          required:
+            - deploymentName
+            - adminUsername
+            - adminPassword
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            adminPassword:
+              type: string
+              format: password
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+    UpdateDeploymentDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        fqdn:
+          type: string
+        cpuCoreCount:
+          type: integer
+        isAutoScalingEnabled:
+          type: boolean
+        isPublic:
+          type: boolean
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+    StartDeploymentDetails:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - DEFAULT
+    StopDeploymentDetails:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - DEFAULT
+    UpgradeDeploymentDetails:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - CURRENT_RELEASE
+            - SPECIFIC_RELEASE
+        oggVersion:
+          type: string
+    ChangeCompartmentDetails:
+      type: object
+      required:
+        - compartmentId
+      properties:
+        compartmentId:
+          type: string
+    CollectDiagnosticsDetails:
+      type: object
+      required:
+        - namespaceName
+        - bucketName
+        - diagnosticNamePrefix
+      properties:
+        namespaceName:
+          type: string
+        bucketName:
+          type: string
+        diagnosticNamePrefix:
+          type: string
+    DeploymentBackupCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentBackupSummary'
+    DeploymentBackupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentId:
+          type: string
+        displayName:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    DeploymentBackup:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentId:
+          type: string
+        displayName:
+          type: string
+        compartmentId:
+          type: string
+        lifecycleState:
+          type: string
+        sizeInBytes:
+          type: integer
+          format: int64
+        backupType:
+          type: string
+          enum:
+            - INCREMENTAL
+            - FULL
+        oggVersion:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    CreateDeploymentBackupDetails:
+      type: object
+      required:
+        - displayName
+        - compartmentId
+        - deploymentId
+        - namespaceName
+        - bucketName
+        - objectName
+      properties:
+        displayName:
+          type: string
+        compartmentId:
+          type: string
+        deploymentId:
+          type: string
+        namespaceName:
+          type: string
+        bucketName:
+          type: string
+        objectName:
+          type: string
+    RestoreDeploymentDetails:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - DEFAULT
+    ConnectionCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionSummary'
+    ConnectionSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        connectionType:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        connectionType:
+          type: string
+          enum:
+            - GOLDENGATE
+            - KAFKA
+            - KAFKA_SCHEMA_REGISTRY
+            - MYSQL
+            - POSTGRESQL
+            - ORACLE
+            - MICROSOFT_SQLSERVER
+            - MONGODB
+            - ELASTICSEARCH
+            - AMAZON_S3
+            - AMAZON_KINESIS
+            - AZURE_DATA_LAKE_STORAGE
+            - AZURE_SYNAPSE_ANALYTICS
+            - GOOGLE_BIGQUERY
+            - GOOGLE_CLOUD_STORAGE
+            - HDFS
+            - OCI_OBJECT_STORAGE
+            - REDIS
+            - SNOWFLAKE
+            - JAVA_MESSAGE_SERVICE
+            - DB2
+            - GENERIC
+        technologyType:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+        timeUpdated:
+          type: string
+          format: date-time
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateConnectionDetails:
+      type: object
+      required:
+        - displayName
+        - compartmentId
+        - connectionType
+        - technologyType
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        connectionType:
+          type: string
+        technologyType:
+          type: string
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+    UpdateConnectionDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+    ConnectionAssignmentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+    ConnectionAssignmentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        connectionId:
+          type: string
+        deploymentId:
+          type: string
+        lifecycleState:
+          type: string
+    ConnectionAssignment:
+      type: object
+      properties:
+        id:
+          type: string
+        connectionId:
+          type: string
+        deploymentId:
+          type: string
+        compartmentId:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+        timeUpdated:
+          type: string
+          format: date-time
+    CreateConnectionAssignmentDetails:
+      type: object
+      required:
+        - connectionId
+        - deploymentId
+      properties:
+        connectionId:
+          type: string
+        deploymentId:
+          type: string
+    DatabaseRegistrationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseRegistrationSummary'
+    DatabaseRegistrationSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        databaseId:
+          type: string
+        lifecycleState:
+          type: string
+    DatabaseRegistration:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        databaseId:
+          type: string
+        connectionString:
+          type: string
+        username:
+          type: string
+        fqdn:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    CreateDatabaseRegistrationDetails:
+      type: object
+      required:
+        - displayName
+        - compartmentId
+        - fqdn
+        - username
+        - password
+        - connectionString
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        fqdn:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        connectionString:
+          type: string
+        databaseId:
+          type: string
+    UpdateDatabaseRegistrationDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        fqdn:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        connectionString:
+          type: string
+    PipelineCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineSummary'
+    PipelineSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        sourceConnectionDetailId:
+          type: string
+        targetConnectionDetailId:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+        timeUpdated:
+          type: string
+          format: date-time
+    CreatePipelineDetails:
+      type: object
+      required:
+        - displayName
+        - compartmentId
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+        compartmentId:
+          type: string
+        sourceConnectionDetailId:
+          type: string
+        targetConnectionDetailId:
+          type: string
+    UpdatePipelineDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+        description:
+          type: string
+    CertificateCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificateSummary'
+    CertificateSummary:
+      type: object
+      properties:
+        key:
+          type: string
+        subject:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    Certificate:
+      type: object
+      properties:
+        key:
+          type: string
+        deploymentId:
+          type: string
+        subject:
+          type: string
+        issuer:
+          type: string
+        isSelfSigned:
+          type: boolean
+        md5Hash:
+          type: string
+        publicKey:
+          type: string
+        publicKeyAlgorithm:
+          type: string
+        timeValidFrom:
+          type: string
+          format: date-time
+        timeValidTo:
+          type: string
+          format: date-time
+        serial:
+          type: string
+        lifecycleState:
+          type: string
+        timeCreated:
+          type: string
+          format: date-time
+    CreateCertificateDetails:
+      type: object
+      required:
+        - key
+        - certificateContent
+      properties:
+        key:
+          type: string
+        certificateContent:
+          type: string
+    WorkRequestCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRequestSummary'
+    WorkRequestSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        operationType:
+          type: string
+        status:
+          type: string
+        percentComplete:
+          type: number
+        timeAccepted:
+          type: string
+          format: date-time
+    WorkRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        operationType:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACCEPTED
+            - IN_PROGRESS
+            - FAILED
+            - SUCCEEDED
+            - CANCELING
+            - CANCELED
+        percentComplete:
+          type: number
+        timeAccepted:
+          type: string
+          format: date-time
+        timeStarted:
+          type: string
+          format: date-time
+        timeFinished:
+          type: string
+          format: date-time
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              entityType:
+                type: string
+              actionType:
+                type: string
+              identifier:
+                type: string
+              entityUri:
+                type: string
+    WorkRequestLogEntryCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+    WorkRequestErrorCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+    DeploymentVersionCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              oggVersion:
+                type: string
+              deploymentType:
+                type: string
+              releaseType:
+                type: string
+              isSecurityFix:
+                type: boolean
+              timeReleased:
+                type: string
+                format: date-time

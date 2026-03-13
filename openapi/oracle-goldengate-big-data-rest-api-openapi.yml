@@ -1,0 +1,1264 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST API
+  description: >-
+    REST API for managing Oracle GoldenGate for Big Data deployments via the
+    Microservices Architecture. Enables configuration and monitoring of
+    replication to big data targets including Apache Kafka, HDFS, HBase,
+    Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same
+    Microservices Architecture REST API base as the core GoldenGate product with
+    big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+      description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+  - url: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate for Big Data Microservices server
+    variables:
+      goldengate-host:
+        default: localhost
+        description: GoldenGate Big Data host
+      port:
+        default: '443'
+        description: HTTPS port
+security:
+  - basicAuth: []
+tags:
+  - name: Replicats
+    description: Manage Replicat processes targeting big data systems
+  - name: Extracts
+    description: Manage Extract processes for source data capture
+  - name: Configuration
+    description: Configuration files and settings for big data handlers
+  - name: Credentials
+    description: Manage credential store for big data target connections
+  - name: Connections
+    description: Database and target system connections
+  - name: Data Targets
+    description: Manage big data target type configurations
+  - name: Monitoring
+    description: Performance metrics and process monitoring
+  - name: Distribution
+    description: Distribution paths for trail data delivery
+  - name: Trails
+    description: Trail file management
+  - name: Commands
+    description: Execute GoldenGate commands
+paths:
+  /services/v2/config/health:
+    get:
+      operationId: getServiceHealth
+      summary: Get service health details
+      description: Returns detailed health information for the GoldenGate for Big Data service.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Service health details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceHealth'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/extracts:
+    get:
+      operationId: listExtracts
+      summary: List all Extract processes
+      description: Returns a list of all Extract processes configured for source data capture.
+      tags:
+        - Extracts
+      responses:
+        '200':
+          description: Extracts listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/extracts/{extract}:
+    get:
+      operationId: getExtract
+      summary: Retrieve an Extract process
+      description: Returns configuration and status of a specific Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createExtract
+      summary: Create an Extract process
+      description: Creates a new Extract process for source data capture.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExtractRequest'
+      responses:
+        '201':
+          description: Extract created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateExtract
+      summary: Update an Extract process
+      description: Updates the configuration of an existing Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtractRequest'
+      responses:
+        '200':
+          description: Extract updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteExtract
+      summary: Delete an Extract process
+      description: Deletes an Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      responses:
+        '204':
+          description: Extract deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/extracts/{extract}/command:
+    post:
+      operationId: issueExtractCommand
+      summary: Issue a command to an Extract
+      description: Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process.
+      tags:
+        - Extracts
+      parameters:
+        - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats:
+    get:
+      operationId: listReplicats
+      summary: List all Replicat processes
+      description: >-
+        Returns a list of all Replicat processes configured for big data targets
+        such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch.
+      tags:
+        - Replicats
+      responses:
+        '200':
+          description: Replicats listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicatList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/replicats/{replicat}:
+    get:
+      operationId: getReplicat
+      summary: Retrieve a Replicat process
+      description: >-
+        Returns the configuration and status of a Replicat process targeting
+        a big data system. Includes handler configuration details.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createReplicat
+      summary: Create a Replicat process for a big data target
+      description: >-
+        Creates a new Replicat process with a big data handler. Supported
+        handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB,
+        Elasticsearch, JDBC, Kinesis, Google BigQuery, Google Pub/Sub, and
+        OCI Object Storage.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplicatRequest'
+      responses:
+        '201':
+          description: Replicat created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateReplicat
+      summary: Update a Replicat process
+      description: Updates the configuration of a Replicat targeting a big data system.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicatRequest'
+      responses:
+        '200':
+          description: Replicat updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteReplicat
+      summary: Delete a Replicat process
+      description: Deletes a Replicat process targeting a big data system.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '204':
+          description: Replicat deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/command:
+    post:
+      operationId: issueReplicatCommand
+      summary: Issue a command to a Replicat
+      description: Issues an operational command to a Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/replicats/{replicat}/info/status:
+    get:
+      operationId: getReplicatStatus
+      summary: Retrieve Replicat status
+      description: Returns the current runtime status of a big data Replicat process.
+      tags:
+        - Replicats
+      parameters:
+        - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/dataTargetTypes:
+    get:
+      operationId: listDataTargetTypes
+      summary: List available data target types
+      description: >-
+        Returns the list of available big data target types including Kafka,
+        HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery,
+        Pub/Sub, and OCI Object Storage.
+      tags:
+        - Data Targets
+      responses:
+        '200':
+          description: Data target types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTargetTypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/dataTargetTypes/{dataTargetType}:
+    get:
+      operationId: getDataTargetTypeSchema
+      summary: Retrieve JSON schema for a data target type
+      description: Returns the JSON schema describing the configuration for a specific data target type handler.
+      tags:
+        - Data Targets
+      parameters:
+        - name: dataTargetType
+          in: path
+          required: true
+          description: The data target type name
+          schema:
+            type: string
+            enum:
+              - kafka
+              - kafkaconnect
+              - hdfs
+              - hbase
+              - cassandra
+              - mongodb
+              - elasticsearch
+              - jdbc
+              - kinesis
+              - bigquery
+              - pubsub
+              - objectstorage
+      responses:
+        '200':
+          description: Target type schema retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTargetTypeSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/credentials:
+    get:
+      operationId: listCredentialDomains
+      summary: List credential domains
+      description: Returns all credential store domains used for big data target authentication.
+      tags:
+        - Credentials
+      responses:
+        '200':
+          description: Domains listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialDomainList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/credentials/{domain}/{alias}:
+    get:
+      operationId: getCredentialAlias
+      summary: Retrieve a credential alias
+      description: Returns a credential alias used for target system authentication.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      responses:
+        '200':
+          description: Alias retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createCredentialAlias
+      summary: Create a credential alias
+      description: Creates a credential alias for authenticating with big data targets.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCredentialRequest'
+      responses:
+        '201':
+          description: Alias created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceCredentialAlias
+      summary: Replace a credential alias
+      description: Replaces an existing credential alias.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCredentialRequest'
+      responses:
+        '200':
+          description: Alias replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAlias'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteCredentialAlias
+      summary: Delete a credential alias
+      description: Deletes a credential alias.
+      tags:
+        - Credentials
+      parameters:
+        - $ref: '#/components/parameters/domainParam'
+        - $ref: '#/components/parameters/aliasParam'
+      responses:
+        '204':
+          description: Alias deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/config/files:
+    get:
+      operationId: listConfigFiles
+      summary: List configuration files
+      description: Returns configuration files including handler properties for big data targets.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Configuration files listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFileList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/config/files/{file}:
+    get:
+      operationId: getConfigFile
+      summary: Retrieve a configuration file
+      description: >-
+        Returns content of a configuration file, including handler property files
+        for Kafka, HDFS, and other big data targets.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Configuration file retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createConfigFile
+      summary: Create a configuration file
+      description: >-
+        Creates a configuration file such as a Kafka handler properties file,
+        custom formatter, or Avro schema mapping.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+      responses:
+        '201':
+          description: Configuration file created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceConfigFile
+      summary: Replace a configuration file
+      description: Replaces the content of an existing configuration file.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+      responses:
+        '200':
+          description: Configuration file replaced
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConfigFile
+      summary: Delete a configuration file
+      description: Deletes a configuration file.
+      tags:
+        - Configuration
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: File deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/trails:
+    get:
+      operationId: listTrails
+      summary: List trail files
+      description: Returns trail files used by big data replicats.
+      tags:
+        - Trails
+      responses:
+        '200':
+          description: Trails listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/sources:
+    get:
+      operationId: listDistributionPaths
+      summary: List distribution paths
+      description: Returns distribution paths configured for big data deployments.
+      tags:
+        - Distribution
+      responses:
+        '200':
+          description: Paths listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPathList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/sources/{distpath}:
+    get:
+      operationId: getDistributionPath
+      summary: Retrieve a distribution path
+      description: Returns a specific distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '200':
+          description: Path retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createDistributionPath
+      summary: Create a distribution path
+      description: Creates a distribution path for delivering trail data to a big data deployment.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDistributionPathRequest'
+      responses:
+        '201':
+          description: Path created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteDistributionPath
+      summary: Delete a distribution path
+      description: Deletes a distribution path.
+      tags:
+        - Distribution
+      parameters:
+        - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '204':
+          description: Path deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/commands/execute:
+    post:
+      operationId: executeCommand
+      summary: Execute a GoldenGate command
+      description: Executes a GGSCI-style command against the Big Data Administrative Server.
+      tags:
+        - Commands
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteCommandRequest'
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/mpoints/processes:
+    get:
+      operationId: listProcessMetrics
+      summary: Retrieve all process metrics
+      description: Returns performance metrics for all running processes.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessMetricsList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/mpoints/{item}/statisticsReplicat:
+    get:
+      operationId: getReplicatStats
+      summary: Retrieve Replicat statistics
+      description: Returns handler-level statistics for a big data Replicat including records written to the target.
+      tags:
+        - Monitoring
+      parameters:
+        - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicatStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  parameters:
+    extractParam:
+      name: extract
+      in: path
+      required: true
+      description: Extract process name
+      schema:
+        type: string
+    replicatParam:
+      name: replicat
+      in: path
+      required: true
+      description: Replicat process name
+      schema:
+        type: string
+    domainParam:
+      name: domain
+      in: path
+      required: true
+      description: Credential store domain
+      schema:
+        type: string
+    aliasParam:
+      name: alias
+      in: path
+      required: true
+      description: Credential alias name
+      schema:
+        type: string
+    distpathParam:
+      name: distpath
+      in: path
+      required: true
+      description: Distribution path name
+      schema:
+        type: string
+    mpointItemParam:
+      name: item
+      in: path
+      required: true
+      description: Process name for metrics
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        severity:
+          type: string
+    ServiceHealth:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+        services:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              port:
+                type: integer
+    ExtractList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractSummary'
+    ExtractSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+    Extract:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - cdc
+            - initialload
+            - datapump
+        status:
+          type: string
+          enum:
+            - running
+            - stopped
+            - abended
+        trail:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+    CreateExtractRequest:
+      type: object
+      required:
+        - type
+        - trail
+        - config
+      properties:
+        type:
+          type: string
+          enum:
+            - cdc
+            - initialload
+            - datapump
+        trail:
+          type: string
+        begin:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+    UpdateExtractRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+    ReplicatList:
+      type: object
+      properties:
+        replicats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicatSummary'
+    ReplicatSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        handler:
+          type: string
+          description: Big data handler type (e.g., kafka, hdfs, mongodb)
+    Replicat:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Replicat process name
+        type:
+          type: string
+          enum:
+            - classic
+            - coordinated
+            - integrated
+            - parallel
+        status:
+          type: string
+          enum:
+            - running
+            - stopped
+            - abended
+        trail:
+          type: string
+          description: Source trail file
+        handler:
+          type: string
+          description: Big data handler type
+          enum:
+            - kafka
+            - kafkaconnect
+            - hdfs
+            - hbase
+            - cassandra
+            - mongodb
+            - elasticsearch
+            - jdbc
+            - kinesis
+            - bigquery
+            - pubsub
+            - objectstorage
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content including handler configuration
+        handlerProperties:
+          type: string
+          description: Path to handler properties file
+    CreateReplicatRequest:
+      type: object
+      required:
+        - type
+        - trail
+        - config
+      properties:
+        type:
+          type: string
+          enum:
+            - classic
+            - coordinated
+            - integrated
+            - parallel
+        trail:
+          type: string
+        begin:
+          type: string
+        config:
+          type: array
+          items:
+            type: string
+        checkpointTable:
+          type: string
+    UpdateReplicatRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+    ProcessCommand:
+      type: object
+      required:
+        - action
+      properties:
+        action:
+          type: string
+          enum:
+            - start
+            - stop
+            - kill
+            - forcestop
+            - status
+            - stats
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        lag:
+          type: string
+        since:
+          type: string
+          format: date-time
+    DataTargetTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Handler type name
+              description:
+                type: string
+    DataTargetTypeSchema:
+      type: object
+      description: JSON Schema describing the handler configuration properties
+      properties:
+        type:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+    CredentialDomainList:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              aliasCount:
+                type: integer
+    CredentialAlias:
+      type: object
+      properties:
+        domain:
+          type: string
+        alias:
+          type: string
+        userid:
+          type: string
+    CreateCredentialRequest:
+      type: object
+      required:
+        - userid
+        - password
+      properties:
+        userid:
+          type: string
+        password:
+          type: string
+          format: password
+    ConfigFileList:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              lastModified:
+                type: string
+                format: date-time
+    ConfigFile:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    ConfigFileContent:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+    TrailList:
+      type: object
+      properties:
+        trails:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+              sequence:
+                type: integer
+    DistributionPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionPathSummary'
+    DistributionPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        source:
+          type: string
+        target:
+          type: string
+    DistributionPath:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        source:
+          type: string
+        target:
+          type: string
+    CreateDistributionPathRequest:
+      type: object
+      required:
+        - source
+        - target
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+    ExecuteCommandRequest:
+      type: object
+      required:
+        - command
+      properties:
+        command:
+          type: string
+    ProcessMetricsList:
+      type: object
+      properties:
+        processes:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              status:
+                type: string
+              lag:
+                type: number
+              operationsProcessed:
+                type: integer
+                format: int64
+    ReplicatStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+        totalOperations:
+          type: integer
+          format: int64
+        inserts:
+          type: integer
+          format: int64
+        updates:
+          type: integer
+          format: int64
+        deletes:
+          type: integer
+          format: int64
+        handlerStatistics:
+          type: object
+          properties:
+            recordsWritten:
+              type: integer
+              format: int64
+            bytesWritten:
+              type: integer
+              format: int64
+            batchesProcessed:
+              type: integer
+              format: int64

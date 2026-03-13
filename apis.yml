@@ -3,7 +3,7 @@ description: Oracle GoldenGate enables real-time data integration and replicatio
 image: https://www.oracle.com/a/ocom/img/cb71-oracle-goldengate.jpg
 url: https://www.oracle.com/integration/goldengate/
 created: '2024-01-15'
-modified: '2024-01-15'
+modified: '2026-03-03'
 specificationVersion: '0.18'
 apis:
 - name: Oracle GoldenGate REST API
@@ -21,9 +21,19 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
   - type: OpenAPI
-    url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/op-services-v2-deployments-deployment-services-service-get.html
+    url: openapi/oracle-goldengate-rest-api-openapi.yml
   - type: Authentication
     url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/authentication.html
+  - type: Documentation (26ai)
+    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
+  - type: Authentication (26ai)
+    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/authenticate.html
+  - type: Getting Started
+    url: https://docs.oracle.com/en/database/goldengate/core/26/
+  - type: Tutorials
+    url: https://docs.oracle.com/en/database/goldengate/core/26/tutorials.html
+  - type: Change Log
+    url: https://docs.oracle.com/en/database/goldengate/core/26/release-notes/
   contact:
   - type: Support
     url: https://support.oracle.com
@@ -41,6 +51,8 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+  - type: OpenAPI
+    url: openapi/oracle-goldengate-big-data-rest-api-openapi.yml
   - type: Getting Started
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   contact:
@@ -50,7 +62,7 @@ apis:
   description: API for Oracle GoldenGate Veridata to verify and compare data between source and target systems
   image: https://www.oracle.com/a/ocom/img/cb71-oracle-goldengate.jpg
   humanUrl: https://docs.oracle.com/en/middleware/goldengate/veridata/
-  baseUrl: https://<veridata-host>:<port>/api/v1
+  baseUrl: https://<veridata-host>:<port>/veridata/v1
   tags:
   - Data Validation
   - Data Verification
@@ -61,6 +73,12 @@ apis:
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: API Reference
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdra/index.html
+  - type: OpenAPI
+    url: openapi/oracle-goldengate-veridata-rest-api-openapi.yml
+  - type: Documentation (26c)
+    url: https://docs.oracle.com/en/database/goldengate/veridata/26/
+  - type: Change Log
+    url: https://docs.oracle.com/en/database/goldengate/veridata/26/gvdrn/index.html
   contact:
   - type: Support
     url: https://support.oracle.com
@@ -78,11 +96,70 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/latest/
   - type: OpenAPI
-    url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/latest/
+    url: openapi/oracle-goldengate-cloud-service-api-openapi.yml
   - type: SDK
     url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm
   - type: CLI
     url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm
+  - type: Getting Started
+    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/index.html
+  - type: Authentication
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm
+  - type: Tutorials
+    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/tutorials.html
+  - type: Change Log
+    url: https://docs.oracle.com/en-us/iaas/releasenotes/services/goldengate/
+  - type: Terraform
+    url: https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/golden_gate_deployment
+  - type: Python SDK
+    url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
+  - type: Using REST API
+    url: https://docs.oracle.com/en-us/iaas/goldengate/doc/using-rest-api.html
+  contact:
+  - type: Support
+    url: https://support.oracle.com
+- name: Oracle GoldenGate Stream Analytics REST API
+  description: REST API for managing Oracle GoldenGate Stream Analytics pipelines, enabling real-time event stream processing, monitoring, and dashboard creation
+  image: https://www.oracle.com/a/ocom/img/cb71-oracle-goldengate.jpg
+  humanUrl: https://docs.oracle.com/en/database/goldengate/stream-analytics/index.html
+  baseUrl: https://<ggsa-host>:<port>/osa
+  tags:
+  - Stream Analytics
+  - Event Processing
+  - Real-time Analytics
+  - Dashboards
+  - Spark
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
+  - type: API Reference
+    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+  - type: OpenAPI
+    url: openapi/oracle-goldengate-stream-analytics-rest-api-openapi.yml
+  - type: Getting Started
+    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
+  - type: Change Log
+    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+  contact:
+  - type: Support
+    url: https://support.oracle.com
+- name: Oracle GoldenGate Data Streams REST API
+  description: REST API for distributing and managing Oracle GoldenGate data streams, enabling real-time data distribution to downstream consumers
+  image: https://www.oracle.com/a/ocom/img/cb71-oracle-goldengate.jpg
+  humanUrl: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+  baseUrl: https://<goldengate-host>:<port>/services/v2
+  tags:
+  - Data Streams
+  - Data Distribution
+  - Real-time
+  - Streaming
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+  - type: OpenAPI
+    url: openapi/oracle-goldengate-data-streams-rest-api-openapi.yml
+  - type: Getting Started
+    url: https://docs.oracle.com/en/database/goldengate/core/26/
   contact:
   - type: Support
     url: https://support.oracle.com
@@ -99,10 +176,42 @@ common:
   url: https://www.oracle.com/legal/terms.html
 - type: Privacy Policy
   url: https://www.oracle.com/legal/privacy/
+- type: Documentation
+  url: https://docs.oracle.com/en/cloud/paas/goldengate-service/docs.html
+- type: Sign Up
+  url: https://www.oracle.com/cloud/free/
+- type: Login
+  url: https://cloud.oracle.com/
+- type: Status
+  url: https://ocistatus.oraclecloud.com/
+- type: Support
+  url: https://support.oracle.com
+- type: Forum
+  url: https://community.oracle.com/tech/developers/categories/goldengatenested
+- type: Knowledge Hub
+  url: https://www.oracle.com/integration/goldengate/knowledge-hub/
+- type: GitHub
+  url: https://github.com/oracle/docker-images/tree/main/OracleGoldenGate
+- type: Features
+  url: https://www.oracle.com/integration/goldengate/features/
+- type: Downloads
+  url: https://www.oracle.com/middleware/technologies/goldengate-downloads.html
+- type: Free Trial
+  url: https://www.oracle.com/integration/goldengate/free/
+- type: Training
+  url: https://education.oracle.com/data-integration/goldengate/product_148
+- type: Tutorials
+  url: https://docs.oracle.com/en/cloud/paas/goldengate-service/tutorials.html
+- type: Release Notes
+  url: https://docs.oracle.com/en/database/goldengate/core/26/release-notes/
+- type: JSONSchema
+  url: json-schema/oracle-goldengate-deployment-schema.json
+- type: JSON-LD
+  url: json-ld/oracle-goldengate-context.jsonld
 maintainers:
-- name: Oracle Corporation
-  email: goldengate_ww_grp@oracle.com
-  url: https://www.oracle.com
+- name: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
 tags:
 - Data Integration
 - Real-time Replication

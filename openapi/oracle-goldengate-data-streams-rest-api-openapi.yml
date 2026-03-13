@@ -1,0 +1,445 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate Data Streams REST API
+  description: >-
+    REST API for managing Oracle GoldenGate Data Streams, enabling real-time
+    data distribution to downstream consumers via the Distribution Server.
+    Provides operations for creating, retrieving, updating, and deleting data
+    stream configurations, as well as managing AsyncAPI specifications for
+    stream metadata. Based on Oracle GoldenGate 26ai Data Streams REST API
+    documentation.
+  version: '2.0'
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+      description: Oracle GoldenGate Data Streams REST API Documentation
+servers:
+  - url: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate Microservices server
+    variables:
+      goldengate-host:
+        default: localhost
+        description: GoldenGate server host
+      port:
+        default: '443'
+        description: HTTPS port
+security:
+  - basicAuth: []
+tags:
+  - name: Data Streams
+    description: Manage data stream configurations
+  - name: AsyncAPI
+    description: Manage AsyncAPI specifications for data streams
+paths:
+  /services/v2/stream:
+    get:
+      operationId: listDataStreams
+      summary: List data streams
+      description: Returns a list of all configured data stream resources.
+      tags:
+        - Data Streams
+      responses:
+        '200':
+          description: Data streams listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStreamList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v2/stream/{streamname}:
+    get:
+      operationId: getDataStream
+      summary: Retrieve a data stream
+      description: Returns the configuration of a specific data stream.
+      tags:
+        - Data Streams
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      responses:
+        '200':
+          description: Data stream retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStream'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createDataStream
+      summary: Create a data stream
+      description: >-
+        Creates a new data stream configuration that defines how trail data
+        is distributed to downstream consumers. Supports distribution to
+        Kafka, REST endpoints, OCI Streaming, and other targets.
+      tags:
+        - Data Streams
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataStreamRequest'
+      responses:
+        '201':
+          description: Data stream created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStream'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+    patch:
+      operationId: updateDataStream
+      summary: Update a data stream
+      description: Updates the configuration of an existing data stream.
+      tags:
+        - Data Streams
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataStreamRequest'
+      responses:
+        '200':
+          description: Data stream updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStream'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDataStream
+      summary: Delete a data stream
+      description: Deletes a data stream configuration.
+      tags:
+        - Data Streams
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      responses:
+        '204':
+          description: Data stream deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v2/stream/{streamname}/yaml:
+    get:
+      operationId: getAsyncApiSpec
+      summary: Get AsyncAPI specification
+      description: >-
+        Retrieves the AsyncAPI YAML specification for a data stream, describing
+        the stream's channels, messages, and schemas for downstream consumers.
+      tags:
+        - AsyncAPI
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      responses:
+        '200':
+          description: AsyncAPI specification retrieved
+          content:
+            application/x-yaml:
+              schema:
+                type: string
+                description: AsyncAPI YAML specification document
+            text/yaml:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateAsyncApiSpec
+      summary: Update AsyncAPI specification
+      description: >-
+        Updates the AsyncAPI YAML specification for a data stream. Allows
+        customization of the stream metadata exposed to consumers.
+      tags:
+        - AsyncAPI
+      parameters:
+        - $ref: '#/components/parameters/streamnameParam'
+      requestBody:
+        required: true
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+              description: AsyncAPI YAML specification document
+          text/yaml:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: AsyncAPI specification updated
+          content:
+            application/x-yaml:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with GoldenGate credentials
+  parameters:
+    streamnameParam:
+      name: streamname
+      in: path
+      required: true
+      description: Name of the data stream resource
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    DataStreamList:
+      type: object
+      properties:
+        streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataStreamSummary'
+    DataStreamSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Data stream name
+        status:
+          type: string
+          description: Stream status
+        source:
+          type: string
+          description: Source trail or extract
+    DataStream:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Unique data stream name
+        description:
+          type: string
+          description: Stream description
+        status:
+          type: string
+          description: Current stream status
+          enum:
+            - active
+            - inactive
+            - error
+        source:
+          type: object
+          description: Source configuration
+          properties:
+            trailName:
+              type: string
+              description: Source trail file name
+            extractName:
+              type: string
+              description: Source extract process name
+            beginPosition:
+              type: string
+              description: Begin position in the trail
+        target:
+          type: object
+          description: Target distribution configuration
+          properties:
+            type:
+              type: string
+              description: Target type for data distribution
+              enum:
+                - kafka
+                - rest
+                - ocistreaming
+                - goldengate
+            uri:
+              type: string
+              description: Target connection URI
+            topicName:
+              type: string
+              description: Topic or channel name for the target
+            format:
+              type: string
+              description: Output message format
+              enum:
+                - json
+                - avro
+                - protobuf
+        filters:
+          type: array
+          description: Table and operation filters
+          items:
+            type: object
+            properties:
+              schema:
+                type: string
+                description: Schema filter pattern
+              table:
+                type: string
+                description: Table filter pattern
+              operations:
+                type: array
+                description: Operations to include
+                items:
+                  type: string
+                  enum:
+                    - INSERT
+                    - UPDATE
+                    - DELETE
+                    - TRUNCATE
+        asyncApiSpec:
+          type: string
+          description: Path to the AsyncAPI specification
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateDataStreamRequest:
+      type: object
+      required:
+        - source
+        - target
+      properties:
+        description:
+          type: string
+        source:
+          type: object
+          required:
+            - trailName
+          properties:
+            trailName:
+              type: string
+            extractName:
+              type: string
+            beginPosition:
+              type: string
+        target:
+          type: object
+          required:
+            - type
+            - uri
+          properties:
+            type:
+              type: string
+              enum:
+                - kafka
+                - rest
+                - ocistreaming
+                - goldengate
+            uri:
+              type: string
+            topicName:
+              type: string
+            format:
+              type: string
+              enum:
+                - json
+                - avro
+                - protobuf
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              schema:
+                type: string
+              table:
+                type: string
+              operations:
+                type: array
+                items:
+                  type: string
+    UpdateDataStreamRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+        target:
+          type: object
+          properties:
+            type:
+              type: string
+            uri:
+              type: string
+            topicName:
+              type: string
+            format:
+              type: string
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              schema:
+                type: string
+              table:
+                type: string
+              operations:
+                type: array
+                items:
+                  type: string

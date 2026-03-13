@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/oracle-goldengate/json-schema/oracle-goldengate-deployment-schema.json",
+  "title": "Oracle GoldenGate Deployment",
+  "description": "Schema representing an Oracle GoldenGate deployment including its services, processes, connections, and configuration. Covers both on-premises Microservices Architecture deployments and OCI GoldenGate cloud deployments.",
+  "type": "object",
+  "properties": {
+    "deployment": {
+      "type": "object",
+      "description": "Core deployment configuration",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique name of the GoldenGate deployment"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable display name for the deployment"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the deployment purpose and configuration"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current deployment status",
+          "enum": ["running", "stopped", "error", "creating", "updating", "deleting"]
+        },
+        "oggHome": {
+          "type": "string",
+          "description": "Oracle GoldenGate home directory path"
+        },
+        "oggVersion": {
+          "type": "string",
+          "description": "GoldenGate software version (e.g., 21.3.0, 23.0.0, 26.0.0)"
+        },
+        "deploymentType": {
+          "type": "string",
+          "description": "Type of GoldenGate deployment",
+          "enum": ["OGG", "DATABASE_ORACLE", "BIGDATA", "DATABASE_MYSQL", "DATABASE_POSTGRESQL", "DATABASE_SQLSERVER"]
+        },
+        "licenseModel": {
+          "type": "string",
+          "description": "License model for cloud deployments",
+          "enum": ["LICENSE_INCLUDED", "BRING_YOUR_OWN_LICENSE"]
+        },
+        "fqdn": {
+          "type": "string",
+          "description": "Fully qualified domain name for the deployment"
+        },
+        "publicIpAddress": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "Public IP address (cloud deployments)"
+        },
+        "privateIpAddress": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "Private IP address"
+        },
+        "deploymentUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to access the deployment console"
+        },
+        "cpuCoreCount": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of CPU cores allocated (cloud deployments)"
+        },
+        "isAutoScalingEnabled": {
+          "type": "boolean",
+          "description": "Whether auto-scaling is enabled"
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether the deployment has a public IP"
+        },
+        "subnetId": {
+          "type": "string",
+          "description": "OCI subnet OCID for cloud deployments"
+        },
+        "compartmentId": {
+          "type": "string",
+          "description": "OCI compartment OCID for cloud deployments"
+        },
+        "timeCreated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the deployment was created"
+        },
+        "timeUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the deployment was last updated"
+        }
+      },
+      "required": ["name"]
+    },
+    "services": {
+      "type": "array",
+      "description": "Microservices within the deployment",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Service name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of GoldenGate microservice",
+            "enum": ["ServiceManager", "AdminServer", "DistributionServer", "ReceiverServer", "PerformanceMetricsServer"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "error"]
+          },
+          "port": {
+            "type": "integer",
+            "description": "Service listening port"
+          },
+          "secure": {
+            "type": "boolean",
+            "description": "Whether the service uses SSL/TLS"
+          }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "extracts": {
+      "type": "array",
+      "description": "Extract processes for change data capture",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Extract process name (max 8 characters)"
+          },
+          "type": {
+            "type": "string",
+            "description": "Extract type",
+            "enum": ["cdc", "initialload", "datapump"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "abended", "starting"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "trail": {
+            "type": "string",
+            "description": "Output trail file prefix"
+          },
+          "trailSize": {
+            "type": "integer",
+            "description": "Trail file size in MB"
+          },
+          "begin": {
+            "type": "string",
+            "description": "Begin position (NOW, SCN, or timestamp)"
+          },
+          "config": {
+            "type": "array",
+            "description": "Parameter file lines",
+            "items": {
+              "type": "string"
+            }
+          },
+          "credentials": {
+            "$ref": "#/$defs/credentials"
+          },
+          "lag": {
+            "type": "number",
+            "description": "Current lag in seconds"
+          },
+          "checkpoint": {
+            "$ref": "#/$defs/checkpoint"
+          }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "replicats": {
+      "type": "array",
+      "description": "Replicat processes for data apply",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Replicat process name (max 8 characters)"
+          },
+          "type": {
+            "type": "string",
+            "description": "Replicat type",
+            "enum": ["classic", "coordinated", "integrated", "parallel"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "abended", "starting"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "trail": {
+            "type": "string",
+            "description": "Source trail file prefix"
+          },
+          "checkpointTable": {
+            "type": "string",
+            "description": "Checkpoint table name (schema.table)"
+          },
+          "config": {
+            "type": "array",
+            "description": "Parameter file lines",
+            "items": {
+              "type": "string"
+            }
+          },
+          "credentials": {
+            "$ref": "#/$defs/credentials"
+          },
+          "lag": {
+            "type": "number",
+            "description": "Current lag in seconds"
+          },
+          "checkpoint": {
+            "$ref": "#/$defs/checkpoint"
+          }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "connections": {
+      "type": "array",
+      "description": "Database connections",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Connection name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Database or connection type",
+            "enum": [
+              "ORACLE", "MYSQL", "POSTGRESQL", "MICROSOFT_SQLSERVER",
+              "MONGODB", "KAFKA", "KAFKA_SCHEMA_REGISTRY", "ELASTICSEARCH",
+              "AMAZON_S3", "AMAZON_KINESIS", "AZURE_DATA_LAKE_STORAGE",
+              "GOOGLE_BIGQUERY", "GOOGLE_CLOUD_STORAGE", "HDFS",
+              "OCI_OBJECT_STORAGE", "REDIS", "SNOWFLAKE", "DB2",
+              "JAVA_MESSAGE_SERVICE", "GOLDENGATE", "GENERIC"
+            ]
+          },
+          "connectionString": {
+            "type": "string",
+            "description": "Database connection string or URI"
+          },
+          "credentials": {
+            "$ref": "#/$defs/credentials"
+          },
+          "lifecycleState": {
+            "type": "string",
+            "description": "Connection state (for cloud connections)",
+            "enum": ["CREATING", "ACTIVE", "UPDATING", "DELETING", "DELETED", "FAILED"]
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "distributionPaths": {
+      "type": "array",
+      "description": "Distribution paths for trail data delivery",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Distribution path name"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "error"]
+          },
+          "source": {
+            "type": "string",
+            "description": "Source trail file"
+          },
+          "target": {
+            "type": "string",
+            "description": "Target receiver URL or address"
+          },
+          "targetType": {
+            "type": "string",
+            "description": "Type of target"
+          }
+        },
+        "required": ["name", "source", "target"]
+      }
+    },
+    "receiverPaths": {
+      "type": "array",
+      "description": "Receiver/collector paths for receiving trail data",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Collector path name"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "stopped", "error"]
+          },
+          "trail": {
+            "type": "string",
+            "description": "Target trail file"
+          },
+          "port": {
+            "type": "integer",
+            "description": "Listening port"
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "dataStreams": {
+      "type": "array",
+      "description": "Data stream configurations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Data stream name"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive", "error"]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "trailName": {
+                "type": "string"
+              },
+              "extractName": {
+                "type": "string"
+              }
+            }
+          },
+          "target": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["kafka", "rest", "ocistreaming", "goldengate"]
+              },
+              "uri": {
+                "type": "string"
+              },
+              "topicName": {
+                "type": "string"
+              },
+              "format": {
+                "type": "string",
+                "enum": ["json", "avro", "protobuf"]
+              }
+            }
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "heartbeat": {
+      "type": "object",
+      "description": "Heartbeat table configuration for lag monitoring",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Schema owner of the heartbeat table"
+        },
+        "tableName": {
+          "type": "string",
+          "description": "Heartbeat table name"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "Update frequency in seconds"
+        },
+        "retentionTime": {
+          "type": "integer",
+          "description": "Retention time in days"
+        }
+      }
+    },
+    "tags": {
+      "type": "object",
+      "description": "User-defined tags (free-form and defined tags for cloud deployments)",
+      "properties": {
+        "freeformTags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "definedTags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "required": ["deployment"],
+  "$defs": {
+    "credentials": {
+      "type": "object",
+      "description": "Credential store reference",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "description": "Credential domain name"
+        },
+        "alias": {
+          "type": "string",
+          "description": "Credential alias name"
+        }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "description": "Process checkpoint position",
+      "properties": {
+        "readCheckpoint": {
+          "type": "object",
+          "properties": {
+            "sequenceNumber": {
+              "type": "integer"
+            },
+            "rba": {
+              "type": "integer",
+              "description": "Relative byte address"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "writeCheckpoint": {
+          "type": "object",
+          "properties": {
+            "sequenceNumber": {
+              "type": "integer"
+            },
+            "rba": {
+              "type": "integer"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  }
+}

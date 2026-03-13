@@ -1,0 +1,520 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate Stream Analytics REST API
+  description: >-
+    REST API for managing Oracle GoldenGate Stream Analytics (GGSA) pipelines
+    and users. Enables CI/CD integration by providing programmatic access to
+    export, import, publish, and unpublish stream processing pipelines, as well
+    as manage user accounts and roles. Based on Oracle GoldenGate Stream
+    Analytics 19.1 REST API documentation.
+  version: 19.1.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+    - url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/rest-endpoints.html
+      description: GoldenGate Stream Analytics REST API Reference
+servers:
+  - url: https://{ggsa-host}:{port}/osa
+    description: Oracle GoldenGate Stream Analytics server
+    variables:
+      ggsa-host:
+        default: localhost
+        description: GGSA server host
+      port:
+        default: '9080'
+        description: GGSA HTTP/S port
+security:
+  - basicAuth: []
+tags:
+  - name: Pipelines
+    description: Manage stream processing pipelines
+  - name: Artifacts
+    description: Import and export GGSA artifacts
+  - name: Users
+    description: User management and authorization
+paths:
+  /services/v1/pipelines:
+    get:
+      operationId: listPipelines
+      summary: List pipelines
+      description: >-
+        Returns a list of all GGSA pipelines with their current status.
+        Includes published and unpublished pipelines.
+      tags:
+        - Pipelines
+      responses:
+        '200':
+          description: Pipelines listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v1/pipelines/{id}/export:
+    get:
+      operationId: exportPipeline
+      summary: Export a pipeline
+      description: >-
+        Exports a GGSA pipeline and all its dependencies as a JSON artifact,
+        including sources, targets, references, connections, predictive models,
+        geo fences, visualizations, and custom jars.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+      responses:
+        '200':
+          description: Pipeline exported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineExport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v1/pipelines/{id}/publish:
+    patch:
+      operationId: publishPipeline
+      summary: Publish a pipeline
+      description: >-
+        Publishes a pipeline, deploying it to the Spark runtime for execution.
+        A published pipeline actively processes streaming data from configured
+        sources and writes results to configured targets.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishPipelineRequest'
+      responses:
+        '200':
+          description: Pipeline published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v1/pipelines/{id}/unpublish:
+    patch:
+      operationId: unpublishPipeline
+      summary: Unpublish a pipeline
+      description: >-
+        Unpublishes a pipeline, stopping its execution on the Spark runtime.
+        The pipeline configuration is preserved and can be re-published later.
+      tags:
+        - Pipelines
+      parameters:
+        - $ref: '#/components/parameters/pipelineIdParam'
+      responses:
+        '200':
+          description: Pipeline unpublished
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /services/v1/artifacts/import:
+    patch:
+      operationId: importArtifacts
+      summary: Import GGSA artifacts
+      description: >-
+        Imports GGSA artifacts (pipelines, sources, targets, connections, etc.)
+        from a previously exported JSON document. Supports CI/CD workflows by
+        enabling promotion of pipelines across environments.
+      tags:
+        - Artifacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactImport'
+      responses:
+        '200':
+          description: Artifacts imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v1/authorizations/{role}:
+    get:
+      operationId: listUsers
+      summary: List users for a role
+      description: Returns a list of all users assigned to a specific role.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services/v1/authorizations/{role}/{user}:
+    get:
+      operationId: getUser
+      summary: Retrieve a user
+      description: Returns details of a specific user in the given role.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      responses:
+        '200':
+          description: User retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createUser
+      summary: Create a user
+      description: Creates a new user with the specified role for GGSA access.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateUser
+      summary: Update a user
+      description: Updates user properties or role assignment.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/roleParam'
+        - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with GGSA credentials
+  parameters:
+    pipelineIdParam:
+      name: id
+      in: path
+      required: true
+      description: Pipeline identifier
+      schema:
+        type: string
+    roleParam:
+      name: role
+      in: path
+      required: true
+      description: Authorization role
+      schema:
+        type: string
+        enum:
+          - Admin
+          - Operator
+          - Viewer
+    userParam:
+      name: user
+      in: path
+      required: true
+      description: Username
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    PipelineList:
+      type: object
+      properties:
+        pipelines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline'
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Pipeline unique identifier
+        name:
+          type: string
+          description: Pipeline display name
+        description:
+          type: string
+        status:
+          type: string
+          description: Current pipeline status
+          enum:
+            - Draft
+            - Published
+            - Running
+            - Stopped
+            - Error
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineSource'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineTarget'
+        stages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineStage'
+    PipelineSource:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: Source type
+          enum:
+            - Kafka
+            - GoldenGate
+            - JMS
+            - REST
+            - CSV
+            - Database
+        connectionName:
+          type: string
+    PipelineTarget:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: Target type
+          enum:
+            - Kafka
+            - GoldenGate
+            - Database
+            - REST
+            - Elasticsearch
+            - ObjectStorage
+        connectionName:
+          type: string
+    PipelineStage:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - Query
+            - Pattern
+            - Rule
+            - ScoreModel
+            - Custom
+        description:
+          type: string
+    PipelineExport:
+      type: object
+      description: >-
+        Complete pipeline export including all dependencies (sources, targets,
+        connections, references, predictive models, geo fences, visualizations,
+        and custom jars)
+      properties:
+        pipeline:
+          $ref: '#/components/schemas/Pipeline'
+        connections:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              configuration:
+                type: object
+                additionalProperties: true
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+        customJars:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+    PublishPipelineRequest:
+      type: object
+      properties:
+        sparkConfig:
+          type: object
+          description: Optional Spark configuration overrides
+          additionalProperties:
+            type: string
+    ArtifactImport:
+      type: object
+      description: JSON document containing exported GGSA artifacts
+      properties:
+        pipeline:
+          type: object
+          additionalProperties: true
+        connections:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        references:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ImportResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        importedArtifacts:
+          type: integer
+        messages:
+          type: array
+          items:
+            type: string
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        description:
+          type: string
+    CreateUserRequest:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string
+          format: password
+        description:
+          type: string
+    UpdateUserRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          format: password
+        description:
+          type: string
