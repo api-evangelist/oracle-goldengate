@@ -1,10 +1,18 @@
+aid: oracle-goldengate
 name: Oracle GoldenGate APIs
-description: Oracle GoldenGate enables real-time data integration and replication in heterogeneous IT environments. These APIs provide programmatic access to manage and monitor GoldenGate deployments, processes, and configurations.
-image: https://www.oracle.com/a/ocom/img/cb71-oracle-goldengate.jpg
-url: https://www.oracle.com/integration/goldengate/
+description: >-
+  Oracle GoldenGate enables real-time data integration and replication in
+  heterogeneous IT environments. These APIs provide programmatic access to
+  manage and monitor GoldenGate deployments, processes, and configurations.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/oracle-goldengate/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-03-03'
-specificationVersion: '0.18'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis:
 - name: Oracle GoldenGate REST API
   description: RESTful API for managing Oracle GoldenGate Microservices Architecture, including deployment configuration, process management, and monitoring
@@ -209,9 +217,8 @@ common:
 - type: JSON-LD
   url: json-ld/oracle-goldengate-context.jsonld
 maintainers:
-- name: Kin Lane
-  email: kin@apievangelist.com
-  url: https://apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 tags:
 - Data Integration
 - Real-time Replication
