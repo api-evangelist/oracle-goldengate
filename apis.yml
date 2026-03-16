@@ -1,5 +1,5 @@
 aid: oracle-goldengate
-name: Oracle GoldenGate APIs
+name: Oracle GoldenGate
 description: >-
   Oracle GoldenGate enables real-time data integration and replication in
   heterogeneous IT environments. These APIs provide programmatic access to
