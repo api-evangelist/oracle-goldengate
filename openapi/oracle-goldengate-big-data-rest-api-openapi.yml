@@ -31,26 +31,24 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: Replicats
-    description: Manage Replicat processes targeting big data systems
-  - name: Extracts
-    description: Manage Extract processes for source data capture
+  - name: Commands
+    description: Execute GoldenGate commands
   - name: Configuration
     description: Configuration files and settings for big data handlers
   - name: Credentials
     description: Manage credential store for big data target connections
-  - name: Connections
-    description: Database and target system connections
   - name: Data Targets
     description: Manage big data target type configurations
-  - name: Monitoring
-    description: Performance metrics and process monitoring
   - name: Distribution
     description: Distribution paths for trail data delivery
+  - name: Extracts
+    description: Manage Extract processes for source data capture
+  - name: Monitoring
+    description: Performance metrics and process monitoring
+  - name: Replicats
+    description: Manage Replicat processes targeting big data systems
   - name: Trails
     description: Trail file management
-  - name: Commands
-    description: Execute GoldenGate commands
 paths:
   /services/v2/config/health:
     get:

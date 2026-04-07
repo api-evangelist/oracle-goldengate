@@ -40,24 +40,24 @@ servers:
 security:
   - ociSignature: []
 tags:
-  - name: Deployments
-    description: Manage GoldenGate deployment instances
-  - name: Deployment Backups
-    description: Manage deployment backups
-  - name: Connections
-    description: Manage database and service connections
-  - name: Connection Assignments
-    description: Manage connection-to-deployment assignments
-  - name: Database Registrations
-    description: Manage registered source and target databases
-  - name: Pipelines
-    description: Manage data replication pipelines
   - name: Certificates
     description: Manage SSL certificates for deployments
-  - name: Work Requests
-    description: Track asynchronous operations
+  - name: Connection Assignments
+    description: Manage connection-to-deployment assignments
+  - name: Connections
+    description: Manage database and service connections
+  - name: Database Registrations
+    description: Manage registered source and target databases
+  - name: Deployment Backups
+    description: Manage deployment backups
   - name: Deployment Versions
     description: Query available deployment versions
+  - name: Deployments
+    description: Manage GoldenGate deployment instances
+  - name: Pipelines
+    description: Manage data replication pipelines
+  - name: Work Requests
+    description: Track asynchronous operations
 paths:
   /20200407/deployments:
     get:

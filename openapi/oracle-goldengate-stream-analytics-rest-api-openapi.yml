@@ -30,10 +30,10 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: Pipelines
-    description: Manage stream processing pipelines
   - name: Artifacts
     description: Import and export GGSA artifacts
+  - name: Pipelines
+    description: Manage stream processing pipelines
   - name: Users
     description: User management and authorization
 paths:

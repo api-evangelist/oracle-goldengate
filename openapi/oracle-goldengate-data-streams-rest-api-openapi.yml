@@ -31,10 +31,10 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: Data Streams
-    description: Manage data stream configurations
   - name: AsyncAPI
     description: Manage AsyncAPI specifications for data streams
+  - name: Data Streams
+    description: Manage data stream configurations
 paths:
   /services/v2/stream:
     get:

@@ -30,30 +30,30 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: Server
-    description: Server information and configuration
-  - name: Connections
-    description: Manage source and target database connections
-  - name: Groups
-    description: Manage compare groups
   - name: Compare Pairs
     description: Manage compare pairs within groups
-  - name: Jobs
-    description: Manage and execute comparison jobs
-  - name: Profiles
-    description: Manage comparison profiles
-  - name: Monitoring
-    description: Monitor comparison and repair statistics
+  - name: Connections
+    description: Manage source and target database connections
   - name: Execution
     description: Run and stop comparison jobs
-  - name: Repair
-    description: Repair out-of-sync data
+  - name: Groups
+    description: Manage compare groups
   - name: Import/Export
     description: Import and export Veridata configurations
-  - name: Users
-    description: User and user group management
+  - name: Jobs
+    description: Manage and execute comparison jobs
   - name: Logs
     description: Access server logs
+  - name: Monitoring
+    description: Monitor comparison and repair statistics
+  - name: Profiles
+    description: Manage comparison profiles
+  - name: Repair
+    description: Repair out-of-sync data
+  - name: Server
+    description: Server information and configuration
+  - name: Users
+    description: User and user group management
   - name: Validation
     description: Validate connections and configurations
 paths:

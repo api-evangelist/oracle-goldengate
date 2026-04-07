@@ -32,42 +32,40 @@ servers:
 security:
   - basicAuth: []
 tags:
-  - name: Deployments
-    description: Manage GoldenGate deployments via the Service Manager
-  - name: Services
-    description: Manage services within a deployment
-  - name: Extracts
-    description: Configure and manage Extract processes
-  - name: Replicats
-    description: Configure and manage Replicat processes
-  - name: Credentials
-    description: Manage credential store domains and aliases
-  - name: Connections
-    description: Manage database connections
-  - name: Heartbeat
-    description: Manage heartbeat tables for lag monitoring
-  - name: Configuration
-    description: Manage configuration settings and files
-  - name: Encryption
-    description: Manage encryption keys and profiles
-  - name: Trails
-    description: Manage trail files
-  - name: Distribution
-    description: Manage distribution paths for data delivery
-  - name: Receiver
-    description: Manage receiver/collector paths
-  - name: Monitoring
-    description: Performance metrics and monitoring
-  - name: Tasks
-    description: Manage automated tasks
-  - name: Users
-    description: User management and authorization
   - name: Certificates
     description: Manage SSL/TLS certificates
-  - name: Logs
-    description: Access service and process logs
   - name: Commands
     description: Execute GoldenGate commands
+  - name: Configuration
+    description: Manage configuration settings and files
+  - name: Connections
+    description: Manage database connections
+  - name: Credentials
+    description: Manage credential store domains and aliases
+  - name: Deployments
+    description: Manage GoldenGate deployments via the Service Manager
+  - name: Distribution
+    description: Manage distribution paths for data delivery
+  - name: Encryption
+    description: Manage encryption keys and profiles
+  - name: Extracts
+    description: Configure and manage Extract processes
+  - name: Heartbeat
+    description: Manage heartbeat tables for lag monitoring
+  - name: Logs
+    description: Access service and process logs
+  - name: Monitoring
+    description: Performance metrics and monitoring
+  - name: Receiver
+    description: Manage receiver/collector paths
+  - name: Replicats
+    description: Configure and manage Replicat processes
+  - name: Tasks
+    description: Manage automated tasks
+  - name: Trails
+    description: Manage trail files
+  - name: Users
+    description: User management and authorization
 paths:
   /services:
     get:
@@ -259,8 +257,7 @@ paths:
       operationId: listServices
       summary: Oracle GoldenGate List services for a deployment
       description: Returns a list of all services configured within a specific deployment.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/deploymentParam'
       responses:
@@ -279,8 +276,7 @@ paths:
       operationId: getService
       summary: Oracle GoldenGate Retrieve a service
       description: Returns the configuration and status of a specific service within a deployment.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/deploymentParam'
         - $ref: '#/components/parameters/serviceParam'
@@ -299,8 +295,7 @@ paths:
       operationId: createService
       summary: Oracle GoldenGate Create a service
       description: Creates a new service within a deployment.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/deploymentParam'
         - $ref: '#/components/parameters/serviceParam'
@@ -325,8 +320,7 @@ paths:
       operationId: updateService
       summary: Oracle GoldenGate Update service properties
       description: Updates the configuration properties of an existing service.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/deploymentParam'
         - $ref: '#/components/parameters/serviceParam'
@@ -351,8 +345,7 @@ paths:
       operationId: deleteService
       summary: Oracle GoldenGate Remove a service
       description: Removes a service from a deployment.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/deploymentParam'
         - $ref: '#/components/parameters/serviceParam'
