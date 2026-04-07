@@ -39,7 +39,7 @@ paths:
   /services/v2/stream:
     get:
       operationId: listDataStreams
-      summary: List data streams
+      summary: Oracle GoldenGate List data streams
       description: Returns a list of all configured data stream resources.
       tags:
         - Data Streams
@@ -55,7 +55,7 @@ paths:
   /services/v2/stream/{streamname}:
     get:
       operationId: getDataStream
-      summary: Retrieve a data stream
+      summary: Oracle GoldenGate Retrieve a data stream
       description: Returns the configuration of a specific data stream.
       tags:
         - Data Streams
@@ -74,7 +74,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createDataStream
-      summary: Create a data stream
+      summary: Oracle GoldenGate Create a data stream
       description: >-
         Creates a new data stream configuration that defines how trail data
         is distributed to downstream consumers. Supports distribution to
@@ -104,7 +104,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     patch:
       operationId: updateDataStream
-      summary: Update a data stream
+      summary: Oracle GoldenGate Update a data stream
       description: Updates the configuration of an existing data stream.
       tags:
         - Data Streams
@@ -131,7 +131,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDataStream
-      summary: Delete a data stream
+      summary: Oracle GoldenGate Delete a data stream
       description: Deletes a data stream configuration.
       tags:
         - Data Streams
@@ -147,7 +147,7 @@ paths:
   /services/v2/stream/{streamname}/yaml:
     get:
       operationId: getAsyncApiSpec
-      summary: Get AsyncAPI specification
+      summary: Oracle GoldenGate Get AsyncAPI specification
       description: >-
         Retrieves the AsyncAPI YAML specification for a data stream, describing
         the stream's channels, messages, and schemas for downstream consumers.
@@ -172,7 +172,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateAsyncApiSpec
-      summary: Update AsyncAPI specification
+      summary: Oracle GoldenGate Update AsyncAPI specification
       description: >-
         Updates the AsyncAPI YAML specification for a data stream. Allows
         customization of the stream metadata exposed to consumers.

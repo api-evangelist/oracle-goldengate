@@ -55,7 +55,7 @@ paths:
   /services/v2/config/health:
     get:
       operationId: getServiceHealth
-      summary: Get service health details
+      summary: Oracle GoldenGate Get service health details
       description: Returns detailed health information for the GoldenGate for Big Data service.
       tags:
         - Monitoring
@@ -71,7 +71,7 @@ paths:
   /services/v2/extracts:
     get:
       operationId: listExtracts
-      summary: List all Extract processes
+      summary: Oracle GoldenGate List all Extract processes
       description: Returns a list of all Extract processes configured for source data capture.
       tags:
         - Extracts
@@ -87,7 +87,7 @@ paths:
   /services/v2/extracts/{extract}:
     get:
       operationId: getExtract
-      summary: Retrieve an Extract process
+      summary: Oracle GoldenGate Retrieve an Extract process
       description: Returns configuration and status of a specific Extract process.
       tags:
         - Extracts
@@ -106,7 +106,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createExtract
-      summary: Create an Extract process
+      summary: Oracle GoldenGate Create an Extract process
       description: Creates a new Extract process for source data capture.
       tags:
         - Extracts
@@ -131,7 +131,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateExtract
-      summary: Update an Extract process
+      summary: Oracle GoldenGate Update an Extract process
       description: Updates the configuration of an existing Extract process.
       tags:
         - Extracts
@@ -156,7 +156,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteExtract
-      summary: Delete an Extract process
+      summary: Oracle GoldenGate Delete an Extract process
       description: Deletes an Extract process.
       tags:
         - Extracts
@@ -172,7 +172,7 @@ paths:
   /services/v2/extracts/{extract}/command:
     post:
       operationId: issueExtractCommand
-      summary: Issue a command to an Extract
+      summary: Oracle GoldenGate Issue a command to an Extract
       description: Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process.
       tags:
         - Extracts
@@ -198,7 +198,7 @@ paths:
   /services/v2/replicats:
     get:
       operationId: listReplicats
-      summary: List all Replicat processes
+      summary: Oracle GoldenGate List all Replicat processes
       description: >-
         Returns a list of all Replicat processes configured for big data targets
         such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch.
@@ -216,7 +216,7 @@ paths:
   /services/v2/replicats/{replicat}:
     get:
       operationId: getReplicat
-      summary: Retrieve a Replicat process
+      summary: Oracle GoldenGate Retrieve a Replicat process
       description: >-
         Returns the configuration and status of a Replicat process targeting
         a big data system. Includes handler configuration details.
@@ -237,7 +237,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createReplicat
-      summary: Create a Replicat process for a big data target
+      summary: Oracle GoldenGate Create a Replicat process for a big data target
       description: >-
         Creates a new Replicat process with a big data handler. Supported
         handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB,
@@ -266,7 +266,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateReplicat
-      summary: Update a Replicat process
+      summary: Oracle GoldenGate Update a Replicat process
       description: Updates the configuration of a Replicat targeting a big data system.
       tags:
         - Replicats
@@ -291,7 +291,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteReplicat
-      summary: Delete a Replicat process
+      summary: Oracle GoldenGate Delete a Replicat process
       description: Deletes a Replicat process targeting a big data system.
       tags:
         - Replicats
@@ -307,7 +307,7 @@ paths:
   /services/v2/replicats/{replicat}/command:
     post:
       operationId: issueReplicatCommand
-      summary: Issue a command to a Replicat
+      summary: Oracle GoldenGate Issue a command to a Replicat
       description: Issues an operational command to a Replicat process.
       tags:
         - Replicats
@@ -333,7 +333,7 @@ paths:
   /services/v2/replicats/{replicat}/info/status:
     get:
       operationId: getReplicatStatus
-      summary: Retrieve Replicat status
+      summary: Oracle GoldenGate Retrieve Replicat status
       description: Returns the current runtime status of a big data Replicat process.
       tags:
         - Replicats
@@ -353,7 +353,7 @@ paths:
   /services/v2/dataTargetTypes:
     get:
       operationId: listDataTargetTypes
-      summary: List available data target types
+      summary: Oracle GoldenGate List available data target types
       description: >-
         Returns the list of available big data target types including Kafka,
         HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery,
@@ -372,7 +372,7 @@ paths:
   /services/v2/dataTargetTypes/{dataTargetType}:
     get:
       operationId: getDataTargetTypeSchema
-      summary: Retrieve JSON schema for a data target type
+      summary: Oracle GoldenGate Retrieve JSON schema for a data target type
       description: Returns the JSON schema describing the configuration for a specific data target type handler.
       tags:
         - Data Targets
@@ -410,7 +410,7 @@ paths:
   /services/v2/credentials:
     get:
       operationId: listCredentialDomains
-      summary: List credential domains
+      summary: Oracle GoldenGate List credential domains
       description: Returns all credential store domains used for big data target authentication.
       tags:
         - Credentials
@@ -426,7 +426,7 @@ paths:
   /services/v2/credentials/{domain}/{alias}:
     get:
       operationId: getCredentialAlias
-      summary: Retrieve a credential alias
+      summary: Oracle GoldenGate Retrieve a credential alias
       description: Returns a credential alias used for target system authentication.
       tags:
         - Credentials
@@ -446,7 +446,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createCredentialAlias
-      summary: Create a credential alias
+      summary: Oracle GoldenGate Create a credential alias
       description: Creates a credential alias for authenticating with big data targets.
       tags:
         - Credentials
@@ -472,7 +472,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: replaceCredentialAlias
-      summary: Replace a credential alias
+      summary: Oracle GoldenGate Replace a credential alias
       description: Replaces an existing credential alias.
       tags:
         - Credentials
@@ -496,7 +496,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     delete:
       operationId: deleteCredentialAlias
-      summary: Delete a credential alias
+      summary: Oracle GoldenGate Delete a credential alias
       description: Deletes a credential alias.
       tags:
         - Credentials
@@ -513,7 +513,7 @@ paths:
   /services/v2/config/files:
     get:
       operationId: listConfigFiles
-      summary: List configuration files
+      summary: Oracle GoldenGate List configuration files
       description: Returns configuration files including handler properties for big data targets.
       tags:
         - Configuration
@@ -529,7 +529,7 @@ paths:
   /services/v2/config/files/{file}:
     get:
       operationId: getConfigFile
-      summary: Retrieve a configuration file
+      summary: Oracle GoldenGate Retrieve a configuration file
       description: >-
         Returns content of a configuration file, including handler property files
         for Kafka, HDFS, and other big data targets.
@@ -554,7 +554,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createConfigFile
-      summary: Create a configuration file
+      summary: Oracle GoldenGate Create a configuration file
       description: >-
         Creates a configuration file such as a Kafka handler properties file,
         custom formatter, or Avro schema mapping.
@@ -581,7 +581,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: replaceConfigFile
-      summary: Replace a configuration file
+      summary: Oracle GoldenGate Replace a configuration file
       description: Replaces the content of an existing configuration file.
       tags:
         - Configuration
@@ -606,7 +606,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConfigFile
-      summary: Delete a configuration file
+      summary: Oracle GoldenGate Delete a configuration file
       description: Deletes a configuration file.
       tags:
         - Configuration
@@ -626,7 +626,7 @@ paths:
   /services/v2/trails:
     get:
       operationId: listTrails
-      summary: List trail files
+      summary: Oracle GoldenGate List trail files
       description: Returns trail files used by big data replicats.
       tags:
         - Trails
@@ -642,7 +642,7 @@ paths:
   /services/v2/sources:
     get:
       operationId: listDistributionPaths
-      summary: List distribution paths
+      summary: Oracle GoldenGate List distribution paths
       description: Returns distribution paths configured for big data deployments.
       tags:
         - Distribution
@@ -658,7 +658,7 @@ paths:
   /services/v2/sources/{distpath}:
     get:
       operationId: getDistributionPath
-      summary: Retrieve a distribution path
+      summary: Oracle GoldenGate Retrieve a distribution path
       description: Returns a specific distribution path.
       tags:
         - Distribution
@@ -677,7 +677,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createDistributionPath
-      summary: Create a distribution path
+      summary: Oracle GoldenGate Create a distribution path
       description: Creates a distribution path for delivering trail data to a big data deployment.
       tags:
         - Distribution
@@ -702,7 +702,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     delete:
       operationId: deleteDistributionPath
-      summary: Delete a distribution path
+      summary: Oracle GoldenGate Delete a distribution path
       description: Deletes a distribution path.
       tags:
         - Distribution
@@ -718,7 +718,7 @@ paths:
   /services/v2/commands/execute:
     post:
       operationId: executeCommand
-      summary: Execute a GoldenGate command
+      summary: Oracle GoldenGate Execute a GoldenGate command
       description: Executes a GGSCI-style command against the Big Data Administrative Server.
       tags:
         - Commands
@@ -742,7 +742,7 @@ paths:
   /services/v2/mpoints/processes:
     get:
       operationId: listProcessMetrics
-      summary: Retrieve all process metrics
+      summary: Oracle GoldenGate Retrieve all process metrics
       description: Returns performance metrics for all running processes.
       tags:
         - Monitoring
@@ -758,7 +758,7 @@ paths:
   /services/v2/mpoints/{item}/statisticsReplicat:
     get:
       operationId: getReplicatStats
-      summary: Retrieve Replicat statistics
+      summary: Oracle GoldenGate Retrieve Replicat statistics
       description: Returns handler-level statistics for a big data Replicat including records written to the target.
       tags:
         - Monitoring

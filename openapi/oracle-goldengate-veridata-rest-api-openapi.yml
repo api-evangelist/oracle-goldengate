@@ -60,7 +60,7 @@ paths:
   /services/server/info:
     get:
       operationId: getServerInfo
-      summary: Retrieve server details
+      summary: Oracle GoldenGate Retrieve server details
       description: Returns server information including version, uptime, and system details.
       tags:
         - Server
@@ -76,7 +76,7 @@ paths:
   /services/server/configuration:
     get:
       operationId: getServerConfiguration
-      summary: Retrieve server configurations
+      summary: Oracle GoldenGate Retrieve server configurations
       description: Returns the current server configuration settings.
       tags:
         - Server
@@ -91,7 +91,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateServerConfiguration
-      summary: Update server configurations
+      summary: Oracle GoldenGate Update server configurations
       description: Updates server configuration settings.
       tags:
         - Server
@@ -115,7 +115,7 @@ paths:
   /services/server/configuration/reset:
     put:
       operationId: resetServerConfiguration
-      summary: Reset server configurations to default
+      summary: Oracle GoldenGate Reset server configurations to default
       description: Resets all server configuration settings to their factory default values.
       tags:
         - Server
@@ -131,7 +131,7 @@ paths:
   /services/configuration/connections:
     get:
       operationId: listConnections
-      summary: Retrieve all connections
+      summary: Oracle GoldenGate Retrieve all connections
       description: Returns a list of all configured source and target database connections.
       tags:
         - Connections
@@ -146,7 +146,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createConnection
-      summary: Create a connection
+      summary: Oracle GoldenGate Create a connection
       description: Creates a new database connection for use as a source or target in comparisons.
       tags:
         - Connections
@@ -170,7 +170,7 @@ paths:
   /services/configuration/connections/{Id}:
     get:
       operationId: getConnection
-      summary: Retrieve a connection
+      summary: Oracle GoldenGate Retrieve a connection
       description: Returns the details of a specific database connection.
       tags:
         - Connections
@@ -189,7 +189,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateConnection
-      summary: Update a connection
+      summary: Oracle GoldenGate Update a connection
       description: Updates properties of an existing database connection.
       tags:
         - Connections
@@ -216,7 +216,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConnection
-      summary: Delete a connection
+      summary: Oracle GoldenGate Delete a connection
       description: Deletes a database connection.
       tags:
         - Connections
@@ -232,7 +232,7 @@ paths:
   /services/configuration/connections/{Id}/status:
     get:
       operationId: getConnectionStatus
-      summary: Retrieve connection status
+      summary: Oracle GoldenGate Retrieve connection status
       description: Returns the connectivity status of a database connection.
       tags:
         - Connections
@@ -252,7 +252,7 @@ paths:
   /services/configuration/connections/{Id}/metadata:
     post:
       operationId: getConnectionMetadata
-      summary: Retrieve connection metadata
+      summary: Oracle GoldenGate Retrieve connection metadata
       description: Returns database metadata (schemas, tables, columns) for a connection.
       tags:
         - Connections
@@ -277,7 +277,7 @@ paths:
   /services/configuration/groups:
     get:
       operationId: listGroups
-      summary: Retrieve all compare groups
+      summary: Oracle GoldenGate Retrieve all compare groups
       description: Returns a list of all compare groups configured in Veridata.
       tags:
         - Groups
@@ -292,7 +292,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createGroup
-      summary: Create a compare group
+      summary: Oracle GoldenGate Create a compare group
       description: Creates a new compare group linking source and target connections for data comparison.
       tags:
         - Groups
@@ -316,7 +316,7 @@ paths:
   /services/configuration/groups/{Id}:
     get:
       operationId: getGroup
-      summary: Retrieve a compare group
+      summary: Oracle GoldenGate Retrieve a compare group
       description: Returns the details of a specific compare group including its source and target connections.
       tags:
         - Groups
@@ -335,7 +335,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateGroup
-      summary: Update a compare group
+      summary: Oracle GoldenGate Update a compare group
       description: Updates properties of an existing compare group.
       tags:
         - Groups
@@ -362,7 +362,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteGroup
-      summary: Delete a compare group
+      summary: Oracle GoldenGate Delete a compare group
       description: Deletes a compare group and its associated compare pairs.
       tags:
         - Groups
@@ -378,7 +378,7 @@ paths:
   /services/configuration/groups/clone/{Id}:
     post:
       operationId: cloneGroup
-      summary: Clone a compare group
+      summary: Oracle GoldenGate Clone a compare group
       description: Creates a copy of an existing compare group including all its compare pairs.
       tags:
         - Groups
@@ -403,7 +403,7 @@ paths:
   /services/configuration/groups/validate/{Id}:
     post:
       operationId: validateGroup
-      summary: Validate a compare group
+      summary: Oracle GoldenGate Validate a compare group
       description: Validates the configuration of a compare group including connection and table accessibility.
       tags:
         - Validation
@@ -423,7 +423,7 @@ paths:
   /services/configuration/cps/group/{groupId}:
     post:
       operationId: createComparePairs
-      summary: Create compare pairs in a group
+      summary: Oracle GoldenGate Create compare pairs in a group
       description: Creates one or more compare pairs within a specific compare group.
       tags:
         - Compare Pairs
@@ -449,7 +449,7 @@ paths:
   /services/configuration/cps/{Id}:
     get:
       operationId: getComparePair
-      summary: Retrieve a compare pair
+      summary: Oracle GoldenGate Retrieve a compare pair
       description: Returns the details of a specific compare pair including source and target table mappings.
       tags:
         - Compare Pairs
@@ -468,7 +468,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceComparePair
-      summary: Replace a compare pair
+      summary: Oracle GoldenGate Replace a compare pair
       description: Replaces the configuration of an existing compare pair.
       tags:
         - Compare Pairs
@@ -493,7 +493,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteComparePair
-      summary: Delete a compare pair
+      summary: Oracle GoldenGate Delete a compare pair
       description: Deletes a compare pair from its group.
       tags:
         - Compare Pairs
@@ -509,7 +509,7 @@ paths:
   /services/configuration/cps/{Id}/colmap:
     post:
       operationId: generateColumnMappings
-      summary: Generate column mapping pairs
+      summary: Oracle GoldenGate Generate column mapping pairs
       description: Automatically generates column mappings between source and target tables for a compare pair.
       tags:
         - Compare Pairs
@@ -529,7 +529,7 @@ paths:
   /services/configuration/cps/validate/{Id}:
     post:
       operationId: validateComparePair
-      summary: Validate a compare pair
+      summary: Oracle GoldenGate Validate a compare pair
       description: Validates the configuration of a compare pair including table and column accessibility.
       tags:
         - Validation
@@ -549,7 +549,7 @@ paths:
   /services/configuration/cps/mappings:
     post:
       operationId: generateMappingObjects
-      summary: Generate mapping objects from rules
+      summary: Oracle GoldenGate Generate mapping objects from rules
       description: Generates compare pair mappings based on mapping rules for automatic pair creation.
       tags:
         - Compare Pairs
@@ -571,7 +571,7 @@ paths:
   /services/configuration/jobs:
     get:
       operationId: listJobs
-      summary: Retrieve all jobs
+      summary: Oracle GoldenGate Retrieve all jobs
       description: Returns a list of all comparison jobs configured in Veridata.
       tags:
         - Jobs
@@ -586,7 +586,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createJob
-      summary: Create a job
+      summary: Oracle GoldenGate Create a job
       description: >-
         Creates a new comparison job that references one or more compare groups.
         Jobs control the execution of data comparisons.
@@ -612,7 +612,7 @@ paths:
   /services/configuration/jobs/{Id}:
     get:
       operationId: getJob
-      summary: Retrieve a job
+      summary: Oracle GoldenGate Retrieve a job
       description: Returns the details of a specific comparison job.
       tags:
         - Jobs
@@ -631,7 +631,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceJob
-      summary: Replace a job
+      summary: Oracle GoldenGate Replace a job
       description: Replaces the configuration of an existing comparison job.
       tags:
         - Jobs
@@ -656,7 +656,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteJob
-      summary: Delete a job
+      summary: Oracle GoldenGate Delete a job
       description: Deletes a comparison job.
       tags:
         - Jobs
@@ -672,7 +672,7 @@ paths:
   /services/configuration/profiles:
     get:
       operationId: listProfiles
-      summary: Retrieve all profiles
+      summary: Oracle GoldenGate Retrieve all profiles
       description: Returns a list of all comparison profiles that define comparison behavior settings.
       tags:
         - Profiles
@@ -687,7 +687,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createProfile
-      summary: Create a profile
+      summary: Oracle GoldenGate Create a profile
       description: Creates a new comparison profile with custom comparison settings.
       tags:
         - Profiles
@@ -711,7 +711,7 @@ paths:
   /services/configuration/profiles/{Id}:
     get:
       operationId: getProfile
-      summary: Retrieve a profile
+      summary: Oracle GoldenGate Retrieve a profile
       description: Returns the details of a specific comparison profile.
       tags:
         - Profiles
@@ -730,7 +730,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateProfile
-      summary: Update a profile
+      summary: Oracle GoldenGate Update a profile
       description: Updates properties of an existing comparison profile.
       tags:
         - Profiles
@@ -755,7 +755,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteProfile
-      summary: Delete a profile
+      summary: Oracle GoldenGate Delete a profile
       description: Deletes a comparison profile.
       tags:
         - Profiles
@@ -771,7 +771,7 @@ paths:
   /services/configuration/profiles/{Id}/reset:
     put:
       operationId: resetProfile
-      summary: Reset a profile to defaults
+      summary: Oracle GoldenGate Reset a profile to defaults
       description: Resets a comparison profile to its default settings.
       tags:
         - Profiles
@@ -791,7 +791,7 @@ paths:
   /services/execution/jobs/{Id}:
     post:
       operationId: runJob
-      summary: Run a comparison job
+      summary: Oracle GoldenGate Run a comparison job
       description: Starts execution of a comparison job to compare data between source and target databases.
       tags:
         - Execution
@@ -818,7 +818,7 @@ paths:
   /services/execution/jobs/{runId}/stop:
     post:
       operationId: stopJob
-      summary: Stop a running job
+      summary: Oracle GoldenGate Stop a running job
       description: Stops a currently running comparison job or specific compare pairs within it.
       tags:
         - Execution
@@ -838,7 +838,7 @@ paths:
   /services/monitoring/jobs:
     get:
       operationId: getJobStatistics
-      summary: Retrieve job statistics
+      summary: Oracle GoldenGate Retrieve job statistics
       description: Returns comparison statistics for completed and running jobs.
       tags:
         - Monitoring
@@ -854,7 +854,7 @@ paths:
   /services/monitoring/cps:
     get:
       operationId: getComparePairStatistics
-      summary: Retrieve compare pair statistics
+      summary: Oracle GoldenGate Retrieve compare pair statistics
       description: Returns detailed comparison statistics at the compare pair level.
       tags:
         - Monitoring
@@ -870,7 +870,7 @@ paths:
   /services/oos/{runId}:
     get:
       operationId: getOutOfSyncData
-      summary: Retrieve out-of-sync data
+      summary: Oracle GoldenGate Retrieve out-of-sync data
       description: Returns the rows identified as out-of-sync during a comparison run.
       tags:
         - Monitoring
@@ -890,7 +890,7 @@ paths:
   /services/monitoring/comparison/{runId}/reports:
     get:
       operationId: getComparisonReport
-      summary: Retrieve comparison report
+      summary: Oracle GoldenGate Retrieve comparison report
       description: Returns a detailed comparison report for a specific job run.
       tags:
         - Monitoring
@@ -910,7 +910,7 @@ paths:
   /services/repair/jobs/{runId}:
     post:
       operationId: repairJob
-      summary: Repair out-of-sync data
+      summary: Oracle GoldenGate Repair out-of-sync data
       description: Initiates a repair operation to synchronize out-of-sync rows found during a comparison.
       tags:
         - Repair
@@ -935,7 +935,7 @@ paths:
   /services/repair/jobs/{runId}/stop:
     post:
       operationId: stopRepairJob
-      summary: Stop a repair job
+      summary: Oracle GoldenGate Stop a repair job
       description: Stops a currently running repair operation.
       tags:
         - Repair
@@ -951,7 +951,7 @@ paths:
   /services/monitoring/repair/jobs:
     get:
       operationId: getRepairStatistics
-      summary: Retrieve repair statistics
+      summary: Oracle GoldenGate Retrieve repair statistics
       description: Returns statistics for repair operations.
       tags:
         - Repair
@@ -967,7 +967,7 @@ paths:
   /services/monitoring/repair/cps/{runId}:
     get:
       operationId: getRepairedRowDetails
-      summary: Retrieve repaired row details
+      summary: Oracle GoldenGate Retrieve repaired row details
       description: Returns detailed information about rows that were repaired during a repair operation.
       tags:
         - Repair
@@ -987,7 +987,7 @@ paths:
   /services/monitoring/repair/{runId}/reports:
     get:
       operationId: getRepairReport
-      summary: Retrieve repair report
+      summary: Oracle GoldenGate Retrieve repair report
       description: Returns a detailed repair report for a specific repair run.
       tags:
         - Repair
@@ -1007,7 +1007,7 @@ paths:
   /services/configuration/export:
     get:
       operationId: exportConfiguration
-      summary: Export Veridata configurations
+      summary: Oracle GoldenGate Export Veridata configurations
       description: Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document.
       tags:
         - Import/Export
@@ -1023,7 +1023,7 @@ paths:
   /services/configuration/import:
     post:
       operationId: importConfiguration
-      summary: Import Veridata XML configuration
+      summary: Oracle GoldenGate Import Veridata XML configuration
       description: Imports Veridata configurations from an XML document.
       tags:
         - Import/Export
@@ -1047,7 +1047,7 @@ paths:
   /services/configuration/vgpp:
     post:
       operationId: importGoldenGateParameterFile
-      summary: Import GoldenGate parameter file
+      summary: Oracle GoldenGate Import GoldenGate parameter file
       description: Imports a GoldenGate parameter file to automatically create compare pairs from table mappings.
       tags:
         - Import/Export
@@ -1071,7 +1071,7 @@ paths:
   /services/admin/users:
     get:
       operationId: listUsers
-      summary: Retrieve all users
+      summary: Oracle GoldenGate Retrieve all users
       description: Returns a list of all Veridata users.
       tags:
         - Users
@@ -1086,7 +1086,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createUser
-      summary: Create a user
+      summary: Oracle GoldenGate Create a user
       description: Creates a new Veridata user account.
       tags:
         - Users
@@ -1110,7 +1110,7 @@ paths:
   /services/admin/users/{Id}:
     get:
       operationId: getUser
-      summary: Retrieve a user
+      summary: Oracle GoldenGate Retrieve a user
       description: Returns the details of a specific user.
       tags:
         - Users
@@ -1129,7 +1129,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceUser
-      summary: Replace a user
+      summary: Oracle GoldenGate Replace a user
       description: Replaces user account details.
       tags:
         - Users
@@ -1154,7 +1154,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteUser
-      summary: Delete a user
+      summary: Oracle GoldenGate Delete a user
       description: Deletes a Veridata user account.
       tags:
         - Users
@@ -1170,7 +1170,7 @@ paths:
   /services/admin/usergroups:
     get:
       operationId: listUserGroups
-      summary: Retrieve all user groups
+      summary: Oracle GoldenGate Retrieve all user groups
       description: Returns a list of all user groups.
       tags:
         - Users
@@ -1185,7 +1185,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createUserGroup
-      summary: Create a user group
+      summary: Oracle GoldenGate Create a user group
       description: Creates a new user group with specified permissions.
       tags:
         - Users
@@ -1209,7 +1209,7 @@ paths:
   /services/admin/usergroups/{Id}:
     get:
       operationId: getUserGroup
-      summary: Retrieve a user group
+      summary: Oracle GoldenGate Retrieve a user group
       description: Returns the details of a user group.
       tags:
         - Users
@@ -1228,7 +1228,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceUserGroup
-      summary: Replace a user group
+      summary: Oracle GoldenGate Replace a user group
       description: Replaces a user group configuration.
       tags:
         - Users
@@ -1253,7 +1253,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteUserGroup
-      summary: Delete a user group
+      summary: Oracle GoldenGate Delete a user group
       description: Deletes a user group.
       tags:
         - Users
@@ -1269,7 +1269,7 @@ paths:
   /services/logs/server:
     get:
       operationId: getServerLogs
-      summary: Retrieve server logs
+      summary: Oracle GoldenGate Retrieve server logs
       description: Returns server log entries.
       tags:
         - Logs
@@ -1307,7 +1307,7 @@ paths:
   /services/validate/connection:
     post:
       operationId: validateAgentConnection
-      summary: Validate agent connection
+      summary: Oracle GoldenGate Validate agent connection
       description: Tests connectivity to a Veridata agent.
       tags:
         - Validation
@@ -1329,7 +1329,7 @@ paths:
   /services/validate/connection/db:
     post:
       operationId: validateDatabaseConnection
-      summary: Validate database connection
+      summary: Oracle GoldenGate Validate database connection
       description: Tests database connectivity through a Veridata agent.
       tags:
         - Validation
@@ -1351,7 +1351,7 @@ paths:
   /services/purge/stats:
     delete:
       operationId: purgeStatistics
-      summary: Purge comparison statistics
+      summary: Oracle GoldenGate Purge comparison statistics
       description: Deletes stored comparison and repair statistics data.
       tags:
         - Monitoring
@@ -1363,7 +1363,7 @@ paths:
   /auth/login:
     get:
       operationId: login
-      summary: Login to Veridata
+      summary: Oracle GoldenGate Login to Veridata
       description: Authenticates a user and establishes a session.
       tags:
         - Server
@@ -1386,7 +1386,7 @@ paths:
   /session/extend:
     get:
       operationId: extendSession
-      summary: Extend user session
+      summary: Oracle GoldenGate Extend user session
       description: Extends the current user session timeout.
       tags:
         - Server
@@ -1398,7 +1398,7 @@ paths:
   /session/invalidate:
     get:
       operationId: invalidateSession
-      summary: Invalidate session (logout)
+      summary: Oracle GoldenGate Invalidate session (logout)
       description: Invalidates the current user session.
       tags:
         - Server

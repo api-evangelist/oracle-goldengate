@@ -72,7 +72,7 @@ paths:
   /services:
     get:
       operationId: getApiVersions
-      summary: Retrieve API versions
+      summary: Oracle GoldenGate Retrieve API versions
       description: Returns the list of available REST API versions supported by this GoldenGate instance.
       tags:
         - Configuration
@@ -88,7 +88,7 @@ paths:
   /services/v2:
     get:
       operationId: describeApiVersion
-      summary: Describe API version v2
+      summary: Oracle GoldenGate Describe API version v2
       description: Returns details about the v2 REST API including available resources and metadata.
       tags:
         - Configuration
@@ -104,7 +104,7 @@ paths:
   /services/v2/config/summary:
     get:
       operationId: getConfigSummary
-      summary: Get service configuration summary
+      summary: Oracle GoldenGate Get service configuration summary
       description: Returns a summary of the current service configuration.
       tags:
         - Configuration
@@ -120,7 +120,7 @@ paths:
   /services/v2/config/health:
     get:
       operationId: getServiceHealthDetails
-      summary: Get service health details
+      summary: Oracle GoldenGate Get service health details
       description: Returns detailed health information for the GoldenGate service, including status of all components.
       tags:
         - Monitoring
@@ -136,7 +136,7 @@ paths:
   /services/v2/config/health/check:
     get:
       operationId: getServiceHealthCheck
-      summary: Get service health summary check
+      summary: Oracle GoldenGate Get service health summary check
       description: Returns a quick health check summary indicating overall service status.
       tags:
         - Monitoring
@@ -152,7 +152,7 @@ paths:
   /services/v2/deployments:
     get:
       operationId: listDeployments
-      summary: List all deployments
+      summary: Oracle GoldenGate List all deployments
       description: Returns a list of all GoldenGate deployments managed by the Service Manager.
       tags:
         - Deployments
@@ -168,7 +168,7 @@ paths:
   /services/v2/deployments/{deployment}:
     get:
       operationId: getDeployment
-      summary: Retrieve a deployment
+      summary: Oracle GoldenGate Retrieve a deployment
       description: Returns the configuration details of a specific GoldenGate deployment.
       tags:
         - Deployments
@@ -187,7 +187,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createDeployment
-      summary: Create a deployment
+      summary: Oracle GoldenGate Create a deployment
       description: Creates a new GoldenGate deployment with the specified configuration.
       tags:
         - Deployments
@@ -214,7 +214,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     patch:
       operationId: updateDeployment
-      summary: Update a deployment
+      summary: Oracle GoldenGate Update a deployment
       description: Updates configuration properties of an existing GoldenGate deployment.
       tags:
         - Deployments
@@ -241,7 +241,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDeployment
-      summary: Remove a deployment
+      summary: Oracle GoldenGate Remove a deployment
       description: Removes a GoldenGate deployment and its associated services.
       tags:
         - Deployments
@@ -257,7 +257,7 @@ paths:
   /services/v2/deployments/{deployment}/services:
     get:
       operationId: listServices
-      summary: List services for a deployment
+      summary: Oracle GoldenGate List services for a deployment
       description: Returns a list of all services configured within a specific deployment.
       tags:
         - Services
@@ -277,7 +277,7 @@ paths:
   /services/v2/deployments/{deployment}/services/{service}:
     get:
       operationId: getService
-      summary: Retrieve a service
+      summary: Oracle GoldenGate Retrieve a service
       description: Returns the configuration and status of a specific service within a deployment.
       tags:
         - Services
@@ -297,7 +297,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createService
-      summary: Create a service
+      summary: Oracle GoldenGate Create a service
       description: Creates a new service within a deployment.
       tags:
         - Services
@@ -323,7 +323,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateService
-      summary: Update service properties
+      summary: Oracle GoldenGate Update service properties
       description: Updates the configuration properties of an existing service.
       tags:
         - Services
@@ -349,7 +349,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteService
-      summary: Remove a service
+      summary: Oracle GoldenGate Remove a service
       description: Removes a service from a deployment.
       tags:
         - Services
@@ -366,7 +366,7 @@ paths:
   /services/v2/extracts:
     get:
       operationId: listExtracts
-      summary: List all Extract processes
+      summary: Oracle GoldenGate List all Extract processes
       description: Returns a list of all Extract processes configured in the GoldenGate instance.
       tags:
         - Extracts
@@ -382,7 +382,7 @@ paths:
   /services/v2/extracts/{extract}:
     get:
       operationId: getExtract
-      summary: Retrieve an Extract process
+      summary: Oracle GoldenGate Retrieve an Extract process
       description: Returns the configuration and current status of a specific Extract process.
       tags:
         - Extracts
@@ -401,7 +401,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createExtract
-      summary: Create an Extract process
+      summary: Oracle GoldenGate Create an Extract process
       description: >-
         Creates a new Extract process with the specified configuration. Supports
         initial-load, change-data-capture, and data-pump extract types.
@@ -430,7 +430,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     patch:
       operationId: updateExtract
-      summary: Update an Extract process
+      summary: Oracle GoldenGate Update an Extract process
       description: Updates the configuration of an existing Extract process.
       tags:
         - Extracts
@@ -455,7 +455,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteExtract
-      summary: Delete an Extract process
+      summary: Oracle GoldenGate Delete an Extract process
       description: Deletes an Extract process and optionally its associated trail files.
       tags:
         - Extracts
@@ -471,7 +471,7 @@ paths:
   /services/v2/extracts/{extract}/command:
     post:
       operationId: issueExtractCommand
-      summary: Issue a command to an Extract
+      summary: Oracle GoldenGate Issue a command to an Extract
       description: >-
         Issues an operational command to an Extract process such as START, STOP,
         KILL, STATUS, STATS, LAG, or INFO.
@@ -501,7 +501,7 @@ paths:
   /services/v2/extracts/{extract}/info/status:
     get:
       operationId: getExtractStatus
-      summary: Retrieve Extract status
+      summary: Oracle GoldenGate Retrieve Extract status
       description: Returns the current runtime status of an Extract process including lag, checkpoint, and position information.
       tags:
         - Extracts
@@ -521,7 +521,7 @@ paths:
   /services/v2/extracts/{extract}/info/checkpoints:
     get:
       operationId: getExtractCheckpoints
-      summary: Retrieve Extract checkpoints
+      summary: Oracle GoldenGate Retrieve Extract checkpoints
       description: Returns checkpoint information for an Extract process.
       tags:
         - Extracts
@@ -541,7 +541,7 @@ paths:
   /services/v2/extracts/{extract}/info/reports:
     get:
       operationId: listExtractReports
-      summary: List Extract reports
+      summary: Oracle GoldenGate List Extract reports
       description: Returns a list of available process reports for an Extract.
       tags:
         - Extracts
@@ -561,7 +561,7 @@ paths:
   /services/v2/extracts/{extract}/info/reports/{report}:
     get:
       operationId: getExtractReport
-      summary: Retrieve a specific Extract report
+      summary: Oracle GoldenGate Retrieve a specific Extract report
       description: Returns the content of a specific Extract process report.
       tags:
         - Extracts
@@ -582,7 +582,7 @@ paths:
   /services/v2/extracts/{extract}/info/logs:
     get:
       operationId: listExtractLogs
-      summary: List Extract logs
+      summary: Oracle GoldenGate List Extract logs
       description: Returns a list of available log files for an Extract process.
       tags:
         - Extracts
@@ -602,7 +602,7 @@ paths:
   /services/v2/extracts/{extract}/info/history:
     get:
       operationId: getExtractHistory
-      summary: Retrieve Extract history
+      summary: Oracle GoldenGate Retrieve Extract history
       description: Returns the processing history for an Extract.
       tags:
         - Extracts
@@ -622,7 +622,7 @@ paths:
   /services/v2/replicats:
     get:
       operationId: listReplicats
-      summary: List all Replicat processes
+      summary: Oracle GoldenGate List all Replicat processes
       description: Returns a list of all Replicat processes configured in the GoldenGate instance.
       tags:
         - Replicats
@@ -638,7 +638,7 @@ paths:
   /services/v2/replicats/{replicat}:
     get:
       operationId: getReplicat
-      summary: Retrieve a Replicat process
+      summary: Oracle GoldenGate Retrieve a Replicat process
       description: Returns the configuration and current status of a specific Replicat process.
       tags:
         - Replicats
@@ -657,7 +657,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createReplicat
-      summary: Create a Replicat process
+      summary: Oracle GoldenGate Create a Replicat process
       description: >-
         Creates a new Replicat process. Supports classic, coordinated, integrated,
         and parallel replicat types.
@@ -686,7 +686,7 @@ paths:
           $ref: '#/components/responses/Conflict'
     patch:
       operationId: updateReplicat
-      summary: Update a Replicat process
+      summary: Oracle GoldenGate Update a Replicat process
       description: Updates the configuration of an existing Replicat process.
       tags:
         - Replicats
@@ -711,7 +711,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteReplicat
-      summary: Delete a Replicat process
+      summary: Oracle GoldenGate Delete a Replicat process
       description: Deletes a Replicat process from the GoldenGate instance.
       tags:
         - Replicats
@@ -727,7 +727,7 @@ paths:
   /services/v2/replicats/{replicat}/command:
     post:
       operationId: issueReplicatCommand
-      summary: Issue a command to a Replicat
+      summary: Oracle GoldenGate Issue a command to a Replicat
       description: >-
         Issues an operational command to a Replicat process such as START, STOP,
         KILL, STATUS, STATS, LAG, or INFO.
@@ -757,7 +757,7 @@ paths:
   /services/v2/replicats/{replicat}/info/status:
     get:
       operationId: getReplicatStatus
-      summary: Retrieve Replicat status
+      summary: Oracle GoldenGate Retrieve Replicat status
       description: Returns the current runtime status of a Replicat process.
       tags:
         - Replicats
@@ -777,7 +777,7 @@ paths:
   /services/v2/replicats/{replicat}/info/checkpoints:
     get:
       operationId: getReplicatCheckpoints
-      summary: Retrieve Replicat checkpoints
+      summary: Oracle GoldenGate Retrieve Replicat checkpoints
       description: Returns checkpoint information for a Replicat process.
       tags:
         - Replicats
@@ -797,7 +797,7 @@ paths:
   /services/v2/replicats/{replicat}/info/reports:
     get:
       operationId: listReplicatReports
-      summary: List Replicat reports
+      summary: Oracle GoldenGate List Replicat reports
       description: Returns a list of available process reports for a Replicat.
       tags:
         - Replicats
@@ -817,7 +817,7 @@ paths:
   /services/v2/replicats/{replicat}/info/history:
     get:
       operationId: getReplicatHistory
-      summary: Retrieve Replicat history
+      summary: Oracle GoldenGate Retrieve Replicat history
       description: Returns the processing history for a Replicat.
       tags:
         - Replicats
@@ -837,7 +837,7 @@ paths:
   /services/v2/credentials:
     get:
       operationId: listCredentialDomains
-      summary: List credential domains
+      summary: Oracle GoldenGate List credential domains
       description: Returns a list of all credential store domains.
       tags:
         - Credentials
@@ -853,7 +853,7 @@ paths:
   /services/v2/credentials/{domain}:
     get:
       operationId: listDomainAliases
-      summary: List aliases in a credential domain
+      summary: Oracle GoldenGate List aliases in a credential domain
       description: Returns all credential aliases within a specified domain.
       tags:
         - Credentials
@@ -873,7 +873,7 @@ paths:
   /services/v2/credentials/{domain}/{alias}:
     get:
       operationId: getCredentialAlias
-      summary: Retrieve a credential alias
+      summary: Oracle GoldenGate Retrieve a credential alias
       description: Returns details of a specific credential alias.
       tags:
         - Credentials
@@ -893,7 +893,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createCredentialAlias
-      summary: Create a credential alias
+      summary: Oracle GoldenGate Create a credential alias
       description: Creates a new credential alias with username and password in the specified domain.
       tags:
         - Credentials
@@ -919,7 +919,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: replaceCredentialAlias
-      summary: Replace a credential alias
+      summary: Oracle GoldenGate Replace a credential alias
       description: Replaces the username and password for an existing credential alias.
       tags:
         - Credentials
@@ -945,7 +945,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteCredentialAlias
-      summary: Delete a credential alias
+      summary: Oracle GoldenGate Delete a credential alias
       description: Deletes a credential alias from the specified domain.
       tags:
         - Credentials
@@ -962,7 +962,7 @@ paths:
   /services/v2/credentials/{domain}/{alias}/valid:
     get:
       operationId: validateCredentialAlias
-      summary: Validate a credential alias
+      summary: Oracle GoldenGate Validate a credential alias
       description: Validates that a credential alias can successfully connect to its target.
       tags:
         - Credentials
@@ -983,7 +983,7 @@ paths:
   /services/v2/connections:
     get:
       operationId: listConnections
-      summary: List database connections
+      summary: Oracle GoldenGate List database connections
       description: Returns a list of all configured database connections.
       tags:
         - Connections
@@ -999,7 +999,7 @@ paths:
   /services/v2/connections/{connection}:
     get:
       operationId: getConnection
-      summary: Retrieve a database connection
+      summary: Oracle GoldenGate Retrieve a database connection
       description: Returns details of a specific database connection.
       tags:
         - Connections
@@ -1018,7 +1018,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createConnection
-      summary: Create a database connection
+      summary: Oracle GoldenGate Create a database connection
       description: Creates a new database connection with the specified credentials and connection string.
       tags:
         - Connections
@@ -1043,7 +1043,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: replaceConnection
-      summary: Replace a database connection
+      summary: Oracle GoldenGate Replace a database connection
       description: Replaces the configuration of an existing database connection.
       tags:
         - Connections
@@ -1068,7 +1068,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConnection
-      summary: Delete a database connection
+      summary: Oracle GoldenGate Delete a database connection
       description: Deletes a database connection.
       tags:
         - Connections
@@ -1084,7 +1084,7 @@ paths:
   /services/v2/connections/{connection}/tables/heartbeat:
     get:
       operationId: getHeartbeatTable
-      summary: Retrieve heartbeat table configuration
+      summary: Oracle GoldenGate Retrieve heartbeat table configuration
       description: Returns the heartbeat table configuration for a database connection.
       tags:
         - Heartbeat
@@ -1103,7 +1103,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createHeartbeatTable
-      summary: Create heartbeat table
+      summary: Oracle GoldenGate Create heartbeat table
       description: Creates the heartbeat table in the target database for lag monitoring.
       tags:
         - Heartbeat
@@ -1128,7 +1128,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateHeartbeatTable
-      summary: Update heartbeat table
+      summary: Oracle GoldenGate Update heartbeat table
       description: Updates the heartbeat table configuration.
       tags:
         - Heartbeat
@@ -1153,7 +1153,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteHeartbeatTable
-      summary: Delete heartbeat table
+      summary: Oracle GoldenGate Delete heartbeat table
       description: Deletes the heartbeat table from the database.
       tags:
         - Heartbeat
@@ -1169,7 +1169,7 @@ paths:
   /services/v2/connections/{connection}/tables/heartbeatData:
     get:
       operationId: getHeartbeatEntries
-      summary: Retrieve heartbeat table entries
+      summary: Oracle GoldenGate Retrieve heartbeat table entries
       description: Returns the heartbeat data entries showing lag information across processes.
       tags:
         - Heartbeat
@@ -1189,7 +1189,7 @@ paths:
   /services/v2/connections/{connection}/trandata/table:
     post:
       operationId: manageTableSupplementalLogging
-      summary: Manage table supplemental logging
+      summary: Oracle GoldenGate Manage table supplemental logging
       description: Adds or removes supplemental logging for a specific table to enable change data capture.
       tags:
         - Connections
@@ -1215,7 +1215,7 @@ paths:
   /services/v2/connections/{connection}/trandata/schema:
     post:
       operationId: manageSchemaSupplementalLogging
-      summary: Manage schema supplemental logging
+      summary: Oracle GoldenGate Manage schema supplemental logging
       description: Adds or removes supplemental logging for all tables in a schema.
       tags:
         - Connections
@@ -1241,7 +1241,7 @@ paths:
   /services/v2/connections/{connection}/databases:
     get:
       operationId: getDatabaseNames
-      summary: Retrieve database names
+      summary: Oracle GoldenGate Retrieve database names
       description: Returns available database names for a connection.
       tags:
         - Connections
@@ -1261,7 +1261,7 @@ paths:
   /services/v2/connections/{connection}/databases/{database}/{schema}:
     get:
       operationId: getDatabaseTables
-      summary: Retrieve database tables
+      summary: Oracle GoldenGate Retrieve database tables
       description: Returns a list of tables in a specific database schema.
       tags:
         - Connections
@@ -1291,7 +1291,7 @@ paths:
   /services/v2/trails:
     get:
       operationId: listTrails
-      summary: List trail files
+      summary: Oracle GoldenGate List trail files
       description: Returns a list of all trail files in the GoldenGate instance.
       tags:
         - Trails
@@ -1307,7 +1307,7 @@ paths:
   /services/v2/sources:
     get:
       operationId: listDistributionPaths
-      summary: List distribution paths
+      summary: Oracle GoldenGate List distribution paths
       description: Returns a list of all distribution paths configured in the Distribution Server.
       tags:
         - Distribution
@@ -1323,7 +1323,7 @@ paths:
   /services/v2/sources/{distpath}:
     get:
       operationId: getDistributionPath
-      summary: Retrieve a distribution path
+      summary: Oracle GoldenGate Retrieve a distribution path
       description: Returns configuration details of a specific distribution path.
       tags:
         - Distribution
@@ -1342,7 +1342,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createDistributionPath
-      summary: Create a distribution path
+      summary: Oracle GoldenGate Create a distribution path
       description: Creates a new distribution path for sending trail data to a remote target.
       tags:
         - Distribution
@@ -1367,7 +1367,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateDistributionPath
-      summary: Update a distribution path
+      summary: Oracle GoldenGate Update a distribution path
       description: Updates the configuration of an existing distribution path.
       tags:
         - Distribution
@@ -1392,7 +1392,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDistributionPath
-      summary: Delete a distribution path
+      summary: Oracle GoldenGate Delete a distribution path
       description: Deletes a distribution path.
       tags:
         - Distribution
@@ -1408,7 +1408,7 @@ paths:
   /services/v2/sources/{distpath}/stats:
     get:
       operationId: getDistributionPathStats
-      summary: Retrieve distribution path statistics
+      summary: Oracle GoldenGate Retrieve distribution path statistics
       description: Returns performance statistics for a distribution path.
       tags:
         - Distribution
@@ -1428,7 +1428,7 @@ paths:
   /services/v2/targets:
     get:
       operationId: listCollectorPaths
-      summary: List collector/receiver paths
+      summary: Oracle GoldenGate List collector/receiver paths
       description: Returns a list of all collector paths in the Receiver Server.
       tags:
         - Receiver
@@ -1444,7 +1444,7 @@ paths:
   /services/v2/targets/{path}:
     get:
       operationId: getCollectorPath
-      summary: Retrieve a collector path
+      summary: Oracle GoldenGate Retrieve a collector path
       description: Returns configuration details of a specific collector/receiver path.
       tags:
         - Receiver
@@ -1463,7 +1463,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createCollectorPath
-      summary: Create a collector path
+      summary: Oracle GoldenGate Create a collector path
       description: Creates a new collector path for receiving trail data from a remote source.
       tags:
         - Receiver
@@ -1488,7 +1488,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateCollectorPath
-      summary: Update a collector path
+      summary: Oracle GoldenGate Update a collector path
       description: Updates the configuration of an existing collector path.
       tags:
         - Receiver
@@ -1513,7 +1513,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteCollectorPath
-      summary: Delete a collector path
+      summary: Oracle GoldenGate Delete a collector path
       description: Deletes a collector path.
       tags:
         - Receiver
@@ -1529,7 +1529,7 @@ paths:
   /services/v2/commands/execute:
     post:
       operationId: executeCommand
-      summary: Execute a GoldenGate command
+      summary: Oracle GoldenGate Execute a GoldenGate command
       description: Executes a GGSCI-style command against the Administrative Server.
       tags:
         - Commands
@@ -1553,7 +1553,7 @@ paths:
   /services/v2/tasks:
     get:
       operationId: listTasks
-      summary: List automated tasks
+      summary: Oracle GoldenGate List automated tasks
       description: Returns a list of all configured automated tasks.
       tags:
         - Tasks
@@ -1569,7 +1569,7 @@ paths:
   /services/v2/tasks/{task}:
     get:
       operationId: getTask
-      summary: Retrieve a task
+      summary: Oracle GoldenGate Retrieve a task
       description: Returns the configuration of a specific automated task.
       tags:
         - Tasks
@@ -1588,7 +1588,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createTask
-      summary: Create a task
+      summary: Oracle GoldenGate Create a task
       description: Creates a new automated task for scheduled operations.
       tags:
         - Tasks
@@ -1613,7 +1613,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateTask
-      summary: Update a task
+      summary: Oracle GoldenGate Update a task
       description: Updates the configuration of an existing automated task.
       tags:
         - Tasks
@@ -1638,7 +1638,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteTask
-      summary: Delete a task
+      summary: Oracle GoldenGate Delete a task
       description: Deletes an automated task.
       tags:
         - Tasks
@@ -1654,7 +1654,7 @@ paths:
   /services/v2/enckeys:
     get:
       operationId: listEncryptionKeys
-      summary: List encryption keys
+      summary: Oracle GoldenGate List encryption keys
       description: Returns a list of all encryption keys in the wallet.
       tags:
         - Encryption
@@ -1670,7 +1670,7 @@ paths:
   /services/v2/enckeys/{keyName}:
     get:
       operationId: getEncryptionKey
-      summary: Retrieve an encryption key
+      summary: Oracle GoldenGate Retrieve an encryption key
       description: Returns details of a specific encryption key.
       tags:
         - Encryption
@@ -1693,7 +1693,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createEncryptionKey
-      summary: Create an encryption key
+      summary: Oracle GoldenGate Create an encryption key
       description: Creates a new encryption key in the wallet.
       tags:
         - Encryption
@@ -1714,7 +1714,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     delete:
       operationId: deleteEncryptionKey
-      summary: Delete an encryption key
+      summary: Oracle GoldenGate Delete an encryption key
       description: Deletes an encryption key from the wallet.
       tags:
         - Encryption
@@ -1734,7 +1734,7 @@ paths:
   /services/v2/masterkey:
     get:
       operationId: listMasterKeyVersions
-      summary: List master key versions
+      summary: Oracle GoldenGate List master key versions
       description: Returns all versions of the master encryption key.
       tags:
         - Encryption
@@ -1749,7 +1749,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createMasterKeyVersion
-      summary: Create a new master key version
+      summary: Oracle GoldenGate Create a new master key version
       description: Creates a new version of the master encryption key.
       tags:
         - Encryption
@@ -1765,7 +1765,7 @@ paths:
   /services/v2/authorizations:
     get:
       operationId: listUserRoles
-      summary: List user roles
+      summary: Oracle GoldenGate List user roles
       description: Returns a list of available authorization roles.
       tags:
         - Users
@@ -1781,7 +1781,7 @@ paths:
   /services/v2/authorizations/{role}:
     get:
       operationId: listUsers
-      summary: List users for a role
+      summary: Oracle GoldenGate List users for a role
       description: Returns a list of users assigned to a specific role.
       tags:
         - Users
@@ -1798,7 +1798,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: bulkCreateUsers
-      summary: Bulk create users for a role
+      summary: Oracle GoldenGate Bulk create users for a role
       description: Creates multiple users with the specified role in a single operation.
       tags:
         - Users
@@ -1824,7 +1824,7 @@ paths:
   /services/v2/authorizations/{role}/{user}:
     get:
       operationId: getUser
-      summary: Retrieve a user
+      summary: Oracle GoldenGate Retrieve a user
       description: Returns details of a specific user.
       tags:
         - Users
@@ -1844,7 +1844,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createUser
-      summary: Create a user
+      summary: Oracle GoldenGate Create a user
       description: Creates a new user with the specified role.
       tags:
         - Users
@@ -1870,7 +1870,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     patch:
       operationId: updateUser
-      summary: Update a user
+      summary: Oracle GoldenGate Update a user
       description: Updates properties of an existing user.
       tags:
         - Users
@@ -1896,7 +1896,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteUser
-      summary: Delete a user
+      summary: Oracle GoldenGate Delete a user
       description: Deletes a user from the system.
       tags:
         - Users
@@ -1913,7 +1913,7 @@ paths:
   /services/v2/currentuser:
     get:
       operationId: getCurrentUser
-      summary: Retrieve current user information
+      summary: Oracle GoldenGate Retrieve current user information
       description: Returns information about the currently authenticated user.
       tags:
         - Users
@@ -1928,7 +1928,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     delete:
       operationId: resetCurrentUserInfo
-      summary: Reset current user information
+      summary: Oracle GoldenGate Reset current user information
       description: Resets cached information for the current user.
       tags:
         - Users
@@ -1940,7 +1940,7 @@ paths:
   /services/v2/logs:
     get:
       operationId: listLogs
-      summary: Retrieve available logs
+      summary: Oracle GoldenGate Retrieve available logs
       description: Returns a list of available service log files.
       tags:
         - Logs
@@ -1956,7 +1956,7 @@ paths:
   /services/v2/logs/{log}:
     get:
       operationId: getLog
-      summary: Retrieve a log file
+      summary: Oracle GoldenGate Retrieve a log file
       description: Returns the content of a specific service log file.
       tags:
         - Logs
@@ -1979,7 +1979,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: modifyLogProperties
-      summary: Modify log properties
+      summary: Oracle GoldenGate Modify log properties
       description: Modifies the properties of a log such as log level.
       tags:
         - Logs
@@ -2005,7 +2005,7 @@ paths:
   /services/v2/logs/events:
     get:
       operationId: getCriticalEvents
-      summary: Get critical events
+      summary: Oracle GoldenGate Get critical events
       description: Returns critical event log entries.
       tags:
         - Logs
@@ -2021,7 +2021,7 @@ paths:
   /services/v2/certificates:
     get:
       operationId: listCertificateTypes
-      summary: Retrieve available certificate types
+      summary: Oracle GoldenGate Retrieve available certificate types
       description: Returns the list of available certificate types (trusted, server, client).
       tags:
         - Certificates
@@ -2037,7 +2037,7 @@ paths:
   /services/v2/certificates/{type}:
     get:
       operationId: listCertificates
-      summary: Retrieve certificate names
+      summary: Oracle GoldenGate Retrieve certificate names
       description: Returns a list of certificate names for a specific type.
       tags:
         - Certificates
@@ -2063,7 +2063,7 @@ paths:
   /services/v2/certificates/{type}/{certificate}:
     get:
       operationId: getCertificate
-      summary: Retrieve a certificate
+      summary: Oracle GoldenGate Retrieve a certificate
       description: Returns the details of a specific certificate.
       tags:
         - Certificates
@@ -2092,7 +2092,7 @@ paths:
   /services/v2/mpoints/processes:
     get:
       operationId: listProcessMetrics
-      summary: Retrieve all process metrics
+      summary: Oracle GoldenGate Retrieve all process metrics
       description: Returns performance metrics for all running GoldenGate processes.
       tags:
         - Monitoring
@@ -2108,7 +2108,7 @@ paths:
   /services/v2/mpoints/{item}/process:
     get:
       operationId: getProcessMetrics
-      summary: Retrieve process metrics for a specific process
+      summary: Oracle GoldenGate Retrieve process metrics for a specific process
       description: Returns detailed performance metrics for a specific GoldenGate process.
       tags:
         - Monitoring
@@ -2128,7 +2128,7 @@ paths:
   /services/v2/mpoints/{item}/statisticsExtract:
     get:
       operationId: getExtractDatabaseStats
-      summary: Retrieve Extract database statistics
+      summary: Oracle GoldenGate Retrieve Extract database statistics
       description: Returns database-level statistics for an Extract process.
       tags:
         - Monitoring
@@ -2148,7 +2148,7 @@ paths:
   /services/v2/mpoints/{item}/statisticsReplicat:
     get:
       operationId: getReplicatDatabaseStats
-      summary: Retrieve Replicat database statistics
+      summary: Oracle GoldenGate Retrieve Replicat database statistics
       description: Returns database-level statistics for a Replicat process.
       tags:
         - Monitoring
@@ -2168,7 +2168,7 @@ paths:
   /services/v2/mpoints/{item}/heartbeat:
     get:
       operationId: getHeartbeatMetrics
-      summary: Retrieve heartbeat timing metrics
+      summary: Oracle GoldenGate Retrieve heartbeat timing metrics
       description: Returns heartbeat timing information used to measure replication lag.
       tags:
         - Monitoring
@@ -2188,7 +2188,7 @@ paths:
   /services/v2/mpoints/{item}/cacheStatistics:
     get:
       operationId: getCacheStatistics
-      summary: Retrieve cache manager statistics
+      summary: Oracle GoldenGate Retrieve cache manager statistics
       description: Returns cache manager statistics for a process.
       tags:
         - Monitoring
@@ -2208,7 +2208,7 @@ paths:
   /services/v2/mpoints/{item}/processPerformance:
     get:
       operationId: getProcessPerformance
-      summary: Retrieve process performance utilization
+      summary: Oracle GoldenGate Retrieve process performance utilization
       description: Returns CPU and memory utilization metrics for a GoldenGate process.
       tags:
         - Monitoring
@@ -2228,7 +2228,7 @@ paths:
   /services/v2/monitoring/messages:
     get:
       operationId: listMonitoringMessages
-      summary: Retrieve process messages
+      summary: Oracle GoldenGate Retrieve process messages
       description: Returns messages from all monitored processes.
       tags:
         - Monitoring
@@ -2244,7 +2244,7 @@ paths:
   /services/v2/monitoring/statusChanges:
     get:
       operationId: listStatusChanges
-      summary: Retrieve process status changes
+      summary: Oracle GoldenGate Retrieve process status changes
       description: Returns a log of process status changes across all monitored processes.
       tags:
         - Monitoring
@@ -2260,7 +2260,7 @@ paths:
   /services/v2/messages:
     get:
       operationId: listMessages
-      summary: Retrieve administrative messages
+      summary: Oracle GoldenGate Retrieve administrative messages
       description: Returns administrative messages from the server.
       tags:
         - Monitoring
@@ -2276,7 +2276,7 @@ paths:
   /services/v2/requests:
     get:
       operationId: listBackgroundRequests
-      summary: Retrieve background requests
+      summary: Oracle GoldenGate Retrieve background requests
       description: Returns a list of background requests that are being processed.
       tags:
         - Monitoring
@@ -2292,7 +2292,7 @@ paths:
   /services/v2/requests/{request}:
     get:
       operationId: getRequestStatus
-      summary: Retrieve request status
+      summary: Oracle GoldenGate Retrieve request status
       description: Returns the status of a specific background request.
       tags:
         - Monitoring
@@ -2316,7 +2316,7 @@ paths:
   /services/v2/config/types:
     get:
       operationId: listConfigTypes
-      summary: List configuration data types
+      summary: Oracle GoldenGate List configuration data types
       description: Returns a list of available configuration data types.
       tags:
         - Configuration
@@ -2332,7 +2332,7 @@ paths:
   /services/v2/config/files:
     get:
       operationId: listConfigFiles
-      summary: List configuration files
+      summary: Oracle GoldenGate List configuration files
       description: Returns a list of all configuration files.
       tags:
         - Configuration
@@ -2348,7 +2348,7 @@ paths:
   /services/v2/config/files/{file}:
     get:
       operationId: getConfigFile
-      summary: Retrieve a configuration file
+      summary: Oracle GoldenGate Retrieve a configuration file
       description: Returns the content of a specific configuration file (e.g., parameter file).
       tags:
         - Configuration
@@ -2371,7 +2371,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createConfigFile
-      summary: Create a configuration file
+      summary: Oracle GoldenGate Create a configuration file
       description: Creates a new configuration file.
       tags:
         - Configuration
@@ -2396,7 +2396,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     put:
       operationId: replaceConfigFile
-      summary: Replace a configuration file
+      summary: Oracle GoldenGate Replace a configuration file
       description: Replaces the content of an existing configuration file.
       tags:
         - Configuration
@@ -2421,7 +2421,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConfigFile
-      summary: Delete a configuration file
+      summary: Oracle GoldenGate Delete a configuration file
       description: Deletes a configuration file.
       tags:
         - Configuration
@@ -2441,7 +2441,7 @@ paths:
   /services/v2/parameters:
     get:
       operationId: listParameters
-      summary: List parameter names
+      summary: Oracle GoldenGate List parameter names
       description: Returns a list of all available GoldenGate parameter names.
       tags:
         - Configuration
@@ -2457,7 +2457,7 @@ paths:
   /services/v2/parameters/{parameter}:
     get:
       operationId: getParameterInfo
-      summary: Retrieve parameter information
+      summary: Oracle GoldenGate Retrieve parameter information
       description: Returns detailed information about a specific GoldenGate parameter.
       tags:
         - Configuration
@@ -2481,7 +2481,7 @@ paths:
   /services/v2/oggerr:
     get:
       operationId: listMessageCodes
-      summary: List message codes
+      summary: Oracle GoldenGate List message codes
       description: Returns a list of GoldenGate error and informational message codes.
       tags:
         - Monitoring
@@ -2497,7 +2497,7 @@ paths:
   /services/v2/oggerr/{message}:
     get:
       operationId: getMessageExplanation
-      summary: Retrieve message explanation
+      summary: Oracle GoldenGate Retrieve message explanation
       description: Returns a detailed explanation and recommended action for a specific message code.
       tags:
         - Monitoring
@@ -2521,7 +2521,7 @@ paths:
   /services/v2/exttrails:
     get:
       operationId: listExtractTrails
-      summary: List deployment extracts with trail files
+      summary: Oracle GoldenGate List deployment extracts with trail files
       description: Returns a list of extracts and their associated trail files for the Distribution Server.
       tags:
         - Distribution

@@ -62,7 +62,7 @@ paths:
   /20200407/deployments:
     get:
       operationId: listDeployments
-      summary: List deployments
+      summary: Oracle GoldenGate List deployments
       description: Returns a list of GoldenGate deployments in the specified compartment.
       tags:
         - Deployments
@@ -92,7 +92,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createDeployment
-      summary: Create a deployment
+      summary: Oracle GoldenGate Create a deployment
       description: Creates a new GoldenGate deployment in the specified compartment.
       tags:
         - Deployments
@@ -126,7 +126,7 @@ paths:
   /20200407/deployments/{deploymentId}:
     get:
       operationId: getDeployment
-      summary: Get a deployment
+      summary: Oracle GoldenGate Get a deployment
       description: Returns the details of a specific GoldenGate deployment.
       tags:
         - Deployments
@@ -143,7 +143,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateDeployment
-      summary: Update a deployment
+      summary: Oracle GoldenGate Update a deployment
       description: Updates the configuration of a GoldenGate deployment.
       tags:
         - Deployments
@@ -169,7 +169,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDeployment
-      summary: Delete a deployment
+      summary: Oracle GoldenGate Delete a deployment
       description: Deletes a GoldenGate deployment.
       tags:
         - Deployments
@@ -188,7 +188,7 @@ paths:
   /20200407/deployments/{deploymentId}/actions/start:
     post:
       operationId: startDeployment
-      summary: Start a deployment
+      summary: Oracle GoldenGate Start a deployment
       description: Starts a stopped GoldenGate deployment.
       tags:
         - Deployments
@@ -213,7 +213,7 @@ paths:
   /20200407/deployments/{deploymentId}/actions/stop:
     post:
       operationId: stopDeployment
-      summary: Stop a deployment
+      summary: Oracle GoldenGate Stop a deployment
       description: Stops a running GoldenGate deployment.
       tags:
         - Deployments
@@ -238,7 +238,7 @@ paths:
   /20200407/deployments/{deploymentId}/actions/upgrade:
     post:
       operationId: upgradeDeployment
-      summary: Upgrade a deployment
+      summary: Oracle GoldenGate Upgrade a deployment
       description: Upgrades a GoldenGate deployment to a newer version.
       tags:
         - Deployments
@@ -263,7 +263,7 @@ paths:
   /20200407/deployments/{deploymentId}/actions/changeCompartment:
     post:
       operationId: changeDeploymentCompartment
-      summary: Change deployment compartment
+      summary: Oracle GoldenGate Change deployment compartment
       description: Moves a deployment to a different compartment.
       tags:
         - Deployments
@@ -288,7 +288,7 @@ paths:
   /20200407/deployments/{deploymentId}/actions/collectDiagnostics:
     post:
       operationId: collectDeploymentDiagnostics
-      summary: Collect deployment diagnostics
+      summary: Oracle GoldenGate Collect deployment diagnostics
       description: Collects diagnostic information from a GoldenGate deployment.
       tags:
         - Deployments
@@ -313,7 +313,7 @@ paths:
   /20200407/deploymentBackups:
     get:
       operationId: listDeploymentBackups
-      summary: List deployment backups
+      summary: Oracle GoldenGate List deployment backups
       description: Returns a list of deployment backups in the specified compartment.
       tags:
         - Deployment Backups
@@ -330,7 +330,7 @@ paths:
                 $ref: '#/components/schemas/DeploymentBackupCollection'
     post:
       operationId: createDeploymentBackup
-      summary: Create a deployment backup
+      summary: Oracle GoldenGate Create a deployment backup
       description: Creates a backup of a GoldenGate deployment.
       tags:
         - Deployment Backups
@@ -354,7 +354,7 @@ paths:
   /20200407/deploymentBackups/{deploymentBackupId}:
     get:
       operationId: getDeploymentBackup
-      summary: Get a deployment backup
+      summary: Oracle GoldenGate Get a deployment backup
       description: Returns the details of a specific deployment backup.
       tags:
         - Deployment Backups
@@ -371,7 +371,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDeploymentBackup
-      summary: Delete a deployment backup
+      summary: Oracle GoldenGate Delete a deployment backup
       description: Deletes a deployment backup.
       tags:
         - Deployment Backups
@@ -390,7 +390,7 @@ paths:
   /20200407/deploymentBackups/{deploymentBackupId}/actions/restore:
     post:
       operationId: restoreDeployment
-      summary: Restore a deployment from backup
+      summary: Oracle GoldenGate Restore a deployment from backup
       description: Restores a GoldenGate deployment from a backup.
       tags:
         - Deployment Backups
@@ -415,7 +415,7 @@ paths:
   /20200407/connections:
     get:
       operationId: listConnections
-      summary: List connections
+      summary: Oracle GoldenGate List connections
       description: Returns a list of connections in the specified compartment.
       tags:
         - Connections
@@ -461,7 +461,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionCollection'
     post:
       operationId: createConnection
-      summary: Create a connection
+      summary: Oracle GoldenGate Create a connection
       description: >-
         Creates a new connection for a source or target system. Supports Oracle,
         MySQL, PostgreSQL, SQL Server, MongoDB, Kafka, Elasticsearch, Amazon S3,
@@ -490,7 +490,7 @@ paths:
   /20200407/connections/{connectionId}:
     get:
       operationId: getConnection
-      summary: Get a connection
+      summary: Oracle GoldenGate Get a connection
       description: Returns the details of a specific connection.
       tags:
         - Connections
@@ -507,7 +507,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateConnection
-      summary: Update a connection
+      summary: Oracle GoldenGate Update a connection
       description: Updates a connection's configuration.
       tags:
         - Connections
@@ -531,7 +531,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConnection
-      summary: Delete a connection
+      summary: Oracle GoldenGate Delete a connection
       description: Deletes a connection.
       tags:
         - Connections
@@ -550,7 +550,7 @@ paths:
   /20200407/connectionAssignments:
     get:
       operationId: listConnectionAssignments
-      summary: List connection assignments
+      summary: Oracle GoldenGate List connection assignments
       description: Returns connection-to-deployment assignments.
       tags:
         - Connection Assignments
@@ -575,7 +575,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionAssignmentCollection'
     post:
       operationId: createConnectionAssignment
-      summary: Create a connection assignment
+      summary: Oracle GoldenGate Create a connection assignment
       description: Assigns a connection to a deployment for use in replication.
       tags:
         - Connection Assignments
@@ -599,7 +599,7 @@ paths:
   /20200407/connectionAssignments/{connectionAssignmentId}:
     get:
       operationId: getConnectionAssignment
-      summary: Get a connection assignment
+      summary: Oracle GoldenGate Get a connection assignment
       description: Returns a specific connection assignment.
       tags:
         - Connection Assignments
@@ -620,7 +620,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteConnectionAssignment
-      summary: Delete a connection assignment
+      summary: Oracle GoldenGate Delete a connection assignment
       description: Removes a connection assignment from a deployment.
       tags:
         - Connection Assignments
@@ -643,7 +643,7 @@ paths:
   /20200407/databaseRegistrations:
     get:
       operationId: listDatabaseRegistrations
-      summary: List database registrations
+      summary: Oracle GoldenGate List database registrations
       description: Returns a list of registered databases.
       tags:
         - Database Registrations
@@ -660,7 +660,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseRegistrationCollection'
     post:
       operationId: createDatabaseRegistration
-      summary: Create a database registration
+      summary: Oracle GoldenGate Create a database registration
       description: Registers a database for use with GoldenGate.
       tags:
         - Database Registrations
@@ -684,7 +684,7 @@ paths:
   /20200407/databaseRegistrations/{databaseRegistrationId}:
     get:
       operationId: getDatabaseRegistration
-      summary: Get a database registration
+      summary: Oracle GoldenGate Get a database registration
       description: Returns the details of a database registration.
       tags:
         - Database Registrations
@@ -705,7 +705,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateDatabaseRegistration
-      summary: Update a database registration
+      summary: Oracle GoldenGate Update a database registration
       description: Updates a database registration.
       tags:
         - Database Registrations
@@ -733,7 +733,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteDatabaseRegistration
-      summary: Delete a database registration
+      summary: Oracle GoldenGate Delete a database registration
       description: Deletes a database registration.
       tags:
         - Database Registrations
@@ -756,7 +756,7 @@ paths:
   /20200407/pipelines:
     get:
       operationId: listPipelines
-      summary: List pipelines
+      summary: Oracle GoldenGate List pipelines
       description: Returns a list of data replication pipelines.
       tags:
         - Pipelines
@@ -773,7 +773,7 @@ paths:
                 $ref: '#/components/schemas/PipelineCollection'
     post:
       operationId: createPipeline
-      summary: Create a pipeline
+      summary: Oracle GoldenGate Create a pipeline
       description: Creates a new data replication pipeline.
       tags:
         - Pipelines
@@ -797,7 +797,7 @@ paths:
   /20200407/pipelines/{pipelineId}:
     get:
       operationId: getPipeline
-      summary: Get a pipeline
+      summary: Oracle GoldenGate Get a pipeline
       description: Returns the details of a specific pipeline.
       tags:
         - Pipelines
@@ -814,7 +814,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updatePipeline
-      summary: Update a pipeline
+      summary: Oracle GoldenGate Update a pipeline
       description: Updates a pipeline configuration.
       tags:
         - Pipelines
@@ -838,7 +838,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deletePipeline
-      summary: Delete a pipeline
+      summary: Oracle GoldenGate Delete a pipeline
       description: Deletes a data replication pipeline.
       tags:
         - Pipelines
@@ -857,7 +857,7 @@ paths:
   /20200407/pipelines/{pipelineId}/actions/start:
     post:
       operationId: startPipeline
-      summary: Start a pipeline
+      summary: Oracle GoldenGate Start a pipeline
       description: Starts a stopped pipeline.
       tags:
         - Pipelines
@@ -874,7 +874,7 @@ paths:
   /20200407/pipelines/{pipelineId}/actions/stop:
     post:
       operationId: stopPipeline
-      summary: Stop a pipeline
+      summary: Oracle GoldenGate Stop a pipeline
       description: Stops a running pipeline.
       tags:
         - Pipelines
@@ -891,7 +891,7 @@ paths:
   /20200407/deployments/{deploymentId}/certificates:
     get:
       operationId: listCertificates
-      summary: List deployment certificates
+      summary: Oracle GoldenGate List deployment certificates
       description: Returns SSL certificates associated with a deployment.
       tags:
         - Certificates
@@ -908,7 +908,7 @@ paths:
                 $ref: '#/components/schemas/CertificateCollection'
     post:
       operationId: createCertificate
-      summary: Add a certificate to a deployment
+      summary: Oracle GoldenGate Add a certificate to a deployment
       description: Adds a trusted SSL certificate to a GoldenGate deployment.
       tags:
         - Certificates
@@ -934,7 +934,7 @@ paths:
   /20200407/workRequests:
     get:
       operationId: listWorkRequests
-      summary: List work requests
+      summary: Oracle GoldenGate List work requests
       description: Returns a list of asynchronous work requests in the specified compartment.
       tags:
         - Work Requests
@@ -952,7 +952,7 @@ paths:
   /20200407/workRequests/{workRequestId}:
     get:
       operationId: getWorkRequest
-      summary: Get a work request
+      summary: Oracle GoldenGate Get a work request
       description: Returns the details of a specific asynchronous work request.
       tags:
         - Work Requests
@@ -974,7 +974,7 @@ paths:
   /20200407/workRequests/{workRequestId}/logs:
     get:
       operationId: listWorkRequestLogs
-      summary: List work request logs
+      summary: Oracle GoldenGate List work request logs
       description: Returns log entries for a work request.
       tags:
         - Work Requests
@@ -996,7 +996,7 @@ paths:
   /20200407/workRequests/{workRequestId}/errors:
     get:
       operationId: listWorkRequestErrors
-      summary: List work request errors
+      summary: Oracle GoldenGate List work request errors
       description: Returns error entries for a work request.
       tags:
         - Work Requests
@@ -1018,7 +1018,7 @@ paths:
   /20200407/deploymentVersions:
     get:
       operationId: listDeploymentVersions
-      summary: List deployment versions
+      summary: Oracle GoldenGate List deployment versions
       description: Returns available GoldenGate deployment versions.
       tags:
         - Deployment Versions
