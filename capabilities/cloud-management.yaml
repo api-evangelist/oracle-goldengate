@@ -1,0 +1,327 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate Cloud Management"
+  description: "Unified workflow for managing Oracle GoldenGate cloud deployments in OCI. Combines the OCI Cloud Service API with Stream Analytics for cloud platform administrators managing deployment lifecycle, connections, pipelines, backups, and stream analytics in Oracle Cloud."
+  tags:
+    - Oracle GoldenGate
+    - OCI
+    - Cloud Management
+    - Platform Administration
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      OCI_API_KEY: OCI_API_KEY
+      GGSA_USERNAME: GGSA_USERNAME
+      GGSA_PASSWORD: GGSA_PASSWORD
+
+capability:
+  consumes:
+    - import: goldengate-cloud
+      location: ./shared/goldengate-cloud-service.yaml
+    - import: goldengate-stream-analytics
+      location: ./shared/goldengate-stream-analytics.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: cloud-management-api
+      description: "Unified REST API for Oracle GoldenGate cloud deployment management."
+      resources:
+        - path: /v1/deployments
+          name: deployments
+          description: "OCI GoldenGate deployment lifecycle management"
+          operations:
+            - method: GET
+              name: list-deployments
+              description: "List OCI GoldenGate deployments"
+              call: "goldengate-cloud.list-deployments"
+              with:
+                compartmentId: "rest.compartmentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-deployment
+              description: "Create a new OCI deployment"
+              call: "goldengate-cloud.create-deployment"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/deployments/{deploymentId}
+          name: deployment-detail
+          description: "Individual deployment operations"
+          operations:
+            - method: GET
+              name: get-deployment
+              description: "Get deployment details"
+              call: "goldengate-cloud.get-deployment"
+              with:
+                deploymentId: "rest.deploymentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/connections
+          name: connections
+          description: "Connection management"
+          operations:
+            - method: GET
+              name: list-connections
+              description: "List database and service connections"
+              call: "goldengate-cloud.list-connections"
+              with:
+                compartmentId: "rest.compartmentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/pipelines
+          name: pipelines
+          description: "Data replication pipelines"
+          operations:
+            - method: GET
+              name: list-pipelines
+              description: "List data replication pipelines"
+              call: "goldengate-cloud.list-pipelines"
+              with:
+                compartmentId: "rest.compartmentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/backups
+          name: backups
+          description: "Deployment backup management"
+          operations:
+            - method: GET
+              name: list-backups
+              description: "List deployment backups"
+              call: "goldengate-cloud.list-deployment-backups"
+              with:
+                compartmentId: "rest.compartmentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/stream-pipelines
+          name: stream-pipelines
+          description: "Stream analytics pipeline management"
+          operations:
+            - method: GET
+              name: list-stream-pipelines
+              description: "List GGSA stream analytics pipelines"
+              call: "goldengate-stream-analytics.list-pipelines"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/work-requests
+          name: work-requests
+          description: "Async operation tracking"
+          operations:
+            - method: GET
+              name: list-work-requests
+              description: "List asynchronous work requests"
+              call: "goldengate-cloud.list-work-requests"
+              with:
+                compartmentId: "rest.compartmentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: cloud-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted Oracle GoldenGate cloud management."
+      tools:
+        - name: list-deployments
+          description: "List OCI GoldenGate deployments in a compartment"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.list-deployments"
+          with:
+            compartmentId: "tools.compartmentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-deployment
+          description: "Get details of a specific OCI deployment"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.get-deployment"
+          with:
+            deploymentId: "tools.deploymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-deployment
+          description: "Create a new OCI GoldenGate deployment"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.create-deployment"
+          with:
+            displayName: "tools.displayName"
+            compartmentId: "tools.compartmentId"
+            subnetId: "tools.subnetId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: start-deployment
+          description: "Start a stopped OCI deployment"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.start-deployment"
+          with:
+            deploymentId: "tools.deploymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: stop-deployment
+          description: "Stop a running OCI deployment"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.stop-deployment"
+          with:
+            deploymentId: "tools.deploymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: upgrade-deployment
+          description: "Upgrade an OCI deployment to a newer version"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.upgrade-deployment"
+          with:
+            deploymentId: "tools.deploymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-connections
+          description: "List database and service connections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.list-connections"
+          with:
+            compartmentId: "tools.compartmentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-connection
+          description: "Create a new connection for a source or target system"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.create-connection"
+          with:
+            displayName: "tools.displayName"
+            compartmentId: "tools.compartmentId"
+            connectionType: "tools.connectionType"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-pipelines
+          description: "List data replication pipelines"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.list-pipelines"
+          with:
+            compartmentId: "tools.compartmentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-pipeline
+          description: "Create a new data replication pipeline"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.create-pipeline"
+          with:
+            displayName: "tools.displayName"
+            compartmentId: "tools.compartmentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: start-pipeline
+          description: "Start a stopped pipeline"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.start-pipeline"
+          with:
+            pipelineId: "tools.pipelineId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-backups
+          description: "List deployment backups"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.list-deployment-backups"
+          with:
+            compartmentId: "tools.compartmentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-backup
+          description: "Create a deployment backup"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.create-deployment-backup"
+          with:
+            displayName: "tools.displayName"
+            deploymentId: "tools.deploymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: restore-deployment
+          description: "Restore a deployment from a backup"
+          hints:
+            readOnly: false
+          call: "goldengate-cloud.restore-deployment"
+          with:
+            deploymentBackupId: "tools.deploymentBackupId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-stream-pipelines
+          description: "List GGSA stream analytics pipelines"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-stream-analytics.list-pipelines"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: publish-stream-pipeline
+          description: "Publish a stream analytics pipeline to the Spark runtime"
+          hints:
+            readOnly: false
+          call: "goldengate-stream-analytics.publish-pipeline"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: unpublish-stream-pipeline
+          description: "Unpublish a stream analytics pipeline"
+          hints:
+            readOnly: false
+          call: "goldengate-stream-analytics.unpublish-pipeline"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-work-request
+          description: "Check status of an asynchronous operation"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-cloud.get-work-request"
+          with:
+            workRequestId: "tools.workRequestId"
+          outputParameters:
+            - type: object
+              mapping: "$."

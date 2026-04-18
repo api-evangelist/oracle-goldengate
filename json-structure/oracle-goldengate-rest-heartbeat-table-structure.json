@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "HeartbeatTable",
+  "type": "object",
+  "properties": {
+    "owner": {
+      "type": "string"
+    },
+    "table": {
+      "type": "string"
+    },
+    "retentionTime": {
+      "type": "integer"
+    },
+    "frequency": {
+      "type": "integer"
+    },
+    "purgeFrequency": {
+      "type": "integer"
+    }
+  }
+}

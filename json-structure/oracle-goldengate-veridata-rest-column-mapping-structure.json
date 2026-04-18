@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ColumnMapping",
+  "type": "object",
+  "properties": {
+    "sourceColumn": {
+      "type": "string"
+    },
+    "targetColumn": {
+      "type": "string"
+    },
+    "dataType": {
+      "type": "string"
+    }
+  }
+}

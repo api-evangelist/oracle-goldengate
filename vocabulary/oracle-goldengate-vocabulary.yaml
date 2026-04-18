@@ -1,0 +1,43 @@
+name: oracle-goldengate API Vocabulary
+provider: oracle-goldengate
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 281
+schemas: 258
+tags:
+- Artifacts
+- AsyncAPI
+- Certificates
+- Commands
+- Compare Pairs
+- Configuration
+- Connection Assignments
+- Connections
+- Credentials
+- Data Streams
+- Data Targets
+- Database Registrations
+- Deployment Backups
+- Deployment Versions
+- Deployments
+- Distribution
+- Encryption
+- Execution
+- Extracts
+- Groups
+- Heartbeat
+- Import/Export
+- Jobs
+- Logs
+- Monitoring
+- Pipelines
+- Profiles
+- Receiver
+- Repair
+- Replicats
+- Server
+- Tasks
+- Trails
+- Users
+- Validation
+- Work Requests

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComparisonReport",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer"
+    },
+    "jobName": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "details": {
+      "type": "array"
+    }
+  }
+}

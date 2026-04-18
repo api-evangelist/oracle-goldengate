@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatabaseRegistrationSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "databaseId": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    }
+  }
+}

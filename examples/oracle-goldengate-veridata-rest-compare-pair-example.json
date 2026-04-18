@@ -1,0 +1,10 @@
+{
+  "id": "abc123",
+  "groupId": "500123",
+  "sourceSchema": "example_value",
+  "sourceTable": "example_value",
+  "targetSchema": "example_value",
+  "targetTable": "example_value",
+  "profileId": "500123",
+  "columnMappings": []
+}

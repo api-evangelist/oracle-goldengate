@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateUserRequest",
+  "type": "object",
+  "properties": {
+    "password": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

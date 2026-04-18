@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PipelineExport",
+  "type": "object",
+  "description": "Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)",
+  "properties": {
+    "connections": {
+      "type": "array"
+    },
+    "references": {
+      "type": "array"
+    },
+    "customJars": {
+      "type": "array"
+    }
+  }
+}

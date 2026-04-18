@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DistributionPath",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Distribution path name"
+    },
+    "status": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source trail file"
+    },
+    "target": {
+      "type": "string",
+      "description": "Target receiver URL"
+    },
+    "targetType": {
+      "type": "string",
+      "description": "Target data type"
+    },
+    "ruleName": {
+      "type": "string",
+      "description": "Filter rule name"
+    }
+  }
+}

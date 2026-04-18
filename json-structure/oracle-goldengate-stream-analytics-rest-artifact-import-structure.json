@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ArtifactImport",
+  "type": "object",
+  "properties": {
+    "pipeline": {
+      "type": "object"
+    },
+    "connections": {
+      "type": "array"
+    },
+    "references": {
+      "type": "array"
+    }
+  }
+}

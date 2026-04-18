@@ -1,0 +1,21 @@
+{
+  "id": "abc123",
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "subnetId": "500123",
+  "licenseModel": "example_value",
+  "fqdn": "example_value",
+  "cpuCoreCount": 10,
+  "isAutoScalingEnabled": true,
+  "isPublic": true,
+  "publicIpAddress": "example_value",
+  "privateIpAddress": "example_value",
+  "deploymentUrl": "https://www.example.com",
+  "lifecycleState": "example_value",
+  "oggData": "example_value",
+  "timeCreated": "example_value",
+  "timeUpdated": "example_value",
+  "freeformTags": "example_value",
+  "definedTags": "example_value"
+}

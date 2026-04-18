@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CertificateSummary",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "timeCreated": {
+      "type": "string"
+    }
+  }
+}

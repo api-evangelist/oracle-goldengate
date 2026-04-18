@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReplicatStatistics",
+  "type": "object",
+  "properties": {
+    "processName": {
+      "type": "string"
+    },
+    "totalOperations": {
+      "type": "integer"
+    },
+    "inserts": {
+      "type": "integer"
+    },
+    "updates": {
+      "type": "integer"
+    },
+    "deletes": {
+      "type": "integer"
+    },
+    "handlerStatistics": {
+      "type": "object"
+    }
+  }
+}

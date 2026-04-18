@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DataStream",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique data stream name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Stream description"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current stream status"
+    },
+    "source": {
+      "type": "object",
+      "description": "Source configuration"
+    },
+    "target": {
+      "type": "object",
+      "description": "Target distribution configuration"
+    },
+    "filters": {
+      "type": "array",
+      "description": "Table and operation filters"
+    },
+    "asyncApiSpec": {
+      "type": "string",
+      "description": "Path to the AsyncAPI specification"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    }
+  }
+}

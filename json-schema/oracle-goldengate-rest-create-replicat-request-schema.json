@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateReplicatRequest",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Source trail file prefix"
+    },
+    "checkpointTable": {
+      "type": "string",
+      "description": "Checkpoint table in format schema.table"
+    },
+    "begin": {
+      "type": "string"
+    },
+    "config": {
+      "type": "array",
+      "description": "Parameter file content"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

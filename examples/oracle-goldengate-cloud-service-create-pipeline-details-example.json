@@ -1,0 +1,7 @@
+{
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "sourceConnectionDetailId": "500123",
+  "targetConnectionDetailId": "500123"
+}

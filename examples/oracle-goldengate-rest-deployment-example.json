@@ -1,0 +1,9 @@
+{
+  "name": "Example Title",
+  "status": "example_value",
+  "description": "A sample description.",
+  "oggHome": "example_value",
+  "oggVersion": "example_value",
+  "environmentVariables": "example_value",
+  "services": []
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Example Title",
+  "description": "A sample description.",
+  "host": "example_value",
+  "port": 10,
+  "username": "example_value",
+  "password": "example_value"
+}

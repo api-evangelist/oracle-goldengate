@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatabaseConnection",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Connection name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Database type"
+    },
+    "connectionString": {
+      "type": "string",
+      "description": "Database connection string"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

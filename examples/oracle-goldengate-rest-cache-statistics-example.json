@@ -1,0 +1,6 @@
+{
+  "processName": "example_value",
+  "cacheSize": 10,
+  "cacheUsed": 10,
+  "cacheHitRatio": 42.5
+}

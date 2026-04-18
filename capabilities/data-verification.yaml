@@ -1,0 +1,206 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate Data Verification"
+  description: "Unified workflow for verifying data consistency between source and target databases. Combines Veridata for data comparison and repair with core GoldenGate monitoring for data quality engineers and DBAs ensuring replication integrity."
+  tags:
+    - Oracle GoldenGate
+    - Data Verification
+    - Data Quality
+    - Compliance
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      VERIDATA_USERNAME: VERIDATA_USERNAME
+      VERIDATA_PASSWORD: VERIDATA_PASSWORD
+      OGG_USERNAME: OGG_USERNAME
+      OGG_PASSWORD: OGG_PASSWORD
+
+capability:
+  consumes:
+    - import: goldengate-veridata
+      location: ./shared/goldengate-veridata.yaml
+    - import: goldengate-rest
+      location: ./shared/goldengate-rest.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: data-verification-api
+      description: "Unified REST API for Oracle GoldenGate data verification workflows."
+      resources:
+        - path: /v1/connections
+          name: connections
+          description: "Database connections for verification"
+          operations:
+            - method: GET
+              name: list-connections
+              description: "List Veridata database connections"
+              call: "goldengate-veridata.list-connections"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/groups
+          name: groups
+          description: "Compare groups"
+          operations:
+            - method: GET
+              name: list-groups
+              description: "List compare groups"
+              call: "goldengate-veridata.list-groups"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/jobs
+          name: jobs
+          description: "Comparison jobs"
+          operations:
+            - method: GET
+              name: list-jobs
+              description: "List comparison jobs"
+              call: "goldengate-veridata.list-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/metrics
+          name: metrics
+          description: "Replication process metrics"
+          operations:
+            - method: GET
+              name: list-process-metrics
+              description: "List replication process performance metrics"
+              call: "goldengate-rest.list-process-metrics"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: data-verification-mcp
+      transport: http
+      description: "MCP server for AI-assisted data verification and comparison."
+      tools:
+        - name: list-connections
+          description: "List Veridata database connections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-connections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-connection
+          description: "Create a new Veridata database connection"
+          hints:
+            readOnly: false
+          call: "goldengate-veridata.create-connection"
+          with:
+            name: "tools.name"
+            host: "tools.host"
+            port: "tools.port"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-groups
+          description: "List compare groups for data verification"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-groups"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-group
+          description: "Create a new compare group"
+          hints:
+            readOnly: false
+          call: "goldengate-veridata.create-group"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-jobs
+          description: "List comparison jobs"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-job
+          description: "Create a new comparison job"
+          hints:
+            readOnly: false
+          call: "goldengate-veridata.create-job"
+          with:
+            name: "tools.name"
+            groupName: "tools.groupName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: run-job
+          description: "Execute a comparison job"
+          hints:
+            readOnly: false
+          call: "goldengate-veridata.run-job"
+          with:
+            jobName: "tools.jobName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-statistics
+          description: "Get comparison job statistics"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.get-job-statistics"
+          with:
+            jobName: "tools.jobName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-out-of-sync-data
+          description: "Get details of out-of-sync data"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.get-out-of-sync-data"
+          with:
+            jobName: "tools.jobName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: repair-job
+          description: "Repair out-of-sync data identified by a comparison job"
+          hints:
+            readOnly: false
+            destructive: true
+          call: "goldengate-veridata.repair-job"
+          with:
+            jobName: "tools.jobName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-server-info
+          description: "Get Veridata server information"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.get-server-info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-process-metrics
+          description: "Get GoldenGate process performance metrics for monitoring replication health"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-process-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."

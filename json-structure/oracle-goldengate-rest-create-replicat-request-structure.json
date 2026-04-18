@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateReplicatRequest",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string"
+    },
+    "checkpointTable": {
+      "type": "string"
+    },
+    "begin": {
+      "type": "string"
+    },
+    "config": {
+      "type": "array"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

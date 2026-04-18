@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TrandataResponse",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  }
+}

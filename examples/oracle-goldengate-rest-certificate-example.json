@@ -1,0 +1,8 @@
+{
+  "alias": "example_value",
+  "subject": "example_value",
+  "issuer": "example_value",
+  "serialNumber": "example_value",
+  "notBefore": "example_value",
+  "notAfter": "example_value"
+}

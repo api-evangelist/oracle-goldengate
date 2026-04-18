@@ -15,37 +15,37 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-    - url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/rest-endpoints.html
-      description: GoldenGate Stream Analytics REST API Reference
+  - url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/rest-endpoints.html
+    description: GoldenGate Stream Analytics REST API Reference
 servers:
-  - url: https://{ggsa-host}:{port}/osa
-    description: Oracle GoldenGate Stream Analytics server
-    variables:
-      ggsa-host:
-        default: localhost
-        description: GGSA server host
-      port:
-        default: '9080'
-        description: GGSA HTTP/S port
+- url: https://{ggsa-host}:{port}/osa
+  description: Oracle GoldenGate Stream Analytics server
+  variables:
+    ggsa-host:
+      default: localhost
+      description: GGSA server host
+    port:
+      default: '9080'
+      description: GGSA HTTP/S port
 security:
-  - basicAuth: []
+- basicAuth: []
 tags:
-  - name: Artifacts
-    description: Import and export GGSA artifacts
-  - name: Pipelines
-    description: Manage stream processing pipelines
-  - name: Users
-    description: User management and authorization
+- name: Artifacts
+  description: Import and export GGSA artifacts
+- name: Pipelines
+  description: Manage stream processing pipelines
+- name: Users
+  description: User management and authorization
 paths:
   /services/v1/pipelines:
     get:
       operationId: listPipelines
-      summary: Oracle GoldenGate List pipelines
+      summary: Oracle Goldengate List Pipelines
       description: >-
         Returns a list of all GGSA pipelines with their current status.
         Includes published and unpublished pipelines.
       tags:
-        - Pipelines
+      - Pipelines
       responses:
         '200':
           description: Pipelines listed
@@ -53,20 +53,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PipelineList'
+              examples:
+                Listpipelines200Example:
+                  summary: Default listPipelines 200 response
+                  x-microcks-default: true
+                  value:
+                    pipelines:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      status: Draft
+                      createdBy: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      sources: {}
+                      targets: {}
+                      stages: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/pipelines/{id}/export:
     get:
       operationId: exportPipeline
-      summary: Oracle GoldenGate Export a pipeline
+      summary: Oracle Goldengate Export a Pipeline
       description: >-
         Exports a GGSA pipeline and all its dependencies as a JSON artifact,
         including sources, targets, references, connections, predictive models,
         geo fences, visualizations, and custom jars.
       tags:
-        - Pipelines
+      - Pipelines
       parameters:
-        - $ref: '#/components/parameters/pipelineIdParam'
+      - $ref: '#/components/parameters/pipelineIdParam'
       responses:
         '200':
           description: Pipeline exported
@@ -74,27 +93,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PipelineExport'
+              examples:
+                Exportpipeline200Example:
+                  summary: Default exportPipeline 200 response
+                  x-microcks-default: true
+                  value:
+                    pipeline:
+                      id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      status: Draft
+                      createdBy: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      sources:
+                      - {}
+                      targets:
+                      - {}
+                      stages:
+                      - {}
+                    connections:
+                    - name: Example Title
+                      type: example_value
+                      configuration: example_value
+                    references:
+                    - name: Example Title
+                      type: example_value
+                    customJars:
+                    - name: Example Title
+                      path: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/pipelines/{id}/publish:
     patch:
       operationId: publishPipeline
-      summary: Oracle GoldenGate Publish a pipeline
+      summary: Oracle Goldengate Publish a Pipeline
       description: >-
         Publishes a pipeline, deploying it to the Spark runtime for execution.
         A published pipeline actively processes streaming data from configured
         sources and writes results to configured targets.
       tags:
-        - Pipelines
+      - Pipelines
       parameters:
-        - $ref: '#/components/parameters/pipelineIdParam'
+      - $ref: '#/components/parameters/pipelineIdParam'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PublishPipelineRequest'
+            examples:
+              PublishpipelineRequestExample:
+                summary: Default publishPipeline request
+                x-microcks-default: true
+                value:
+                  sparkConfig: example_value
       responses:
         '200':
           description: Pipeline published
@@ -102,23 +159,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pipeline'
+              examples:
+                Publishpipeline200Example:
+                  summary: Default publishPipeline 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    status: Draft
+                    createdBy: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    sources:
+                    - id: abc123
+                      name: Example Title
+                      type: Kafka
+                      connectionName: example_value
+                    targets:
+                    - id: abc123
+                      name: Example Title
+                      type: Kafka
+                      connectionName: example_value
+                    stages:
+                    - id: abc123
+                      name: Example Title
+                      type: Query
+                      description: A sample description.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/pipelines/{id}/unpublish:
     patch:
       operationId: unpublishPipeline
-      summary: Oracle GoldenGate Unpublish a pipeline
+      summary: Oracle Goldengate Unpublish a Pipeline
       description: >-
         Unpublishes a pipeline, stopping its execution on the Spark runtime.
         The pipeline configuration is preserved and can be re-published later.
       tags:
-        - Pipelines
+      - Pipelines
       parameters:
-        - $ref: '#/components/parameters/pipelineIdParam'
+      - $ref: '#/components/parameters/pipelineIdParam'
       responses:
         '200':
           description: Pipeline unpublished
@@ -126,26 +213,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pipeline'
+              examples:
+                Unpublishpipeline200Example:
+                  summary: Default unpublishPipeline 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    status: Draft
+                    createdBy: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    sources:
+                    - id: abc123
+                      name: Example Title
+                      type: Kafka
+                      connectionName: example_value
+                    targets:
+                    - id: abc123
+                      name: Example Title
+                      type: Kafka
+                      connectionName: example_value
+                    stages:
+                    - id: abc123
+                      name: Example Title
+                      type: Query
+                      description: A sample description.
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/artifacts/import:
     patch:
       operationId: importArtifacts
-      summary: Oracle GoldenGate Import GGSA artifacts
+      summary: Oracle Goldengate Import Ggsa Artifacts
       description: >-
         Imports GGSA artifacts (pipelines, sources, targets, connections, etc.)
         from a previously exported JSON document. Supports CI/CD workflows by
         enabling promotion of pipelines across environments.
       tags:
-        - Artifacts
+      - Artifacts
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ArtifactImport'
+            examples:
+              ImportartifactsRequestExample:
+                summary: Default importArtifacts request
+                x-microcks-default: true
+                value:
+                  pipeline: example_value
+                  connections:
+                  - {}
+                  references:
+                  - {}
       responses:
         '200':
           description: Artifacts imported
@@ -153,19 +280,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importartifacts200Example:
+                  summary: Default importArtifacts 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    importedArtifacts: 10
+                    messages:
+                    - example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/authorizations/{role}:
     get:
       operationId: listUsers
-      summary: Oracle GoldenGate List users for a role
+      summary: Oracle Goldengate List Users for a Role
       description: Returns a list of all users assigned to a specific role.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/roleParam'
       responses:
         '200':
           description: Users listed
@@ -173,18 +312,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserList'
+              examples:
+                Listusers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - name: Example Title
+                      role: example_value
+                      description: A sample description.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v1/authorizations/{role}/{user}:
     get:
       operationId: getUser
-      summary: Oracle GoldenGate Retrieve a user
+      summary: Oracle Goldengate Retrieve a User
       description: Returns details of a specific user in the given role.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/roleParam'
-        - $ref: '#/components/parameters/userParam'
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
       responses:
         '200':
           description: User retrieved
@@ -192,25 +343,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Getuser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createUser
-      summary: Oracle GoldenGate Create a user
+      summary: Oracle Goldengate Create a User
       description: Creates a new user with the specified role for GGSA access.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/roleParam'
-        - $ref: '#/components/parameters/userParam'
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              CreateuserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
       responses:
         '201':
           description: User created
@@ -218,25 +387,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Createuser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateUser
-      summary: Oracle GoldenGate Update a user
+      summary: Oracle Goldengate Update a User
       description: Updates user properties or role assignment.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/roleParam'
-        - $ref: '#/components/parameters/userParam'
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateUserRequest'
+            examples:
+              UpdateuserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
       responses:
         '200':
           description: User updated
@@ -244,10 +431,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Updateuser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -270,9 +468,9 @@ components:
       schema:
         type: string
         enum:
-          - Admin
-          - Operator
-          - Viewer
+        - Admin
+        - Operator
+        - Viewer
     userParam:
       name: user
       in: path
@@ -305,8 +503,10 @@ components:
       properties:
         code:
           type: integer
+          example: 10
         message:
           type: string
+          example: example_value
     PipelineList:
       type: object
       properties:
@@ -314,101 +514,124 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Pipeline'
+          example: []
     Pipeline:
       type: object
       properties:
         id:
           type: string
           description: Pipeline unique identifier
+          example: abc123
         name:
           type: string
           description: Pipeline display name
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         status:
           type: string
           description: Current pipeline status
           enum:
-            - Draft
-            - Published
-            - Running
-            - Stopped
-            - Error
+          - Draft
+          - Published
+          - Running
+          - Stopped
+          - Error
+          example: Draft
         createdBy:
           type: string
+          example: example_value
         createdAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         updatedAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         sources:
           type: array
           items:
             $ref: '#/components/schemas/PipelineSource'
+          example: []
         targets:
           type: array
           items:
             $ref: '#/components/schemas/PipelineTarget'
+          example: []
         stages:
           type: array
           items:
             $ref: '#/components/schemas/PipelineStage'
+          example: []
     PipelineSource:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         name:
           type: string
+          example: Example Title
         type:
           type: string
           description: Source type
           enum:
-            - Kafka
-            - GoldenGate
-            - JMS
-            - REST
-            - CSV
-            - Database
+          - Kafka
+          - GoldenGate
+          - JMS
+          - REST
+          - CSV
+          - Database
+          example: Kafka
         connectionName:
           type: string
+          example: example_value
     PipelineTarget:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         name:
           type: string
+          example: Example Title
         type:
           type: string
           description: Target type
           enum:
-            - Kafka
-            - GoldenGate
-            - Database
-            - REST
-            - Elasticsearch
-            - ObjectStorage
+          - Kafka
+          - GoldenGate
+          - Database
+          - REST
+          - Elasticsearch
+          - ObjectStorage
+          example: Kafka
         connectionName:
           type: string
+          example: example_value
     PipelineStage:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         name:
           type: string
+          example: Example Title
         type:
           type: string
           enum:
-            - Query
-            - Pattern
-            - Rule
-            - ScoreModel
-            - Custom
+          - Query
+          - Pattern
+          - Rule
+          - ScoreModel
+          - Custom
+          example: Query
         description:
           type: string
+          example: A sample description.
     PipelineExport:
       type: object
       description: >-
@@ -430,6 +653,7 @@ components:
               configuration:
                 type: object
                 additionalProperties: true
+          example: []
         references:
           type: array
           items:
@@ -439,6 +663,7 @@ components:
                 type: string
               type:
                 type: string
+          example: []
         customJars:
           type: array
           items:
@@ -448,6 +673,7 @@ components:
                 type: string
               path:
                 type: string
+          example: []
     PublishPipelineRequest:
       type: object
       properties:
@@ -456,6 +682,7 @@ components:
           description: Optional Spark configuration overrides
           additionalProperties:
             type: string
+          example: example_value
     ArtifactImport:
       type: object
       description: JSON document containing exported GGSA artifacts
@@ -463,27 +690,33 @@ components:
         pipeline:
           type: object
           additionalProperties: true
+          example: example_value
         connections:
           type: array
           items:
             type: object
             additionalProperties: true
+          example: []
         references:
           type: array
           items:
             type: object
             additionalProperties: true
+          example: []
     ImportResult:
       type: object
       properties:
         success:
           type: boolean
+          example: true
         importedArtifacts:
           type: integer
+          example: 10
         messages:
           type: array
           items:
             type: string
+          example: []
     UserList:
       type: object
       properties:
@@ -491,30 +724,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+          example: []
     User:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         role:
           type: string
+          example: example_value
         description:
           type: string
+          example: A sample description.
     CreateUserRequest:
       type: object
       required:
-        - password
+      - password
       properties:
         password:
           type: string
           format: password
+          example: example_value
         description:
           type: string
+          example: A sample description.
     UpdateUserRequest:
       type: object
       properties:
         password:
           type: string
           format: password
+          example: example_value
         description:
           type: string
+          example: A sample description.

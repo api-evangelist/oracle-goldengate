@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deployment",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name of the deployment"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the deployment"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the deployment"
+    },
+    "oggHome": {
+      "type": "string",
+      "description": "Oracle GoldenGate home directory"
+    },
+    "oggVersion": {
+      "type": "string",
+      "description": "GoldenGate software version"
+    },
+    "environmentVariables": {
+      "type": "object"
+    },
+    "services": {
+      "type": "array"
+    }
+  }
+}

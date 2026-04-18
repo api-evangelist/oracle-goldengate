@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConnectionSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "connectionType": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "timeCreated": {
+      "type": "string"
+    }
+  }
+}

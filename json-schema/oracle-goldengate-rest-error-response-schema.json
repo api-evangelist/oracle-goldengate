@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ErrorResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "description": "HTTP status code"
+    },
+    "message": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "severity": {
+      "type": "string",
+      "description": "Error severity level"
+    }
+  }
+}

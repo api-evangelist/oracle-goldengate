@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatabaseNameList",
+  "type": "object",
+  "properties": {
+    "databases": {
+      "type": "array"
+    }
+  }
+}

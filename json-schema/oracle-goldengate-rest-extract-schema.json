@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Extract",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Extract process name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of extract"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current process status"
+    },
+    "description": {
+      "type": "string"
+    },
+    "begin": {
+      "type": "string",
+      "description": "Begin position (NOW, SCN value, or timestamp)"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Trail file path"
+    },
+    "trailSize": {
+      "type": "integer",
+      "description": "Trail file size in MB"
+    },
+    "config": {
+      "type": "array",
+      "description": "Parameter file content lines"
+    },
+    "registration": {
+      "type": "string",
+      "description": "Database registration alias"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

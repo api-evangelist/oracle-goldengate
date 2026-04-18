@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Replicat",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string"
+    },
+    "checkpointTable": {
+      "type": "string"
+    },
+    "config": {
+      "type": "array"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "fqdn": "example_value",
+  "username": "example_value",
+  "password": "example_value",
+  "connectionString": "example_value",
+  "databaseId": "500123"
+}

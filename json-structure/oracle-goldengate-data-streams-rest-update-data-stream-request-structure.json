@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateDataStreamRequest",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "target": {
+      "type": "object"
+    },
+    "filters": {
+      "type": "array"
+    }
+  }
+}

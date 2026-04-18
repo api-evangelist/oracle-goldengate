@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateDeploymentRequest",
+  "type": "object",
+  "properties": {
+    "oggHome": {
+      "type": "string",
+      "description": "Oracle GoldenGate home directory path"
+    },
+    "description": {
+      "type": "string"
+    },
+    "environmentVariables": {
+      "type": "object"
+    },
+    "autoStart": {
+      "type": "boolean",
+      "description": "Whether to automatically start the deployment"
+    }
+  }
+}

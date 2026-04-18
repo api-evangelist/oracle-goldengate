@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConfigTypeList",
+  "type": "object",
+  "properties": {
+    "types": {
+      "type": "array"
+    }
+  }
+}

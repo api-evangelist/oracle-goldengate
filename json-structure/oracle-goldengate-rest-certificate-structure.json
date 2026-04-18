@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Certificate",
+  "type": "object",
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "issuer": {
+      "type": "string"
+    },
+    "serialNumber": {
+      "type": "string"
+    },
+    "notBefore": {
+      "type": "string"
+    },
+    "notAfter": {
+      "type": "string"
+    }
+  }
+}

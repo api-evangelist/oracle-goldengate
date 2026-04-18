@@ -1,0 +1,6 @@
+{
+  "name": "Example Title",
+  "bytesProcessed": 10,
+  "messagesProcessed": 10,
+  "lag": "example_value"
+}

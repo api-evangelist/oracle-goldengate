@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateExtractRequest",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "begin": {
+      "type": "string",
+      "description": "Begin position (NOW, SCN value, or timestamp)"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Trail file prefix (e.g., aa)"
+    },
+    "trailSize": {
+      "type": "integer",
+      "description": "Trail file size in MB (default 500)"
+    },
+    "config": {
+      "type": "array",
+      "description": "Parameter file content"
+    },
+    "registration": {
+      "type": "string"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Certificate",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "deploymentId": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "issuer": {
+      "type": "string"
+    },
+    "isSelfSigned": {
+      "type": "boolean"
+    },
+    "md5Hash": {
+      "type": "string"
+    },
+    "publicKey": {
+      "type": "string"
+    },
+    "publicKeyAlgorithm": {
+      "type": "string"
+    },
+    "timeValidFrom": {
+      "type": "string"
+    },
+    "timeValidTo": {
+      "type": "string"
+    },
+    "serial": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "timeCreated": {
+      "type": "string"
+    }
+  }
+}

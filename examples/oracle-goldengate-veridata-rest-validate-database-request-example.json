@@ -1,0 +1,8 @@
+{
+  "host": "example_value",
+  "port": 10,
+  "databaseType": "example_value",
+  "serviceName": "example_value",
+  "username": "example_value",
+  "password": "example_value"
+}

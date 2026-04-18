@@ -1,0 +1,362 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate Veridata REST API"
+  description: "REST API for Oracle GoldenGate Veridata, a data comparison and repair solution that verifies data consistency between source and target databases."
+  tags:
+    - Oracle GoldenGate
+    - Data Verification
+    - Data Quality
+    - Comparison
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      VERIDATA_USERNAME: VERIDATA_USERNAME
+      VERIDATA_PASSWORD: VERIDATA_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: goldengate-veridata
+      baseUri: https://{veridata-host}:{port}/veridata/v1
+      description: "Oracle GoldenGate Veridata REST API"
+      authentication:
+        type: basic
+        username: "{{VERIDATA_USERNAME}}"
+        password: "{{VERIDATA_PASSWORD}}"
+      resources:
+        - name: server
+          path: /services/server
+          description: "Server information and configuration"
+          operations:
+            - name: get-server-info
+              method: GET
+              description: "Returns server information including version and uptime"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-server-configuration
+              method: GET
+              description: "Returns current server configuration settings"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: connections
+          path: /services/connections
+          description: "Source and target database connection management"
+          operations:
+            - name: list-connections
+              method: GET
+              description: "Returns a list of database connections"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-connection
+              method: POST
+              description: "Creates a new database connection"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  host: "{{tools.host}}"
+                  port: "{{tools.port}}"
+            - name: get-connection
+              method: GET
+              description: "Returns a specific connection"
+              inputParameters:
+                - name: connectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Connection name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-connection
+              method: DELETE
+              description: "Deletes a database connection"
+              inputParameters:
+                - name: connectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Connection name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: groups
+          path: /services/groups
+          description: "Compare group management"
+          operations:
+            - name: list-groups
+              method: GET
+              description: "Returns a list of compare groups"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-group
+              method: POST
+              description: "Creates a new compare group"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+            - name: get-group
+              method: GET
+              description: "Returns a specific compare group"
+              inputParameters:
+                - name: groupName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Group name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-group
+              method: DELETE
+              description: "Deletes a compare group"
+              inputParameters:
+                - name: groupName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Group name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: jobs
+          path: /services/jobs
+          description: "Comparison job management"
+          operations:
+            - name: list-jobs
+              method: GET
+              description: "Returns a list of comparison jobs"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-job
+              method: POST
+              description: "Creates a new comparison job"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  groupName: "{{tools.groupName}}"
+            - name: get-job
+              method: GET
+              description: "Returns a specific job"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-job
+              method: DELETE
+              description: "Deletes a comparison job"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: execution
+          path: /services/jobs
+          description: "Run and stop comparison jobs"
+          operations:
+            - name: run-job
+              method: POST
+              description: "Executes a comparison job"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: stop-job
+              method: POST
+              description: "Stops a running comparison job"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: monitoring
+          path: /services/monitoring
+          description: "Comparison and repair statistics"
+          operations:
+            - name: get-job-statistics
+              method: GET
+              description: "Returns statistics for a comparison job"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-out-of-sync-data
+              method: GET
+              description: "Returns out-of-sync data details"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: repair
+          path: /services/repair
+          description: "Repair out-of-sync data"
+          operations:
+            - name: repair-job
+              method: POST
+              description: "Initiates repair for out-of-sync data"
+              inputParameters:
+                - name: jobName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: goldengate-veridata-api
+      resources:
+        - path: /v1/connections
+          name: connections
+          description: "Database connections"
+          operations:
+            - method: GET
+              name: list-connections
+              description: "List database connections"
+        - path: /v1/groups
+          name: groups
+          description: "Compare groups"
+          operations:
+            - method: GET
+              name: list-groups
+              description: "List compare groups"
+        - path: /v1/jobs
+          name: jobs
+          description: "Comparison jobs"
+          operations:
+            - method: GET
+              name: list-jobs
+              description: "List comparison jobs"
+
+    - type: mcp
+      port: 9102
+      namespace: goldengate-veridata-mcp
+      transport: http
+      tools:
+        - name: list-connections
+          description: "List Veridata database connections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-connections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-groups
+          description: "List compare groups"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-groups"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-jobs
+          description: "List comparison jobs"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-veridata.list-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: run-job
+          description: "Execute a comparison job"
+          hints:
+            readOnly: false
+            openWorld: true
+          call: "goldengate-veridata.run-job"
+          with:
+            jobName: "tools.jobName"
+          outputParameters:
+            - type: object
+              mapping: "$."

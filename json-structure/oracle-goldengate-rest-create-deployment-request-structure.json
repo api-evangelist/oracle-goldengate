@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateDeploymentRequest",
+  "type": "object",
+  "properties": {
+    "oggHome": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "environmentVariables": {
+      "type": "object"
+    },
+    "autoStart": {
+      "type": "boolean"
+    }
+  }
+}

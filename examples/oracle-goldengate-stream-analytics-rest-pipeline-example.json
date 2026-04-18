@@ -1,0 +1,12 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "description": "A sample description.",
+  "status": "example_value",
+  "createdBy": "example_value",
+  "createdAt": "example_value",
+  "updatedAt": "example_value",
+  "sources": [],
+  "targets": [],
+  "stages": []
+}

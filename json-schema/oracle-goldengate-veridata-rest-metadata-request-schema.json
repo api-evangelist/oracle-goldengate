@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MetadataRequest",
+  "type": "object",
+  "properties": {
+    "schemaPattern": {
+      "type": "string"
+    },
+    "tablePattern": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateExtractRequest",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string"
+    },
+    "begin": {
+      "type": "string"
+    },
+    "config": {
+      "type": "array"
+    }
+  }
+}

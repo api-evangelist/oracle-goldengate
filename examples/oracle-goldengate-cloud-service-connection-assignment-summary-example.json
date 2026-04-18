@@ -1,0 +1,6 @@
+{
+  "id": "abc123",
+  "connectionId": "500123",
+  "deploymentId": "500123",
+  "lifecycleState": "example_value"
+}

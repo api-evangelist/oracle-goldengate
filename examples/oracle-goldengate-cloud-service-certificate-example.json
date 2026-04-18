@@ -1,0 +1,15 @@
+{
+  "key": "example_value",
+  "deploymentId": "500123",
+  "subject": "example_value",
+  "issuer": "example_value",
+  "isSelfSigned": true,
+  "md5Hash": "example_value",
+  "publicKey": "example_value",
+  "publicKeyAlgorithm": "example_value",
+  "timeValidFrom": "example_value",
+  "timeValidTo": "example_value",
+  "serial": "example_value",
+  "lifecycleState": "example_value",
+  "timeCreated": "example_value"
+}

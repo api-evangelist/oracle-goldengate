@@ -1,0 +1,5 @@
+{
+  "maxConcurrentJobs": 10,
+  "maxThreadsPerJob": 10,
+  "reportRetentionDays": 10
+}

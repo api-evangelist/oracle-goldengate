@@ -1,0 +1,11 @@
+{
+  "name": "Example Title",
+  "description": "A sample description.",
+  "status": "example_value",
+  "source": "example_value",
+  "target": "example_value",
+  "filters": [],
+  "asyncApiSpec": "example_value",
+  "createdAt": "example_value",
+  "updatedAt": "example_value"
+}

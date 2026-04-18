@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServerConfiguration",
+  "type": "object",
+  "properties": {
+    "maxConcurrentJobs": {
+      "type": "integer"
+    },
+    "maxThreadsPerJob": {
+      "type": "integer"
+    },
+    "reportRetentionDays": {
+      "type": "integer"
+    },
+    "oosRetentionDays": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "WorkRequestSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "operationType": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "percentComplete": {
+      "type": "number"
+    },
+    "timeAccepted": {
+      "type": "string"
+    }
+  }
+}

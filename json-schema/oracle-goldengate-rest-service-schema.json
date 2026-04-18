@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Service",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Service name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Service type"
+    },
+    "status": {
+      "type": "string",
+      "description": "Service status"
+    },
+    "port": {
+      "type": "integer",
+      "description": "Service listening port"
+    },
+    "secure": {
+      "type": "boolean",
+      "description": "Whether the service uses SSL/TLS"
+    }
+  }
+}

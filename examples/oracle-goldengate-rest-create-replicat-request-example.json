@@ -1,0 +1,9 @@
+{
+  "type": "example_value",
+  "description": "A sample description.",
+  "trail": "example_value",
+  "checkpointTable": "example_value",
+  "begin": "example_value",
+  "config": [],
+  "credentials": "example_value"
+}

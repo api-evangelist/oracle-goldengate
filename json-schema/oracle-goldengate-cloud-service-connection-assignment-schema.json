@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConnectionAssignment",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "connectionId": {
+      "type": "string"
+    },
+    "deploymentId": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "timeCreated": {
+      "type": "string"
+    },
+    "timeUpdated": {
+      "type": "string"
+    }
+  }
+}

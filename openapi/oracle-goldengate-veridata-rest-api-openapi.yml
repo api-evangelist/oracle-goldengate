@@ -15,55 +15,55 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-    - url: https://docs.oracle.com/en/middleware/goldengate/veridata/23/ggvra/rest-endpoints.html
-      description: Oracle GoldenGate Veridata REST API Reference
+  - url: https://docs.oracle.com/en/middleware/goldengate/veridata/23/ggvra/rest-endpoints.html
+    description: Oracle GoldenGate Veridata REST API Reference
 servers:
-  - url: https://{veridata-host}:{port}/veridata/v1
-    description: Oracle GoldenGate Veridata server
-    variables:
-      veridata-host:
-        default: localhost
-        description: Veridata server host
-      port:
-        default: '8830'
-        description: Veridata HTTPS port
+- url: https://{veridata-host}:{port}/veridata/v1
+  description: Oracle GoldenGate Veridata server
+  variables:
+    veridata-host:
+      default: localhost
+      description: Veridata server host
+    port:
+      default: '8830'
+      description: Veridata HTTPS port
 security:
-  - basicAuth: []
+- basicAuth: []
 tags:
-  - name: Compare Pairs
-    description: Manage compare pairs within groups
-  - name: Connections
-    description: Manage source and target database connections
-  - name: Execution
-    description: Run and stop comparison jobs
-  - name: Groups
-    description: Manage compare groups
-  - name: Import/Export
-    description: Import and export Veridata configurations
-  - name: Jobs
-    description: Manage and execute comparison jobs
-  - name: Logs
-    description: Access server logs
-  - name: Monitoring
-    description: Monitor comparison and repair statistics
-  - name: Profiles
-    description: Manage comparison profiles
-  - name: Repair
-    description: Repair out-of-sync data
-  - name: Server
-    description: Server information and configuration
-  - name: Users
-    description: User and user group management
-  - name: Validation
-    description: Validate connections and configurations
+- name: Compare Pairs
+  description: Manage compare pairs within groups
+- name: Connections
+  description: Manage source and target database connections
+- name: Execution
+  description: Run and stop comparison jobs
+- name: Groups
+  description: Manage compare groups
+- name: Import/Export
+  description: Import and export Veridata configurations
+- name: Jobs
+  description: Manage and execute comparison jobs
+- name: Logs
+  description: Access server logs
+- name: Monitoring
+  description: Monitor comparison and repair statistics
+- name: Profiles
+  description: Manage comparison profiles
+- name: Repair
+  description: Repair out-of-sync data
+- name: Server
+  description: Server information and configuration
+- name: Users
+  description: User and user group management
+- name: Validation
+  description: Validate connections and configurations
 paths:
   /services/server/info:
     get:
       operationId: getServerInfo
-      summary: Oracle GoldenGate Retrieve server details
+      summary: Oracle Goldengate Retrieve Server Details
       description: Returns server information including version, uptime, and system details.
       tags:
-        - Server
+      - Server
       responses:
         '200':
           description: Server information retrieved
@@ -71,15 +71,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerInfo'
+              examples:
+                Getserverinfo200Example:
+                  summary: Default getServerInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    version: example_value
+                    buildNumber: example_value
+                    uptime: example_value
+                    javaVersion: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/server/configuration:
     get:
       operationId: getServerConfiguration
-      summary: Oracle GoldenGate Retrieve server configurations
+      summary: Oracle Goldengate Retrieve Server Configurations
       description: Returns the current server configuration settings.
       tags:
-        - Server
+      - Server
       responses:
         '200':
           description: Configuration retrieved
@@ -87,20 +99,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Getserverconfiguration200Example:
+                  summary: Default getServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateServerConfiguration
-      summary: Oracle GoldenGate Update server configurations
+      summary: Oracle Goldengate Update Server Configurations
       description: Updates server configuration settings.
       tags:
-        - Server
+      - Server
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateServerConfigurationRequest'
+            examples:
+              UpdateserverconfigurationRequestExample:
+                summary: Default updateServerConfiguration request
+                x-microcks-default: true
+                value:
+                  maxConcurrentJobs: 10
+                  maxThreadsPerJob: 10
+                  reportRetentionDays: 10
       responses:
         '200':
           description: Configuration updated
@@ -108,17 +140,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Updateserverconfiguration200Example:
+                  summary: Default updateServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/server/configuration/reset:
     put:
       operationId: resetServerConfiguration
-      summary: Oracle GoldenGate Reset server configurations to default
+      summary: Oracle Goldengate Reset Server Configurations to Default
       description: Resets all server configuration settings to their factory default values.
       tags:
-        - Server
+      - Server
       responses:
         '200':
           description: Configuration reset to defaults
@@ -126,15 +170,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Resetserverconfiguration200Example:
+                  summary: Default resetServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/connections:
     get:
       operationId: listConnections
-      summary: Oracle GoldenGate Retrieve all connections
+      summary: Oracle Goldengate Retrieve All Connections
       description: Returns a list of all configured source and target database connections.
       tags:
-        - Connections
+      - Connections
       responses:
         '200':
           description: Connections listed
@@ -142,20 +198,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConnectionList'
+              examples:
+                Listconnections200Example:
+                  summary: Default listConnections 200 response
+                  x-microcks-default: true
+                  value:
+                    connections:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      databaseType: Oracle
+                      host: example_value
+                      port: 10
+                      serviceName: example_value
+                      schema: example_value
+                      agentHost: example_value
+                      agentPort: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createConnection
-      summary: Oracle GoldenGate Create a connection
+      summary: Oracle Goldengate Create a Connection
       description: Creates a new database connection for use as a source or target in comparisons.
       tags:
-        - Connections
+      - Connections
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateConnectionRequest'
+            examples:
+              CreateconnectionRequestExample:
+                summary: Default createConnection request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  databaseType: example_value
+                  host: example_value
+                  port: 10
+                  serviceName: example_value
+                  schema: example_value
+                  username: example_value
+                  password: example_value
+                  agentHost: example_value
+                  agentPort: 10
       responses:
         '201':
           description: Connection created
@@ -163,19 +254,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+              examples:
+                Createconnection201Example:
+                  summary: Default createConnection 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/connections/{Id}:
     get:
       operationId: getConnection
-      summary: Oracle GoldenGate Retrieve a connection
+      summary: Oracle Goldengate Retrieve a Connection
       description: Returns the details of a specific database connection.
       tags:
-        - Connections
+      - Connections
       parameters:
-        - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/connectionIdParam'
       responses:
         '200':
           description: Connection retrieved
@@ -183,24 +292,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+              examples:
+                Getconnection200Example:
+                  summary: Default getConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateConnection
-      summary: Oracle GoldenGate Update a connection
+      summary: Oracle Goldengate Update a Connection
       description: Updates properties of an existing database connection.
       tags:
-        - Connections
+      - Connections
       parameters:
-        - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/connectionIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateConnectionRequest'
+            examples:
+              UpdateconnectionRequestExample:
+                summary: Default updateConnection request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  host: example_value
+                  port: 10
+                  username: example_value
+                  password: example_value
       responses:
         '200':
           description: Connection updated
@@ -208,20 +346,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Connection'
+              examples:
+                Updateconnection200Example:
+                  summary: Default updateConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteConnection
-      summary: Oracle GoldenGate Delete a connection
+      summary: Oracle Goldengate Delete a Connection
       description: Deletes a database connection.
       tags:
-        - Connections
+      - Connections
       parameters:
-        - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/connectionIdParam'
       responses:
         '204':
           description: Connection deleted
@@ -229,15 +385,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/connections/{Id}/status:
     get:
       operationId: getConnectionStatus
-      summary: Oracle GoldenGate Retrieve connection status
+      summary: Oracle Goldengate Retrieve Connection Status
       description: Returns the connectivity status of a database connection.
       tags:
-        - Connections
+      - Connections
       parameters:
-        - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/connectionIdParam'
       responses:
         '200':
           description: Connection status retrieved
@@ -245,24 +404,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConnectionStatus'
+              examples:
+                Getconnectionstatus200Example:
+                  summary: Default getConnectionStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    connectionId: '500123'
+                    status: connected
+                    message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/connections/{Id}/metadata:
     post:
       operationId: getConnectionMetadata
-      summary: Oracle GoldenGate Retrieve connection metadata
+      summary: Oracle Goldengate Retrieve Connection Metadata
       description: Returns database metadata (schemas, tables, columns) for a connection.
       tags:
-        - Connections
+      - Connections
       parameters:
-        - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/connectionIdParam'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MetadataRequest'
+            examples:
+              GetconnectionmetadataRequestExample:
+                summary: Default getConnectionMetadata request
+                x-microcks-default: true
+                value:
+                  schemaPattern: example_value
+                  tablePattern: example_value
       responses:
         '200':
           description: Metadata retrieved
@@ -270,17 +447,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConnectionMetadata'
+              examples:
+                Getconnectionmetadata200Example:
+                  summary: Default getConnectionMetadata 200 response
+                  x-microcks-default: true
+                  value:
+                    schemas:
+                    - name: Example Title
+                      tables:
+                      - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/groups:
     get:
       operationId: listGroups
-      summary: Oracle GoldenGate Retrieve all compare groups
+      summary: Oracle Goldengate Retrieve All Compare Groups
       description: Returns a list of all compare groups configured in Veridata.
       tags:
-        - Groups
+      - Groups
       responses:
         '200':
           description: Groups listed
@@ -288,20 +477,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupList'
+              examples:
+                Listgroups200Example:
+                  summary: Default listGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    groups:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      sourceConnectionId: '500123'
+                      targetConnectionId: '500123'
+                      profileId: '500123'
+                      comparePairCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createGroup
-      summary: Oracle GoldenGate Create a compare group
+      summary: Oracle Goldengate Create a Compare Group
       description: Creates a new compare group linking source and target connections for data comparison.
       tags:
-        - Groups
+      - Groups
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateGroupRequest'
+            examples:
+              CreategroupRequestExample:
+                summary: Default createGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  sourceConnectionId: '500123'
+                  targetConnectionId: '500123'
+                  profileId: '500123'
       responses:
         '201':
           description: Group created
@@ -309,19 +524,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+              examples:
+                Creategroup201Example:
+                  summary: Default createGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/groups/{Id}:
     get:
       operationId: getGroup
-      summary: Oracle GoldenGate Retrieve a compare group
+      summary: Oracle Goldengate Retrieve a Compare Group
       description: Returns the details of a specific compare group including its source and target connections.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupIdParam'
+      - $ref: '#/components/parameters/groupIdParam'
       responses:
         '200':
           description: Group retrieved
@@ -329,24 +559,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+              examples:
+                Getgroup200Example:
+                  summary: Default getGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateGroup
-      summary: Oracle GoldenGate Update a compare group
+      summary: Oracle Goldengate Update a Compare Group
       description: Updates properties of an existing compare group.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupIdParam'
+      - $ref: '#/components/parameters/groupIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateGroupRequest'
+            examples:
+              UpdategroupRequestExample:
+                summary: Default updateGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  profileId: '500123'
       responses:
         '200':
           description: Group updated
@@ -354,20 +607,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+              examples:
+                Updategroup200Example:
+                  summary: Default updateGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteGroup
-      summary: Oracle GoldenGate Delete a compare group
+      summary: Oracle Goldengate Delete a Compare Group
       description: Deletes a compare group and its associated compare pairs.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupIdParam'
+      - $ref: '#/components/parameters/groupIdParam'
       responses:
         '204':
           description: Group deleted
@@ -375,20 +643,29 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/groups/clone/{Id}:
     post:
       operationId: cloneGroup
-      summary: Oracle GoldenGate Clone a compare group
+      summary: Oracle Goldengate Clone a Compare Group
       description: Creates a copy of an existing compare group including all its compare pairs.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/groupIdParam'
+      - $ref: '#/components/parameters/groupIdParam'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CloneGroupRequest'
+            examples:
+              ClonegroupRequestExample:
+                summary: Default cloneGroup request
+                x-microcks-default: true
+                value:
+                  newName: example_value
       responses:
         '201':
           description: Group cloned
@@ -396,19 +673,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+              examples:
+                Clonegroup201Example:
+                  summary: Default cloneGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/groups/validate/{Id}:
     post:
       operationId: validateGroup
-      summary: Oracle GoldenGate Validate a compare group
+      summary: Oracle Goldengate Validate a Compare Group
       description: Validates the configuration of a compare group including connection and table accessibility.
       tags:
-        - Validation
+      - Validation
       parameters:
-        - $ref: '#/components/parameters/groupIdParam'
+      - $ref: '#/components/parameters/groupIdParam'
       responses:
         '200':
           description: Validation result
@@ -416,25 +708,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validategroup200Example:
+                  summary: Default validateGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/cps/group/{groupId}:
     post:
       operationId: createComparePairs
-      summary: Oracle GoldenGate Create compare pairs in a group
+      summary: Oracle Goldengate Create Compare Pairs in a Group
       description: Creates one or more compare pairs within a specific compare group.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       parameters:
-        - $ref: '#/components/parameters/groupIdPathParam'
+      - $ref: '#/components/parameters/groupIdPathParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateComparePairsRequest'
+            examples:
+              CreatecomparepairsRequestExample:
+                summary: Default createComparePairs request
+                x-microcks-default: true
+                value:
+                  comparePairs:
+                  - sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
       responses:
         '201':
           description: Compare pairs created
@@ -442,19 +756,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComparePairList'
+              examples:
+                Createcomparepairs201Example:
+                  summary: Default createComparePairs 201 response
+                  x-microcks-default: true
+                  value:
+                    comparePairs:
+                    - id: abc123
+                      groupId: '500123'
+                      sourceSchema: example_value
+                      sourceTable: example_value
+                      targetSchema: example_value
+                      targetTable: example_value
+                      profileId: '500123'
+                      columnMappings: {}
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/cps/{Id}:
     get:
       operationId: getComparePair
-      summary: Oracle GoldenGate Retrieve a compare pair
+      summary: Oracle Goldengate Retrieve a Compare Pair
       description: Returns the details of a specific compare pair including source and target table mappings.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       parameters:
-        - $ref: '#/components/parameters/comparePairIdParam'
+      - $ref: '#/components/parameters/comparePairIdParam'
       responses:
         '200':
           description: Compare pair retrieved
@@ -462,24 +793,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComparePair'
+              examples:
+                Getcomparepair200Example:
+                  summary: Default getComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    groupId: '500123'
+                    sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
+                    profileId: '500123'
+                    columnMappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceComparePair
-      summary: Oracle GoldenGate Replace a compare pair
+      summary: Oracle Goldengate Replace a Compare Pair
       description: Replaces the configuration of an existing compare pair.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       parameters:
-        - $ref: '#/components/parameters/comparePairIdParam'
+      - $ref: '#/components/parameters/comparePairIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ReplaceComparePairRequest'
+            examples:
+              ReplacecomparepairRequestExample:
+                summary: Default replaceComparePair request
+                x-microcks-default: true
+                value:
+                  sourceSchema: example_value
+                  sourceTable: example_value
+                  targetSchema: example_value
+                  targetTable: example_value
+                  profileId: '500123'
       responses:
         '200':
           description: Compare pair replaced
@@ -487,18 +847,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComparePair'
+              examples:
+                Replacecomparepair200Example:
+                  summary: Default replaceComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    groupId: '500123'
+                    sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
+                    profileId: '500123'
+                    columnMappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteComparePair
-      summary: Oracle GoldenGate Delete a compare pair
+      summary: Oracle Goldengate Delete a Compare Pair
       description: Deletes a compare pair from its group.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       parameters:
-        - $ref: '#/components/parameters/comparePairIdParam'
+      - $ref: '#/components/parameters/comparePairIdParam'
       responses:
         '204':
           description: Compare pair deleted
@@ -506,15 +885,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/cps/{Id}/colmap:
     post:
       operationId: generateColumnMappings
-      summary: Oracle GoldenGate Generate column mapping pairs
+      summary: Oracle Goldengate Generate Column Mapping Pairs
       description: Automatically generates column mappings between source and target tables for a compare pair.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       parameters:
-        - $ref: '#/components/parameters/comparePairIdParam'
+      - $ref: '#/components/parameters/comparePairIdParam'
       responses:
         '200':
           description: Column mappings generated
@@ -522,19 +904,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ColumnMappingList'
+              examples:
+                Generatecolumnmappings200Example:
+                  summary: Default generateColumnMappings 200 response
+                  x-microcks-default: true
+                  value:
+                    mappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/cps/validate/{Id}:
     post:
       operationId: validateComparePair
-      summary: Oracle GoldenGate Validate a compare pair
+      summary: Oracle Goldengate Validate a Compare Pair
       description: Validates the configuration of a compare pair including table and column accessibility.
       tags:
-        - Validation
+      - Validation
       parameters:
-        - $ref: '#/components/parameters/comparePairIdParam'
+      - $ref: '#/components/parameters/comparePairIdParam'
       responses:
         '200':
           description: Validation result
@@ -542,23 +936,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validatecomparepair200Example:
+                  summary: Default validateComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/cps/mappings:
     post:
       operationId: generateMappingObjects
-      summary: Oracle GoldenGate Generate mapping objects from rules
+      summary: Oracle Goldengate Generate Mapping Objects From Rules
       description: Generates compare pair mappings based on mapping rules for automatic pair creation.
       tags:
-        - Compare Pairs
+      - Compare Pairs
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MappingRulesRequest'
+            examples:
+              GeneratemappingobjectsRequestExample:
+                summary: Default generateMappingObjects request
+                x-microcks-default: true
+                value:
+                  sourceSchemaPattern: example_value
+                  targetSchemaPattern: example_value
+                  tablePattern: example_value
       responses:
         '200':
           description: Mapping objects generated
@@ -566,15 +980,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MappingObjectList'
+              examples:
+                Generatemappingobjects200Example:
+                  summary: Default generateMappingObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    mappings:
+                    - sourceSchema: example_value
+                      sourceTable: example_value
+                      targetSchema: example_value
+                      targetTable: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/jobs:
     get:
       operationId: listJobs
-      summary: Oracle GoldenGate Retrieve all jobs
+      summary: Oracle Goldengate Retrieve All Jobs
       description: Returns a list of all comparison jobs configured in Veridata.
       tags:
-        - Jobs
+      - Jobs
       responses:
         '200':
           description: Jobs listed
@@ -582,22 +1009,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobList'
+              examples:
+                Listjobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    jobs:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      groupIds: {}
+                      profileId: '500123'
+                      status: idle
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createJob
-      summary: Oracle GoldenGate Create a job
+      summary: Oracle Goldengate Create a Job
       description: >-
         Creates a new comparison job that references one or more compare groups.
         Jobs control the execution of data comparisons.
       tags:
-        - Jobs
+      - Jobs
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateJobRequest'
+            examples:
+              CreatejobRequestExample:
+                summary: Default createJob request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  groupIds:
+                  - 10
+                  profileId: '500123'
       responses:
         '201':
           description: Job created
@@ -605,19 +1057,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+              examples:
+                Createjob201Example:
+                  summary: Default createJob 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/jobs/{Id}:
     get:
       operationId: getJob
-      summary: Oracle GoldenGate Retrieve a job
+      summary: Oracle Goldengate Retrieve a Job
       description: Returns the details of a specific comparison job.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/jobIdParam'
+      - $ref: '#/components/parameters/jobIdParam'
       responses:
         '200':
           description: Job retrieved
@@ -625,24 +1092,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+              examples:
+                Getjob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceJob
-      summary: Oracle GoldenGate Replace a job
+      summary: Oracle Goldengate Replace a Job
       description: Replaces the configuration of an existing comparison job.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/jobIdParam'
+      - $ref: '#/components/parameters/jobIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ReplaceJobRequest'
+            examples:
+              ReplacejobRequestExample:
+                summary: Default replaceJob request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  groupIds:
+                  - 10
+                  profileId: '500123'
       responses:
         '200':
           description: Job replaced
@@ -650,18 +1142,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+              examples:
+                Replacejob200Example:
+                  summary: Default replaceJob 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteJob
-      summary: Oracle GoldenGate Delete a job
+      summary: Oracle Goldengate Delete a Job
       description: Deletes a comparison job.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/jobIdParam'
+      - $ref: '#/components/parameters/jobIdParam'
       responses:
         '204':
           description: Job deleted
@@ -669,13 +1176,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/profiles:
     get:
       operationId: listProfiles
-      summary: Oracle GoldenGate Retrieve all profiles
+      summary: Oracle Goldengate Retrieve All Profiles
       description: Returns a list of all comparison profiles that define comparison behavior settings.
       tags:
-        - Profiles
+      - Profiles
       responses:
         '200':
           description: Profiles listed
@@ -683,20 +1193,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfileList'
+              examples:
+                Listprofiles200Example:
+                  summary: Default listProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    profiles:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      comparisonMethod: row
+                      maxConcurrentComparePairs: 10
+                      deltaProcessing: true
+                      reportOutOfSync: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createProfile
-      summary: Oracle GoldenGate Create a profile
+      summary: Oracle Goldengate Create a Profile
       description: Creates a new comparison profile with custom comparison settings.
       tags:
-        - Profiles
+      - Profiles
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateProfileRequest'
+            examples:
+              CreateprofileRequestExample:
+                summary: Default createProfile request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  comparisonMethod: row
+                  maxConcurrentComparePairs: 10
+                  deltaProcessing: true
       responses:
         '201':
           description: Profile created
@@ -704,19 +1240,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples:
+                Createprofile201Example:
+                  summary: Default createProfile 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/profiles/{Id}:
     get:
       operationId: getProfile
-      summary: Oracle GoldenGate Retrieve a profile
+      summary: Oracle Goldengate Retrieve a Profile
       description: Returns the details of a specific comparison profile.
       tags:
-        - Profiles
+      - Profiles
       parameters:
-        - $ref: '#/components/parameters/profileIdParam'
+      - $ref: '#/components/parameters/profileIdParam'
       responses:
         '200':
           description: Profile retrieved
@@ -724,24 +1275,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples:
+                Getprofile200Example:
+                  summary: Default getProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateProfile
-      summary: Oracle GoldenGate Update a profile
+      summary: Oracle Goldengate Update a Profile
       description: Updates properties of an existing comparison profile.
       tags:
-        - Profiles
+      - Profiles
       parameters:
-        - $ref: '#/components/parameters/profileIdParam'
+      - $ref: '#/components/parameters/profileIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateProfileRequest'
+            examples:
+              UpdateprofileRequestExample:
+                summary: Default updateProfile request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  comparisonMethod: example_value
+                  maxConcurrentComparePairs: 10
       responses:
         '200':
           description: Profile updated
@@ -749,18 +1324,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples:
+                Updateprofile200Example:
+                  summary: Default updateProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteProfile
-      summary: Oracle GoldenGate Delete a profile
+      summary: Oracle Goldengate Delete a Profile
       description: Deletes a comparison profile.
       tags:
-        - Profiles
+      - Profiles
       parameters:
-        - $ref: '#/components/parameters/profileIdParam'
+      - $ref: '#/components/parameters/profileIdParam'
       responses:
         '204':
           description: Profile deleted
@@ -768,15 +1358,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/profiles/{Id}/reset:
     put:
       operationId: resetProfile
-      summary: Oracle GoldenGate Reset a profile to defaults
+      summary: Oracle Goldengate Reset a Profile to Defaults
       description: Resets a comparison profile to its default settings.
       tags:
-        - Profiles
+      - Profiles
       parameters:
-        - $ref: '#/components/parameters/profileIdParam'
+      - $ref: '#/components/parameters/profileIdParam'
       responses:
         '200':
           description: Profile reset
@@ -784,24 +1377,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+              examples:
+                Resetprofile200Example:
+                  summary: Default resetProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/execution/jobs/{Id}:
     post:
       operationId: runJob
-      summary: Oracle GoldenGate Run a comparison job
+      summary: Oracle Goldengate Run a Comparison Job
       description: Starts execution of a comparison job to compare data between source and target databases.
       tags:
-        - Execution
+      - Execution
       parameters:
-        - $ref: '#/components/parameters/jobIdParam'
+      - $ref: '#/components/parameters/jobIdParam'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RunJobRequest'
+            examples:
+              RunjobRequestExample:
+                summary: Default runJob request
+                x-microcks-default: true
+                value:
+                  profileOverrides: example_value
       responses:
         '200':
           description: Job started
@@ -809,21 +1423,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobExecution'
+              examples:
+                Runjob200Example:
+                  summary: Default runJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/execution/jobs/{runId}/stop:
     post:
       operationId: stopJob
-      summary: Oracle GoldenGate Stop a running job
+      summary: Oracle Goldengate Stop a Running Job
       description: Stops a currently running comparison job or specific compare pairs within it.
       tags:
-        - Execution
+      - Execution
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Job stopped
@@ -831,17 +1458,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobExecution'
+              examples:
+                Stopjob200Example:
+                  summary: Default stopJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/jobs:
     get:
       operationId: getJobStatistics
-      summary: Oracle GoldenGate Retrieve job statistics
+      summary: Oracle Goldengate Retrieve Job Statistics
       description: Returns comparison statistics for completed and running jobs.
       tags:
-        - Monitoring
+      - Monitoring
       responses:
         '200':
           description: Job statistics retrieved
@@ -849,15 +1489,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobStatisticsList'
+              examples:
+                Getjobstatistics200Example:
+                  summary: Default getJobStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - runId: '500123'
+                      jobName: example_value
+                      status: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+                      endTime: '2026-01-15T10:30:00Z'
+                      totalComparePairs: 10
+                      inSyncCount: 10
+                      outOfSyncCount: 10
+                      failedCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/cps:
     get:
       operationId: getComparePairStatistics
-      summary: Oracle GoldenGate Retrieve compare pair statistics
+      summary: Oracle Goldengate Retrieve Compare Pair Statistics
       description: Returns detailed comparison statistics at the compare pair level.
       tags:
-        - Monitoring
+      - Monitoring
       responses:
         '200':
           description: Compare pair statistics retrieved
@@ -865,17 +1523,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComparePairStatisticsList'
+              examples:
+                Getcomparepairstatistics200Example:
+                  summary: Default getComparePairStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - comparePairId: '500123'
+                      sourceTable: example_value
+                      targetTable: example_value
+                      status: In Sync
+                      sourceRowCount: 10
+                      targetRowCount: 10
+                      outOfSyncRows: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/oos/{runId}:
     get:
       operationId: getOutOfSyncData
-      summary: Oracle GoldenGate Retrieve out-of-sync data
+      summary: Oracle Goldengate Retrieve Out-of-sync Data
       description: Returns the rows identified as out-of-sync during a comparison run.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Out-of-sync data retrieved
@@ -883,19 +1557,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OutOfSyncData'
+              examples:
+                Getoutofsyncdata200Example:
+                  summary: Default getOutOfSyncData 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    rows:
+                    - comparePairId: '500123'
+                      sourceTable: example_value
+                      targetTable: example_value
+                      oosType: missing_in_target
+                      keyValues: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/comparison/{runId}/reports:
     get:
       operationId: getComparisonReport
-      summary: Oracle GoldenGate Retrieve comparison report
+      summary: Oracle Goldengate Retrieve Comparison Report
       description: Returns a detailed comparison report for a specific job run.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Report retrieved
@@ -903,24 +1592,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComparisonReport'
+              examples:
+                Getcomparisonreport200Example:
+                  summary: Default getComparisonReport 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobName: example_value
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+                    summary:
+                      totalComparePairs: 10
+                      inSync: 10
+                      outOfSync: 10
+                      failed: 10
+                    details:
+                    - sourceTable: example_value
+                      targetTable: example_value
+                      status: example_value
+                      sourceRowCount: 10
+                      targetRowCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/repair/jobs/{runId}:
     post:
       operationId: repairJob
-      summary: Oracle GoldenGate Repair out-of-sync data
+      summary: Oracle Goldengate Repair Out-of-sync Data
       description: Initiates a repair operation to synchronize out-of-sync rows found during a comparison.
       tags:
-        - Repair
+      - Repair
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RepairJobRequest'
+            examples:
+              RepairjobRequestExample:
+                summary: Default repairJob request
+                x-microcks-default: true
+                value:
+                  repairMode: insert
       responses:
         '200':
           description: Repair initiated
@@ -928,19 +1646,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepairExecution'
+              examples:
+                Repairjob200Example:
+                  summary: Default repairJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/repair/jobs/{runId}/stop:
     post:
       operationId: stopRepairJob
-      summary: Oracle GoldenGate Stop a repair job
+      summary: Oracle Goldengate Stop a Repair Job
       description: Stops a currently running repair operation.
       tags:
-        - Repair
+      - Repair
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Repair stopped
@@ -948,13 +1677,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/repair/jobs:
     get:
       operationId: getRepairStatistics
-      summary: Oracle GoldenGate Retrieve repair statistics
+      summary: Oracle Goldengate Retrieve Repair Statistics
       description: Returns statistics for repair operations.
       tags:
-        - Repair
+      - Repair
       responses:
         '200':
           description: Repair statistics retrieved
@@ -962,17 +1694,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepairStatisticsList'
+              examples:
+                Getrepairstatistics200Example:
+                  summary: Default getRepairStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - runId: '500123'
+                      status: example_value
+                      rowsRepaired: 10
+                      rowsFailed: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/repair/cps/{runId}:
     get:
       operationId: getRepairedRowDetails
-      summary: Oracle GoldenGate Retrieve repaired row details
+      summary: Oracle Goldengate Retrieve Repaired Row Details
       description: Returns detailed information about rows that were repaired during a repair operation.
       tags:
-        - Repair
+      - Repair
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Repair details retrieved
@@ -980,19 +1725,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepairedRowDetails'
+              examples:
+                Getrepairedrowdetails200Example:
+                  summary: Default getRepairedRowDetails 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    rows:
+                    - table: example_value
+                      repairType: example_value
+                      status: example_value
+                      keyValues: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/monitoring/repair/{runId}/reports:
     get:
       operationId: getRepairReport
-      summary: Oracle GoldenGate Retrieve repair report
+      summary: Oracle Goldengate Retrieve Repair Report
       description: Returns a detailed repair report for a specific repair run.
       tags:
-        - Repair
+      - Repair
       parameters:
-        - $ref: '#/components/parameters/runIdParam'
+      - $ref: '#/components/parameters/runIdParam'
       responses:
         '200':
           description: Repair report retrieved
@@ -1000,17 +1759,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepairReport'
+              examples:
+                Getrepairreport200Example:
+                  summary: Default getRepairReport 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+                    totalRows: 10
+                    repairedRows: 10
+                    failedRows: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/export:
     get:
       operationId: exportConfiguration
-      summary: Oracle GoldenGate Export Veridata configurations
+      summary: Oracle Goldengate Export Veridata Configurations
       description: Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document.
       tags:
-        - Import/Export
+      - Import/Export
       responses:
         '200':
           description: Configuration exported
@@ -1018,21 +1791,34 @@ paths:
             application/xml:
               schema:
                 type: string
+              examples:
+                Exportconfiguration200Example:
+                  summary: Default exportConfiguration 200 response
+                  x-microcks-default: true
+                  value: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/import:
     post:
       operationId: importConfiguration
-      summary: Oracle GoldenGate Import Veridata XML configuration
+      summary: Oracle Goldengate Import Veridata Xml Configuration
       description: Imports Veridata configurations from an XML document.
       tags:
-        - Import/Export
+      - Import/Export
       requestBody:
         required: true
         content:
           application/xml:
             schema:
               type: string
+            examples:
+              ImportconfigurationRequestExample:
+                summary: Default importConfiguration request
+                x-microcks-default: true
+                value: example_value
       responses:
         '200':
           description: Configuration imported
@@ -1040,23 +1826,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importconfiguration200Example:
+                  summary: Default importConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    itemsImported: 10
+                    messages:
+                    - example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/configuration/vgpp:
     post:
       operationId: importGoldenGateParameterFile
-      summary: Oracle GoldenGate Import GoldenGate parameter file
+      summary: Oracle Goldengate Import Goldengate Parameter File
       description: Imports a GoldenGate parameter file to automatically create compare pairs from table mappings.
       tags:
-        - Import/Export
+      - Import/Export
       requestBody:
         required: true
         content:
           text/plain:
             schema:
               type: string
+            examples:
+              ImportgoldengateparameterfileRequestExample:
+                summary: Default importGoldenGateParameterFile request
+                x-microcks-default: true
+                value: example_value
       responses:
         '200':
           description: Parameter file imported
@@ -1064,17 +1867,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importgoldengateparameterfile200Example:
+                  summary: Default importGoldenGateParameterFile 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    itemsImported: 10
+                    messages:
+                    - example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/admin/users:
     get:
       operationId: listUsers
-      summary: Oracle GoldenGate Retrieve all users
+      summary: Oracle Goldengate Retrieve All Users
       description: Returns a list of all Veridata users.
       tags:
-        - Users
+      - Users
       responses:
         '200':
           description: Users listed
@@ -1082,20 +1897,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserList'
+              examples:
+                Listusers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - id: abc123
+                      username: example_value
+                      firstName: example_value
+                      lastName: example_value
+                      email: user@example.com
+                      role: example_value
+                      userGroupId: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createUser
-      summary: Oracle GoldenGate Create a user
+      summary: Oracle Goldengate Create a User
       description: Creates a new Veridata user account.
       tags:
-        - Users
+      - Users
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              CreateuserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  username: example_value
+                  password: example_value
+                  firstName: example_value
+                  lastName: example_value
+                  email: user@example.com
+                  role: example_value
+                  userGroupId: '500123'
       responses:
         '201':
           description: User created
@@ -1103,19 +1946,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Createuser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/admin/users/{Id}:
     get:
       operationId: getUser
-      summary: Oracle GoldenGate Retrieve a user
+      summary: Oracle Goldengate Retrieve a User
       description: Returns the details of a specific user.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userIdParam'
+      - $ref: '#/components/parameters/userIdParam'
       responses:
         '200':
           description: User retrieved
@@ -1123,24 +1981,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Getuser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceUser
-      summary: Oracle GoldenGate Replace a user
+      summary: Oracle Goldengate Replace a User
       description: Replaces user account details.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userIdParam'
+      - $ref: '#/components/parameters/userIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ReplaceUserRequest'
+            examples:
+              ReplaceuserRequestExample:
+                summary: Default replaceUser request
+                x-microcks-default: true
+                value:
+                  firstName: example_value
+                  lastName: example_value
+                  email: user@example.com
+                  role: example_value
+                  userGroupId: '500123'
       responses:
         '200':
           description: User replaced
@@ -1148,18 +2031,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                Replaceuser200Example:
+                  summary: Default replaceUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteUser
-      summary: Oracle GoldenGate Delete a user
+      summary: Oracle Goldengate Delete a User
       description: Deletes a Veridata user account.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userIdParam'
+      - $ref: '#/components/parameters/userIdParam'
       responses:
         '204':
           description: User deleted
@@ -1167,13 +2065,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/admin/usergroups:
     get:
       operationId: listUserGroups
-      summary: Oracle GoldenGate Retrieve all user groups
+      summary: Oracle Goldengate Retrieve All User Groups
       description: Returns a list of all user groups.
       tags:
-        - Users
+      - Users
       responses:
         '200':
           description: User groups listed
@@ -1181,20 +2082,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserGroupList'
+              examples:
+                Listusergroups200Example:
+                  summary: Default listUserGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    userGroups:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      permissions: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createUserGroup
-      summary: Oracle GoldenGate Create a user group
+      summary: Oracle Goldengate Create a User Group
       description: Creates a new user group with specified permissions.
       tags:
-        - Users
+      - Users
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateUserGroupRequest'
+            examples:
+              CreateusergroupRequestExample:
+                summary: Default createUserGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  permissions:
+                  - example_value
       responses:
         '201':
           description: User group created
@@ -1202,19 +2125,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserGroup'
+              examples:
+                Createusergroup201Example:
+                  summary: Default createUserGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/admin/usergroups/{Id}:
     get:
       operationId: getUserGroup
-      summary: Oracle GoldenGate Retrieve a user group
+      summary: Oracle Goldengate Retrieve a User Group
       description: Returns the details of a user group.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userGroupIdParam'
+      - $ref: '#/components/parameters/userGroupIdParam'
       responses:
         '200':
           description: User group retrieved
@@ -1222,24 +2158,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserGroup'
+              examples:
+                Getusergroup200Example:
+                  summary: Default getUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceUserGroup
-      summary: Oracle GoldenGate Replace a user group
+      summary: Oracle Goldengate Replace a User Group
       description: Replaces a user group configuration.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userGroupIdParam'
+      - $ref: '#/components/parameters/userGroupIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ReplaceUserGroupRequest'
+            examples:
+              ReplaceusergroupRequestExample:
+                summary: Default replaceUserGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  permissions:
+                  - example_value
       responses:
         '200':
           description: User group replaced
@@ -1247,18 +2205,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserGroup'
+              examples:
+                Replaceusergroup200Example:
+                  summary: Default replaceUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteUserGroup
-      summary: Oracle GoldenGate Delete a user group
+      summary: Oracle Goldengate Delete a User Group
       description: Deletes a user group.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/userGroupIdParam'
+      - $ref: '#/components/parameters/userGroupIdParam'
       responses:
         '204':
           description: User group deleted
@@ -1266,35 +2237,41 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/logs/server:
     get:
       operationId: getServerLogs
-      summary: Oracle GoldenGate Retrieve server logs
+      summary: Oracle Goldengate Retrieve Server Logs
       description: Returns server log entries.
       tags:
-        - Logs
+      - Logs
       parameters:
-        - name: logType
-          in: query
-          schema:
-            type: string
-            enum:
-              - api
-              - perf
-              - both
-        - name: logLevel
-          in: query
-          schema:
-            type: string
-            enum:
-              - ERROR
-              - WARNING
-              - INFO
-              - DEBUG
-        - name: lastLines
-          in: query
-          schema:
-            type: integer
+      - name: logType
+        in: query
+        schema:
+          type: string
+          enum:
+          - api
+          - perf
+          - both
+        example: api
+      - name: logLevel
+        in: query
+        schema:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+        example: ERROR
+      - name: lastLines
+        in: query
+        schema:
+          type: integer
+        example: 10
       responses:
         '200':
           description: Logs retrieved
@@ -1302,21 +2279,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerLogs'
+              examples:
+                Getserverlogs200Example:
+                  summary: Default getServerLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    entries:
+                    - timestamp: '2026-01-15T10:30:00Z'
+                      level: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/validate/connection:
     post:
       operationId: validateAgentConnection
-      summary: Oracle GoldenGate Validate agent connection
+      summary: Oracle Goldengate Validate Agent Connection
       description: Tests connectivity to a Veridata agent.
       tags:
-        - Validation
+      - Validation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ValidateConnectionRequest'
+            examples:
+              ValidateagentconnectionRequestExample:
+                summary: Default validateAgentConnection request
+                x-microcks-default: true
+                value:
+                  host: example_value
+                  port: 10
       responses:
         '200':
           description: Validation result
@@ -1324,21 +2320,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validateagentconnection200Example:
+                  summary: Default validateAgentConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/validate/connection/db:
     post:
       operationId: validateDatabaseConnection
-      summary: Oracle GoldenGate Validate database connection
+      summary: Oracle Goldengate Validate Database Connection
       description: Tests database connectivity through a Veridata agent.
       tags:
-        - Validation
+      - Validation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ValidateDatabaseRequest'
+            examples:
+              ValidatedatabaseconnectionRequestExample:
+                summary: Default validateDatabaseConnection request
+                x-microcks-default: true
+                value:
+                  host: example_value
+                  port: 10
+                  databaseType: example_value
+                  serviceName: example_value
+                  username: example_value
+                  password: example_value
       responses:
         '200':
           description: Validation result
@@ -1346,34 +2365,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validatedatabaseconnection200Example:
+                  summary: Default validateDatabaseConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/purge/stats:
     delete:
       operationId: purgeStatistics
-      summary: Oracle GoldenGate Purge comparison statistics
+      summary: Oracle Goldengate Purge Comparison Statistics
       description: Deletes stored comparison and repair statistics data.
       tags:
-        - Monitoring
+      - Monitoring
       responses:
         '204':
           description: Statistics purged
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /auth/login:
     get:
       operationId: login
-      summary: Oracle GoldenGate Login to Veridata
+      summary: Oracle Goldengate Login to Veridata
       description: Authenticates a user and establishes a session.
       tags:
-        - Server
+      - Server
       security: []
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Login successful
@@ -1381,32 +2416,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login200Example:
+                  summary: Default login 200 response
+                  x-microcks-default: true
+                  value:
+                    token: example_value
+                    sessionTimeout: 10
+                    username: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /session/extend:
     get:
       operationId: extendSession
-      summary: Oracle GoldenGate Extend user session
+      summary: Oracle Goldengate Extend User Session
       description: Extends the current user session timeout.
       tags:
-        - Server
+      - Server
       responses:
         '200':
           description: Session extended
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /session/invalidate:
     get:
       operationId: invalidateSession
-      summary: Oracle GoldenGate Invalidate session (logout)
+      summary: Oracle Goldengate Invalidate Session (logout)
       description: Invalidates the current user session.
       tags:
-        - Server
+      - Server
       responses:
         '200':
           description: Session invalidated
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -1511,39 +2563,52 @@ components:
       properties:
         code:
           type: integer
+          example: 10
         message:
           type: string
+          example: example_value
     ServerInfo:
       type: object
       properties:
         version:
           type: string
+          example: example_value
         buildNumber:
           type: string
+          example: example_value
         uptime:
           type: string
+          example: example_value
         javaVersion:
           type: string
+          example: example_value
     ServerConfiguration:
       type: object
       properties:
         maxConcurrentJobs:
           type: integer
+          example: 10
         maxThreadsPerJob:
           type: integer
+          example: 10
         reportRetentionDays:
           type: integer
+          example: 10
         oosRetentionDays:
           type: integer
+          example: 10
     UpdateServerConfigurationRequest:
       type: object
       properties:
         maxConcurrentJobs:
           type: integer
+          example: 10
         maxThreadsPerJob:
           type: integer
+          example: 10
         reportRetentionDays:
           type: integer
+          example: 10
     ConnectionList:
       type: object
       properties:
@@ -1551,106 +2616,139 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Connection'
+          example: []
     Connection:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         databaseType:
           type: string
           enum:
-            - Oracle
-            - MySQL
-            - SQL Server
-            - PostgreSQL
-            - DB2
-            - Sybase
-            - Teradata
+          - Oracle
+          - MySQL
+          - SQL Server
+          - PostgreSQL
+          - DB2
+          - Sybase
+          - Teradata
+          example: Oracle
         host:
           type: string
+          example: example_value
         port:
           type: integer
+          example: 10
         serviceName:
           type: string
+          example: example_value
         schema:
           type: string
+          example: example_value
         agentHost:
           type: string
+          example: example_value
         agentPort:
           type: integer
+          example: 10
     CreateConnectionRequest:
       type: object
       required:
-        - name
-        - databaseType
-        - host
-        - port
+      - name
+      - databaseType
+      - host
+      - port
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         databaseType:
           type: string
+          example: example_value
         host:
           type: string
+          example: example_value
         port:
           type: integer
+          example: 10
         serviceName:
           type: string
+          example: example_value
         schema:
           type: string
+          example: example_value
         username:
           type: string
+          example: example_value
         password:
           type: string
           format: password
+          example: example_value
         agentHost:
           type: string
+          example: example_value
         agentPort:
           type: integer
+          example: 10
     UpdateConnectionRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         host:
           type: string
+          example: example_value
         port:
           type: integer
+          example: 10
         username:
           type: string
+          example: example_value
         password:
           type: string
           format: password
+          example: example_value
     ConnectionStatus:
       type: object
       properties:
         connectionId:
           type: integer
           format: int64
+          example: '500123'
         status:
           type: string
           enum:
-            - connected
-            - disconnected
-            - error
+          - connected
+          - disconnected
+          - error
+          example: connected
         message:
           type: string
+          example: example_value
     MetadataRequest:
       type: object
       properties:
         schemaPattern:
           type: string
+          example: example_value
         tablePattern:
           type: string
+          example: example_value
     ConnectionMetadata:
       type: object
       properties:
@@ -1681,6 +2779,7 @@ components:
                             type: boolean
                           primaryKey:
                             type: boolean
+          example: []
     GroupList:
       type: object
       properties:
@@ -1688,62 +2787,79 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Group'
+          example: []
     Group:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         sourceConnectionId:
           type: integer
           format: int64
+          example: '500123'
         targetConnectionId:
           type: integer
           format: int64
+          example: '500123'
         profileId:
           type: integer
           format: int64
+          example: '500123'
         comparePairCount:
           type: integer
+          example: 10
     CreateGroupRequest:
       type: object
       required:
-        - name
-        - sourceConnectionId
-        - targetConnectionId
+      - name
+      - sourceConnectionId
+      - targetConnectionId
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         sourceConnectionId:
           type: integer
           format: int64
+          example: '500123'
         targetConnectionId:
           type: integer
           format: int64
+          example: '500123'
         profileId:
           type: integer
           format: int64
+          example: '500123'
     UpdateGroupRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         profileId:
           type: integer
           format: int64
+          example: '500123'
     CloneGroupRequest:
       type: object
       properties:
         newName:
           type: string
+          example: example_value
     ComparePairList:
       type: object
       properties:
@@ -1751,30 +2867,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ComparePair'
+          example: []
     ComparePair:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         groupId:
           type: integer
           format: int64
+          example: '500123'
         sourceSchema:
           type: string
+          example: example_value
         sourceTable:
           type: string
+          example: example_value
         targetSchema:
           type: string
+          example: example_value
         targetTable:
           type: string
+          example: example_value
         profileId:
           type: integer
           format: int64
+          example: '500123'
         columnMappings:
           type: array
           items:
             $ref: '#/components/schemas/ColumnMapping'
+          example: []
     CreateComparePairsRequest:
       type: object
       properties:
@@ -1783,10 +2908,10 @@ components:
           items:
             type: object
             required:
-              - sourceSchema
-              - sourceTable
-              - targetSchema
-              - targetTable
+            - sourceSchema
+            - sourceTable
+            - targetSchema
+            - targetTable
             properties:
               sourceSchema:
                 type: string
@@ -1796,29 +2921,38 @@ components:
                 type: string
               targetTable:
                 type: string
+          example: []
     ReplaceComparePairRequest:
       type: object
       properties:
         sourceSchema:
           type: string
+          example: example_value
         sourceTable:
           type: string
+          example: example_value
         targetSchema:
           type: string
+          example: example_value
         targetTable:
           type: string
+          example: example_value
         profileId:
           type: integer
           format: int64
+          example: '500123'
     ColumnMapping:
       type: object
       properties:
         sourceColumn:
           type: string
+          example: example_value
         targetColumn:
           type: string
+          example: example_value
         dataType:
           type: string
+          example: example_value
     ColumnMappingList:
       type: object
       properties:
@@ -1826,15 +2960,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ColumnMapping'
+          example: []
     MappingRulesRequest:
       type: object
       properties:
         sourceSchemaPattern:
           type: string
+          example: example_value
         targetSchemaPattern:
           type: string
+          example: example_value
         tablePattern:
           type: string
+          example: example_value
     MappingObjectList:
       type: object
       properties:
@@ -1851,11 +2989,13 @@ components:
                 type: string
               targetTable:
                 type: string
+          example: []
     ValidationResult:
       type: object
       properties:
         valid:
           type: boolean
+          example: '500123'
         messages:
           type: array
           items:
@@ -1865,6 +3005,7 @@ components:
                 type: string
               message:
                 type: string
+          example: []
     JobList:
       type: object
       properties:
@@ -1872,92 +3013,113 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Job'
+          example: []
     Job:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         groupIds:
           type: array
           items:
             type: integer
             format: int64
+          example: []
         profileId:
           type: integer
           format: int64
+          example: '500123'
         status:
           type: string
           enum:
-            - idle
-            - running
-            - completed
-            - failed
+          - idle
+          - running
+          - completed
+          - failed
+          example: idle
     CreateJobRequest:
       type: object
       required:
-        - name
-        - groupIds
+      - name
+      - groupIds
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         groupIds:
           type: array
           items:
             type: integer
             format: int64
+          example: []
         profileId:
           type: integer
           format: int64
+          example: '500123'
     ReplaceJobRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         groupIds:
           type: array
           items:
             type: integer
             format: int64
+          example: []
         profileId:
           type: integer
           format: int64
+          example: '500123'
     RunJobRequest:
       type: object
       properties:
         profileOverrides:
           type: object
           additionalProperties: true
+          example: example_value
     JobExecution:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         jobId:
           type: integer
           format: int64
+          example: '500123'
         status:
           type: string
           enum:
-            - running
-            - completed
-            - stopped
-            - failed
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
         startTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         endTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     ProfileList:
       type: object
       properties:
@@ -1965,56 +3127,73 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Profile'
+          example: []
     Profile:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         comparisonMethod:
           type: string
           enum:
-            - row
-            - hash
+          - row
+          - hash
+          example: row
         maxConcurrentComparePairs:
           type: integer
+          example: 10
         deltaProcessing:
           type: boolean
+          example: true
         reportOutOfSync:
           type: boolean
+          example: true
     CreateProfileRequest:
       type: object
       required:
-        - name
+      - name
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         comparisonMethod:
           type: string
           enum:
-            - row
-            - hash
+          - row
+          - hash
+          example: row
         maxConcurrentComparePairs:
           type: integer
+          example: 10
         deltaProcessing:
           type: boolean
+          example: true
     UpdateProfileRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         comparisonMethod:
           type: string
+          example: example_value
         maxConcurrentComparePairs:
           type: integer
+          example: 10
     JobStatisticsList:
       type: object
       properties:
@@ -2044,6 +3223,7 @@ components:
                 type: integer
               failedCount:
                 type: integer
+          example: []
     ComparePairStatisticsList:
       type: object
       properties:
@@ -2062,9 +3242,9 @@ components:
               status:
                 type: string
                 enum:
-                  - In Sync
-                  - Out Of Sync
-                  - Failed
+                - In Sync
+                - Out Of Sync
+                - Failed
               sourceRowCount:
                 type: integer
                 format: int64
@@ -2074,12 +3254,14 @@ components:
               outOfSyncRows:
                 type: integer
                 format: int64
+          example: []
     OutOfSyncData:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         rows:
           type: array
           items:
@@ -2095,26 +3277,31 @@ components:
               oosType:
                 type: string
                 enum:
-                  - missing_in_target
-                  - missing_in_source
-                  - different
+                - missing_in_target
+                - missing_in_source
+                - different
               keyValues:
                 type: object
                 additionalProperties: true
+          example: []
     ComparisonReport:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         jobName:
           type: string
+          example: example_value
         startTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         endTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         summary:
           type: object
           properties:
@@ -2126,6 +3313,7 @@ components:
               type: integer
             failed:
               type: integer
+          example: example_value
         details:
           type: array
           items:
@@ -2143,32 +3331,37 @@ components:
               targetRowCount:
                 type: integer
                 format: int64
+          example: []
     RepairJobRequest:
       type: object
       properties:
         repairMode:
           type: string
           enum:
-            - insert
-            - update
-            - delete
-            - all
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
     RepairExecution:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         status:
           type: string
           enum:
-            - running
-            - completed
-            - stopped
-            - failed
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
         startTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     RepairStatisticsList:
       type: object
       properties:
@@ -2188,12 +3381,14 @@ components:
               rowsFailed:
                 type: integer
                 format: int64
+          example: []
     RepairedRowDetails:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         rows:
           type: array
           items:
@@ -2208,38 +3403,48 @@ components:
               keyValues:
                 type: object
                 additionalProperties: true
+          example: []
     RepairReport:
       type: object
       properties:
         runId:
           type: integer
           format: int64
+          example: '500123'
         startTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         endTime:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         totalRows:
           type: integer
           format: int64
+          example: 10
         repairedRows:
           type: integer
           format: int64
+          example: 10
         failedRows:
           type: integer
           format: int64
+          example: 10
     ImportResult:
       type: object
       properties:
         success:
           type: boolean
+          example: true
         itemsImported:
           type: integer
+          example: 10
         messages:
           type: array
           items:
             type: string
+          example: []
     UserList:
       type: object
       properties:
@@ -2247,61 +3452,81 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+          example: []
     User:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         username:
           type: string
+          example: example_value
         firstName:
           type: string
+          example: example_value
         lastName:
           type: string
+          example: example_value
         email:
           type: string
+          example: user@example.com
         role:
           type: string
+          example: example_value
         userGroupId:
           type: integer
           format: int64
+          example: '500123'
     CreateUserRequest:
       type: object
       required:
-        - username
-        - password
+      - username
+      - password
       properties:
         username:
           type: string
+          example: example_value
         password:
           type: string
           format: password
+          example: example_value
         firstName:
           type: string
+          example: example_value
         lastName:
           type: string
+          example: example_value
         email:
           type: string
+          example: user@example.com
         role:
           type: string
+          example: example_value
         userGroupId:
           type: integer
           format: int64
+          example: '500123'
     ReplaceUserRequest:
       type: object
       properties:
         firstName:
           type: string
+          example: example_value
         lastName:
           type: string
+          example: example_value
         email:
           type: string
+          example: user@example.com
         role:
           type: string
+          example: example_value
         userGroupId:
           type: integer
           format: int64
+          example: '500123'
     UserGroupList:
       type: object
       properties:
@@ -2309,44 +3534,55 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserGroup'
+          example: []
     UserGroup:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          example: abc123
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         permissions:
           type: array
           items:
             type: string
+          example: []
     CreateUserGroupRequest:
       type: object
       required:
-        - name
+      - name
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         permissions:
           type: array
           items:
             type: string
+          example: []
     ReplaceUserGroupRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         description:
           type: string
+          example: A sample description.
         permissions:
           type: array
           items:
             type: string
+          example: []
     ServerLogs:
       type: object
       properties:
@@ -2362,42 +3598,54 @@ components:
                 type: string
               message:
                 type: string
+          example: []
     ValidateConnectionRequest:
       type: object
       required:
-        - host
-        - port
+      - host
+      - port
       properties:
         host:
           type: string
+          example: example_value
         port:
           type: integer
+          example: 10
     ValidateDatabaseRequest:
       type: object
       required:
-        - host
-        - port
-        - databaseType
+      - host
+      - port
+      - databaseType
       properties:
         host:
           type: string
+          example: example_value
         port:
           type: integer
+          example: 10
         databaseType:
           type: string
+          example: example_value
         serviceName:
           type: string
+          example: example_value
         username:
           type: string
+          example: example_value
         password:
           type: string
           format: password
+          example: example_value
     LoginResponse:
       type: object
       properties:
         token:
           type: string
+          example: example_value
         sessionTimeout:
           type: integer
+          example: 10
         username:
           type: string
+          example: example_value

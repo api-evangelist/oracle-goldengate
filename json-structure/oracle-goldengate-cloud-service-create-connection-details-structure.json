@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateConnectionDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "connectionType": {
+      "type": "string"
+    },
+    "technologyType": {
+      "type": "string"
+    },
+    "freeformTags": {
+      "type": "object"
+    }
+  }
+}

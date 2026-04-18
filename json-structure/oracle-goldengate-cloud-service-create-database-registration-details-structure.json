@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateDatabaseRegistrationDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "fqdn": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "connectionString": {
+      "type": "string"
+    },
+    "databaseId": {
+      "type": "string"
+    }
+  }
+}

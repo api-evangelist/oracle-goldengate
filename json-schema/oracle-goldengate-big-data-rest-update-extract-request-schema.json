@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateExtractRequest",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "array"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

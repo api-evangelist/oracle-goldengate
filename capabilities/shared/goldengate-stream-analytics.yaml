@@ -1,0 +1,221 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate Stream Analytics REST API"
+  description: "REST API for managing Oracle GoldenGate Stream Analytics pipelines and users. Enables CI/CD integration with export, import, publish, and unpublish of stream processing pipelines."
+  tags:
+    - Oracle GoldenGate
+    - Stream Analytics
+    - Event Processing
+    - Spark
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      GGSA_USERNAME: GGSA_USERNAME
+      GGSA_PASSWORD: GGSA_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: goldengate-stream-analytics
+      baseUri: https://{ggsa-host}:{port}/osa
+      description: "Oracle GoldenGate Stream Analytics REST API"
+      authentication:
+        type: basic
+        username: "{{GGSA_USERNAME}}"
+        password: "{{GGSA_PASSWORD}}"
+      resources:
+        - name: pipelines
+          path: /services/v1/pipelines
+          description: "Stream processing pipeline management"
+          operations:
+            - name: list-pipelines
+              method: GET
+              description: "Returns a list of all GGSA pipelines"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: export-pipeline
+              method: GET
+              description: "Exports a pipeline and all its dependencies as JSON"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Pipeline identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: publish-pipeline
+              method: PATCH
+              description: "Publishes a pipeline to the Spark runtime"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Pipeline identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: unpublish-pipeline
+              method: PATCH
+              description: "Unpublishes a pipeline, stopping execution"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Pipeline identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: artifacts
+          path: /services/v1/artifacts
+          description: "Import and export GGSA artifacts"
+          operations:
+            - name: import-artifacts
+              method: PATCH
+              description: "Imports GGSA artifacts from a JSON document"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  pipeline: "{{tools.pipeline}}"
+        - name: users
+          path: /services/v1/authorizations
+          description: "User management and authorization"
+          operations:
+            - name: list-users
+              method: GET
+              description: "Returns users for a specific role"
+              inputParameters:
+                - name: role
+                  in: path
+                  type: string
+                  required: true
+                  description: "Authorization role"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-user
+              method: GET
+              description: "Returns details of a specific user"
+              inputParameters:
+                - name: role
+                  in: path
+                  type: string
+                  required: true
+                  description: "Authorization role"
+                - name: user
+                  in: path
+                  type: string
+                  required: true
+                  description: "Username"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-user
+              method: POST
+              description: "Creates a new user with the specified role"
+              inputParameters:
+                - name: role
+                  in: path
+                  type: string
+                  required: true
+                  description: "Authorization role"
+                - name: user
+                  in: path
+                  type: string
+                  required: true
+                  description: "Username"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  password: "{{tools.password}}"
+
+  exposes:
+    - type: rest
+      port: 8104
+      namespace: goldengate-stream-analytics-api
+      resources:
+        - path: /v1/pipelines
+          name: pipelines
+          description: "Stream analytics pipelines"
+          operations:
+            - method: GET
+              name: list-pipelines
+              description: "List stream analytics pipelines"
+
+    - type: mcp
+      port: 9104
+      namespace: goldengate-stream-analytics-mcp
+      transport: http
+      tools:
+        - name: list-pipelines
+          description: "List GGSA stream analytics pipelines"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-stream-analytics.list-pipelines"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: publish-pipeline
+          description: "Publish a pipeline to the Spark runtime"
+          hints:
+            readOnly: false
+            openWorld: true
+          call: "goldengate-stream-analytics.publish-pipeline"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: unpublish-pipeline
+          description: "Unpublish a pipeline, stopping execution"
+          hints:
+            readOnly: false
+            openWorld: true
+          call: "goldengate-stream-analytics.unpublish-pipeline"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: export-pipeline
+          description: "Export a pipeline and its dependencies"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-stream-analytics.export-pipeline"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."

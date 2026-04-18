@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pipeline",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Pipeline unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Pipeline display name"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current pipeline status"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array"
+    },
+    "targets": {
+      "type": "array"
+    },
+    "stages": {
+      "type": "array"
+    }
+  }
+}

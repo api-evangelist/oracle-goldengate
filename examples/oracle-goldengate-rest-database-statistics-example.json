@@ -1,0 +1,8 @@
+{
+  "processName": "example_value",
+  "totalOperations": 10,
+  "inserts": 10,
+  "updates": 10,
+  "deletes": 10,
+  "truncates": 10
+}

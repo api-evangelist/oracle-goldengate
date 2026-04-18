@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Deployment",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "subnetId": {
+      "type": "string"
+    },
+    "licenseModel": {
+      "type": "string"
+    },
+    "fqdn": {
+      "type": "string"
+    },
+    "cpuCoreCount": {
+      "type": "integer"
+    },
+    "isAutoScalingEnabled": {
+      "type": "boolean"
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "publicIpAddress": {
+      "type": "string"
+    },
+    "privateIpAddress": {
+      "type": "string"
+    },
+    "deploymentUrl": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "oggData": {
+      "type": "object"
+    },
+    "timeCreated": {
+      "type": "string"
+    },
+    "timeUpdated": {
+      "type": "string"
+    },
+    "freeformTags": {
+      "type": "object"
+    },
+    "definedTags": {
+      "type": "object"
+    }
+  }
+}

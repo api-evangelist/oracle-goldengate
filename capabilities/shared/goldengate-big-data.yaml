@@ -1,0 +1,316 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate for Big Data REST API"
+  description: "REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores."
+  tags:
+    - Oracle GoldenGate
+    - Big Data
+    - Kafka
+    - Streaming
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      OGG_BD_USERNAME: OGG_BD_USERNAME
+      OGG_BD_PASSWORD: OGG_BD_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: goldengate-big-data
+      baseUri: https://{goldengate-host}:{port}
+      description: "Oracle GoldenGate for Big Data REST API"
+      authentication:
+        type: basic
+        username: "{{OGG_BD_USERNAME}}"
+        password: "{{OGG_BD_PASSWORD}}"
+      resources:
+        - name: health
+          path: /services/v2/config/health
+          description: "Service health monitoring"
+          operations:
+            - name: get-service-health
+              method: GET
+              description: "Returns health information for the Big Data service"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: extracts
+          path: /services/v2/extracts
+          description: "Extract process management for source data capture"
+          operations:
+            - name: list-extracts
+              method: GET
+              description: "Returns a list of all Extract processes"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-extract
+              method: GET
+              description: "Returns a specific Extract process"
+              inputParameters:
+                - name: extract
+                  in: path
+                  type: string
+                  required: true
+                  description: "Extract process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-extract
+              method: POST
+              description: "Creates a new Extract process"
+              inputParameters:
+                - name: extract
+                  in: path
+                  type: string
+                  required: true
+                  description: "Extract process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  type: "{{tools.type}}"
+                  trail: "{{tools.trail}}"
+            - name: delete-extract
+              method: DELETE
+              description: "Deletes an Extract process"
+              inputParameters:
+                - name: extract
+                  in: path
+                  type: string
+                  required: true
+                  description: "Extract process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: issue-extract-command
+              method: POST
+              description: "Issues a command to an Extract process"
+              inputParameters:
+                - name: extract
+                  in: path
+                  type: string
+                  required: true
+                  description: "Extract process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  action: "{{tools.action}}"
+        - name: replicats
+          path: /services/v2/replicats
+          description: "Replicat process management for big data targets"
+          operations:
+            - name: list-replicats
+              method: GET
+              description: "Returns a list of all Replicat processes for big data targets"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-replicat
+              method: GET
+              description: "Returns a Replicat targeting a big data system"
+              inputParameters:
+                - name: replicat
+                  in: path
+                  type: string
+                  required: true
+                  description: "Replicat process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-replicat
+              method: POST
+              description: "Creates a new Replicat with a big data handler"
+              inputParameters:
+                - name: replicat
+                  in: path
+                  type: string
+                  required: true
+                  description: "Replicat process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  type: "{{tools.type}}"
+                  trail: "{{tools.trail}}"
+            - name: delete-replicat
+              method: DELETE
+              description: "Deletes a Replicat process"
+              inputParameters:
+                - name: replicat
+                  in: path
+                  type: string
+                  required: true
+                  description: "Replicat process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-replicat-status
+              method: GET
+              description: "Returns runtime status of a big data Replicat"
+              inputParameters:
+                - name: replicat
+                  in: path
+                  type: string
+                  required: true
+                  description: "Replicat process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: data-targets
+          path: /services/v2/dataTargetTypes
+          description: "Big data target type configurations"
+          operations:
+            - name: list-data-target-types
+              method: GET
+              description: "Returns available big data target types"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-data-target-type-schema
+              method: GET
+              description: "Returns JSON schema for a data target type"
+              inputParameters:
+                - name: dataTargetType
+                  in: path
+                  type: string
+                  required: true
+                  description: "Data target type name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: credentials
+          path: /services/v2/credentials
+          description: "Credential store for big data target authentication"
+          operations:
+            - name: list-credential-domains
+              method: GET
+              description: "Returns all credential store domains"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: monitoring
+          path: /services/v2/mpoints
+          description: "Performance metrics and monitoring"
+          operations:
+            - name: list-process-metrics
+              method: GET
+              description: "Returns performance metrics for all running processes"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-replicat-stats
+              method: GET
+              description: "Returns handler-level statistics for a big data Replicat"
+              inputParameters:
+                - name: item
+                  in: path
+                  type: string
+                  required: true
+                  description: "Process name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: goldengate-big-data-api
+      resources:
+        - path: /v1/extracts
+          name: extracts
+          description: "Extract process management"
+          operations:
+            - method: GET
+              name: list-extracts
+              description: "List all Extract processes"
+        - path: /v1/replicats
+          name: replicats
+          description: "Replicat process management"
+          operations:
+            - method: GET
+              name: list-replicats
+              description: "List all Replicat processes"
+        - path: /v1/data-target-types
+          name: data-target-types
+          description: "Available big data target types"
+          operations:
+            - method: GET
+              name: list-data-target-types
+              description: "List available target types"
+
+    - type: mcp
+      port: 9101
+      namespace: goldengate-big-data-mcp
+      transport: http
+      tools:
+        - name: list-extracts
+          description: "List all Extract processes for Big Data"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.list-extracts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-replicats
+          description: "List all big data Replicat processes"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.list-replicats"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-target-types
+          description: "List available big data target types"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.list-data-target-types"
+          outputParameters:
+            - type: object
+              mapping: "$."

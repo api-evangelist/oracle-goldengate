@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateDistributionPathRequest",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "targetType": {
+      "type": "string"
+    },
+    "ruleName": {
+      "type": "string"
+    }
+  }
+}

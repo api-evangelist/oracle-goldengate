@@ -1,0 +1,10 @@
+{
+  "type": "example_value",
+  "description": "A sample description.",
+  "begin": "example_value",
+  "trail": "example_value",
+  "trailSize": 10,
+  "config": [],
+  "registration": "example_value",
+  "credentials": "example_value"
+}

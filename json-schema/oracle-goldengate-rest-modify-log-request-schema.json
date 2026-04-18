@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModifyLogRequest",
+  "type": "object",
+  "properties": {
+    "level": {
+      "type": "string"
+    }
+  }
+}

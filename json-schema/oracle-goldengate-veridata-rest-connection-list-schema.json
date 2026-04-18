@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConnectionList",
+  "type": "object",
+  "properties": {
+    "connections": {
+      "type": "array"
+    }
+  }
+}

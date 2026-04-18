@@ -1,0 +1,10 @@
+{
+  "id": "abc123",
+  "operationType": "example_value",
+  "status": "example_value",
+  "percentComplete": 42.5,
+  "timeAccepted": "example_value",
+  "timeStarted": "example_value",
+  "timeFinished": "example_value",
+  "resources": []
+}

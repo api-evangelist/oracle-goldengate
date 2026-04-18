@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ConfigSummary",
+  "type": "object",
+  "properties": {
+    "serviceType": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "host": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer"
+    },
+    "deploymentName": {
+      "type": "string"
+    }
+  }
+}

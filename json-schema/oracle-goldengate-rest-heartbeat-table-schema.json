@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HeartbeatTable",
+  "type": "object",
+  "properties": {
+    "owner": {
+      "type": "string",
+      "description": "Schema owner of the heartbeat table"
+    },
+    "table": {
+      "type": "string",
+      "description": "Heartbeat table name"
+    },
+    "retentionTime": {
+      "type": "integer",
+      "description": "Retention time in days"
+    },
+    "frequency": {
+      "type": "integer",
+      "description": "Update frequency in seconds"
+    },
+    "purgeFrequency": {
+      "type": "integer",
+      "description": "Purge frequency in minutes"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "abc123",
+  "deploymentId": "500123",
+  "displayName": "example_value",
+  "compartmentId": "500123",
+  "lifecycleState": "example_value",
+  "sizeInBytes": 10,
+  "backupType": "example_value",
+  "oggVersion": "example_value",
+  "timeCreated": "example_value"
+}

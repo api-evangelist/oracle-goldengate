@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExecuteCommandRequest",
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "description": "GGSCI command to execute (e.g., INFO ALL, STATUS EXTRACT *)"
+    }
+  }
+}

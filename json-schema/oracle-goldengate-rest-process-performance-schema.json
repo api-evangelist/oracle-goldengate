@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProcessPerformance",
+  "type": "object",
+  "properties": {
+    "processName": {
+      "type": "string"
+    },
+    "cpuUsage": {
+      "type": "number"
+    },
+    "memoryUsage": {
+      "type": "integer"
+    },
+    "threadCount": {
+      "type": "integer"
+    }
+  }
+}

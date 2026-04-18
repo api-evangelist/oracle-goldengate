@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "RepairedRowDetails",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer"
+    },
+    "rows": {
+      "type": "array"
+    }
+  }
+}

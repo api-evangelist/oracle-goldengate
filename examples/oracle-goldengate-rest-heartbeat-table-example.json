@@ -1,0 +1,7 @@
+{
+  "owner": "example_value",
+  "table": "example_value",
+  "retentionTime": 10,
+  "frequency": 10,
+  "purgeFrequency": 10
+}

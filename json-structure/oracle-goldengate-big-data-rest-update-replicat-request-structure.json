@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateReplicatRequest",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "array"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

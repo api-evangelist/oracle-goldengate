@@ -1,0 +1,13 @@
+{
+  "name": "Example Title",
+  "description": "A sample description.",
+  "databaseType": "example_value",
+  "host": "example_value",
+  "port": 10,
+  "serviceName": "example_value",
+  "schema": "example_value",
+  "username": "example_value",
+  "password": "example_value",
+  "agentHost": "example_value",
+  "agentPort": 10
+}

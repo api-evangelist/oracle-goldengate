@@ -1,0 +1,9 @@
+{
+  "name": "Example Title",
+  "type": "example_value",
+  "status": "example_value",
+  "trail": "example_value",
+  "handler": "example_value",
+  "config": [],
+  "handlerProperties": "example_value"
+}

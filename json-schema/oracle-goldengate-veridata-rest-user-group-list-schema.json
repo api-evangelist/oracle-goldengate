@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UserGroupList",
+  "type": "object",
+  "properties": {
+    "userGroups": {
+      "type": "array"
+    }
+  }
+}

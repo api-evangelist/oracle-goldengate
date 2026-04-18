@@ -16,33 +16,33 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-    - url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
-      description: Oracle GoldenGate Data Streams REST API Documentation
+  - url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    description: Oracle GoldenGate Data Streams REST API Documentation
 servers:
-  - url: https://{goldengate-host}:{port}
-    description: Oracle GoldenGate Microservices server
-    variables:
-      goldengate-host:
-        default: localhost
-        description: GoldenGate server host
-      port:
-        default: '443'
-        description: HTTPS port
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate server host
+    port:
+      default: '443'
+      description: HTTPS port
 security:
-  - basicAuth: []
+- basicAuth: []
 tags:
-  - name: AsyncAPI
-    description: Manage AsyncAPI specifications for data streams
-  - name: Data Streams
-    description: Manage data stream configurations
+- name: AsyncAPI
+  description: Manage AsyncAPI specifications for data streams
+- name: Data Streams
+  description: Manage data stream configurations
 paths:
   /services/v2/stream:
     get:
       operationId: listDataStreams
-      summary: Oracle GoldenGate List data streams
+      summary: Oracle Goldengate List Data Streams
       description: Returns a list of all configured data stream resources.
       tags:
-        - Data Streams
+      - Data Streams
       responses:
         '200':
           description: Data streams listed
@@ -50,17 +50,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataStreamList'
+              examples:
+                Listdatastreams200Example:
+                  summary: Default listDataStreams 200 response
+                  x-microcks-default: true
+                  value:
+                    streams:
+                    - name: Example Title
+                      status: example_value
+                      source: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/stream/{streamname}:
     get:
       operationId: getDataStream
-      summary: Oracle GoldenGate Retrieve a data stream
+      summary: Oracle Goldengate Retrieve a Data Stream
       description: Returns the configuration of a specific data stream.
       tags:
-        - Data Streams
+      - Data Streams
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       responses:
         '200':
           description: Data stream retrieved
@@ -68,27 +80,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataStream'
+              examples:
+                Getdatastream200Example:
+                  summary: Default getDataStream 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    description: A sample description.
+                    status: active
+                    source:
+                      trailName: example_value
+                      extractName: example_value
+                      beginPosition: example_value
+                    target:
+                      type: kafka
+                      uri: example_value
+                      topicName: example_value
+                      format: json
+                    filters:
+                    - schema: example_value
+                      table: example_value
+                      operations:
+                      - {}
+                    asyncApiSpec: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createDataStream
-      summary: Oracle GoldenGate Create a data stream
+      summary: Oracle Goldengate Create a Data Stream
       description: >-
         Creates a new data stream configuration that defines how trail data
         is distributed to downstream consumers. Supports distribution to
         Kafka, REST endpoints, OCI Streaming, and other targets.
       tags:
-        - Data Streams
+      - Data Streams
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateDataStreamRequest'
+            examples:
+              CreatedatastreamRequestExample:
+                summary: Default createDataStream request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  source:
+                    trailName: example_value
+                    extractName: example_value
+                    beginPosition: example_value
+                  target:
+                    type: kafka
+                    uri: example_value
+                    topicName: example_value
+                    format: json
+                  filters:
+                  - schema: example_value
+                    table: example_value
+                    operations:
+                    - {}
       responses:
         '201':
           description: Data stream created
@@ -96,26 +156,71 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataStream'
+              examples:
+                Createdatastream201Example:
+                  summary: Default createDataStream 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    description: A sample description.
+                    status: active
+                    source:
+                      trailName: example_value
+                      extractName: example_value
+                      beginPosition: example_value
+                    target:
+                      type: kafka
+                      uri: example_value
+                      topicName: example_value
+                      format: json
+                    filters:
+                    - schema: example_value
+                      table: example_value
+                      operations:
+                      - {}
+                    asyncApiSpec: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateDataStream
-      summary: Oracle GoldenGate Update a data stream
+      summary: Oracle Goldengate Update a Data Stream
       description: Updates the configuration of an existing data stream.
       tags:
-        - Data Streams
+      - Data Streams
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateDataStreamRequest'
+            examples:
+              UpdatedatastreamRequestExample:
+                summary: Default updateDataStream request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  status: active
+                  target:
+                    type: example_value
+                    uri: example_value
+                    topicName: example_value
+                    format: example_value
+                  filters:
+                  - schema: example_value
+                    table: example_value
+                    operations:
+                    - {}
       responses:
         '200':
           description: Data stream updated
@@ -123,20 +228,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataStream'
+              examples:
+                Updatedatastream200Example:
+                  summary: Default updateDataStream 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    description: A sample description.
+                    status: active
+                    source:
+                      trailName: example_value
+                      extractName: example_value
+                      beginPosition: example_value
+                    target:
+                      type: kafka
+                      uri: example_value
+                      topicName: example_value
+                      format: json
+                    filters:
+                    - schema: example_value
+                      table: example_value
+                      operations:
+                      - {}
+                    asyncApiSpec: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteDataStream
-      summary: Oracle GoldenGate Delete a data stream
+      summary: Oracle Goldengate Delete a Data Stream
       description: Deletes a data stream configuration.
       tags:
-        - Data Streams
+      - Data Streams
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       responses:
         '204':
           description: Data stream deleted
@@ -144,17 +277,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/stream/{streamname}/yaml:
     get:
       operationId: getAsyncApiSpec
-      summary: Oracle GoldenGate Get AsyncAPI specification
+      summary: Oracle Goldengate Get Asyncapi Specification
       description: >-
         Retrieves the AsyncAPI YAML specification for a data stream, describing
         the stream's channels, messages, and schemas for downstream consumers.
       tags:
-        - AsyncAPI
+      - AsyncAPI
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       responses:
         '200':
           description: AsyncAPI specification retrieved
@@ -163,23 +299,36 @@ paths:
               schema:
                 type: string
                 description: AsyncAPI YAML specification document
+              examples:
+                Getasyncapispec200Example:
+                  summary: Default getAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
             text/yaml:
               schema:
                 type: string
+              examples:
+                Getasyncapispec200Example:
+                  summary: Default getAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateAsyncApiSpec
-      summary: Oracle GoldenGate Update AsyncAPI specification
+      summary: Oracle Goldengate Update Asyncapi Specification
       description: >-
         Updates the AsyncAPI YAML specification for a data stream. Allows
         customization of the stream metadata exposed to consumers.
       tags:
-        - AsyncAPI
+      - AsyncAPI
       parameters:
-        - $ref: '#/components/parameters/streamnameParam'
+      - $ref: '#/components/parameters/streamnameParam'
       requestBody:
         required: true
         content:
@@ -187,9 +336,19 @@ paths:
             schema:
               type: string
               description: AsyncAPI YAML specification document
+            examples:
+              UpdateasyncapispecRequestExample:
+                summary: Default updateAsyncApiSpec request
+                x-microcks-default: true
+                value: example_value
           text/yaml:
             schema:
               type: string
+            examples:
+              UpdateasyncapispecRequestExample:
+                summary: Default updateAsyncApiSpec request
+                x-microcks-default: true
+                value: example_value
       responses:
         '200':
           description: AsyncAPI specification updated
@@ -197,12 +356,20 @@ paths:
             application/x-yaml:
               schema:
                 type: string
+              examples:
+                Updateasyncapispec200Example:
+                  summary: Default updateAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -248,8 +415,10 @@ components:
       properties:
         code:
           type: integer
+          example: 10
         message:
           type: string
+          example: example_value
     DataStreamList:
       type: object
       properties:
@@ -257,34 +426,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DataStreamSummary'
+          example: []
     DataStreamSummary:
       type: object
       properties:
         name:
           type: string
           description: Data stream name
+          example: Example Title
         status:
           type: string
           description: Stream status
+          example: example_value
         source:
           type: string
           description: Source trail or extract
+          example: example_value
     DataStream:
       type: object
       properties:
         name:
           type: string
           description: Unique data stream name
+          example: Example Title
         description:
           type: string
           description: Stream description
+          example: A sample description.
         status:
           type: string
           description: Current stream status
           enum:
-            - active
-            - inactive
-            - error
+          - active
+          - inactive
+          - error
+          example: active
         source:
           type: object
           description: Source configuration
@@ -298,6 +474,7 @@ components:
             beginPosition:
               type: string
               description: Begin position in the trail
+          example: example_value
         target:
           type: object
           description: Target distribution configuration
@@ -306,10 +483,10 @@ components:
               type: string
               description: Target type for data distribution
               enum:
-                - kafka
-                - rest
-                - ocistreaming
-                - goldengate
+              - kafka
+              - rest
+              - ocistreaming
+              - goldengate
             uri:
               type: string
               description: Target connection URI
@@ -320,9 +497,10 @@ components:
               type: string
               description: Output message format
               enum:
-                - json
-                - avro
-                - protobuf
+              - json
+              - avro
+              - protobuf
+          example: example_value
         filters:
           type: array
           description: Table and operation filters
@@ -341,31 +519,36 @@ components:
                 items:
                   type: string
                   enum:
-                    - INSERT
-                    - UPDATE
-                    - DELETE
-                    - TRUNCATE
+                  - INSERT
+                  - UPDATE
+                  - DELETE
+                  - TRUNCATE
+          example: []
         asyncApiSpec:
           type: string
           description: Path to the AsyncAPI specification
+          example: example_value
         createdAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         updatedAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     CreateDataStreamRequest:
       type: object
       required:
-        - source
-        - target
+      - source
+      - target
       properties:
         description:
           type: string
+          example: A sample description.
         source:
           type: object
           required:
-            - trailName
+          - trailName
           properties:
             trailName:
               type: string
@@ -373,19 +556,20 @@ components:
               type: string
             beginPosition:
               type: string
+          example: example_value
         target:
           type: object
           required:
-            - type
-            - uri
+          - type
+          - uri
           properties:
             type:
               type: string
               enum:
-                - kafka
-                - rest
-                - ocistreaming
-                - goldengate
+              - kafka
+              - rest
+              - ocistreaming
+              - goldengate
             uri:
               type: string
             topicName:
@@ -393,9 +577,10 @@ components:
             format:
               type: string
               enum:
-                - json
-                - avro
-                - protobuf
+              - json
+              - avro
+              - protobuf
+          example: example_value
         filters:
           type: array
           items:
@@ -409,16 +594,19 @@ components:
                 type: array
                 items:
                   type: string
+          example: []
     UpdateDataStreamRequest:
       type: object
       properties:
         description:
           type: string
+          example: A sample description.
         status:
           type: string
           enum:
-            - active
-            - inactive
+          - active
+          - inactive
+          example: active
         target:
           type: object
           properties:
@@ -430,6 +618,7 @@ components:
               type: string
             format:
               type: string
+          example: example_value
         filters:
           type: array
           items:
@@ -443,3 +632,4 @@ components:
                 type: array
                 items:
                   type: string
+          example: []

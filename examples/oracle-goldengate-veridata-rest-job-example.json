@@ -1,0 +1,8 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "description": "A sample description.",
+  "groupIds": [],
+  "profileId": "500123",
+  "status": "example_value"
+}

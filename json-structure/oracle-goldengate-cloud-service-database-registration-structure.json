@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DatabaseRegistration",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "databaseId": {
+      "type": "string"
+    },
+    "connectionString": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "fqdn": {
+      "type": "string"
+    },
+    "lifecycleState": {
+      "type": "string"
+    },
+    "timeCreated": {
+      "type": "string"
+    }
+  }
+}

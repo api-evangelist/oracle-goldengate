@@ -1,0 +1,12 @@
+{
+  "id": "abc123",
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "databaseId": "500123",
+  "connectionString": "example_value",
+  "username": "example_value",
+  "fqdn": "example_value",
+  "lifecycleState": "example_value",
+  "timeCreated": "example_value"
+}

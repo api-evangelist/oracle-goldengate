@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateDeploymentDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "subnetId": {
+      "type": "string"
+    },
+    "licenseModel": {
+      "type": "string"
+    },
+    "fqdn": {
+      "type": "string"
+    },
+    "cpuCoreCount": {
+      "type": "integer"
+    },
+    "isAutoScalingEnabled": {
+      "type": "boolean"
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "oggData": {
+      "type": "object"
+    },
+    "freeformTags": {
+      "type": "object"
+    },
+    "definedTags": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "connectionType": "example_value",
+  "technologyType": "example_value",
+  "freeformTags": "example_value"
+}

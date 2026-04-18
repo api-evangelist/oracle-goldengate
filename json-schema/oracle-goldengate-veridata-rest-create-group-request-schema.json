@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateGroupRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "sourceConnectionId": {
+      "type": "integer"
+    },
+    "targetConnectionId": {
+      "type": "integer"
+    },
+    "profileId": {
+      "type": "integer"
+    }
+  }
+}

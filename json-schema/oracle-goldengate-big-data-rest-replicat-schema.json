@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Replicat",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Replicat process name"
+    },
+    "type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Source trail file"
+    },
+    "handler": {
+      "type": "string",
+      "description": "Big data handler type"
+    },
+    "config": {
+      "type": "array",
+      "description": "Parameter file content including handler configuration"
+    },
+    "handlerProperties": {
+      "type": "string",
+      "description": "Path to handler properties file"
+    }
+  }
+}

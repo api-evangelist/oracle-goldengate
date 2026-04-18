@@ -1,0 +1,8 @@
+{
+  "id": "abc123",
+  "displayName": "example_value",
+  "compartmentId": "500123",
+  "lifecycleState": "example_value",
+  "timeCreated": "example_value",
+  "timeUpdated": "example_value"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ServerInfo",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "buildNumber": {
+      "type": "string"
+    },
+    "uptime": {
+      "type": "string"
+    },
+    "javaVersion": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "oggHome": "example_value",
+  "description": "A sample description.",
+  "environmentVariables": "example_value",
+  "autoStart": true
+}

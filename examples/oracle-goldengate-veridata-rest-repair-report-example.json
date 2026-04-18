@@ -1,0 +1,8 @@
+{
+  "runId": "500123",
+  "startTime": "example_value",
+  "endTime": "example_value",
+  "totalRows": 10,
+  "repairedRows": 10,
+  "failedRows": 10
+}

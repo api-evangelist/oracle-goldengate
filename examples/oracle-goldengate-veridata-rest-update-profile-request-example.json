@@ -1,0 +1,6 @@
+{
+  "name": "Example Title",
+  "description": "A sample description.",
+  "comparisonMethod": "example_value",
+  "maxConcurrentComparePairs": 10
+}

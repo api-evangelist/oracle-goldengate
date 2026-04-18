@@ -1,0 +1,11 @@
+{
+  "id": "abc123",
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "sourceConnectionDetailId": "500123",
+  "targetConnectionDetailId": "500123",
+  "lifecycleState": "example_value",
+  "timeCreated": "example_value",
+  "timeUpdated": "example_value"
+}

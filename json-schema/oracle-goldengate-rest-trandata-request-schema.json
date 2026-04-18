@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TrandataRequest",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "Table or schema name"
+    }
+  }
+}

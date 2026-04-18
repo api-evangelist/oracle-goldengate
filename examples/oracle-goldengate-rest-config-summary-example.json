@@ -1,0 +1,7 @@
+{
+  "serviceType": "example_value",
+  "status": "example_value",
+  "host": "example_value",
+  "port": 10,
+  "deploymentName": "example_value"
+}

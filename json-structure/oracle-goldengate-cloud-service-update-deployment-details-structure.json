@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateDeploymentDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fqdn": {
+      "type": "string"
+    },
+    "cpuCoreCount": {
+      "type": "integer"
+    },
+    "isAutoScalingEnabled": {
+      "type": "boolean"
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "freeformTags": {
+      "type": "object"
+    }
+  }
+}

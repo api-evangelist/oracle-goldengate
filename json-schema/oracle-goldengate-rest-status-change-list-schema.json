@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StatusChangeList",
+  "type": "object",
+  "properties": {
+    "statusChanges": {
+      "type": "array"
+    }
+  }
+}

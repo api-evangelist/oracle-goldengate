@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CollectorPath",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Target trail file"
+    },
+    "port": {
+      "type": "integer"
+    }
+  }
+}

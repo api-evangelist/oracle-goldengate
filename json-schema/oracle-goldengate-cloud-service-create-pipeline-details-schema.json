@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreatePipelineDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "sourceConnectionDetailId": {
+      "type": "string"
+    },
+    "targetConnectionDetailId": {
+      "type": "string"
+    }
+  }
+}

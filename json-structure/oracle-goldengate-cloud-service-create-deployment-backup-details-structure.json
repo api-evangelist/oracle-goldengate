@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateDeploymentBackupDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
+    },
+    "compartmentId": {
+      "type": "string"
+    },
+    "deploymentId": {
+      "type": "string"
+    },
+    "namespaceName": {
+      "type": "string"
+    },
+    "bucketName": {
+      "type": "string"
+    },
+    "objectName": {
+      "type": "string"
+    }
+  }
+}

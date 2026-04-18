@@ -1,0 +1,347 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Oracle GoldenGate Data Replication"
+  description: "Unified workflow for managing real-time data replication across on-premises and cloud environments. Combines the core GoldenGate REST API, Big Data API, and Data Streams API for data integration engineers managing CDC pipelines, extract/replicat processes, and data distribution."
+  tags:
+    - Oracle GoldenGate
+    - Data Replication
+    - CDC
+    - Data Integration
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      OGG_USERNAME: OGG_USERNAME
+      OGG_PASSWORD: OGG_PASSWORD
+      OGG_BD_USERNAME: OGG_BD_USERNAME
+      OGG_BD_PASSWORD: OGG_BD_PASSWORD
+      OGG_DS_USERNAME: OGG_DS_USERNAME
+      OGG_DS_PASSWORD: OGG_DS_PASSWORD
+
+capability:
+  consumes:
+    - import: goldengate-rest
+      location: ./shared/goldengate-rest.yaml
+    - import: goldengate-big-data
+      location: ./shared/goldengate-big-data.yaml
+    - import: goldengate-data-streams
+      location: ./shared/goldengate-data-streams.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: data-replication-api
+      description: "Unified REST API for Oracle GoldenGate data replication workflows."
+      resources:
+        - path: /v1/extracts
+          name: extracts
+          description: "Extract process management across core and big data deployments"
+          operations:
+            - method: GET
+              name: list-extracts
+              description: "List all Extract processes"
+              call: "goldengate-rest.list-extracts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-extract
+              description: "Create a new Extract process"
+              call: "goldengate-rest.create-extract"
+              with:
+                extract: "rest.extract"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/extracts/{extract}
+          name: extract-detail
+          description: "Individual extract operations"
+          operations:
+            - method: GET
+              name: get-extract
+              description: "Get a specific Extract process"
+              call: "goldengate-rest.get-extract"
+              with:
+                extract: "rest.extract"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-extract
+              description: "Delete an Extract process"
+              call: "goldengate-rest.delete-extract"
+              with:
+                extract: "rest.extract"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/replicats
+          name: replicats
+          description: "Replicat process management"
+          operations:
+            - method: GET
+              name: list-replicats
+              description: "List all Replicat processes"
+              call: "goldengate-rest.list-replicats"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/big-data-replicats
+          name: big-data-replicats
+          description: "Big data Replicat processes"
+          operations:
+            - method: GET
+              name: list-big-data-replicats
+              description: "List all big data Replicat processes"
+              call: "goldengate-big-data.list-replicats"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/data-streams
+          name: data-streams
+          description: "Data stream management"
+          operations:
+            - method: GET
+              name: list-data-streams
+              description: "List all data streams"
+              call: "goldengate-data-streams.list-data-streams"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/data-target-types
+          name: data-target-types
+          description: "Available big data target types"
+          operations:
+            - method: GET
+              name: list-data-target-types
+              description: "List available big data target types"
+              call: "goldengate-big-data.list-data-target-types"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/credentials
+          name: credentials
+          description: "Credential store management"
+          operations:
+            - method: GET
+              name: list-credential-domains
+              description: "List credential domains"
+              call: "goldengate-rest.list-credential-domains"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/distribution-paths
+          name: distribution-paths
+          description: "Distribution path management"
+          operations:
+            - method: GET
+              name: list-distribution-paths
+              description: "List distribution paths"
+              call: "goldengate-rest.list-distribution-paths"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health
+          name: health
+          description: "Service health"
+          operations:
+            - method: GET
+              name: get-service-health
+              description: "Get service health details"
+              call: "goldengate-big-data.get-service-health"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: data-replication-mcp
+      transport: http
+      description: "MCP server for AI-assisted Oracle GoldenGate data replication management."
+      tools:
+        - name: core-list-extracts
+          description: "List all Extract processes from the core GoldenGate deployment"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-extracts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-get-extract
+          description: "Get details of a specific Extract process"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.get-extract"
+          with:
+            extract: "tools.extract"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-create-extract
+          description: "Create a new Extract process"
+          hints:
+            readOnly: false
+          call: "goldengate-rest.create-extract"
+          with:
+            extract: "tools.extract"
+            type: "tools.type"
+            trail: "tools.trail"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-issue-extract-command
+          description: "Issue a command (START, STOP, KILL) to an Extract"
+          hints:
+            readOnly: false
+          call: "goldengate-rest.issue-extract-command"
+          with:
+            extract: "tools.extract"
+            action: "tools.action"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-list-replicats
+          description: "List all Replicat processes"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-replicats"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-get-replicat
+          description: "Get details of a specific Replicat process"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.get-replicat"
+          with:
+            replicat: "tools.replicat"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-create-replicat
+          description: "Create a new Replicat process"
+          hints:
+            readOnly: false
+          call: "goldengate-rest.create-replicat"
+          with:
+            replicat: "tools.replicat"
+            type: "tools.type"
+            trail: "tools.trail"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: core-issue-replicat-command
+          description: "Issue a command to a Replicat process"
+          hints:
+            readOnly: false
+          call: "goldengate-rest.issue-replicat-command"
+          with:
+            replicat: "tools.replicat"
+            action: "tools.action"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bigdata-list-replicats
+          description: "List all big data Replicat processes"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.list-replicats"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: bigdata-get-replicat
+          description: "Get a big data Replicat process"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.get-replicat"
+          with:
+            replicat: "tools.replicat"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-target-types
+          description: "List available big data target types (Kafka, HDFS, MongoDB, etc.)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-big-data.list-data-target-types"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-streams
+          description: "List all configured data streams"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-data-streams.list-data-streams"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-data-stream
+          description: "Get configuration of a specific data stream"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-data-streams.get-data-stream"
+          with:
+            streamname: "tools.streamname"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-data-stream
+          description: "Create a new data stream for downstream distribution"
+          hints:
+            readOnly: false
+          call: "goldengate-data-streams.create-data-stream"
+          with:
+            streamname: "tools.streamname"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-distribution-paths
+          description: "List data distribution paths"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-distribution-paths"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-credential-domains
+          description: "List credential store domains"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-credential-domains"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: execute-command
+          description: "Execute a GGSCI-style GoldenGate command"
+          hints:
+            readOnly: false
+            openWorld: true
+          call: "goldengate-rest.execute-command"
+          with:
+            command: "tools.command"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-process-metrics
+          description: "Get performance metrics for all running processes"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "goldengate-rest.list-process-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."

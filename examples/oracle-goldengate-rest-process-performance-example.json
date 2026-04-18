@@ -1,0 +1,6 @@
+{
+  "processName": "example_value",
+  "cpuUsage": 42.5,
+  "memoryUsage": 10,
+  "threadCount": 10
+}

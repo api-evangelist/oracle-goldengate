@@ -1,0 +1,7 @@
+{
+  "name": "Example Title",
+  "description": "A sample description.",
+  "sourceConnectionId": "500123",
+  "targetConnectionId": "500123",
+  "profileId": "500123"
+}

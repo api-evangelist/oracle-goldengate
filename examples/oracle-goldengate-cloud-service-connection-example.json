@@ -1,0 +1,12 @@
+{
+  "id": "abc123",
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "compartmentId": "500123",
+  "connectionType": "example_value",
+  "technologyType": "example_value",
+  "lifecycleState": "example_value",
+  "timeCreated": "example_value",
+  "timeUpdated": "example_value",
+  "freeformTags": "example_value"
+}

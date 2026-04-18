@@ -16,47 +16,47 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-    - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-      description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
 servers:
-  - url: https://{goldengate-host}:{port}
-    description: Oracle GoldenGate for Big Data Microservices server
-    variables:
-      goldengate-host:
-        default: localhost
-        description: GoldenGate Big Data host
-      port:
-        default: '443'
-        description: HTTPS port
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
 security:
-  - basicAuth: []
+- basicAuth: []
 tags:
-  - name: Commands
-    description: Execute GoldenGate commands
-  - name: Configuration
-    description: Configuration files and settings for big data handlers
-  - name: Credentials
-    description: Manage credential store for big data target connections
-  - name: Data Targets
-    description: Manage big data target type configurations
-  - name: Distribution
-    description: Distribution paths for trail data delivery
-  - name: Extracts
-    description: Manage Extract processes for source data capture
-  - name: Monitoring
-    description: Performance metrics and process monitoring
-  - name: Replicats
-    description: Manage Replicat processes targeting big data systems
-  - name: Trails
-    description: Trail file management
+- name: Commands
+  description: Execute GoldenGate commands
+- name: Configuration
+  description: Configuration files and settings for big data handlers
+- name: Credentials
+  description: Manage credential store for big data target connections
+- name: Data Targets
+  description: Manage big data target type configurations
+- name: Distribution
+  description: Distribution paths for trail data delivery
+- name: Extracts
+  description: Manage Extract processes for source data capture
+- name: Monitoring
+  description: Performance metrics and process monitoring
+- name: Replicats
+  description: Manage Replicat processes targeting big data systems
+- name: Trails
+  description: Trail file management
 paths:
   /services/v2/config/health:
     get:
       operationId: getServiceHealth
-      summary: Oracle GoldenGate Get service health details
+      summary: Oracle Goldengate Get Service Health Details
       description: Returns detailed health information for the GoldenGate for Big Data service.
       tags:
-        - Monitoring
+      - Monitoring
       responses:
         '200':
           description: Service health details retrieved
@@ -64,15 +64,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServiceHealth'
+              examples:
+                Getservicehealth200Example:
+                  summary: Default getServiceHealth 200 response
+                  x-microcks-default: true
+                  value:
+                    healthy: true
+                    services:
+                    - name: Example Title
+                      status: example_value
+                      port: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/extracts:
     get:
       operationId: listExtracts
-      summary: Oracle GoldenGate List all Extract processes
+      summary: Oracle Goldengate List All Extract Processes
       description: Returns a list of all Extract processes configured for source data capture.
       tags:
-        - Extracts
+      - Extracts
       responses:
         '200':
           description: Extracts listed
@@ -80,17 +93,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractList'
+              examples:
+                Listextracts200Example:
+                  summary: Default listExtracts 200 response
+                  x-microcks-default: true
+                  value:
+                    extracts:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/extracts/{extract}:
     get:
       operationId: getExtract
-      summary: Oracle GoldenGate Retrieve an Extract process
+      summary: Oracle Goldengate Retrieve an Extract Process
       description: Returns configuration and status of a specific Extract process.
       tags:
-        - Extracts
+      - Extracts
       parameters:
-        - $ref: '#/components/parameters/extractParam'
+      - $ref: '#/components/parameters/extractParam'
       responses:
         '200':
           description: Extract details retrieved
@@ -98,24 +123,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Extract'
+              examples:
+                Getextract200Example:
+                  summary: Default getExtract 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createExtract
-      summary: Oracle GoldenGate Create an Extract process
+      summary: Oracle Goldengate Create an Extract Process
       description: Creates a new Extract process for source data capture.
       tags:
-        - Extracts
+      - Extracts
       parameters:
-        - $ref: '#/components/parameters/extractParam'
+      - $ref: '#/components/parameters/extractParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateExtractRequest'
+            examples:
+              CreateextractRequestExample:
+                summary: Default createExtract request
+                x-microcks-default: true
+                value:
+                  type: cdc
+                  trail: example_value
+                  begin: example_value
+                  config:
+                  - example_value
       responses:
         '201':
           description: Extract created
@@ -123,24 +172,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Extract'
+              examples:
+                Createextract201Example:
+                  summary: Default createExtract 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateExtract
-      summary: Oracle GoldenGate Update an Extract process
+      summary: Oracle Goldengate Update an Extract Process
       description: Updates the configuration of an existing Extract process.
       tags:
-        - Extracts
+      - Extracts
       parameters:
-        - $ref: '#/components/parameters/extractParam'
+      - $ref: '#/components/parameters/extractParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateExtractRequest'
+            examples:
+              UpdateextractRequestExample:
+                summary: Default updateExtract request
+                x-microcks-default: true
+                value:
+                  config:
+                  - example_value
+                  status: example_value
       responses:
         '200':
           description: Extract updated
@@ -148,18 +219,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Extract'
+              examples:
+                Updateextract200Example:
+                  summary: Default updateExtract 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteExtract
-      summary: Oracle GoldenGate Delete an Extract process
+      summary: Oracle Goldengate Delete an Extract Process
       description: Deletes an Extract process.
       tags:
-        - Extracts
+      - Extracts
       parameters:
-        - $ref: '#/components/parameters/extractParam'
+      - $ref: '#/components/parameters/extractParam'
       responses:
         '204':
           description: Extract deleted
@@ -167,21 +252,30 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/extracts/{extract}/command:
     post:
       operationId: issueExtractCommand
-      summary: Oracle GoldenGate Issue a command to an Extract
+      summary: Oracle Goldengate Issue a Command to an Extract
       description: Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process.
       tags:
-        - Extracts
+      - Extracts
       parameters:
-        - $ref: '#/components/parameters/extractParam'
+      - $ref: '#/components/parameters/extractParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ProcessCommand'
+            examples:
+              IssueextractcommandRequestExample:
+                summary: Default issueExtractCommand request
+                x-microcks-default: true
+                value:
+                  action: start
       responses:
         '200':
           description: Command executed
@@ -189,19 +283,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Issueextractcommand200Example:
+                  summary: Default issueExtractCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/replicats:
     get:
       operationId: listReplicats
-      summary: Oracle GoldenGate List all Replicat processes
+      summary: Oracle Goldengate List All Replicat Processes
       description: >-
         Returns a list of all Replicat processes configured for big data targets
         such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch.
       tags:
-        - Replicats
+      - Replicats
       responses:
         '200':
           description: Replicats listed
@@ -209,19 +315,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReplicatList'
+              examples:
+                Listreplicats200Example:
+                  summary: Default listReplicats 200 response
+                  x-microcks-default: true
+                  value:
+                    replicats:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      handler: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/replicats/{replicat}:
     get:
       operationId: getReplicat
-      summary: Oracle GoldenGate Retrieve a Replicat process
+      summary: Oracle Goldengate Retrieve a Replicat Process
       description: >-
         Returns the configuration and status of a Replicat process targeting
         a big data system. Includes handler configuration details.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       responses:
         '200':
           description: Replicat details retrieved
@@ -229,28 +348,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Replicat'
+              examples:
+                Getreplicat200Example:
+                  summary: Default getReplicat 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createReplicat
-      summary: Oracle GoldenGate Create a Replicat process for a big data target
+      summary: Oracle Goldengate Create a Replicat Process for a Big Data Target
       description: >-
         Creates a new Replicat process with a big data handler. Supported
         handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB,
         Elasticsearch, JDBC, Kinesis, Google BigQuery, Google Pub/Sub, and
         OCI Object Storage.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateReplicatRequest'
+            examples:
+              CreatereplicatRequestExample:
+                summary: Default createReplicat request
+                x-microcks-default: true
+                value:
+                  type: classic
+                  trail: example_value
+                  begin: example_value
+                  config:
+                  - example_value
+                  checkpointTable: example_value
       responses:
         '201':
           description: Replicat created
@@ -258,24 +404,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Replicat'
+              examples:
+                Createreplicat201Example:
+                  summary: Default createReplicat 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateReplicat
-      summary: Oracle GoldenGate Update a Replicat process
+      summary: Oracle Goldengate Update a Replicat Process
       description: Updates the configuration of a Replicat targeting a big data system.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateReplicatRequest'
+            examples:
+              UpdatereplicatRequestExample:
+                summary: Default updateReplicat request
+                x-microcks-default: true
+                value:
+                  config:
+                  - example_value
+                  status: example_value
       responses:
         '200':
           description: Replicat updated
@@ -283,18 +453,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Replicat'
+              examples:
+                Updatereplicat200Example:
+                  summary: Default updateReplicat 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteReplicat
-      summary: Oracle GoldenGate Delete a Replicat process
+      summary: Oracle Goldengate Delete a Replicat Process
       description: Deletes a Replicat process targeting a big data system.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       responses:
         '204':
           description: Replicat deleted
@@ -302,21 +488,30 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/replicats/{replicat}/command:
     post:
       operationId: issueReplicatCommand
-      summary: Oracle GoldenGate Issue a command to a Replicat
+      summary: Oracle Goldengate Issue a Command to a Replicat
       description: Issues an operational command to a Replicat process.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ProcessCommand'
+            examples:
+              IssuereplicatcommandRequestExample:
+                summary: Default issueReplicatCommand request
+                x-microcks-default: true
+                value:
+                  action: start
       responses:
         '200':
           description: Command executed
@@ -324,19 +519,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Issuereplicatcommand200Example:
+                  summary: Default issueReplicatCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/replicats/{replicat}/info/status:
     get:
       operationId: getReplicatStatus
-      summary: Oracle GoldenGate Retrieve Replicat status
+      summary: Oracle Goldengate Retrieve Replicat Status
       description: Returns the current runtime status of a big data Replicat process.
       tags:
-        - Replicats
+      - Replicats
       parameters:
-        - $ref: '#/components/parameters/replicatParam'
+      - $ref: '#/components/parameters/replicatParam'
       responses:
         '200':
           description: Status retrieved
@@ -344,20 +551,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProcessStatus'
+              examples:
+                Getreplicatstatus200Example:
+                  summary: Default getReplicatStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    lag: example_value
+                    since: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/dataTargetTypes:
     get:
       operationId: listDataTargetTypes
-      summary: Oracle GoldenGate List available data target types
+      summary: Oracle Goldengate List Available Data Target Types
       description: >-
         Returns the list of available big data target types including Kafka,
         HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery,
         Pub/Sub, and OCI Object Storage.
       tags:
-        - Data Targets
+      - Data Targets
       responses:
         '200':
           description: Data target types listed
@@ -365,35 +584,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataTargetTypeList'
+              examples:
+                Listdatatargettypes200Example:
+                  summary: Default listDataTargetTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    types:
+                    - name: Example Title
+                      description: A sample description.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/dataTargetTypes/{dataTargetType}:
     get:
       operationId: getDataTargetTypeSchema
-      summary: Oracle GoldenGate Retrieve JSON schema for a data target type
+      summary: Oracle Goldengate Retrieve Json Schema for a Data Target Type
       description: Returns the JSON schema describing the configuration for a specific data target type handler.
       tags:
-        - Data Targets
+      - Data Targets
       parameters:
-        - name: dataTargetType
-          in: path
-          required: true
-          description: The data target type name
-          schema:
-            type: string
-            enum:
-              - kafka
-              - kafkaconnect
-              - hdfs
-              - hbase
-              - cassandra
-              - mongodb
-              - elasticsearch
-              - jdbc
-              - kinesis
-              - bigquery
-              - pubsub
-              - objectstorage
+      - name: dataTargetType
+        in: path
+        required: true
+        description: The data target type name
+        schema:
+          type: string
+          enum:
+          - kafka
+          - kafkaconnect
+          - hdfs
+          - hbase
+          - cassandra
+          - mongodb
+          - elasticsearch
+          - jdbc
+          - kinesis
+          - bigquery
+          - pubsub
+          - objectstorage
+        example: kafka
       responses:
         '200':
           description: Target type schema retrieved
@@ -401,17 +632,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataTargetTypeSchema'
+              examples:
+                Getdatatargettypeschema200Example:
+                  summary: Default getDataTargetTypeSchema 200 response
+                  x-microcks-default: true
+                  value:
+                    type: example_value
+                    properties: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/credentials:
     get:
       operationId: listCredentialDomains
-      summary: Oracle GoldenGate List credential domains
+      summary: Oracle Goldengate List Credential Domains
       description: Returns all credential store domains used for big data target authentication.
       tags:
-        - Credentials
+      - Credentials
       responses:
         '200':
           description: Domains listed
@@ -419,18 +660,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CredentialDomainList'
+              examples:
+                Listcredentialdomains200Example:
+                  summary: Default listCredentialDomains 200 response
+                  x-microcks-default: true
+                  value:
+                    domains:
+                    - name: Example Title
+                      aliasCount: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/credentials/{domain}/{alias}:
     get:
       operationId: getCredentialAlias
-      summary: Oracle GoldenGate Retrieve a credential alias
+      summary: Oracle Goldengate Retrieve a Credential Alias
       description: Returns a credential alias used for target system authentication.
       tags:
-        - Credentials
+      - Credentials
       parameters:
-        - $ref: '#/components/parameters/domainParam'
-        - $ref: '#/components/parameters/aliasParam'
+      - $ref: '#/components/parameters/domainParam'
+      - $ref: '#/components/parameters/aliasParam'
       responses:
         '200':
           description: Alias retrieved
@@ -438,25 +690,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CredentialAlias'
+              examples:
+                Getcredentialalias200Example:
+                  summary: Default getCredentialAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    alias: example_value
+                    userid: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createCredentialAlias
-      summary: Oracle GoldenGate Create a credential alias
+      summary: Oracle Goldengate Create a Credential Alias
       description: Creates a credential alias for authenticating with big data targets.
       tags:
-        - Credentials
+      - Credentials
       parameters:
-        - $ref: '#/components/parameters/domainParam'
-        - $ref: '#/components/parameters/aliasParam'
+      - $ref: '#/components/parameters/domainParam'
+      - $ref: '#/components/parameters/aliasParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateCredentialRequest'
+            examples:
+              CreatecredentialaliasRequestExample:
+                summary: Default createCredentialAlias request
+                x-microcks-default: true
+                value:
+                  userid: '500123'
+                  password: example_value
       responses:
         '201':
           description: Alias created
@@ -464,25 +734,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CredentialAlias'
+              examples:
+                Createcredentialalias201Example:
+                  summary: Default createCredentialAlias 201 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    alias: example_value
+                    userid: '500123'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceCredentialAlias
-      summary: Oracle GoldenGate Replace a credential alias
+      summary: Oracle Goldengate Replace a Credential Alias
       description: Replaces an existing credential alias.
       tags:
-        - Credentials
+      - Credentials
       parameters:
-        - $ref: '#/components/parameters/domainParam'
-        - $ref: '#/components/parameters/aliasParam'
+      - $ref: '#/components/parameters/domainParam'
+      - $ref: '#/components/parameters/aliasParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateCredentialRequest'
+            examples:
+              ReplacecredentialaliasRequestExample:
+                summary: Default replaceCredentialAlias request
+                x-microcks-default: true
+                value:
+                  userid: '500123'
+                  password: example_value
       responses:
         '200':
           description: Alias replaced
@@ -490,17 +778,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CredentialAlias'
+              examples:
+                Replacecredentialalias200Example:
+                  summary: Default replaceCredentialAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    alias: example_value
+                    userid: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteCredentialAlias
-      summary: Oracle GoldenGate Delete a credential alias
+      summary: Oracle Goldengate Delete a Credential Alias
       description: Deletes a credential alias.
       tags:
-        - Credentials
+      - Credentials
       parameters:
-        - $ref: '#/components/parameters/domainParam'
-        - $ref: '#/components/parameters/aliasParam'
+      - $ref: '#/components/parameters/domainParam'
+      - $ref: '#/components/parameters/aliasParam'
       responses:
         '204':
           description: Alias deleted
@@ -508,13 +807,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/config/files:
     get:
       operationId: listConfigFiles
-      summary: Oracle GoldenGate List configuration files
+      summary: Oracle Goldengate List Configuration Files
       description: Returns configuration files including handler properties for big data targets.
       tags:
-        - Configuration
+      - Configuration
       responses:
         '200':
           description: Configuration files listed
@@ -522,23 +824,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigFileList'
+              examples:
+                Listconfigfiles200Example:
+                  summary: Default listConfigFiles 200 response
+                  x-microcks-default: true
+                  value:
+                    files:
+                    - name: Example Title
+                      lastModified: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/config/files/{file}:
     get:
       operationId: getConfigFile
-      summary: Oracle GoldenGate Retrieve a configuration file
+      summary: Oracle Goldengate Retrieve a Configuration File
       description: >-
         Returns content of a configuration file, including handler property files
         for Kafka, HDFS, and other big data targets.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - name: file
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Configuration file retrieved
@@ -546,30 +860,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConfigFile'
+              examples:
+                Getconfigfile200Example:
+                  summary: Default getConfigFile 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    content: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createConfigFile
-      summary: Oracle GoldenGate Create a configuration file
+      summary: Oracle Goldengate Create a Configuration File
       description: >-
         Creates a configuration file such as a Kafka handler properties file,
         custom formatter, or Avro schema mapping.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - name: file
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ConfigFileContent'
+            examples:
+              CreateconfigfileRequestExample:
+                summary: Default createConfigFile request
+                x-microcks-default: true
+                value:
+                  content: example_value
       responses:
         '201':
           description: Configuration file created
@@ -577,24 +908,34 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: replaceConfigFile
-      summary: Oracle GoldenGate Replace a configuration file
+      summary: Oracle Goldengate Replace a Configuration File
       description: Replaces the content of an existing configuration file.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - name: file
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ConfigFileContent'
+            examples:
+              ReplaceconfigfileRequestExample:
+                summary: Default replaceConfigFile request
+                x-microcks-default: true
+                value:
+                  content: example_value
       responses:
         '200':
           description: Configuration file replaced
@@ -602,18 +943,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteConfigFile
-      summary: Oracle GoldenGate Delete a configuration file
+      summary: Oracle Goldengate Delete a Configuration File
       description: Deletes a configuration file.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - name: file
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
       responses:
         '204':
           description: File deleted
@@ -621,13 +966,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/trails:
     get:
       operationId: listTrails
-      summary: Oracle GoldenGate List trail files
+      summary: Oracle Goldengate List Trail Files
       description: Returns trail files used by big data replicats.
       tags:
-        - Trails
+      - Trails
       responses:
         '200':
           description: Trails listed
@@ -635,15 +983,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrailList'
+              examples:
+                Listtrails200Example:
+                  summary: Default listTrails 200 response
+                  x-microcks-default: true
+                  value:
+                    trails:
+                    - name: Example Title
+                      path: example_value
+                      sequence: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/sources:
     get:
       operationId: listDistributionPaths
-      summary: Oracle GoldenGate List distribution paths
+      summary: Oracle Goldengate List Distribution Paths
       description: Returns distribution paths configured for big data deployments.
       tags:
-        - Distribution
+      - Distribution
       responses:
         '200':
           description: Paths listed
@@ -651,17 +1011,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DistributionPathList'
+              examples:
+                Listdistributionpaths200Example:
+                  summary: Default listDistributionPaths 200 response
+                  x-microcks-default: true
+                  value:
+                    paths:
+                    - name: Example Title
+                      status: example_value
+                      source: example_value
+                      target: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/sources/{distpath}:
     get:
       operationId: getDistributionPath
-      summary: Oracle GoldenGate Retrieve a distribution path
+      summary: Oracle Goldengate Retrieve a Distribution Path
       description: Returns a specific distribution path.
       tags:
-        - Distribution
+      - Distribution
       parameters:
-        - $ref: '#/components/parameters/distpathParam'
+      - $ref: '#/components/parameters/distpathParam'
       responses:
         '200':
           description: Path retrieved
@@ -669,24 +1042,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DistributionPath'
+              examples:
+                Getdistributionpath200Example:
+                  summary: Default getDistributionPath 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    source: example_value
+                    target: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createDistributionPath
-      summary: Oracle GoldenGate Create a distribution path
+      summary: Oracle Goldengate Create a Distribution Path
       description: Creates a distribution path for delivering trail data to a big data deployment.
       tags:
-        - Distribution
+      - Distribution
       parameters:
-        - $ref: '#/components/parameters/distpathParam'
+      - $ref: '#/components/parameters/distpathParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateDistributionPathRequest'
+            examples:
+              CreatedistributionpathRequestExample:
+                summary: Default createDistributionPath request
+                x-microcks-default: true
+                value:
+                  source: example_value
+                  target: example_value
       responses:
         '201':
           description: Path created
@@ -694,18 +1086,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DistributionPath'
+              examples:
+                Createdistributionpath201Example:
+                  summary: Default createDistributionPath 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    source: example_value
+                    target: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteDistributionPath
-      summary: Oracle GoldenGate Delete a distribution path
+      summary: Oracle Goldengate Delete a Distribution Path
       description: Deletes a distribution path.
       tags:
-        - Distribution
+      - Distribution
       parameters:
-        - $ref: '#/components/parameters/distpathParam'
+      - $ref: '#/components/parameters/distpathParam'
       responses:
         '204':
           description: Path deleted
@@ -713,19 +1117,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/commands/execute:
     post:
       operationId: executeCommand
-      summary: Oracle GoldenGate Execute a GoldenGate command
+      summary: Oracle Goldengate Execute a Goldengate Command
       description: Executes a GGSCI-style command against the Big Data Administrative Server.
       tags:
-        - Commands
+      - Commands
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ExecuteCommandRequest'
+            examples:
+              ExecutecommandRequestExample:
+                summary: Default executeCommand request
+                x-microcks-default: true
+                value:
+                  command: example_value
       responses:
         '200':
           description: Command executed
@@ -733,17 +1146,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Executecommand200Example:
+                  summary: Default executeCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/mpoints/processes:
     get:
       operationId: listProcessMetrics
-      summary: Oracle GoldenGate Retrieve all process metrics
+      summary: Oracle Goldengate Retrieve All Process Metrics
       description: Returns performance metrics for all running processes.
       tags:
-        - Monitoring
+      - Monitoring
       responses:
         '200':
           description: Metrics retrieved
@@ -751,17 +1176,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProcessMetricsList'
+              examples:
+                Listprocessmetrics200Example:
+                  summary: Default listProcessMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    processes:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      lag: 42.5
+                      operationsProcessed: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /services/v2/mpoints/{item}/statisticsReplicat:
     get:
       operationId: getReplicatStats
-      summary: Oracle GoldenGate Retrieve Replicat statistics
+      summary: Oracle Goldengate Retrieve Replicat Statistics
       description: Returns handler-level statistics for a big data Replicat including records written to the target.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/mpointItemParam'
+      - $ref: '#/components/parameters/mpointItemParam'
       responses:
         '200':
           description: Statistics retrieved
@@ -769,10 +1208,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReplicatStatistics'
+              examples:
+                Getreplicatstats200Example:
+                  summary: Default getReplicatStats 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    totalOperations: 10
+                    inserts: 10
+                    updates: 10
+                    deletes: 10
+                    handlerStatistics:
+                      recordsWritten: 10
+                      bytesWritten: 10
+                      batchesProcessed: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     basicAuth:
@@ -846,15 +1302,19 @@ components:
       properties:
         code:
           type: integer
+          example: 10
         message:
           type: string
+          example: example_value
         severity:
           type: string
+          example: example_value
     ServiceHealth:
       type: object
       properties:
         healthy:
           type: boolean
+          example: true
         services:
           type: array
           items:
@@ -866,6 +1326,7 @@ components:
                 type: string
               port:
                 type: integer
+          example: []
     ExtractList:
       type: object
       properties:
@@ -873,59 +1334,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExtractSummary'
+          example: []
     ExtractSummary:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         type:
           type: string
+          example: example_value
         status:
           type: string
+          example: example_value
     Extract:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         type:
           type: string
           enum:
-            - cdc
-            - initialload
-            - datapump
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
         status:
           type: string
           enum:
-            - running
-            - stopped
-            - abended
+          - running
+          - stopped
+          - abended
+          example: running
         trail:
           type: string
+          example: example_value
         config:
           type: array
           items:
             type: string
+          example: []
     CreateExtractRequest:
       type: object
       required:
-        - type
-        - trail
-        - config
+      - type
+      - trail
+      - config
       properties:
         type:
           type: string
           enum:
-            - cdc
-            - initialload
-            - datapump
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
         trail:
           type: string
+          example: example_value
         begin:
           type: string
+          example: example_value
         config:
           type: array
           items:
             type: string
+          example: []
     UpdateExtractRequest:
       type: object
       properties:
@@ -933,8 +1407,10 @@ components:
           type: array
           items:
             type: string
+          example: []
         status:
           type: string
+          example: example_value
     ReplicatList:
       type: object
       properties:
@@ -942,88 +1418,105 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReplicatSummary'
+          example: []
     ReplicatSummary:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         type:
           type: string
+          example: example_value
         status:
           type: string
+          example: example_value
         handler:
           type: string
           description: Big data handler type (e.g., kafka, hdfs, mongodb)
+          example: example_value
     Replicat:
       type: object
       properties:
         name:
           type: string
           description: Replicat process name
+          example: Example Title
         type:
           type: string
           enum:
-            - classic
-            - coordinated
-            - integrated
-            - parallel
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
         status:
           type: string
           enum:
-            - running
-            - stopped
-            - abended
+          - running
+          - stopped
+          - abended
+          example: running
         trail:
           type: string
           description: Source trail file
+          example: example_value
         handler:
           type: string
           description: Big data handler type
           enum:
-            - kafka
-            - kafkaconnect
-            - hdfs
-            - hbase
-            - cassandra
-            - mongodb
-            - elasticsearch
-            - jdbc
-            - kinesis
-            - bigquery
-            - pubsub
-            - objectstorage
+          - kafka
+          - kafkaconnect
+          - hdfs
+          - hbase
+          - cassandra
+          - mongodb
+          - elasticsearch
+          - jdbc
+          - kinesis
+          - bigquery
+          - pubsub
+          - objectstorage
+          example: kafka
         config:
           type: array
           items:
             type: string
           description: Parameter file content including handler configuration
+          example: []
         handlerProperties:
           type: string
           description: Path to handler properties file
+          example: example_value
     CreateReplicatRequest:
       type: object
       required:
-        - type
-        - trail
-        - config
+      - type
+      - trail
+      - config
       properties:
         type:
           type: string
           enum:
-            - classic
-            - coordinated
-            - integrated
-            - parallel
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
         trail:
           type: string
+          example: example_value
         begin:
           type: string
+          example: example_value
         config:
           type: array
           items:
             type: string
+          example: []
         checkpointTable:
           type: string
+          example: example_value
     UpdateReplicatRequest:
       type: object
       properties:
@@ -1031,22 +1524,25 @@ components:
           type: array
           items:
             type: string
+          example: []
         status:
           type: string
+          example: example_value
     ProcessCommand:
       type: object
       required:
-        - action
+      - action
       properties:
         action:
           type: string
           enum:
-            - start
-            - stop
-            - kill
-            - forcestop
-            - status
-            - stats
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
     CommandResponse:
       type: object
       properties:
@@ -1059,18 +1555,23 @@ components:
               type: string
             message:
               type: string
+          example: example_value
     ProcessStatus:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         status:
           type: string
+          example: example_value
         lag:
           type: string
+          example: example_value
         since:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     DataTargetTypeList:
       type: object
       properties:
@@ -1084,15 +1585,18 @@ components:
                 description: Handler type name
               description:
                 type: string
+          example: []
     DataTargetTypeSchema:
       type: object
       description: JSON Schema describing the handler configuration properties
       properties:
         type:
           type: string
+          example: example_value
         properties:
           type: object
           additionalProperties: true
+          example: example_value
     CredentialDomainList:
       type: object
       properties:
@@ -1105,26 +1609,32 @@ components:
                 type: string
               aliasCount:
                 type: integer
+          example: []
     CredentialAlias:
       type: object
       properties:
         domain:
           type: string
+          example: example_value
         alias:
           type: string
+          example: example_value
         userid:
           type: string
+          example: '500123'
     CreateCredentialRequest:
       type: object
       required:
-        - userid
-        - password
+      - userid
+      - password
       properties:
         userid:
           type: string
+          example: '500123'
         password:
           type: string
           format: password
+          example: example_value
     ConfigFileList:
       type: object
       properties:
@@ -1138,20 +1648,24 @@ components:
               lastModified:
                 type: string
                 format: date-time
+          example: []
     ConfigFile:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         content:
           type: string
+          example: example_value
     ConfigFileContent:
       type: object
       required:
-        - content
+      - content
       properties:
         content:
           type: string
+          example: example_value
     TrailList:
       type: object
       properties:
@@ -1166,6 +1680,7 @@ components:
                 type: string
               sequence:
                 type: integer
+          example: []
     DistributionPathList:
       type: object
       properties:
@@ -1173,45 +1688,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DistributionPathSummary'
+          example: []
     DistributionPathSummary:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         status:
           type: string
+          example: example_value
         source:
           type: string
+          example: example_value
         target:
           type: string
+          example: example_value
     DistributionPath:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         status:
           type: string
+          example: example_value
         source:
           type: string
+          example: example_value
         target:
           type: string
+          example: example_value
     CreateDistributionPathRequest:
       type: object
       required:
-        - source
-        - target
+      - source
+      - target
       properties:
         source:
           type: string
+          example: example_value
         target:
           type: string
+          example: example_value
     ExecuteCommandRequest:
       type: object
       required:
-        - command
+      - command
       properties:
         command:
           type: string
+          example: example_value
     ProcessMetricsList:
       type: object
       properties:
@@ -1231,23 +1758,29 @@ components:
               operationsProcessed:
                 type: integer
                 format: int64
+          example: []
     ReplicatStatistics:
       type: object
       properties:
         processName:
           type: string
+          example: example_value
         totalOperations:
           type: integer
           format: int64
+          example: 10
         inserts:
           type: integer
           format: int64
+          example: 10
         updates:
           type: integer
           format: int64
+          example: 10
         deletes:
           type: integer
           format: int64
+          example: 10
         handlerStatistics:
           type: object
           properties:
@@ -1260,3 +1793,4 @@ components:
             batchesProcessed:
               type: integer
               format: int64
+          example: example_value

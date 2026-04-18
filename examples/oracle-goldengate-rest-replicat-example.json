@@ -1,0 +1,10 @@
+{
+  "name": "Example Title",
+  "type": "example_value",
+  "status": "example_value",
+  "description": "A sample description.",
+  "trail": "example_value",
+  "checkpointTable": "example_value",
+  "config": [],
+  "credentials": "example_value"
+}

@@ -1,0 +1,7 @@
+{
+  "description": "A sample description.",
+  "config": [],
+  "credentials": "example_value",
+  "begin": "example_value",
+  "status": "example_value"
+}

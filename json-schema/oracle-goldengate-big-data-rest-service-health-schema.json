@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServiceHealth",
+  "type": "object",
+  "properties": {
+    "healthy": {
+      "type": "boolean"
+    },
+    "services": {
+      "type": "array"
+    }
+  }
+}

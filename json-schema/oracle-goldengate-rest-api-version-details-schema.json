@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApiVersionDetails",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "isLatest": {
+      "type": "boolean"
+    },
+    "lifecycle": {
+      "type": "string"
+    },
+    "links": {
+      "type": "array"
+    }
+  }
+}

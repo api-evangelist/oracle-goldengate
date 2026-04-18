@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateCollectorPathRequest",
+  "type": "object",
+  "properties": {
+    "trail": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

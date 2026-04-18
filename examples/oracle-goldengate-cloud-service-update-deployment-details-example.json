@@ -1,0 +1,9 @@
+{
+  "displayName": "example_value",
+  "description": "A sample description.",
+  "fqdn": "example_value",
+  "cpuCoreCount": 10,
+  "isAutoScalingEnabled": true,
+  "isPublic": true,
+  "freeformTags": "example_value"
+}
