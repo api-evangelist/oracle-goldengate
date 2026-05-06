@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,175 +9,121 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Oracle GoldenGate
 providerId: oracle-goldengate
-publisherName: Oracle GoldenGate
-serviceCategory: API
+publisherName: Oracle America, Inc.
+serviceCategory: Data Integration
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - CDC
   - Data Integration
-  - Data Synchronization
-  - Database
-  - Enterprise
   - Real-Time Replication
+  - Oracle Cloud
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Oracle GoldenGate API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: >-
+  FOCUS-aligned FinOps view for Oracle GoldenGate: OCI managed service
+  billing per OCPU-hour by edition, plus separate OCI block storage and
+  egress meters for trail files and replicated data; on-premises deployments
+  are billed against the contractual Oracle Technology license. FinOps
+  observation focuses on edition-OCPU utilization and replication egress.
+sources:
+  - https://www.oracle.com/integration/goldengate/
+  - https://docs.oracle.com/en/cloud/paas/goldengate-service/
+  - https://www.oracle.com/cloud/price-list/
+notes: >-
+  No public per-API meter exists. Track OCPU-hour consumption per GoldenGate
+  edition through OCI Cost Analysis, plus block storage and egress for trail
+  files and outbound replication.
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Pay-As-You-Go (OCI) + BYOL (On-Premises)
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Credit
 focusColumns:
   ServiceName: Oracle GoldenGate
-  ServiceCategory: Developer Tools / API
-  ProviderName: Oracle GoldenGate
-  PublisherName: Oracle GoldenGate
-  InvoiceIssuerName: Oracle GoldenGate
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceCategory: Data Integration
+  ProviderName: Oracle
+  PublisherName: Oracle America, Inc.
+  InvoiceIssuerName: Oracle America, Inc.
   BillingCurrency: USD
+  PricingCategory: Pay-As-You-Go
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: goldengate_ocpu_hours
+    description: OCPU-hours consumed by OCI GoldenGate deployments
+    unit: ocpu-hour
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - edition
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
+      - deployment
+      - tag
+  - name: goldengate_trail_storage_gb_month
+    description: Block storage attached to GoldenGate deployments for trail files
+    unit: GB-month
+    aggregation: sum
+    dimensions:
+      - region
+      - deployment
+  - name: goldengate_egress_gb
+    description: Outbound data transfer from GoldenGate deployments to remote targets
     unit: GB
     aggregation: sum
     dimensions:
-      - api
       - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
+      - target_type
+  - name: goldengate_on_prem_license
+    description: Contractual Oracle Technology license for on-premises GoldenGate
+    unit: license
+    aggregation: max
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - license_type
+principles:
+  - name: Visibility
+    description: >-
+      Use OCI Cost Analysis with cost-tracking tags applied to each
+      GoldenGate deployment, attached block storage, and the deployment's
+      VCN to see OCPU and egress consumption by edition and region.
+  - name: Allocation
+    description: >-
+      Apply cost-tracking tags (e.g. team, source_db, target_system) to each
+      deployment so replication cost can be attributed to the consuming data
+      pipeline.
+  - name: Optimization
+    description: >-
+      Right-size deployment OCPU to match peak replication lag tolerance,
+      consolidate low-volume sources onto shared deployments, and prefer
+      cross-region replication only where data-residency requirements
+      mandate it (egress is metered).
+  - name: Accountability
+    description: >-
+      Assign a data-platform owner to each GoldenGate deployment; review OCI
+      consumption monthly and on-premises support renewals annually.
 apis:
   - name: Oracle GoldenGate REST API
-    baseURL: https://<goldengate-host>:<port>/services/v2
-    tags:
-      - CDC
-      - Data Replication
-      - ETL
-      - Microservices
-      - Real-Time Data Integration
     serviceName: Oracle GoldenGate REST API
-    serviceCategory: API
+    serviceCategory: Data Integration
   - name: Oracle GoldenGate for Big Data REST API
-    baseURL: https://<goldengate-host>:<port>/services/v2
-    tags:
-      - Big Data
-      - Hadoop
-      - Kafka
-      - NoSQL
-      - Streaming
     serviceName: Oracle GoldenGate for Big Data REST API
-    serviceCategory: API
+    serviceCategory: Data Integration
   - name: Oracle GoldenGate Veridata REST API
-    baseURL: https://<veridata-host>:<port>/veridata/v1
-    tags:
-      - Comparison
-      - Data Quality
-      - Data Validation
-      - Data Verification
     serviceName: Oracle GoldenGate Veridata REST API
-    serviceCategory: API
+    serviceCategory: Data Integration
   - name: Oracle GoldenGate Cloud Service API
-    baseURL: https://goldengate.{region}.oci.oraclecloud.com
-    tags:
-      - Cloud
-      - Cloud Integration
-      - Database Migration
-      - OCI
     serviceName: Oracle GoldenGate Cloud Service API
-    serviceCategory: API
+    serviceCategory: Data Integration
   - name: Oracle GoldenGate Stream Analytics REST API
-    baseURL: https://<ggsa-host>:<port>/osa
-    tags:
-      - Dashboards
-      - Event Processing
-      - Real-Time Analytics
-      - Spark
-      - Stream Analytics
     serviceName: Oracle GoldenGate Stream Analytics REST API
-    serviceCategory: API
+    serviceCategory: Data Integration
   - name: Oracle GoldenGate Data Streams REST API
-    baseURL: https://<goldengate-host>:<port>/services/v2
-    tags:
-      - Data Distribution
-      - Data Streams
-      - Real-Time
-      - Streaming
     serviceName: Oracle GoldenGate Data Streams REST API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+    serviceCategory: Data Integration
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

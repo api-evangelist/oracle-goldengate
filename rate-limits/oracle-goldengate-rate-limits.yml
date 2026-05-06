@@ -4,112 +4,81 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Oracle GoldenGate
 providerId: oracle-goldengate
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - CDC
   - Data Integration
-  - Data Synchronization
-  - Database
-  - Enterprise
-  - Real-Time Replication
+  - Oracle Cloud
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Oracle GoldenGate API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Real-Time Replication
+description: >-
+  Oracle GoldenGate's management REST APIs (Service Manager, Administration
+  Server, Distribution Server, Receiver Server, Performance Metrics Server)
+  do not publish per-second or per-minute rate-limit numbers. Throughput is
+  bound by the OCPU and memory of the GoldenGate deployment, by the
+  configured replication trail throughput, and by the underlying source and
+  target database I/O. The OCI managed service additionally inherits the
+  general OCI control-plane throttling behaviour for resource lifecycle
+  operations.
+sources:
+  - https://docs.oracle.com/en/middleware/goldengate/core/
+  - https://docs.oracle.com/en/cloud/paas/goldengate-service/
+  - https://docs.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm
+notes: >-
+  No public per-tier RPS/RPM numbers are published. Limits are effectively
+  the capacity of the deployed OCI compute / GoldenGate edition plus any
+  inherited OCI control-plane throttling.
 responseCodes:
+  unauthorized: 401
+  forbidden: 403
+  notFound: 404
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Oracle GoldenGate REST API
-      - Oracle GoldenGate for Big Data REST API
-      - Oracle GoldenGate Veridata REST API
-      - Oracle GoldenGate Cloud Service API
-      - Oracle GoldenGate Stream Analytics REST API
-      - Oracle GoldenGate Data Streams REST API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Oracle GoldenGate REST API
-      - Oracle GoldenGate for Big Data REST API
-      - Oracle GoldenGate Veridata REST API
-      - Oracle GoldenGate Cloud Service API
-      - Oracle GoldenGate Stream Analytics REST API
-      - Oracle GoldenGate Data Streams REST API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Oracle GoldenGate REST API
-      - Oracle GoldenGate for Big Data REST API
-      - Oracle GoldenGate Veridata REST API
-      - Oracle GoldenGate Cloud Service API
-      - Oracle GoldenGate Stream Analytics REST API
-      - Oracle GoldenGate Data Streams REST API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Oracle GoldenGate REST API
-      - Oracle GoldenGate for Big Data REST API
-      - Oracle GoldenGate Veridata REST API
-      - Oracle GoldenGate Cloud Service API
-      - Oracle GoldenGate Stream Analytics REST API
-      - Oracle GoldenGate Data Streams REST API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Oracle GoldenGate REST API
-      - Oracle GoldenGate for Big Data REST API
-      - Oracle GoldenGate Veridata REST API
-      - Oracle GoldenGate Cloud Service API
-      - Oracle GoldenGate Stream Analytics REST API
-      - Oracle GoldenGate Data Streams REST API
+  - name: Management REST API Throughput
+    scope: deployment
+    metric: varies
+    limit: bound by GoldenGate deployment OCPU
+    notes: >-
+      Throughput is governed by the OCPU count of the GoldenGate deployment
+      (managed-service edition or on-premises host) and is not exposed as a
+      separate per-tenancy rate-limit table.
+  - name: OCI Control-Plane Operations
+    scope: tenancy
+    metric: requests_per_second
+    limit: see OCI service-limits documentation
+    notes: >-
+      Lifecycle operations against OCI GoldenGate (create, update, scale,
+      delete deployment) inherit the OCI control-plane throttling envelope
+      shared by all OCI services in the tenancy.
+  - name: Replication Trail Throughput
+    scope: deployment
+    metric: events_per_second
+    limit: bound by deployment OCPU and source/target I/O
+    notes: >-
+      Sustained replication throughput depends on the GoldenGate deployment
+      sizing, trail file storage, and source/target database I/O capacity.
 policies:
+  - name: Capacity-Bound Throttling
+    description: >-
+      Throughput limits are determined by deployment OCPU, trail storage IO,
+      and source/target database capacity rather than a published
+      per-tenancy rate-limit table.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: >-
+      Clients should implement exponential backoff with jitter on 429 / 5xx
+      responses; honor any Retry-After header when present.
+  - name: Health and Metrics
+    description: >-
+      Use the Performance Metrics Server REST API (or OCI Monitoring for the
+      managed service) for visibility into lag, throughput, and CPU
+      saturation rather than polling the management API at high frequency.
+  - name: Capacity Adjustment
+    description: >-
+      Scale the deployment OCPU count or migrate to a larger compute shape
+      to lift effective throughput; raise OCI control-plane limits via a
+      service request if needed.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

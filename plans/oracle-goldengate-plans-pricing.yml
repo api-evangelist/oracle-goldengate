@@ -4,176 +4,160 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Oracle GoldenGate
 providerId: oracle-goldengate
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - CDC
   - Data Integration
   - Data Synchronization
-  - Database
-  - Enterprise
+  - Oracle Cloud
   - Real-Time Replication
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: >-
+  Oracle GoldenGate is delivered in two commercial shapes. As an OCI managed
+  service ("OCI GoldenGate") it is billed per OCPU-hour by GoldenGate edition
+  (GoldenGate, GoldenGate for Big Data, Veridata, Stream Analytics, Data
+  Streams), with separate egress and storage charges flowing through OCI.
+  As an on-premises product it is licensed per processor or per named-user-plus
+  on the Oracle Technology Global Price List. There is no free or per-API
+  public tier; the management REST API is included with any active edition.
+  Engage Oracle Sales for the current per-OCPU and per-processor rate.
+sources:
+  - https://www.oracle.com/integration/goldengate/
+  - https://docs.oracle.com/en/cloud/paas/goldengate-service/
+  - https://www.oracle.com/cloud/price-list/
+notes: >-
+  Oracle blocks programmatic fetches of www.oracle.com pricing pages (HTTP 403).
+  Plan structure preserved as one OCI per-OCPU plan plus an on-premises BYOL
+  plan and an enterprise tier; replace with verified Oracle Cloud Price List
+  values when available.
 plans:
-  - id: oracle-goldengate-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Oracle GoldenGate API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: oracle-goldengate-oci-service
+    name: OCI GoldenGate (Managed Service)
+    type: usage-based
+    description: >-
+      Fully managed Oracle GoldenGate on OCI, billed per OCPU-hour against the
+      selected GoldenGate edition. Includes the GoldenGate management REST
+      API and underlying lifecycle automation.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Oracle GoldenGate REST API
-      - name: Oracle GoldenGate for Big Data REST API
-      - name: Oracle GoldenGate Veridata REST API
-      - name: Oracle GoldenGate Cloud Service API
-      - name: Oracle GoldenGate Stream Analytics REST API
-      - name: Oracle GoldenGate Data Streams REST API
-  - id: oracle-goldengate-pro
-    name: Professional
-    type: paid
-    description: Production tier for Oracle GoldenGate. Provides higher quotas, priority support, and
-      access to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: GoldenGate OCPU
+        name: goldengate_ocpu
         type: metered
-        metric: requests
+        metric: ocpu-hour
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
+        userMultiplied: false
+      - label: GoldenGate for Big Data OCPU
+        name: goldengate_bigdata_ocpu
+        type: metered
+        metric: ocpu-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
+        userMultiplied: false
+      - label: Veridata OCPU
+        name: veridata_ocpu
+        type: metered
+        metric: ocpu-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
+        userMultiplied: false
+      - label: Stream Analytics OCPU
+        name: stream_analytics_ocpu
+        type: metered
+        metric: ocpu-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
+        userMultiplied: false
+      - label: Data Streams OCPU
+        name: data_streams_ocpu
+        type: metered
+        metric: ocpu-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see https://www.oracle.com/cloud/price-list/
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
       - name: Oracle GoldenGate REST API
       - name: Oracle GoldenGate for Big Data REST API
       - name: Oracle GoldenGate Veridata REST API
       - name: Oracle GoldenGate Cloud Service API
       - name: Oracle GoldenGate Stream Analytics REST API
       - name: Oracle GoldenGate Data Streams REST API
-  - id: oracle-goldengate-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Oracle GoldenGate. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
+  - id: oracle-goldengate-on-premises
+    name: On-Premises (Per-Processor / NUP)
+    type: subscription
+    description: >-
+      On-premises Oracle GoldenGate, licensed per processor or per named-user-plus
+      on the Oracle Technology Global Price List, with separately purchased
+      annual support and update licenses.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Per-Processor License
+        name: per_processor_license
+        type: subscription
+        metric: processor
         limit: -1
-        timeFrame: month
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+      - label: Named User Plus License
+        name: named_user_plus
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: Oracle GoldenGate REST API
+      - name: Oracle GoldenGate for Big Data REST API
+      - name: Oracle GoldenGate Veridata REST API
+  - id: oracle-goldengate-enterprise
+    name: Enterprise Agreement
+    type: enterprise
+    description: >-
+      Negotiated enterprise agreement combining OCI GoldenGate managed
+      service capacity with on-premises GoldenGate licenses. Includes
+      contractual SLAs, premier support, and named technical account
+      management.
+    entries:
+      - label: Negotiated OCPU Capacity
+        name: negotiated_ocpu
+        type: subscription
+        metric: ocpu-hour
+        limit: -1
+        timeFrame: year
         geo: configurable
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
         unit: 1
         price: custom
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
+      - label: Negotiated On-Premises Licenses
+        name: negotiated_on_prem_licenses
+        type: subscription
+        metric: processor
+        limit: -1
+        timeFrame: year
         geo: configurable
-        domains:
-          - https://<goldengate-host>:<port>/services/v2
-          - https://<veridata-host>:<port>/veridata/v1
-          - https://goldengate.{region}.oci.oraclecloud.com
-          - https://<ggsa-host>:<port>/osa
         unit: 1
         price: custom
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
       - name: Oracle GoldenGate REST API
       - name: Oracle GoldenGate for Big Data REST API
       - name: Oracle GoldenGate Veridata REST API
