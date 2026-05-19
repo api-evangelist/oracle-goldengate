@@ -1,0 +1,407 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Cloud Service API — Deployments
+  description: 'Oracle GoldenGate Cloud Service API — Deployments. 10 operations. Lead operation: Oracle Goldengate List Deployments.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-service-deployments
+    baseUri: https://goldengate.{region}.oci.oraclecloud.com
+    description: Oracle GoldenGate Cloud Service API — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: 20200407-deployments
+      path: /20200407/deployments
+      operations:
+      - name: listdeployments
+        method: GET
+        description: Oracle Goldengate List Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdeployment
+        method: POST
+        description: Oracle Goldengate Create a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-deployments-deploymentId
+      path: /20200407/deployments/{deploymentId}
+      operations:
+      - name: getdeployment
+        method: GET
+        description: Oracle Goldengate Get a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedeployment
+        method: PUT
+        description: Oracle Goldengate Update a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedeployment
+        method: DELETE
+        description: Oracle Goldengate Delete a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 20200407-deployments-deploymentId-actions-changeCompartment
+      path: /20200407/deployments/{deploymentId}/actions/changeCompartment
+      operations:
+      - name: changedeploymentcompartment
+        method: POST
+        description: Oracle Goldengate Change Deployment Compartment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-deployments-deploymentId-actions-collectDiagnostics
+      path: /20200407/deployments/{deploymentId}/actions/collectDiagnostics
+      operations:
+      - name: collectdeploymentdiagnostics
+        method: POST
+        description: Oracle Goldengate Collect Deployment Diagnostics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-deployments-deploymentId-actions-start
+      path: /20200407/deployments/{deploymentId}/actions/start
+      operations:
+      - name: startdeployment
+        method: POST
+        description: Oracle Goldengate Start a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-deployments-deploymentId-actions-stop
+      path: /20200407/deployments/{deploymentId}/actions/stop
+      operations:
+      - name: stopdeployment
+        method: POST
+        description: Oracle Goldengate Stop a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-deployments-deploymentId-actions-upgrade
+      path: /20200407/deployments/{deploymentId}/actions/upgrade
+      operations:
+      - name: upgradedeployment
+        method: POST
+        description: Oracle Goldengate Upgrade a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ORACLE_GOLDENGATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-service-deployments-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Cloud Service API — Deployments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/20200407/deployments
+      name: 20200407-deployments
+      description: REST surface for 20200407-deployments.
+      operations:
+      - method: GET
+        name: listdeployments
+        description: Oracle Goldengate List Deployments
+        call: cloud-service-deployments.listdeployments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdeployment
+        description: Oracle Goldengate Create a Deployment
+        call: cloud-service-deployments.createdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}
+      name: 20200407-deployments-deploymentid
+      description: REST surface for 20200407-deployments-deploymentId.
+      operations:
+      - method: GET
+        name: getdeployment
+        description: Oracle Goldengate Get a Deployment
+        call: cloud-service-deployments.getdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatedeployment
+        description: Oracle Goldengate Update a Deployment
+        call: cloud-service-deployments.updatedeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeployment
+        description: Oracle Goldengate Delete a Deployment
+        call: cloud-service-deployments.deletedeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}/actions/changecompartment
+      name: 20200407-deployments-deploymentid-actions-changecompartment
+      description: REST surface for 20200407-deployments-deploymentId-actions-changeCompartment.
+      operations:
+      - method: POST
+        name: changedeploymentcompartment
+        description: Oracle Goldengate Change Deployment Compartment
+        call: cloud-service-deployments.changedeploymentcompartment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}/actions/collectdiagnostics
+      name: 20200407-deployments-deploymentid-actions-collectdiagnostics
+      description: REST surface for 20200407-deployments-deploymentId-actions-collectDiagnostics.
+      operations:
+      - method: POST
+        name: collectdeploymentdiagnostics
+        description: Oracle Goldengate Collect Deployment Diagnostics
+        call: cloud-service-deployments.collectdeploymentdiagnostics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}/actions/start
+      name: 20200407-deployments-deploymentid-actions-start
+      description: REST surface for 20200407-deployments-deploymentId-actions-start.
+      operations:
+      - method: POST
+        name: startdeployment
+        description: Oracle Goldengate Start a Deployment
+        call: cloud-service-deployments.startdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}/actions/stop
+      name: 20200407-deployments-deploymentid-actions-stop
+      description: REST surface for 20200407-deployments-deploymentId-actions-stop.
+      operations:
+      - method: POST
+        name: stopdeployment
+        description: Oracle Goldengate Stop a Deployment
+        call: cloud-service-deployments.stopdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/deployments/{deploymentid}/actions/upgrade
+      name: 20200407-deployments-deploymentid-actions-upgrade
+      description: REST surface for 20200407-deployments-deploymentId-actions-upgrade.
+      operations:
+      - method: POST
+        name: upgradedeployment
+        description: Oracle Goldengate Upgrade a Deployment
+        call: cloud-service-deployments.upgradedeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-service-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Cloud Service API — Deployments. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-deployments
+      description: Oracle Goldengate List Deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-deployments.listdeployments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-deployment
+      description: Oracle Goldengate Create a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.createdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-get-deployment
+      description: Oracle Goldengate Get a Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-deployments.getdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-deployment
+      description: Oracle Goldengate Update a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: cloud-service-deployments.updatedeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-deployment
+      description: Oracle Goldengate Delete a Deployment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cloud-service-deployments.deletedeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-change-deployment-compartment
+      description: Oracle Goldengate Change Deployment Compartment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.changedeploymentcompartment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-collect-deployment-diagnostics
+      description: Oracle Goldengate Collect Deployment Diagnostics
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.collectdeploymentdiagnostics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-start-deployment
+      description: Oracle Goldengate Start a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.startdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-stop-deployment
+      description: Oracle Goldengate Stop a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.stopdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-upgrade-deployment
+      description: Oracle Goldengate Upgrade a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-deployments.upgradedeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

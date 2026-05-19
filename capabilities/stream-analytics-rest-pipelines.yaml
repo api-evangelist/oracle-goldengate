@@ -1,0 +1,177 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Stream Analytics REST API — Pipelines
+  description: 'Oracle GoldenGate Stream Analytics REST API — Pipelines. 4 operations. Lead operation: Oracle Goldengate List
+    Pipelines. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Pipelines
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: stream-analytics-rest-pipelines
+    baseUri: https://{ggsa-host}:{port}/osa
+    description: Oracle GoldenGate Stream Analytics REST API — Pipelines business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v1-pipelines
+      path: /services/v1/pipelines
+      operations:
+      - name: listpipelines
+        method: GET
+        description: Oracle Goldengate List Pipelines
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v1-pipelines-id-export
+      path: /services/v1/pipelines/{id}/export
+      operations:
+      - name: exportpipeline
+        method: GET
+        description: Oracle Goldengate Export a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v1-pipelines-id-publish
+      path: /services/v1/pipelines/{id}/publish
+      operations:
+      - name: publishpipeline
+        method: PATCH
+        description: Oracle Goldengate Publish a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: services-v1-pipelines-id-unpublish
+      path: /services/v1/pipelines/{id}/unpublish
+      operations:
+      - name: unpublishpipeline
+        method: PATCH
+        description: Oracle Goldengate Unpublish a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: stream-analytics-rest-pipelines-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Stream Analytics REST API — Pipelines. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v1/pipelines
+      name: services-v1-pipelines
+      description: REST surface for services-v1-pipelines.
+      operations:
+      - method: GET
+        name: listpipelines
+        description: Oracle Goldengate List Pipelines
+        call: stream-analytics-rest-pipelines.listpipelines
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v1/pipelines/{id}/export
+      name: services-v1-pipelines-id-export
+      description: REST surface for services-v1-pipelines-id-export.
+      operations:
+      - method: GET
+        name: exportpipeline
+        description: Oracle Goldengate Export a Pipeline
+        call: stream-analytics-rest-pipelines.exportpipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v1/pipelines/{id}/publish
+      name: services-v1-pipelines-id-publish
+      description: REST surface for services-v1-pipelines-id-publish.
+      operations:
+      - method: PATCH
+        name: publishpipeline
+        description: Oracle Goldengate Publish a Pipeline
+        call: stream-analytics-rest-pipelines.publishpipeline
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v1/pipelines/{id}/unpublish
+      name: services-v1-pipelines-id-unpublish
+      description: REST surface for services-v1-pipelines-id-unpublish.
+      operations:
+      - method: PATCH
+        name: unpublishpipeline
+        description: Oracle Goldengate Unpublish a Pipeline
+        call: stream-analytics-rest-pipelines.unpublishpipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stream-analytics-rest-pipelines-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Stream Analytics REST API — Pipelines. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-pipelines
+      description: Oracle Goldengate List Pipelines
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stream-analytics-rest-pipelines.listpipelines
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-export-pipeline
+      description: Oracle Goldengate Export a Pipeline
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: stream-analytics-rest-pipelines.exportpipeline
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-publish-pipeline
+      description: Oracle Goldengate Publish a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: stream-analytics-rest-pipelines.publishpipeline
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-unpublish-pipeline
+      description: Oracle Goldengate Unpublish a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: stream-analytics-rest-pipelines.unpublishpipeline
+      outputParameters:
+      - type: object
+        mapping: $.

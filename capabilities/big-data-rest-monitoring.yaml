@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate for Big Data REST API — Monitoring
+  description: 'Oracle GoldenGate for Big Data REST API — Monitoring. 3 operations. Lead operation: Oracle Goldengate Get
+    Service Health Details. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Monitoring
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: big-data-rest-monitoring
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate for Big Data REST API — Monitoring business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-config-health
+      path: /services/v2/config/health
+      operations:
+      - name: getservicehealth
+        method: GET
+        description: Oracle Goldengate Get Service Health Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-processes
+      path: /services/v2/mpoints/processes
+      operations:
+      - name: listprocessmetrics
+        method: GET
+        description: Oracle Goldengate Retrieve All Process Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-statisticsReplicat
+      path: /services/v2/mpoints/{item}/statisticsReplicat
+      operations:
+      - name: getreplicatstats
+        method: GET
+        description: Oracle Goldengate Retrieve Replicat Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: big-data-rest-monitoring-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate for Big Data REST API — Monitoring. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/config/health
+      name: services-v2-config-health
+      description: REST surface for services-v2-config-health.
+      operations:
+      - method: GET
+        name: getservicehealth
+        description: Oracle Goldengate Get Service Health Details
+        call: big-data-rest-monitoring.getservicehealth
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/processes
+      name: services-v2-mpoints-processes
+      description: REST surface for services-v2-mpoints-processes.
+      operations:
+      - method: GET
+        name: listprocessmetrics
+        description: Oracle Goldengate Retrieve All Process Metrics
+        call: big-data-rest-monitoring.listprocessmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/statisticsreplicat
+      name: services-v2-mpoints-item-statisticsreplicat
+      description: REST surface for services-v2-mpoints-item-statisticsReplicat.
+      operations:
+      - method: GET
+        name: getreplicatstats
+        description: Oracle Goldengate Retrieve Replicat Statistics
+        call: big-data-rest-monitoring.getreplicatstats
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: big-data-rest-monitoring-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate for Big Data REST API — Monitoring. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-get-service-health
+      description: Oracle Goldengate Get Service Health Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: big-data-rest-monitoring.getservicehealth
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-all-process
+      description: Oracle Goldengate Retrieve All Process Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: big-data-rest-monitoring.listprocessmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-statistics
+      description: Oracle Goldengate Retrieve Replicat Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: big-data-rest-monitoring.getreplicatstats
+      outputParameters:
+      - type: object
+        mapping: $.

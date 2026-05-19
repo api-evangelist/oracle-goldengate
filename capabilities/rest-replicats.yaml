@@ -1,0 +1,368 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Replicats
+  description: 'Oracle GoldenGate REST API — Replicats. 10 operations. Lead operation: Oracle Goldengate List All Replicat
+    Processes. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Replicats
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-replicats
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Replicats business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-replicats
+      path: /services/v2/replicats
+      operations:
+      - name: listreplicats
+        method: GET
+        description: Oracle Goldengate List All Replicat Processes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-replicats-replicat
+      path: /services/v2/replicats/{replicat}
+      operations:
+      - name: getreplicat
+        method: GET
+        description: Oracle Goldengate Retrieve a Replicat Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createreplicat
+        method: POST
+        description: Oracle Goldengate Create a Replicat Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatereplicat
+        method: PATCH
+        description: Oracle Goldengate Update a Replicat Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletereplicat
+        method: DELETE
+        description: Oracle Goldengate Delete a Replicat Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-replicats-replicat-command
+      path: /services/v2/replicats/{replicat}/command
+      operations:
+      - name: issuereplicatcommand
+        method: POST
+        description: Oracle Goldengate Issue a Command to a Replicat
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-v2-replicats-replicat-info-checkpoints
+      path: /services/v2/replicats/{replicat}/info/checkpoints
+      operations:
+      - name: getreplicatcheckpoints
+        method: GET
+        description: Oracle Goldengate Retrieve Replicat Checkpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-replicats-replicat-info-history
+      path: /services/v2/replicats/{replicat}/info/history
+      operations:
+      - name: getreplicathistory
+        method: GET
+        description: Oracle Goldengate Retrieve Replicat History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-replicats-replicat-info-reports
+      path: /services/v2/replicats/{replicat}/info/reports
+      operations:
+      - name: listreplicatreports
+        method: GET
+        description: Oracle Goldengate List Replicat Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-replicats-replicat-info-status
+      path: /services/v2/replicats/{replicat}/info/status
+      operations:
+      - name: getreplicatstatus
+        method: GET
+        description: Oracle Goldengate Retrieve Replicat Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-replicats-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Replicats. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/replicats
+      name: services-v2-replicats
+      description: REST surface for services-v2-replicats.
+      operations:
+      - method: GET
+        name: listreplicats
+        description: Oracle Goldengate List All Replicat Processes
+        call: rest-replicats.listreplicats
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}
+      name: services-v2-replicats-replicat
+      description: REST surface for services-v2-replicats-replicat.
+      operations:
+      - method: GET
+        name: getreplicat
+        description: Oracle Goldengate Retrieve a Replicat Process
+        call: rest-replicats.getreplicat
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createreplicat
+        description: Oracle Goldengate Create a Replicat Process
+        call: rest-replicats.createreplicat
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatereplicat
+        description: Oracle Goldengate Update a Replicat Process
+        call: rest-replicats.updatereplicat
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletereplicat
+        description: Oracle Goldengate Delete a Replicat Process
+        call: rest-replicats.deletereplicat
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}/command
+      name: services-v2-replicats-replicat-command
+      description: REST surface for services-v2-replicats-replicat-command.
+      operations:
+      - method: POST
+        name: issuereplicatcommand
+        description: Oracle Goldengate Issue a Command to a Replicat
+        call: rest-replicats.issuereplicatcommand
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}/info/checkpoints
+      name: services-v2-replicats-replicat-info-checkpoints
+      description: REST surface for services-v2-replicats-replicat-info-checkpoints.
+      operations:
+      - method: GET
+        name: getreplicatcheckpoints
+        description: Oracle Goldengate Retrieve Replicat Checkpoints
+        call: rest-replicats.getreplicatcheckpoints
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}/info/history
+      name: services-v2-replicats-replicat-info-history
+      description: REST surface for services-v2-replicats-replicat-info-history.
+      operations:
+      - method: GET
+        name: getreplicathistory
+        description: Oracle Goldengate Retrieve Replicat History
+        call: rest-replicats.getreplicathistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}/info/reports
+      name: services-v2-replicats-replicat-info-reports
+      description: REST surface for services-v2-replicats-replicat-info-reports.
+      operations:
+      - method: GET
+        name: listreplicatreports
+        description: Oracle Goldengate List Replicat Reports
+        call: rest-replicats.listreplicatreports
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/replicats/{replicat}/info/status
+      name: services-v2-replicats-replicat-info-status
+      description: REST surface for services-v2-replicats-replicat-info-status.
+      operations:
+      - method: GET
+        name: getreplicatstatus
+        description: Oracle Goldengate Retrieve Replicat Status
+        call: rest-replicats.getreplicatstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-replicats-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Replicats. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-all-replicat
+      description: Oracle Goldengate List All Replicat Processes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.listreplicats
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-process
+      description: Oracle Goldengate Retrieve a Replicat Process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.getreplicat
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-replicat-process
+      description: Oracle Goldengate Create a Replicat Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-replicats.createreplicat
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-replicat-process
+      description: Oracle Goldengate Update a Replicat Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-replicats.updatereplicat
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-replicat-process
+      description: Oracle Goldengate Delete a Replicat Process
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-replicats.deletereplicat
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-issue-command-replicat
+      description: Oracle Goldengate Issue a Command to a Replicat
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-replicats.issuereplicatcommand
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-checkpoints
+      description: Oracle Goldengate Retrieve Replicat Checkpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.getreplicatcheckpoints
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-history
+      description: Oracle Goldengate Retrieve Replicat History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.getreplicathistory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-replicat-reports
+      description: Oracle Goldengate List Replicat Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.listreplicatreports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-status
+      description: Oracle Goldengate Retrieve Replicat Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-replicats.getreplicatstatus
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,106 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Data Streams REST API — AsyncAPI
+  description: 'Oracle GoldenGate Data Streams REST API — AsyncAPI. 2 operations. Lead operation: Oracle Goldengate Get Asyncapi
+    Specification. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - AsyncAPI
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-streams-rest-asyncapi
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate Data Streams REST API — AsyncAPI business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-stream-streamname-yaml
+      path: /services/v2/stream/{streamname}/yaml
+      operations:
+      - name: getasyncapispec
+        method: GET
+        description: Oracle Goldengate Get Asyncapi Specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateasyncapispec
+        method: PATCH
+        description: Oracle Goldengate Update Asyncapi Specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: data-streams-rest-asyncapi-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Data Streams REST API — AsyncAPI. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/stream/{streamname}/yaml
+      name: services-v2-stream-streamname-yaml
+      description: REST surface for services-v2-stream-streamname-yaml.
+      operations:
+      - method: GET
+        name: getasyncapispec
+        description: Oracle Goldengate Get Asyncapi Specification
+        call: data-streams-rest-asyncapi.getasyncapispec
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateasyncapispec
+        description: Oracle Goldengate Update Asyncapi Specification
+        call: data-streams-rest-asyncapi.updateasyncapispec
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: data-streams-rest-asyncapi-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Data Streams REST API — AsyncAPI. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-get-asyncapi-specification
+      description: Oracle Goldengate Get Asyncapi Specification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-streams-rest-asyncapi.getasyncapispec
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-asyncapi-specification
+      description: Oracle Goldengate Update Asyncapi Specification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: data-streams-rest-asyncapi.updateasyncapispec
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

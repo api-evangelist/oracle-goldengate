@@ -1,0 +1,193 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Cloud Service API — Work Requests
+  description: 'Oracle GoldenGate Cloud Service API — Work Requests. 4 operations. Lead operation: Oracle Goldengate List
+    Work Requests. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Work Requests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-service-work-requests
+    baseUri: https://goldengate.{region}.oci.oraclecloud.com
+    description: Oracle GoldenGate Cloud Service API — Work Requests business capability. Self-contained, no shared references.
+    resources:
+    - name: 20200407-workRequests
+      path: /20200407/workRequests
+      operations:
+      - name: listworkrequests
+        method: GET
+        description: Oracle Goldengate List Work Requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 20200407-workRequests-workRequestId
+      path: /20200407/workRequests/{workRequestId}
+      operations:
+      - name: getworkrequest
+        method: GET
+        description: Oracle Goldengate Get a Work Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workRequestId
+          in: path
+          type: string
+          required: true
+    - name: 20200407-workRequests-workRequestId-errors
+      path: /20200407/workRequests/{workRequestId}/errors
+      operations:
+      - name: listworkrequesterrors
+        method: GET
+        description: Oracle Goldengate List Work Request Errors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workRequestId
+          in: path
+          type: string
+          required: true
+    - name: 20200407-workRequests-workRequestId-logs
+      path: /20200407/workRequests/{workRequestId}/logs
+      operations:
+      - name: listworkrequestlogs
+        method: GET
+        description: Oracle Goldengate List Work Request Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workRequestId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ORACLE_GOLDENGATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-service-work-requests-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Cloud Service API — Work Requests. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/20200407/workrequests
+      name: 20200407-workrequests
+      description: REST surface for 20200407-workRequests.
+      operations:
+      - method: GET
+        name: listworkrequests
+        description: Oracle Goldengate List Work Requests
+        call: cloud-service-work-requests.listworkrequests
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/workrequests/{workrequestid}
+      name: 20200407-workrequests-workrequestid
+      description: REST surface for 20200407-workRequests-workRequestId.
+      operations:
+      - method: GET
+        name: getworkrequest
+        description: Oracle Goldengate Get a Work Request
+        call: cloud-service-work-requests.getworkrequest
+        with:
+          workRequestId: rest.workRequestId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/workrequests/{workrequestid}/errors
+      name: 20200407-workrequests-workrequestid-errors
+      description: REST surface for 20200407-workRequests-workRequestId-errors.
+      operations:
+      - method: GET
+        name: listworkrequesterrors
+        description: Oracle Goldengate List Work Request Errors
+        call: cloud-service-work-requests.listworkrequesterrors
+        with:
+          workRequestId: rest.workRequestId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/workrequests/{workrequestid}/logs
+      name: 20200407-workrequests-workrequestid-logs
+      description: REST surface for 20200407-workRequests-workRequestId-logs.
+      operations:
+      - method: GET
+        name: listworkrequestlogs
+        description: Oracle Goldengate List Work Request Logs
+        call: cloud-service-work-requests.listworkrequestlogs
+        with:
+          workRequestId: rest.workRequestId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-service-work-requests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Cloud Service API — Work Requests. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-work-requests
+      description: Oracle Goldengate List Work Requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-work-requests.listworkrequests
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-get-work-request
+      description: Oracle Goldengate Get a Work Request
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-work-requests.getworkrequest
+      with:
+        workRequestId: tools.workRequestId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-work-request
+      description: Oracle Goldengate List Work Request Errors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-work-requests.listworkrequesterrors
+      with:
+        workRequestId: tools.workRequestId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-work-request-2
+      description: Oracle Goldengate List Work Request Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-work-requests.listworkrequestlogs
+      with:
+        workRequestId: tools.workRequestId
+      outputParameters:
+      - type: object
+        mapping: $.

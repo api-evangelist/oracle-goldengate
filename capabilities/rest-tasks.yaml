@@ -1,0 +1,198 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Tasks
+  description: 'Oracle GoldenGate REST API — Tasks. 5 operations. Lead operation: Oracle Goldengate List Automated Tasks.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Tasks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-tasks
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Tasks business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-tasks
+      path: /services/v2/tasks
+      operations:
+      - name: listtasks
+        method: GET
+        description: Oracle Goldengate List Automated Tasks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-tasks-task
+      path: /services/v2/tasks/{task}
+      operations:
+      - name: gettask
+        method: GET
+        description: Oracle Goldengate Retrieve a Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtask
+        method: POST
+        description: Oracle Goldengate Create a Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatetask
+        method: PATCH
+        description: Oracle Goldengate Update a Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetask
+        method: DELETE
+        description: Oracle Goldengate Delete a Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-tasks-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Tasks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/tasks
+      name: services-v2-tasks
+      description: REST surface for services-v2-tasks.
+      operations:
+      - method: GET
+        name: listtasks
+        description: Oracle Goldengate List Automated Tasks
+        call: rest-tasks.listtasks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/tasks/{task}
+      name: services-v2-tasks-task
+      description: REST surface for services-v2-tasks-task.
+      operations:
+      - method: GET
+        name: gettask
+        description: Oracle Goldengate Retrieve a Task
+        call: rest-tasks.gettask
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtask
+        description: Oracle Goldengate Create a Task
+        call: rest-tasks.createtask
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatetask
+        description: Oracle Goldengate Update a Task
+        call: rest-tasks.updatetask
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetask
+        description: Oracle Goldengate Delete a Task
+        call: rest-tasks.deletetask
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-tasks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Tasks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-automated-tasks
+      description: Oracle Goldengate List Automated Tasks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-tasks.listtasks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-task
+      description: Oracle Goldengate Retrieve a Task
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-tasks.gettask
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-task
+      description: Oracle Goldengate Create a Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-tasks.createtask
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-task
+      description: Oracle Goldengate Update a Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-tasks.updatetask
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-task
+      description: Oracle Goldengate Delete a Task
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-tasks.deletetask
+      outputParameters:
+      - type: object
+        mapping: $.

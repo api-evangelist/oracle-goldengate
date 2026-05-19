@@ -1,0 +1,240 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate for Big Data REST API — Extracts
+  description: 'Oracle GoldenGate for Big Data REST API — Extracts. 6 operations. Lead operation: Oracle Goldengate List All
+    Extract Processes. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Extracts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: big-data-rest-extracts
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate for Big Data REST API — Extracts business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-extracts
+      path: /services/v2/extracts
+      operations:
+      - name: listextracts
+        method: GET
+        description: Oracle Goldengate List All Extract Processes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract
+      path: /services/v2/extracts/{extract}
+      operations:
+      - name: getextract
+        method: GET
+        description: Oracle Goldengate Retrieve an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createextract
+        method: POST
+        description: Oracle Goldengate Create an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateextract
+        method: PATCH
+        description: Oracle Goldengate Update an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteextract
+        method: DELETE
+        description: Oracle Goldengate Delete an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-command
+      path: /services/v2/extracts/{extract}/command
+      operations:
+      - name: issueextractcommand
+        method: POST
+        description: Oracle Goldengate Issue a Command to an Extract
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: big-data-rest-extracts-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate for Big Data REST API — Extracts. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/extracts
+      name: services-v2-extracts
+      description: REST surface for services-v2-extracts.
+      operations:
+      - method: GET
+        name: listextracts
+        description: Oracle Goldengate List All Extract Processes
+        call: big-data-rest-extracts.listextracts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}
+      name: services-v2-extracts-extract
+      description: REST surface for services-v2-extracts-extract.
+      operations:
+      - method: GET
+        name: getextract
+        description: Oracle Goldengate Retrieve an Extract Process
+        call: big-data-rest-extracts.getextract
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createextract
+        description: Oracle Goldengate Create an Extract Process
+        call: big-data-rest-extracts.createextract
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateextract
+        description: Oracle Goldengate Update an Extract Process
+        call: big-data-rest-extracts.updateextract
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteextract
+        description: Oracle Goldengate Delete an Extract Process
+        call: big-data-rest-extracts.deleteextract
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/command
+      name: services-v2-extracts-extract-command
+      description: REST surface for services-v2-extracts-extract-command.
+      operations:
+      - method: POST
+        name: issueextractcommand
+        description: Oracle Goldengate Issue a Command to an Extract
+        call: big-data-rest-extracts.issueextractcommand
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: big-data-rest-extracts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate for Big Data REST API — Extracts. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-all-extract
+      description: Oracle Goldengate List All Extract Processes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: big-data-rest-extracts.listextracts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-process
+      description: Oracle Goldengate Retrieve an Extract Process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: big-data-rest-extracts.getextract
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-extract-process
+      description: Oracle Goldengate Create an Extract Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: big-data-rest-extracts.createextract
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-extract-process
+      description: Oracle Goldengate Update an Extract Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: big-data-rest-extracts.updateextract
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-extract-process
+      description: Oracle Goldengate Delete an Extract Process
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: big-data-rest-extracts.deleteextract
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-issue-command-extract
+      description: Oracle Goldengate Issue a Command to an Extract
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: big-data-rest-extracts.issueextractcommand
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

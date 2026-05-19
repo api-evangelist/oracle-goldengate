@@ -1,0 +1,240 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Veridata REST API — Groups
+  description: 'Oracle GoldenGate Veridata REST API — Groups. 6 operations. Lead operation: Oracle Goldengate Retrieve All
+    Compare Groups. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: veridata-rest-groups
+    baseUri: https://{veridata-host}:{port}/veridata/v1
+    description: Oracle GoldenGate Veridata REST API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: services-configuration-groups
+      path: /services/configuration/groups
+      operations:
+      - name: listgroups
+        method: GET
+        description: Oracle Goldengate Retrieve All Compare Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategroup
+        method: POST
+        description: Oracle Goldengate Create a Compare Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-configuration-groups-clone-Id
+      path: /services/configuration/groups/clone/{Id}
+      operations:
+      - name: clonegroup
+        method: POST
+        description: Oracle Goldengate Clone a Compare Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: services-configuration-groups-Id
+      path: /services/configuration/groups/{Id}
+      operations:
+      - name: getgroup
+        method: GET
+        description: Oracle Goldengate Retrieve a Compare Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updategroup
+        method: PATCH
+        description: Oracle Goldengate Update a Compare Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegroup
+        method: DELETE
+        description: Oracle Goldengate Delete a Compare Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: veridata-rest-groups-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Veridata REST API — Groups. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/configuration/groups
+      name: services-configuration-groups
+      description: REST surface for services-configuration-groups.
+      operations:
+      - method: GET
+        name: listgroups
+        description: Oracle Goldengate Retrieve All Compare Groups
+        call: veridata-rest-groups.listgroups
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategroup
+        description: Oracle Goldengate Create a Compare Group
+        call: veridata-rest-groups.creategroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/groups/clone/{id}
+      name: services-configuration-groups-clone-id
+      description: REST surface for services-configuration-groups-clone-Id.
+      operations:
+      - method: POST
+        name: clonegroup
+        description: Oracle Goldengate Clone a Compare Group
+        call: veridata-rest-groups.clonegroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/groups/{id}
+      name: services-configuration-groups-id
+      description: REST surface for services-configuration-groups-Id.
+      operations:
+      - method: GET
+        name: getgroup
+        description: Oracle Goldengate Retrieve a Compare Group
+        call: veridata-rest-groups.getgroup
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategroup
+        description: Oracle Goldengate Update a Compare Group
+        call: veridata-rest-groups.updategroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegroup
+        description: Oracle Goldengate Delete a Compare Group
+        call: veridata-rest-groups.deletegroup
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: veridata-rest-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Veridata REST API — Groups. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-retrieve-all-compare
+      description: Oracle Goldengate Retrieve All Compare Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-groups.listgroups
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-compare-group
+      description: Oracle Goldengate Create a Compare Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-groups.creategroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-clone-compare-group
+      description: Oracle Goldengate Clone a Compare Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-groups.clonegroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-compare-group
+      description: Oracle Goldengate Retrieve a Compare Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-groups.getgroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-compare-group
+      description: Oracle Goldengate Update a Compare Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: veridata-rest-groups.updategroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-compare-group
+      description: Oracle Goldengate Delete a Compare Group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: veridata-rest-groups.deletegroup
+      outputParameters:
+      - type: object
+        mapping: $.

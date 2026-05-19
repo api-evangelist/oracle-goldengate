@@ -1,0 +1,261 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Cloud Service API — Pipelines
+  description: 'Oracle GoldenGate Cloud Service API — Pipelines. 7 operations. Lead operation: Oracle Goldengate List Pipelines.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Pipelines
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-service-pipelines
+    baseUri: https://goldengate.{region}.oci.oraclecloud.com
+    description: Oracle GoldenGate Cloud Service API — Pipelines business capability. Self-contained, no shared references.
+    resources:
+    - name: 20200407-pipelines
+      path: /20200407/pipelines
+      operations:
+      - name: listpipelines
+        method: GET
+        description: Oracle Goldengate List Pipelines
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createpipeline
+        method: POST
+        description: Oracle Goldengate Create a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 20200407-pipelines-pipelineId
+      path: /20200407/pipelines/{pipelineId}
+      operations:
+      - name: getpipeline
+        method: GET
+        description: Oracle Goldengate Get a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatepipeline
+        method: PUT
+        description: Oracle Goldengate Update a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletepipeline
+        method: DELETE
+        description: Oracle Goldengate Delete a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 20200407-pipelines-pipelineId-actions-start
+      path: /20200407/pipelines/{pipelineId}/actions/start
+      operations:
+      - name: startpipeline
+        method: POST
+        description: Oracle Goldengate Start a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 20200407-pipelines-pipelineId-actions-stop
+      path: /20200407/pipelines/{pipelineId}/actions/stop
+      operations:
+      - name: stoppipeline
+        method: POST
+        description: Oracle Goldengate Stop a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ORACLE_GOLDENGATE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-service-pipelines-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Cloud Service API — Pipelines. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/20200407/pipelines
+      name: 20200407-pipelines
+      description: REST surface for 20200407-pipelines.
+      operations:
+      - method: GET
+        name: listpipelines
+        description: Oracle Goldengate List Pipelines
+        call: cloud-service-pipelines.listpipelines
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpipeline
+        description: Oracle Goldengate Create a Pipeline
+        call: cloud-service-pipelines.createpipeline
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/pipelines/{pipelineid}
+      name: 20200407-pipelines-pipelineid
+      description: REST surface for 20200407-pipelines-pipelineId.
+      operations:
+      - method: GET
+        name: getpipeline
+        description: Oracle Goldengate Get a Pipeline
+        call: cloud-service-pipelines.getpipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepipeline
+        description: Oracle Goldengate Update a Pipeline
+        call: cloud-service-pipelines.updatepipeline
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletepipeline
+        description: Oracle Goldengate Delete a Pipeline
+        call: cloud-service-pipelines.deletepipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/pipelines/{pipelineid}/actions/start
+      name: 20200407-pipelines-pipelineid-actions-start
+      description: REST surface for 20200407-pipelines-pipelineId-actions-start.
+      operations:
+      - method: POST
+        name: startpipeline
+        description: Oracle Goldengate Start a Pipeline
+        call: cloud-service-pipelines.startpipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/20200407/pipelines/{pipelineid}/actions/stop
+      name: 20200407-pipelines-pipelineid-actions-stop
+      description: REST surface for 20200407-pipelines-pipelineId-actions-stop.
+      operations:
+      - method: POST
+        name: stoppipeline
+        description: Oracle Goldengate Stop a Pipeline
+        call: cloud-service-pipelines.stoppipeline
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-service-pipelines-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Cloud Service API — Pipelines. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-pipelines
+      description: Oracle Goldengate List Pipelines
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-pipelines.listpipelines
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-pipeline
+      description: Oracle Goldengate Create a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-pipelines.createpipeline
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-get-pipeline
+      description: Oracle Goldengate Get a Pipeline
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-service-pipelines.getpipeline
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-pipeline
+      description: Oracle Goldengate Update a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: cloud-service-pipelines.updatepipeline
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-pipeline
+      description: Oracle Goldengate Delete a Pipeline
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cloud-service-pipelines.deletepipeline
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-start-pipeline
+      description: Oracle Goldengate Start a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-pipelines.startpipeline
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-stop-pipeline
+      description: Oracle Goldengate Stop a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-service-pipelines.stoppipeline
+      outputParameters:
+      - type: object
+        mapping: $.

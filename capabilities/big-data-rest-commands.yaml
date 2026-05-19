@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate for Big Data REST API — Commands
+  description: 'Oracle GoldenGate for Big Data REST API — Commands. 1 operations. Lead operation: Oracle Goldengate Execute
+    a Goldengate Command. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Commands
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: big-data-rest-commands
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate for Big Data REST API — Commands business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-commands-execute
+      path: /services/v2/commands/execute
+      operations:
+      - name: executecommand
+        method: POST
+        description: Oracle Goldengate Execute a Goldengate Command
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: big-data-rest-commands-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate for Big Data REST API — Commands. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/commands/execute
+      name: services-v2-commands-execute
+      description: REST surface for services-v2-commands-execute.
+      operations:
+      - method: POST
+        name: executecommand
+        description: Oracle Goldengate Execute a Goldengate Command
+        call: big-data-rest-commands.executecommand
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: big-data-rest-commands-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate for Big Data REST API — Commands. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-execute-goldengate-command
+      description: Oracle Goldengate Execute a Goldengate Command
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: big-data-rest-commands.executecommand
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

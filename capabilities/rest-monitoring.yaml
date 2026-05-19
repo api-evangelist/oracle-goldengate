@@ -1,0 +1,569 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Monitoring
+  description: 'Oracle GoldenGate REST API — Monitoring. 16 operations. Lead operation: Oracle Goldengate Get Service Health
+    Details. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Monitoring
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-monitoring
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Monitoring business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-config-health
+      path: /services/v2/config/health
+      operations:
+      - name: getservicehealthdetails
+        method: GET
+        description: Oracle Goldengate Get Service Health Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-config-health-check
+      path: /services/v2/config/health/check
+      operations:
+      - name: getservicehealthcheck
+        method: GET
+        description: Oracle Goldengate Get Service Health Summary Check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-messages
+      path: /services/v2/messages
+      operations:
+      - name: listmessages
+        method: GET
+        description: Oracle Goldengate Retrieve Administrative Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-monitoring-messages
+      path: /services/v2/monitoring/messages
+      operations:
+      - name: listmonitoringmessages
+        method: GET
+        description: Oracle Goldengate Retrieve Process Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-monitoring-statusChanges
+      path: /services/v2/monitoring/statusChanges
+      operations:
+      - name: liststatuschanges
+        method: GET
+        description: Oracle Goldengate Retrieve Process Status Changes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-processes
+      path: /services/v2/mpoints/processes
+      operations:
+      - name: listprocessmetrics
+        method: GET
+        description: Oracle Goldengate Retrieve All Process Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-cacheStatistics
+      path: /services/v2/mpoints/{item}/cacheStatistics
+      operations:
+      - name: getcachestatistics
+        method: GET
+        description: Oracle Goldengate Retrieve Cache Manager Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-heartbeat
+      path: /services/v2/mpoints/{item}/heartbeat
+      operations:
+      - name: getheartbeatmetrics
+        method: GET
+        description: Oracle Goldengate Retrieve Heartbeat Timing Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-process
+      path: /services/v2/mpoints/{item}/process
+      operations:
+      - name: getprocessmetrics
+        method: GET
+        description: Oracle Goldengate Retrieve Process Metrics for a Specific Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-processPerformance
+      path: /services/v2/mpoints/{item}/processPerformance
+      operations:
+      - name: getprocessperformance
+        method: GET
+        description: Oracle Goldengate Retrieve Process Performance Utilization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-statisticsExtract
+      path: /services/v2/mpoints/{item}/statisticsExtract
+      operations:
+      - name: getextractdatabasestats
+        method: GET
+        description: Oracle Goldengate Retrieve Extract Database Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-mpoints-item-statisticsReplicat
+      path: /services/v2/mpoints/{item}/statisticsReplicat
+      operations:
+      - name: getreplicatdatabasestats
+        method: GET
+        description: Oracle Goldengate Retrieve Replicat Database Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-oggerr
+      path: /services/v2/oggerr
+      operations:
+      - name: listmessagecodes
+        method: GET
+        description: Oracle Goldengate List Message Codes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-oggerr-message
+      path: /services/v2/oggerr/{message}
+      operations:
+      - name: getmessageexplanation
+        method: GET
+        description: Oracle Goldengate Retrieve Message Explanation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: message
+          in: path
+          type: string
+          required: true
+    - name: services-v2-requests
+      path: /services/v2/requests
+      operations:
+      - name: listbackgroundrequests
+        method: GET
+        description: Oracle Goldengate Retrieve Background Requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-requests-request
+      path: /services/v2/requests/{request}
+      operations:
+      - name: getrequeststatus
+        method: GET
+        description: Oracle Goldengate Retrieve Request Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: request
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-monitoring-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Monitoring. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/config/health
+      name: services-v2-config-health
+      description: REST surface for services-v2-config-health.
+      operations:
+      - method: GET
+        name: getservicehealthdetails
+        description: Oracle Goldengate Get Service Health Details
+        call: rest-monitoring.getservicehealthdetails
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/config/health/check
+      name: services-v2-config-health-check
+      description: REST surface for services-v2-config-health-check.
+      operations:
+      - method: GET
+        name: getservicehealthcheck
+        description: Oracle Goldengate Get Service Health Summary Check
+        call: rest-monitoring.getservicehealthcheck
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/messages
+      name: services-v2-messages
+      description: REST surface for services-v2-messages.
+      operations:
+      - method: GET
+        name: listmessages
+        description: Oracle Goldengate Retrieve Administrative Messages
+        call: rest-monitoring.listmessages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/monitoring/messages
+      name: services-v2-monitoring-messages
+      description: REST surface for services-v2-monitoring-messages.
+      operations:
+      - method: GET
+        name: listmonitoringmessages
+        description: Oracle Goldengate Retrieve Process Messages
+        call: rest-monitoring.listmonitoringmessages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/monitoring/statuschanges
+      name: services-v2-monitoring-statuschanges
+      description: REST surface for services-v2-monitoring-statusChanges.
+      operations:
+      - method: GET
+        name: liststatuschanges
+        description: Oracle Goldengate Retrieve Process Status Changes
+        call: rest-monitoring.liststatuschanges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/processes
+      name: services-v2-mpoints-processes
+      description: REST surface for services-v2-mpoints-processes.
+      operations:
+      - method: GET
+        name: listprocessmetrics
+        description: Oracle Goldengate Retrieve All Process Metrics
+        call: rest-monitoring.listprocessmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/cachestatistics
+      name: services-v2-mpoints-item-cachestatistics
+      description: REST surface for services-v2-mpoints-item-cacheStatistics.
+      operations:
+      - method: GET
+        name: getcachestatistics
+        description: Oracle Goldengate Retrieve Cache Manager Statistics
+        call: rest-monitoring.getcachestatistics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/heartbeat
+      name: services-v2-mpoints-item-heartbeat
+      description: REST surface for services-v2-mpoints-item-heartbeat.
+      operations:
+      - method: GET
+        name: getheartbeatmetrics
+        description: Oracle Goldengate Retrieve Heartbeat Timing Metrics
+        call: rest-monitoring.getheartbeatmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/process
+      name: services-v2-mpoints-item-process
+      description: REST surface for services-v2-mpoints-item-process.
+      operations:
+      - method: GET
+        name: getprocessmetrics
+        description: Oracle Goldengate Retrieve Process Metrics for a Specific Process
+        call: rest-monitoring.getprocessmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/processperformance
+      name: services-v2-mpoints-item-processperformance
+      description: REST surface for services-v2-mpoints-item-processPerformance.
+      operations:
+      - method: GET
+        name: getprocessperformance
+        description: Oracle Goldengate Retrieve Process Performance Utilization
+        call: rest-monitoring.getprocessperformance
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/statisticsextract
+      name: services-v2-mpoints-item-statisticsextract
+      description: REST surface for services-v2-mpoints-item-statisticsExtract.
+      operations:
+      - method: GET
+        name: getextractdatabasestats
+        description: Oracle Goldengate Retrieve Extract Database Statistics
+        call: rest-monitoring.getextractdatabasestats
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/mpoints/{item}/statisticsreplicat
+      name: services-v2-mpoints-item-statisticsreplicat
+      description: REST surface for services-v2-mpoints-item-statisticsReplicat.
+      operations:
+      - method: GET
+        name: getreplicatdatabasestats
+        description: Oracle Goldengate Retrieve Replicat Database Statistics
+        call: rest-monitoring.getreplicatdatabasestats
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/oggerr
+      name: services-v2-oggerr
+      description: REST surface for services-v2-oggerr.
+      operations:
+      - method: GET
+        name: listmessagecodes
+        description: Oracle Goldengate List Message Codes
+        call: rest-monitoring.listmessagecodes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/oggerr/{message}
+      name: services-v2-oggerr-message
+      description: REST surface for services-v2-oggerr-message.
+      operations:
+      - method: GET
+        name: getmessageexplanation
+        description: Oracle Goldengate Retrieve Message Explanation
+        call: rest-monitoring.getmessageexplanation
+        with:
+          message: rest.message
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/requests
+      name: services-v2-requests
+      description: REST surface for services-v2-requests.
+      operations:
+      - method: GET
+        name: listbackgroundrequests
+        description: Oracle Goldengate Retrieve Background Requests
+        call: rest-monitoring.listbackgroundrequests
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/requests/{request}
+      name: services-v2-requests-request
+      description: REST surface for services-v2-requests-request.
+      operations:
+      - method: GET
+        name: getrequeststatus
+        description: Oracle Goldengate Retrieve Request Status
+        call: rest-monitoring.getrequeststatus
+        with:
+          request: rest.request
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-monitoring-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Monitoring. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-get-service-health
+      description: Oracle Goldengate Get Service Health Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getservicehealthdetails
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-get-service-health-2
+      description: Oracle Goldengate Get Service Health Summary Check
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getservicehealthcheck
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-administrative-messages
+      description: Oracle Goldengate Retrieve Administrative Messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.listmessages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-process-messages
+      description: Oracle Goldengate Retrieve Process Messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.listmonitoringmessages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-process-status
+      description: Oracle Goldengate Retrieve Process Status Changes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.liststatuschanges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-all-process
+      description: Oracle Goldengate Retrieve All Process Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.listprocessmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-cache-manager
+      description: Oracle Goldengate Retrieve Cache Manager Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getcachestatistics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-heartbeat-timing
+      description: Oracle Goldengate Retrieve Heartbeat Timing Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getheartbeatmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-process-metrics
+      description: Oracle Goldengate Retrieve Process Metrics for a Specific Process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getprocessmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-process-performance
+      description: Oracle Goldengate Retrieve Process Performance Utilization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getprocessperformance
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-database
+      description: Oracle Goldengate Retrieve Extract Database Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getextractdatabasestats
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-replicat-database
+      description: Oracle Goldengate Retrieve Replicat Database Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getreplicatdatabasestats
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-message-codes
+      description: Oracle Goldengate List Message Codes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.listmessagecodes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-message-explanation
+      description: Oracle Goldengate Retrieve Message Explanation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getmessageexplanation
+      with:
+        message: tools.message
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-background-requests
+      description: Oracle Goldengate Retrieve Background Requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.listbackgroundrequests
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-request-status
+      description: Oracle Goldengate Retrieve Request Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-monitoring.getrequeststatus
+      with:
+        request: tools.request
+      outputParameters:
+      - type: object
+        mapping: $.

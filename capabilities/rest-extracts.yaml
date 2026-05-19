@@ -1,0 +1,432 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Extracts
+  description: 'Oracle GoldenGate REST API — Extracts. 12 operations. Lead operation: Oracle Goldengate List All Extract Processes.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Extracts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-extracts
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Extracts business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-extracts
+      path: /services/v2/extracts
+      operations:
+      - name: listextracts
+        method: GET
+        description: Oracle Goldengate List All Extract Processes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract
+      path: /services/v2/extracts/{extract}
+      operations:
+      - name: getextract
+        method: GET
+        description: Oracle Goldengate Retrieve an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createextract
+        method: POST
+        description: Oracle Goldengate Create an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateextract
+        method: PATCH
+        description: Oracle Goldengate Update an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteextract
+        method: DELETE
+        description: Oracle Goldengate Delete an Extract Process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-command
+      path: /services/v2/extracts/{extract}/command
+      operations:
+      - name: issueextractcommand
+        method: POST
+        description: Oracle Goldengate Issue a Command to an Extract
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-v2-extracts-extract-info-checkpoints
+      path: /services/v2/extracts/{extract}/info/checkpoints
+      operations:
+      - name: getextractcheckpoints
+        method: GET
+        description: Oracle Goldengate Retrieve Extract Checkpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-info-history
+      path: /services/v2/extracts/{extract}/info/history
+      operations:
+      - name: getextracthistory
+        method: GET
+        description: Oracle Goldengate Retrieve Extract History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-info-logs
+      path: /services/v2/extracts/{extract}/info/logs
+      operations:
+      - name: listextractlogs
+        method: GET
+        description: Oracle Goldengate List Extract Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-info-reports
+      path: /services/v2/extracts/{extract}/info/reports
+      operations:
+      - name: listextractreports
+        method: GET
+        description: Oracle Goldengate List Extract Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-info-reports-report
+      path: /services/v2/extracts/{extract}/info/reports/{report}
+      operations:
+      - name: getextractreport
+        method: GET
+        description: Oracle Goldengate Retrieve a Specific Extract Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-extracts-extract-info-status
+      path: /services/v2/extracts/{extract}/info/status
+      operations:
+      - name: getextractstatus
+        method: GET
+        description: Oracle Goldengate Retrieve Extract Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-extracts-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Extracts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/extracts
+      name: services-v2-extracts
+      description: REST surface for services-v2-extracts.
+      operations:
+      - method: GET
+        name: listextracts
+        description: Oracle Goldengate List All Extract Processes
+        call: rest-extracts.listextracts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}
+      name: services-v2-extracts-extract
+      description: REST surface for services-v2-extracts-extract.
+      operations:
+      - method: GET
+        name: getextract
+        description: Oracle Goldengate Retrieve an Extract Process
+        call: rest-extracts.getextract
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createextract
+        description: Oracle Goldengate Create an Extract Process
+        call: rest-extracts.createextract
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateextract
+        description: Oracle Goldengate Update an Extract Process
+        call: rest-extracts.updateextract
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteextract
+        description: Oracle Goldengate Delete an Extract Process
+        call: rest-extracts.deleteextract
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/command
+      name: services-v2-extracts-extract-command
+      description: REST surface for services-v2-extracts-extract-command.
+      operations:
+      - method: POST
+        name: issueextractcommand
+        description: Oracle Goldengate Issue a Command to an Extract
+        call: rest-extracts.issueextractcommand
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/checkpoints
+      name: services-v2-extracts-extract-info-checkpoints
+      description: REST surface for services-v2-extracts-extract-info-checkpoints.
+      operations:
+      - method: GET
+        name: getextractcheckpoints
+        description: Oracle Goldengate Retrieve Extract Checkpoints
+        call: rest-extracts.getextractcheckpoints
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/history
+      name: services-v2-extracts-extract-info-history
+      description: REST surface for services-v2-extracts-extract-info-history.
+      operations:
+      - method: GET
+        name: getextracthistory
+        description: Oracle Goldengate Retrieve Extract History
+        call: rest-extracts.getextracthistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/logs
+      name: services-v2-extracts-extract-info-logs
+      description: REST surface for services-v2-extracts-extract-info-logs.
+      operations:
+      - method: GET
+        name: listextractlogs
+        description: Oracle Goldengate List Extract Logs
+        call: rest-extracts.listextractlogs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/reports
+      name: services-v2-extracts-extract-info-reports
+      description: REST surface for services-v2-extracts-extract-info-reports.
+      operations:
+      - method: GET
+        name: listextractreports
+        description: Oracle Goldengate List Extract Reports
+        call: rest-extracts.listextractreports
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/reports/{report}
+      name: services-v2-extracts-extract-info-reports-report
+      description: REST surface for services-v2-extracts-extract-info-reports-report.
+      operations:
+      - method: GET
+        name: getextractreport
+        description: Oracle Goldengate Retrieve a Specific Extract Report
+        call: rest-extracts.getextractreport
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/extracts/{extract}/info/status
+      name: services-v2-extracts-extract-info-status
+      description: REST surface for services-v2-extracts-extract-info-status.
+      operations:
+      - method: GET
+        name: getextractstatus
+        description: Oracle Goldengate Retrieve Extract Status
+        call: rest-extracts.getextractstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-extracts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Extracts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-all-extract
+      description: Oracle Goldengate List All Extract Processes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.listextracts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-process
+      description: Oracle Goldengate Retrieve an Extract Process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.getextract
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-extract-process
+      description: Oracle Goldengate Create an Extract Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-extracts.createextract
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-extract-process
+      description: Oracle Goldengate Update an Extract Process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-extracts.updateextract
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-extract-process
+      description: Oracle Goldengate Delete an Extract Process
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-extracts.deleteextract
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-issue-command-extract
+      description: Oracle Goldengate Issue a Command to an Extract
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-extracts.issueextractcommand
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-checkpoints
+      description: Oracle Goldengate Retrieve Extract Checkpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.getextractcheckpoints
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-history
+      description: Oracle Goldengate Retrieve Extract History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.getextracthistory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-extract-logs
+      description: Oracle Goldengate List Extract Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.listextractlogs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-extract-reports
+      description: Oracle Goldengate List Extract Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.listextractreports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-specific-extract
+      description: Oracle Goldengate Retrieve a Specific Extract Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.getextractreport
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-extract-status
+      description: Oracle Goldengate Retrieve Extract Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-extracts.getextractstatus
+      outputParameters:
+      - type: object
+        mapping: $.

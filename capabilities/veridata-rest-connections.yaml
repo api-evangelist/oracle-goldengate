@@ -1,0 +1,272 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Veridata REST API — Connections
+  description: 'Oracle GoldenGate Veridata REST API — Connections. 7 operations. Lead operation: Oracle Goldengate Retrieve
+    All Connections. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Connections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: veridata-rest-connections
+    baseUri: https://{veridata-host}:{port}/veridata/v1
+    description: Oracle GoldenGate Veridata REST API — Connections business capability. Self-contained, no shared references.
+    resources:
+    - name: services-configuration-connections
+      path: /services/configuration/connections
+      operations:
+      - name: listconnections
+        method: GET
+        description: Oracle Goldengate Retrieve All Connections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createconnection
+        method: POST
+        description: Oracle Goldengate Create a Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-configuration-connections-Id
+      path: /services/configuration/connections/{Id}
+      operations:
+      - name: getconnection
+        method: GET
+        description: Oracle Goldengate Retrieve a Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateconnection
+        method: PATCH
+        description: Oracle Goldengate Update a Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteconnection
+        method: DELETE
+        description: Oracle Goldengate Delete a Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-configuration-connections-Id-metadata
+      path: /services/configuration/connections/{Id}/metadata
+      operations:
+      - name: getconnectionmetadata
+        method: POST
+        description: Oracle Goldengate Retrieve Connection Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: services-configuration-connections-Id-status
+      path: /services/configuration/connections/{Id}/status
+      operations:
+      - name: getconnectionstatus
+        method: GET
+        description: Oracle Goldengate Retrieve Connection Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: veridata-rest-connections-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Veridata REST API — Connections. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/configuration/connections
+      name: services-configuration-connections
+      description: REST surface for services-configuration-connections.
+      operations:
+      - method: GET
+        name: listconnections
+        description: Oracle Goldengate Retrieve All Connections
+        call: veridata-rest-connections.listconnections
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createconnection
+        description: Oracle Goldengate Create a Connection
+        call: veridata-rest-connections.createconnection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/connections/{id}
+      name: services-configuration-connections-id
+      description: REST surface for services-configuration-connections-Id.
+      operations:
+      - method: GET
+        name: getconnection
+        description: Oracle Goldengate Retrieve a Connection
+        call: veridata-rest-connections.getconnection
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateconnection
+        description: Oracle Goldengate Update a Connection
+        call: veridata-rest-connections.updateconnection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteconnection
+        description: Oracle Goldengate Delete a Connection
+        call: veridata-rest-connections.deleteconnection
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/connections/{id}/metadata
+      name: services-configuration-connections-id-metadata
+      description: REST surface for services-configuration-connections-Id-metadata.
+      operations:
+      - method: POST
+        name: getconnectionmetadata
+        description: Oracle Goldengate Retrieve Connection Metadata
+        call: veridata-rest-connections.getconnectionmetadata
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/connections/{id}/status
+      name: services-configuration-connections-id-status
+      description: REST surface for services-configuration-connections-Id-status.
+      operations:
+      - method: GET
+        name: getconnectionstatus
+        description: Oracle Goldengate Retrieve Connection Status
+        call: veridata-rest-connections.getconnectionstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: veridata-rest-connections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Veridata REST API — Connections. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-retrieve-all-connections
+      description: Oracle Goldengate Retrieve All Connections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-connections.listconnections
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-connection
+      description: Oracle Goldengate Create a Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-connections.createconnection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-connection
+      description: Oracle Goldengate Retrieve a Connection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-connections.getconnection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-connection
+      description: Oracle Goldengate Update a Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: veridata-rest-connections.updateconnection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-connection
+      description: Oracle Goldengate Delete a Connection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: veridata-rest-connections.deleteconnection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-connection-metadata
+      description: Oracle Goldengate Retrieve Connection Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: veridata-rest-connections.getconnectionmetadata
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-connection-status
+      description: Oracle Goldengate Retrieve Connection Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-connections.getconnectionstatus
+      outputParameters:
+      - type: object
+        mapping: $.

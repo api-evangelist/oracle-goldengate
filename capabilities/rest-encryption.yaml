@@ -1,0 +1,237 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Encryption
+  description: 'Oracle GoldenGate REST API — Encryption. 6 operations. Lead operation: Oracle Goldengate List Encryption Keys.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Encryption
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-encryption
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Encryption business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-enckeys
+      path: /services/v2/enckeys
+      operations:
+      - name: listencryptionkeys
+        method: GET
+        description: Oracle Goldengate List Encryption Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-enckeys-keyName
+      path: /services/v2/enckeys/{keyName}
+      operations:
+      - name: getencryptionkey
+        method: GET
+        description: Oracle Goldengate Retrieve an Encryption Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyName
+          in: path
+          type: string
+          required: true
+      - name: createencryptionkey
+        method: POST
+        description: Oracle Goldengate Create an Encryption Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyName
+          in: path
+          type: string
+          required: true
+      - name: deleteencryptionkey
+        method: DELETE
+        description: Oracle Goldengate Delete an Encryption Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: keyName
+          in: path
+          type: string
+          required: true
+    - name: services-v2-masterkey
+      path: /services/v2/masterkey
+      operations:
+      - name: listmasterkeyversions
+        method: GET
+        description: Oracle Goldengate List Master Key Versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createmasterkeyversion
+        method: POST
+        description: Oracle Goldengate Create a New Master Key Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-encryption-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Encryption. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/enckeys
+      name: services-v2-enckeys
+      description: REST surface for services-v2-enckeys.
+      operations:
+      - method: GET
+        name: listencryptionkeys
+        description: Oracle Goldengate List Encryption Keys
+        call: rest-encryption.listencryptionkeys
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/enckeys/{keyname}
+      name: services-v2-enckeys-keyname
+      description: REST surface for services-v2-enckeys-keyName.
+      operations:
+      - method: GET
+        name: getencryptionkey
+        description: Oracle Goldengate Retrieve an Encryption Key
+        call: rest-encryption.getencryptionkey
+        with:
+          keyName: rest.keyName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createencryptionkey
+        description: Oracle Goldengate Create an Encryption Key
+        call: rest-encryption.createencryptionkey
+        with:
+          keyName: rest.keyName
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteencryptionkey
+        description: Oracle Goldengate Delete an Encryption Key
+        call: rest-encryption.deleteencryptionkey
+        with:
+          keyName: rest.keyName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/masterkey
+      name: services-v2-masterkey
+      description: REST surface for services-v2-masterkey.
+      operations:
+      - method: GET
+        name: listmasterkeyversions
+        description: Oracle Goldengate List Master Key Versions
+        call: rest-encryption.listmasterkeyversions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmasterkeyversion
+        description: Oracle Goldengate Create a New Master Key Version
+        call: rest-encryption.createmasterkeyversion
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-encryption-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Encryption. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-encryption-keys
+      description: Oracle Goldengate List Encryption Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-encryption.listencryptionkeys
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-encryption-key
+      description: Oracle Goldengate Retrieve an Encryption Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-encryption.getencryptionkey
+      with:
+        keyName: tools.keyName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-encryption-key
+      description: Oracle Goldengate Create an Encryption Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-encryption.createencryptionkey
+      with:
+        keyName: tools.keyName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-encryption-key
+      description: Oracle Goldengate Delete an Encryption Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-encryption.deleteencryptionkey
+      with:
+        keyName: tools.keyName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-master-key
+      description: Oracle Goldengate List Master Key Versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-encryption.listmasterkeyversions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-new-master
+      description: Oracle Goldengate Create a New Master Key Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-encryption.createmasterkeyversion
+      outputParameters:
+      - type: object
+        mapping: $.

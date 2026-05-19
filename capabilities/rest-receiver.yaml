@@ -1,0 +1,198 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Receiver
+  description: 'Oracle GoldenGate REST API — Receiver. 5 operations. Lead operation: Oracle Goldengate List Collector/receiver
+    Paths. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Receiver
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-receiver
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Receiver business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-targets
+      path: /services/v2/targets
+      operations:
+      - name: listcollectorpaths
+        method: GET
+        description: Oracle Goldengate List Collector/receiver Paths
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-targets-path
+      path: /services/v2/targets/{path}
+      operations:
+      - name: getcollectorpath
+        method: GET
+        description: Oracle Goldengate Retrieve a Collector Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcollectorpath
+        method: POST
+        description: Oracle Goldengate Create a Collector Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecollectorpath
+        method: PATCH
+        description: Oracle Goldengate Update a Collector Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecollectorpath
+        method: DELETE
+        description: Oracle Goldengate Delete a Collector Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-receiver-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Receiver. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/targets
+      name: services-v2-targets
+      description: REST surface for services-v2-targets.
+      operations:
+      - method: GET
+        name: listcollectorpaths
+        description: Oracle Goldengate List Collector/receiver Paths
+        call: rest-receiver.listcollectorpaths
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/targets/{path}
+      name: services-v2-targets-path
+      description: REST surface for services-v2-targets-path.
+      operations:
+      - method: GET
+        name: getcollectorpath
+        description: Oracle Goldengate Retrieve a Collector Path
+        call: rest-receiver.getcollectorpath
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcollectorpath
+        description: Oracle Goldengate Create a Collector Path
+        call: rest-receiver.createcollectorpath
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecollectorpath
+        description: Oracle Goldengate Update a Collector Path
+        call: rest-receiver.updatecollectorpath
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecollectorpath
+        description: Oracle Goldengate Delete a Collector Path
+        call: rest-receiver.deletecollectorpath
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-receiver-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Receiver. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-collector-receiver
+      description: Oracle Goldengate List Collector/receiver Paths
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-receiver.listcollectorpaths
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-collector-path
+      description: Oracle Goldengate Retrieve a Collector Path
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-receiver.getcollectorpath
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-collector-path
+      description: Oracle Goldengate Create a Collector Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-receiver.createcollectorpath
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-collector-path
+      description: Oracle Goldengate Update a Collector Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-receiver.updatecollectorpath
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-collector-path
+      description: Oracle Goldengate Delete a Collector Path
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-receiver.deletecollectorpath
+      outputParameters:
+      - type: object
+        mapping: $.

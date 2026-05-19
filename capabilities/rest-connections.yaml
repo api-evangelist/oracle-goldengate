@@ -1,0 +1,361 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Connections
+  description: 'Oracle GoldenGate REST API — Connections. 9 operations. Lead operation: Oracle Goldengate List Database Connections.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Connections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-connections
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Connections business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-connections
+      path: /services/v2/connections
+      operations:
+      - name: listconnections
+        method: GET
+        description: Oracle Goldengate List Database Connections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-connections-connection
+      path: /services/v2/connections/{connection}
+      operations:
+      - name: getconnection
+        method: GET
+        description: Oracle Goldengate Retrieve a Database Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createconnection
+        method: POST
+        description: Oracle Goldengate Create a Database Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: replaceconnection
+        method: PUT
+        description: Oracle Goldengate Replace a Database Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteconnection
+        method: DELETE
+        description: Oracle Goldengate Delete a Database Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-connections-connection-databases
+      path: /services/v2/connections/{connection}/databases
+      operations:
+      - name: getdatabasenames
+        method: GET
+        description: Oracle Goldengate Retrieve Database Names
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-connections-connection-databases-database-schema
+      path: /services/v2/connections/{connection}/databases/{database}/{schema}
+      operations:
+      - name: getdatabasetables
+        method: GET
+        description: Oracle Goldengate Retrieve Database Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: database
+          in: path
+          type: string
+          required: true
+        - name: schema
+          in: path
+          type: string
+          required: true
+    - name: services-v2-connections-connection-trandata-schema
+      path: /services/v2/connections/{connection}/trandata/schema
+      operations:
+      - name: manageschemasupplementallogging
+        method: POST
+        description: Oracle Goldengate Manage Schema Supplemental Logging
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-v2-connections-connection-trandata-table
+      path: /services/v2/connections/{connection}/trandata/table
+      operations:
+      - name: managetablesupplementallogging
+        method: POST
+        description: Oracle Goldengate Manage Table Supplemental Logging
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-connections-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Connections. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/connections
+      name: services-v2-connections
+      description: REST surface for services-v2-connections.
+      operations:
+      - method: GET
+        name: listconnections
+        description: Oracle Goldengate List Database Connections
+        call: rest-connections.listconnections
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/connections/{connection}
+      name: services-v2-connections-connection
+      description: REST surface for services-v2-connections-connection.
+      operations:
+      - method: GET
+        name: getconnection
+        description: Oracle Goldengate Retrieve a Database Connection
+        call: rest-connections.getconnection
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createconnection
+        description: Oracle Goldengate Create a Database Connection
+        call: rest-connections.createconnection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replaceconnection
+        description: Oracle Goldengate Replace a Database Connection
+        call: rest-connections.replaceconnection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteconnection
+        description: Oracle Goldengate Delete a Database Connection
+        call: rest-connections.deleteconnection
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/connections/{connection}/databases
+      name: services-v2-connections-connection-databases
+      description: REST surface for services-v2-connections-connection-databases.
+      operations:
+      - method: GET
+        name: getdatabasenames
+        description: Oracle Goldengate Retrieve Database Names
+        call: rest-connections.getdatabasenames
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/connections/{connection}/databases/{database}/{schema}
+      name: services-v2-connections-connection-databases-database-schema
+      description: REST surface for services-v2-connections-connection-databases-database-schema.
+      operations:
+      - method: GET
+        name: getdatabasetables
+        description: Oracle Goldengate Retrieve Database Tables
+        call: rest-connections.getdatabasetables
+        with:
+          database: rest.database
+          schema: rest.schema
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/connections/{connection}/trandata/schema
+      name: services-v2-connections-connection-trandata-schema
+      description: REST surface for services-v2-connections-connection-trandata-schema.
+      operations:
+      - method: POST
+        name: manageschemasupplementallogging
+        description: Oracle Goldengate Manage Schema Supplemental Logging
+        call: rest-connections.manageschemasupplementallogging
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/connections/{connection}/trandata/table
+      name: services-v2-connections-connection-trandata-table
+      description: REST surface for services-v2-connections-connection-trandata-table.
+      operations:
+      - method: POST
+        name: managetablesupplementallogging
+        description: Oracle Goldengate Manage Table Supplemental Logging
+        call: rest-connections.managetablesupplementallogging
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-connections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Connections. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-database-connections
+      description: Oracle Goldengate List Database Connections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-connections.listconnections
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-database-connection
+      description: Oracle Goldengate Retrieve a Database Connection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-connections.getconnection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-database-connection
+      description: Oracle Goldengate Create a Database Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-connections.createconnection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-replace-database-connection
+      description: Oracle Goldengate Replace a Database Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-connections.replaceconnection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-database-connection
+      description: Oracle Goldengate Delete a Database Connection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-connections.deleteconnection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-database-names
+      description: Oracle Goldengate Retrieve Database Names
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-connections.getdatabasenames
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-database-tables
+      description: Oracle Goldengate Retrieve Database Tables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-connections.getdatabasetables
+      with:
+        database: tools.database
+        schema: tools.schema
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-manage-schema-supplemental
+      description: Oracle Goldengate Manage Schema Supplemental Logging
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-connections.manageschemasupplementallogging
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-manage-table-supplemental
+      description: Oracle Goldengate Manage Table Supplemental Logging
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-connections.managetablesupplementallogging
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

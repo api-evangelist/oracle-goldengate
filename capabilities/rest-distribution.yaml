@@ -1,0 +1,262 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Distribution
+  description: 'Oracle GoldenGate REST API — Distribution. 7 operations. Lead operation: Oracle Goldengate List Deployment
+    Extracts With Trail Files. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Distribution
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-distribution
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Distribution business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-exttrails
+      path: /services/v2/exttrails
+      operations:
+      - name: listextracttrails
+        method: GET
+        description: Oracle Goldengate List Deployment Extracts With Trail Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-sources
+      path: /services/v2/sources
+      operations:
+      - name: listdistributionpaths
+        method: GET
+        description: Oracle Goldengate List Distribution Paths
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-sources-distpath
+      path: /services/v2/sources/{distpath}
+      operations:
+      - name: getdistributionpath
+        method: GET
+        description: Oracle Goldengate Retrieve a Distribution Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdistributionpath
+        method: POST
+        description: Oracle Goldengate Create a Distribution Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatedistributionpath
+        method: PATCH
+        description: Oracle Goldengate Update a Distribution Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedistributionpath
+        method: DELETE
+        description: Oracle Goldengate Delete a Distribution Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-sources-distpath-stats
+      path: /services/v2/sources/{distpath}/stats
+      operations:
+      - name: getdistributionpathstats
+        method: GET
+        description: Oracle Goldengate Retrieve Distribution Path Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-distribution-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Distribution. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/exttrails
+      name: services-v2-exttrails
+      description: REST surface for services-v2-exttrails.
+      operations:
+      - method: GET
+        name: listextracttrails
+        description: Oracle Goldengate List Deployment Extracts With Trail Files
+        call: rest-distribution.listextracttrails
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/sources
+      name: services-v2-sources
+      description: REST surface for services-v2-sources.
+      operations:
+      - method: GET
+        name: listdistributionpaths
+        description: Oracle Goldengate List Distribution Paths
+        call: rest-distribution.listdistributionpaths
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/sources/{distpath}
+      name: services-v2-sources-distpath
+      description: REST surface for services-v2-sources-distpath.
+      operations:
+      - method: GET
+        name: getdistributionpath
+        description: Oracle Goldengate Retrieve a Distribution Path
+        call: rest-distribution.getdistributionpath
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdistributionpath
+        description: Oracle Goldengate Create a Distribution Path
+        call: rest-distribution.createdistributionpath
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedistributionpath
+        description: Oracle Goldengate Update a Distribution Path
+        call: rest-distribution.updatedistributionpath
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedistributionpath
+        description: Oracle Goldengate Delete a Distribution Path
+        call: rest-distribution.deletedistributionpath
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/sources/{distpath}/stats
+      name: services-v2-sources-distpath-stats
+      description: REST surface for services-v2-sources-distpath-stats.
+      operations:
+      - method: GET
+        name: getdistributionpathstats
+        description: Oracle Goldengate Retrieve Distribution Path Statistics
+        call: rest-distribution.getdistributionpathstats
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-distribution-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Distribution. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-deployment-extracts
+      description: Oracle Goldengate List Deployment Extracts With Trail Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-distribution.listextracttrails
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-list-distribution-paths
+      description: Oracle Goldengate List Distribution Paths
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-distribution.listdistributionpaths
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-distribution-path
+      description: Oracle Goldengate Retrieve a Distribution Path
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-distribution.getdistributionpath
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-distribution-path
+      description: Oracle Goldengate Create a Distribution Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-distribution.createdistributionpath
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-distribution-path
+      description: Oracle Goldengate Update a Distribution Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-distribution.updatedistributionpath
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-distribution-path
+      description: Oracle Goldengate Delete a Distribution Path
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-distribution.deletedistributionpath
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-distribution-path-2
+      description: Oracle Goldengate Retrieve Distribution Path Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-distribution.getdistributionpathstats
+      outputParameters:
+      - type: object
+        mapping: $.

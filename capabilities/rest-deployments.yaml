@@ -1,0 +1,198 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate REST API — Deployments
+  description: 'Oracle GoldenGate REST API — Deployments. 5 operations. Lead operation: Oracle Goldengate List All Deployments.
+    Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-deployments
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate REST API — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-deployments
+      path: /services/v2/deployments
+      operations:
+      - name: listdeployments
+        method: GET
+        description: Oracle Goldengate List All Deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-deployments-deployment
+      path: /services/v2/deployments/{deployment}
+      operations:
+      - name: getdeployment
+        method: GET
+        description: Oracle Goldengate Retrieve a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdeployment
+        method: POST
+        description: Oracle Goldengate Create a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatedeployment
+        method: PATCH
+        description: Oracle Goldengate Update a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedeployment
+        method: DELETE
+        description: Oracle Goldengate Remove a Deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-deployments-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate REST API — Deployments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/deployments
+      name: services-v2-deployments
+      description: REST surface for services-v2-deployments.
+      operations:
+      - method: GET
+        name: listdeployments
+        description: Oracle Goldengate List All Deployments
+        call: rest-deployments.listdeployments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/deployments/{deployment}
+      name: services-v2-deployments-deployment
+      description: REST surface for services-v2-deployments-deployment.
+      operations:
+      - method: GET
+        name: getdeployment
+        description: Oracle Goldengate Retrieve a Deployment
+        call: rest-deployments.getdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdeployment
+        description: Oracle Goldengate Create a Deployment
+        call: rest-deployments.createdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedeployment
+        description: Oracle Goldengate Update a Deployment
+        call: rest-deployments.updatedeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeployment
+        description: Oracle Goldengate Remove a Deployment
+        call: rest-deployments.deletedeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate REST API — Deployments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-all-deployments
+      description: Oracle Goldengate List All Deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-deployments.listdeployments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-deployment
+      description: Oracle Goldengate Retrieve a Deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-deployments.getdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-deployment
+      description: Oracle Goldengate Create a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-deployments.createdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-deployment
+      description: Oracle Goldengate Update a Deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-deployments.updatedeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-remove-deployment
+      description: Oracle Goldengate Remove a Deployment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-deployments.deletedeployment
+      outputParameters:
+      - type: object
+        mapping: $.

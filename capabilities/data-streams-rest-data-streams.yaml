@@ -1,0 +1,198 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Data Streams REST API — Data Streams
+  description: 'Oracle GoldenGate Data Streams REST API — Data Streams. 5 operations. Lead operation: Oracle Goldengate List
+    Data Streams. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Data Streams
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-streams-rest-data-streams
+    baseUri: https://{goldengate-host}:{port}
+    description: Oracle GoldenGate Data Streams REST API — Data Streams business capability. Self-contained, no shared references.
+    resources:
+    - name: services-v2-stream
+      path: /services/v2/stream
+      operations:
+      - name: listdatastreams
+        method: GET
+        description: Oracle Goldengate List Data Streams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-v2-stream-streamname
+      path: /services/v2/stream/{streamname}
+      operations:
+      - name: getdatastream
+        method: GET
+        description: Oracle Goldengate Retrieve a Data Stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdatastream
+        method: POST
+        description: Oracle Goldengate Create a Data Stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatedatastream
+        method: PATCH
+        description: Oracle Goldengate Update a Data Stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedatastream
+        method: DELETE
+        description: Oracle Goldengate Delete a Data Stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: data-streams-rest-data-streams-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Data Streams REST API — Data Streams. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/v2/stream
+      name: services-v2-stream
+      description: REST surface for services-v2-stream.
+      operations:
+      - method: GET
+        name: listdatastreams
+        description: Oracle Goldengate List Data Streams
+        call: data-streams-rest-data-streams.listdatastreams
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/v2/stream/{streamname}
+      name: services-v2-stream-streamname
+      description: REST surface for services-v2-stream-streamname.
+      operations:
+      - method: GET
+        name: getdatastream
+        description: Oracle Goldengate Retrieve a Data Stream
+        call: data-streams-rest-data-streams.getdatastream
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdatastream
+        description: Oracle Goldengate Create a Data Stream
+        call: data-streams-rest-data-streams.createdatastream
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedatastream
+        description: Oracle Goldengate Update a Data Stream
+        call: data-streams-rest-data-streams.updatedatastream
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedatastream
+        description: Oracle Goldengate Delete a Data Stream
+        call: data-streams-rest-data-streams.deletedatastream
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: data-streams-rest-data-streams-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Data Streams REST API — Data Streams. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-list-data-streams
+      description: Oracle Goldengate List Data Streams
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-streams-rest-data-streams.listdatastreams
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-data-stream
+      description: Oracle Goldengate Retrieve a Data Stream
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-streams-rest-data-streams.getdatastream
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-create-data-stream
+      description: Oracle Goldengate Create a Data Stream
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: data-streams-rest-data-streams.createdatastream
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-update-data-stream
+      description: Oracle Goldengate Update a Data Stream
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: data-streams-rest-data-streams.updatedatastream
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-data-stream
+      description: Oracle Goldengate Delete a Data Stream
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: data-streams-rest-data-streams.deletedatastream
+      outputParameters:
+      - type: object
+        mapping: $.

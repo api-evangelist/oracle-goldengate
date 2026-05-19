@@ -1,0 +1,247 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Oracle GoldenGate Veridata REST API — Compare Pairs
+  description: 'Oracle GoldenGate Veridata REST API — Compare Pairs. 6 operations. Lead operation: Oracle Goldengate Create
+    Compare Pairs in a Group. Self-contained Naftiko capability covering one Oracle Goldengate business surface.'
+  tags:
+  - Oracle Goldengate
+  - Compare Pairs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORACLE_GOLDENGATE_API_KEY: ORACLE_GOLDENGATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: veridata-rest-compare-pairs
+    baseUri: https://{veridata-host}:{port}/veridata/v1
+    description: Oracle GoldenGate Veridata REST API — Compare Pairs business capability. Self-contained, no shared references.
+    resources:
+    - name: services-configuration-cps-group-groupId
+      path: /services/configuration/cps/group/{groupId}
+      operations:
+      - name: createcomparepairs
+        method: POST
+        description: Oracle Goldengate Create Compare Pairs in a Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-configuration-cps-mappings
+      path: /services/configuration/cps/mappings
+      operations:
+      - name: generatemappingobjects
+        method: POST
+        description: Oracle Goldengate Generate Mapping Objects From Rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-configuration-cps-Id
+      path: /services/configuration/cps/{Id}
+      operations:
+      - name: getcomparepair
+        method: GET
+        description: Oracle Goldengate Retrieve a Compare Pair
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacecomparepair
+        method: PUT
+        description: Oracle Goldengate Replace a Compare Pair
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecomparepair
+        method: DELETE
+        description: Oracle Goldengate Delete a Compare Pair
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-configuration-cps-Id-colmap
+      path: /services/configuration/cps/{Id}/colmap
+      operations:
+      - name: generatecolumnmappings
+        method: POST
+        description: Oracle Goldengate Generate Column Mapping Pairs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.ORACLE_GOLDENGATE_USER}}'
+      password: '{{env.ORACLE_GOLDENGATE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: veridata-rest-compare-pairs-rest
+    port: 8080
+    description: REST adapter for Oracle GoldenGate Veridata REST API — Compare Pairs. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/services/configuration/cps/group/{groupid}
+      name: services-configuration-cps-group-groupid
+      description: REST surface for services-configuration-cps-group-groupId.
+      operations:
+      - method: POST
+        name: createcomparepairs
+        description: Oracle Goldengate Create Compare Pairs in a Group
+        call: veridata-rest-compare-pairs.createcomparepairs
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/cps/mappings
+      name: services-configuration-cps-mappings
+      description: REST surface for services-configuration-cps-mappings.
+      operations:
+      - method: POST
+        name: generatemappingobjects
+        description: Oracle Goldengate Generate Mapping Objects From Rules
+        call: veridata-rest-compare-pairs.generatemappingobjects
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/cps/{id}
+      name: services-configuration-cps-id
+      description: REST surface for services-configuration-cps-Id.
+      operations:
+      - method: GET
+        name: getcomparepair
+        description: Oracle Goldengate Retrieve a Compare Pair
+        call: veridata-rest-compare-pairs.getcomparepair
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacecomparepair
+        description: Oracle Goldengate Replace a Compare Pair
+        call: veridata-rest-compare-pairs.replacecomparepair
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecomparepair
+        description: Oracle Goldengate Delete a Compare Pair
+        call: veridata-rest-compare-pairs.deletecomparepair
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/configuration/cps/{id}/colmap
+      name: services-configuration-cps-id-colmap
+      description: REST surface for services-configuration-cps-Id-colmap.
+      operations:
+      - method: POST
+        name: generatecolumnmappings
+        description: Oracle Goldengate Generate Column Mapping Pairs
+        call: veridata-rest-compare-pairs.generatecolumnmappings
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: veridata-rest-compare-pairs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Oracle GoldenGate Veridata REST API — Compare Pairs. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: oracle-goldengate-create-compare-pairs
+      description: Oracle Goldengate Create Compare Pairs in a Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-compare-pairs.createcomparepairs
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-generate-mapping-objects
+      description: Oracle Goldengate Generate Mapping Objects From Rules
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-compare-pairs.generatemappingobjects
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-retrieve-compare-pair
+      description: Oracle Goldengate Retrieve a Compare Pair
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: veridata-rest-compare-pairs.getcomparepair
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-replace-compare-pair
+      description: Oracle Goldengate Replace a Compare Pair
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: veridata-rest-compare-pairs.replacecomparepair
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-delete-compare-pair
+      description: Oracle Goldengate Delete a Compare Pair
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: veridata-rest-compare-pairs.deletecomparepair
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oracle-goldengate-generate-column-mapping
+      description: Oracle Goldengate Generate Column Mapping Pairs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: veridata-rest-compare-pairs.generatecolumnmappings
+      outputParameters:
+      - type: object
+        mapping: $.
