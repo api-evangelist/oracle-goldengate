@@ -1,0 +1,34 @@
+{
+  "operationId": "updateExtract",
+  "method": "PATCH",
+  "path": "/services/v2/extracts/{extract}",
+  "summary": "Oracle Goldengate Update an Extract Process",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateextractRequestExample",
+      "example": {
+        "config": [
+          "example_value"
+        ],
+        "status": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateextract200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "cdc",
+        "status": "running",
+        "trail": "example_value",
+        "config": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineList",
+  "title": "PipelineList",
+  "type": "object",
+  "properties": {
+    "pipelines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Pipeline"
+      },
+      "example": []
+    }
+  }
+}

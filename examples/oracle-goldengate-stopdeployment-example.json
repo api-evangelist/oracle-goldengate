@@ -1,0 +1,16 @@
+{
+  "operationId": "stopDeployment",
+  "method": "POST",
+  "path": "/20200407/deployments/{deploymentId}/actions/stop",
+  "summary": "Oracle Goldengate Stop a Deployment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StopdeploymentRequestExample",
+      "example": {
+        "type": "DEFAULT"
+      }
+    }
+  ],
+  "responseExamples": []
+}

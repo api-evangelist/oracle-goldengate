@@ -1,0 +1,24 @@
+{
+  "operationId": "getCriticalEvents",
+  "method": "GET",
+  "path": "/services/v2/logs/events",
+  "summary": "Oracle Goldengate Get Critical Events",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcriticalevents200Example",
+      "example": {
+        "events": [
+          {
+            "timestamp": "2026-01-15T10:30:00Z",
+            "severity": "example_value",
+            "source": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

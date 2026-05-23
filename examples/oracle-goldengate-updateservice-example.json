@@ -1,0 +1,31 @@
+{
+  "operationId": "updateService",
+  "method": "PATCH",
+  "path": "/services/v2/deployments/{deployment}/services/{service}",
+  "summary": "Oracle Goldengate Update Service Properties",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateserviceRequestExample",
+      "example": {
+        "port": 10,
+        "secure": true,
+        "status": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateservice200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "AdminServer",
+        "status": "running",
+        "port": 10,
+        "secure": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "operationId": "createUser",
+  "method": "POST",
+  "path": "/services/v2/authorizations/{role}/{user}",
+  "summary": "Oracle Goldengate Create a User",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateuserRequestExample",
+      "example": {
+        "password": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createuser201Example",
+      "example": {
+        "name": "Example Title",
+        "role": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ]
+}

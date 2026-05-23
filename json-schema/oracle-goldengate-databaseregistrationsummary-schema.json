@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DatabaseRegistrationSummary",
+  "title": "DatabaseRegistrationSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "databaseId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

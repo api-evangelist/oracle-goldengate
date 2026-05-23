@@ -1,0 +1,35 @@
+{
+  "operationId": "createProfile",
+  "method": "POST",
+  "path": "/services/configuration/profiles",
+  "summary": "Oracle Goldengate Create a Profile",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateprofileRequestExample",
+      "example": {
+        "name": "Example Title",
+        "description": "A sample description.",
+        "comparisonMethod": "row",
+        "maxConcurrentComparePairs": 10,
+        "deltaProcessing": true
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createprofile201Example",
+      "example": {
+        "id": "abc123",
+        "name": "Example Title",
+        "description": "A sample description.",
+        "comparisonMethod": "row",
+        "maxConcurrentComparePairs": 10,
+        "deltaProcessing": true,
+        "reportOutOfSync": true
+      }
+    }
+  ]
+}

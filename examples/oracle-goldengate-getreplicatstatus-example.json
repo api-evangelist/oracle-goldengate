@@ -1,0 +1,20 @@
+{
+  "operationId": "getReplicatStatus",
+  "method": "GET",
+  "path": "/services/v2/replicats/{replicat}/info/status",
+  "summary": "Oracle Goldengate Retrieve Replicat Status",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicatstatus200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "example_value",
+        "lag": "example_value",
+        "since": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

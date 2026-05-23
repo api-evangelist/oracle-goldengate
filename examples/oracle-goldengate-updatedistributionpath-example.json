@@ -1,0 +1,32 @@
+{
+  "operationId": "updateDistributionPath",
+  "method": "PATCH",
+  "path": "/services/v2/sources/{distpath}",
+  "summary": "Oracle Goldengate Update a Distribution Path",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatedistributionpathRequestExample",
+      "example": {
+        "source": "example_value",
+        "target": "example_value",
+        "status": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatedistributionpath200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "running",
+        "source": "example_value",
+        "target": "example_value",
+        "targetType": "example_value",
+        "ruleName": "example_value"
+      }
+    }
+  ]
+}

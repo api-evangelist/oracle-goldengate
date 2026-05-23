@@ -1,0 +1,19 @@
+{
+  "operationId": "listParameters",
+  "method": "GET",
+  "path": "/services/v2/parameters",
+  "summary": "Oracle Goldengate List Parameter Names",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listparameters200Example",
+      "example": {
+        "parameters": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

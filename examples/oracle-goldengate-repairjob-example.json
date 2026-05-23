@@ -1,0 +1,27 @@
+{
+  "operationId": "repairJob",
+  "method": "POST",
+  "path": "/services/repair/jobs/{runId}",
+  "summary": "Oracle Goldengate Repair Out-of-sync Data",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RepairjobRequestExample",
+      "example": {
+        "repairMode": "insert"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Repairjob200Example",
+      "example": {
+        "runId": "500123",
+        "status": "running",
+        "startTime": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

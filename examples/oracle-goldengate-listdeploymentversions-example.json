@@ -1,0 +1,25 @@
+{
+  "operationId": "listDeploymentVersions",
+  "method": "GET",
+  "path": "/20200407/deploymentVersions",
+  "summary": "Oracle Goldengate List Deployment Versions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdeploymentversions200Example",
+      "example": {
+        "items": [
+          {
+            "oggVersion": "example_value",
+            "deploymentType": "example_value",
+            "releaseType": "example_value",
+            "isSecurityFix": true,
+            "timeReleased": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

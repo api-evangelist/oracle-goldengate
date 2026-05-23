@@ -1,0 +1,25 @@
+{
+  "operationId": "getReplicatHistory",
+  "method": "GET",
+  "path": "/services/v2/replicats/{replicat}/info/history",
+  "summary": "Oracle Goldengate Retrieve Replicat History",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicathistory200Example",
+      "example": {
+        "name": "Example Title",
+        "history": [
+          {
+            "startTime": "2026-01-15T10:30:00Z",
+            "endTime": "2026-01-15T10:30:00Z",
+            "status": "example_value",
+            "reason": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

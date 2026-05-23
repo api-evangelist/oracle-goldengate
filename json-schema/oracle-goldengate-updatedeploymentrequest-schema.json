@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateDeploymentRequest",
+  "title": "UpdateDeploymentRequest",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "environmentVariables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    },
+    "autoStart": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OutOfSyncData",
+  "title": "OutOfSyncData",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "comparePairId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sourceTable": {
+            "type": "string"
+          },
+          "targetTable": {
+            "type": "string"
+          },
+          "oosType": {
+            "type": "string",
+            "enum": [
+              "missing_in_target",
+              "missing_in_source",
+              "different"
+            ]
+          },
+          "keyValues": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DataStreamSummary",
+  "title": "DataStreamSummary",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Data stream name",
+      "example": "Example Title"
+    },
+    "status": {
+      "type": "string",
+      "description": "Stream status",
+      "example": "example_value"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source trail or extract",
+      "example": "example_value"
+    }
+  }
+}

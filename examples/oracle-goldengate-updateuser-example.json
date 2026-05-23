@@ -1,0 +1,28 @@
+{
+  "operationId": "updateUser",
+  "method": "PATCH",
+  "path": "/services/v2/authorizations/{role}/{user}",
+  "summary": "Oracle Goldengate Update a User",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateuserRequestExample",
+      "example": {
+        "password": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateuser200Example",
+      "example": {
+        "name": "Example Title",
+        "role": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ]
+}

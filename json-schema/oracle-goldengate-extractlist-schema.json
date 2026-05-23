@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExtractList",
+  "title": "ExtractList",
+  "type": "object",
+  "properties": {
+    "extracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExtractSummary"
+      },
+      "example": []
+    }
+  }
+}

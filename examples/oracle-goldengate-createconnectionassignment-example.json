@@ -1,0 +1,32 @@
+{
+  "operationId": "createConnectionAssignment",
+  "method": "POST",
+  "path": "/20200407/connectionAssignments",
+  "summary": "Oracle Goldengate Create a Connection Assignment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateconnectionassignmentRequestExample",
+      "example": {
+        "connectionId": "500123",
+        "deploymentId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createconnectionassignment200Example",
+      "example": {
+        "id": "abc123",
+        "connectionId": "500123",
+        "deploymentId": "500123",
+        "compartmentId": "500123",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

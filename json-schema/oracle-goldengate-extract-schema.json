@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Extract",
+  "title": "Extract",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "cdc",
+        "initialload",
+        "datapump"
+      ],
+      "example": "cdc"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "stopped",
+        "abended"
+      ],
+      "example": "running"
+    },
+    "trail": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    }
+  }
+}

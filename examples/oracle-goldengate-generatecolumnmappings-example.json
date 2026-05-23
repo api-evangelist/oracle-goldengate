@@ -1,0 +1,23 @@
+{
+  "operationId": "generateColumnMappings",
+  "method": "POST",
+  "path": "/services/configuration/cps/{Id}/colmap",
+  "summary": "Oracle Goldengate Generate Column Mapping Pairs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Generatecolumnmappings200Example",
+      "example": {
+        "mappings": [
+          {
+            "sourceColumn": "example_value",
+            "targetColumn": "example_value",
+            "dataType": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

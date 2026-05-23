@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceSummary",
+  "title": "ServiceSummary",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "port": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

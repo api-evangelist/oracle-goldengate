@@ -1,0 +1,29 @@
+{
+  "operationId": "issueExtractCommand",
+  "method": "POST",
+  "path": "/services/v2/extracts/{extract}/command",
+  "summary": "Oracle Goldengate Issue a Command to an Extract",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "IssueextractcommandRequestExample",
+      "example": {
+        "action": "start"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Issueextractcommand200Example",
+      "example": {
+        "response": {
+          "code": "example_value",
+          "severity": "example_value",
+          "message": "example_value"
+        }
+      }
+    }
+  ]
+}

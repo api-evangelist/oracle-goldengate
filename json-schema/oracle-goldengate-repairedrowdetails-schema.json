@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RepairedRowDetails",
+  "title": "RepairedRowDetails",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string"
+          },
+          "repairType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "keyValues": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

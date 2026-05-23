@@ -1,0 +1,24 @@
+{
+  "operationId": "getServiceHealth",
+  "method": "GET",
+  "path": "/services/v2/config/health",
+  "summary": "Oracle Goldengate Get Service Health Details",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getservicehealth200Example",
+      "example": {
+        "healthy": true,
+        "services": [
+          {
+            "name": "Example Title",
+            "status": "example_value",
+            "port": 10
+          }
+        ]
+      }
+    }
+  ]
+}

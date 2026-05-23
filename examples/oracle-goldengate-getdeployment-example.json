@@ -1,0 +1,40 @@
+{
+  "operationId": "getDeployment",
+  "method": "GET",
+  "path": "/20200407/deployments/{deploymentId}",
+  "summary": "Oracle Goldengate Get a Deployment",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdeployment200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "subnetId": "500123",
+        "licenseModel": "LICENSE_INCLUDED",
+        "fqdn": "example_value",
+        "cpuCoreCount": 10,
+        "isAutoScalingEnabled": true,
+        "isPublic": true,
+        "publicIpAddress": "example_value",
+        "privateIpAddress": "example_value",
+        "deploymentUrl": "https://www.example.com",
+        "lifecycleState": "CREATING",
+        "oggData": {
+          "deploymentName": "example_value",
+          "adminUsername": "example_value",
+          "oggVersion": "example_value",
+          "certificate": "example_value"
+        },
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z",
+        "freeformTags": "example_value",
+        "definedTags": "example_value"
+      }
+    }
+  ]
+}

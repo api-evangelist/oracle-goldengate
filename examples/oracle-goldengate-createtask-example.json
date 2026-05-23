@@ -1,0 +1,47 @@
+{
+  "operationId": "createTask",
+  "method": "POST",
+  "path": "/services/v2/tasks/{task}",
+  "summary": "Oracle Goldengate Create a Task",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatetaskRequestExample",
+      "example": {
+        "description": "A sample description.",
+        "schedule": {
+          "type": "example_value",
+          "interval": "example_value",
+          "startTime": "2026-01-15T10:30:00Z"
+        },
+        "action": {
+          "type": "example_value",
+          "target": "example_value",
+          "command": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createtask201Example",
+      "example": {
+        "name": "Example Title",
+        "status": "active",
+        "description": "A sample description.",
+        "schedule": {
+          "type": "once",
+          "interval": "example_value",
+          "startTime": "2026-01-15T10:30:00Z"
+        },
+        "action": {
+          "type": "example_value",
+          "target": "example_value",
+          "command": "example_value"
+        }
+      }
+    }
+  ]
+}

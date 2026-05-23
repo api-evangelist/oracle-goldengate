@@ -1,0 +1,22 @@
+{
+  "operationId": "listReplicatReports",
+  "method": "GET",
+  "path": "/services/v2/replicats/{replicat}/info/reports",
+  "summary": "Oracle Goldengate List Replicat Reports",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listreplicatreports200Example",
+      "example": {
+        "reports": [
+          {
+            "name": "Example Title",
+            "timestamp": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

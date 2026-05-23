@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateServiceRequest",
+  "title": "UpdateServiceRequest",
+  "type": "object",
+  "properties": {
+    "port": {
+      "type": "integer",
+      "example": 10
+    },
+    "secure": {
+      "type": "boolean",
+      "example": true
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

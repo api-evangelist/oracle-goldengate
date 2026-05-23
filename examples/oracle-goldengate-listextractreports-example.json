@@ -1,0 +1,22 @@
+{
+  "operationId": "listExtractReports",
+  "method": "GET",
+  "path": "/services/v2/extracts/{extract}/info/reports",
+  "summary": "Oracle Goldengate List Extract Reports",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listextractreports200Example",
+      "example": {
+        "reports": [
+          {
+            "name": "Example Title",
+            "timestamp": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "operationId": "getAsyncApiSpec",
+  "method": "GET",
+  "path": "/services/v2/stream/{streamname}/yaml",
+  "summary": "Oracle Goldengate Get Asyncapi Specification",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/x-yaml",
+      "name": "Getasyncapispec200Example",
+      "example": "example_value"
+    },
+    {
+      "status": "200",
+      "contentType": "text/yaml",
+      "name": "Getasyncapispec200Example",
+      "example": "example_value"
+    }
+  ]
+}

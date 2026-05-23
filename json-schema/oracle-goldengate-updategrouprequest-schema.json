@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateGroupRequest",
+  "title": "UpdateGroupRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "profileId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    }
+  }
+}

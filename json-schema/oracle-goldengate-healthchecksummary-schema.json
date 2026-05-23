@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HealthCheckSummary",
+  "title": "HealthCheckSummary",
+  "type": "object",
+  "properties": {
+    "healthy": {
+      "type": "boolean",
+      "example": true
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

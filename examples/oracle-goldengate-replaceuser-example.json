@@ -1,0 +1,35 @@
+{
+  "operationId": "replaceUser",
+  "method": "PUT",
+  "path": "/services/admin/users/{Id}",
+  "summary": "Oracle Goldengate Replace a User",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReplaceuserRequestExample",
+      "example": {
+        "firstName": "example_value",
+        "lastName": "example_value",
+        "email": "user@example.com",
+        "role": "example_value",
+        "userGroupId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Replaceuser200Example",
+      "example": {
+        "id": "abc123",
+        "username": "example_value",
+        "firstName": "example_value",
+        "lastName": "example_value",
+        "email": "user@example.com",
+        "role": "example_value",
+        "userGroupId": "500123"
+      }
+    }
+  ]
+}

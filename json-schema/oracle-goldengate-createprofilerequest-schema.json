@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateProfileRequest",
+  "title": "CreateProfileRequest",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "comparisonMethod": {
+      "type": "string",
+      "enum": [
+        "row",
+        "hash"
+      ],
+      "example": "row"
+    },
+    "maxConcurrentComparePairs": {
+      "type": "integer",
+      "example": 10
+    },
+    "deltaProcessing": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "operationId": "createDataStream",
+  "method": "POST",
+  "path": "/services/v2/stream/{streamname}",
+  "summary": "Oracle Goldengate Create a Data Stream",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatedatastreamRequestExample",
+      "example": {
+        "description": "A sample description.",
+        "source": {
+          "trailName": "example_value",
+          "extractName": "example_value",
+          "beginPosition": "example_value"
+        },
+        "target": {
+          "type": "kafka",
+          "uri": "example_value",
+          "topicName": "example_value",
+          "format": "json"
+        },
+        "filters": [
+          {
+            "schema": "example_value",
+            "table": "example_value",
+            "operations": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createdatastream201Example",
+      "example": {
+        "name": "Example Title",
+        "description": "A sample description.",
+        "status": "active",
+        "source": {
+          "trailName": "example_value",
+          "extractName": "example_value",
+          "beginPosition": "example_value"
+        },
+        "target": {
+          "type": "kafka",
+          "uri": "example_value",
+          "topicName": "example_value",
+          "format": "json"
+        },
+        "filters": [
+          {
+            "schema": "example_value",
+            "table": "example_value",
+            "operations": [
+              {}
+            ]
+          }
+        ],
+        "asyncApiSpec": "example_value",
+        "createdAt": "2026-01-15T10:30:00Z",
+        "updatedAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

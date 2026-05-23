@@ -1,0 +1,22 @@
+{
+  "operationId": "listDataTargetTypes",
+  "method": "GET",
+  "path": "/services/v2/dataTargetTypes",
+  "summary": "Oracle Goldengate List Available Data Target Types",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdatatargettypes200Example",
+      "example": {
+        "types": [
+          {
+            "name": "Example Title",
+            "description": "A sample description."
+          }
+        ]
+      }
+    }
+  ]
+}

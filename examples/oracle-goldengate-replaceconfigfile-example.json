@@ -1,0 +1,16 @@
+{
+  "operationId": "replaceConfigFile",
+  "method": "PUT",
+  "path": "/services/v2/config/files/{file}",
+  "summary": "Oracle Goldengate Replace a Configuration File",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReplaceconfigfileRequestExample",
+      "example": {
+        "content": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

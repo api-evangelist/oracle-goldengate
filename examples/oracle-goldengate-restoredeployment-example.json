@@ -1,0 +1,16 @@
+{
+  "operationId": "restoreDeployment",
+  "method": "POST",
+  "path": "/20200407/deploymentBackups/{deploymentBackupId}/actions/restore",
+  "summary": "Oracle Goldengate Restore a Deployment From Backup",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RestoredeploymentRequestExample",
+      "example": {
+        "type": "DEFAULT"
+      }
+    }
+  ],
+  "responseExamples": []
+}

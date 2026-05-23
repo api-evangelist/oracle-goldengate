@@ -1,0 +1,19 @@
+{
+  "operationId": "getUser",
+  "method": "GET",
+  "path": "/services/v2/authorizations/{role}/{user}",
+  "summary": "Oracle Goldengate Retrieve a User",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getuser200Example",
+      "example": {
+        "name": "Example Title",
+        "role": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ]
+}

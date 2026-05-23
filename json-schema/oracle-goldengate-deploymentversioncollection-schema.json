@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeploymentVersionCollection",
+  "title": "DeploymentVersionCollection",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "oggVersion": {
+            "type": "string"
+          },
+          "deploymentType": {
+            "type": "string"
+          },
+          "releaseType": {
+            "type": "string"
+          },
+          "isSecurityFix": {
+            "type": "boolean"
+          },
+          "timeReleased": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

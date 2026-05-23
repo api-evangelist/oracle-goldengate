@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateDeploymentBackupDetails",
+  "title": "CreateDeploymentBackupDetails",
+  "type": "object",
+  "required": [
+    "displayName",
+    "compartmentId",
+    "deploymentId",
+    "namespaceName",
+    "bucketName",
+    "objectName"
+  ],
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "deploymentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "namespaceName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "bucketName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "objectName": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

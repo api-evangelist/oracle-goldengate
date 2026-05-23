@@ -1,0 +1,26 @@
+{
+  "operationId": "listJobs",
+  "method": "GET",
+  "path": "/services/configuration/jobs",
+  "summary": "Oracle Goldengate Retrieve All Jobs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listjobs200Example",
+      "example": {
+        "jobs": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "description": "A sample description.",
+            "groupIds": {},
+            "profileId": "500123",
+            "status": "idle"
+          }
+        ]
+      }
+    }
+  ]
+}

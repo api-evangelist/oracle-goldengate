@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PublishPipelineRequest",
+  "title": "PublishPipelineRequest",
+  "type": "object",
+  "properties": {
+    "sparkConfig": {
+      "type": "object",
+      "description": "Optional Spark configuration overrides",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    }
+  }
+}

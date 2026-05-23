@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CollectorPath",
+  "title": "CollectorPath",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "stopped",
+        "error"
+      ],
+      "example": "running"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Target trail file",
+      "example": "example_value"
+    },
+    "port": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

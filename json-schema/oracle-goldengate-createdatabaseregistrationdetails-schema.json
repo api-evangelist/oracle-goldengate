@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateDatabaseRegistrationDetails",
+  "title": "CreateDatabaseRegistrationDetails",
+  "type": "object",
+  "required": [
+    "displayName",
+    "compartmentId",
+    "fqdn",
+    "username",
+    "password",
+    "connectionString"
+  ],
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "fqdn": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "username": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "password": {
+      "type": "string",
+      "format": "password",
+      "example": "example_value"
+    },
+    "connectionString": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "databaseId": {
+      "type": "string",
+      "example": "500123"
+    }
+  }
+}

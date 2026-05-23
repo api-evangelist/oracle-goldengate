@@ -1,0 +1,19 @@
+{
+  "operationId": "getCurrentUser",
+  "method": "GET",
+  "path": "/services/v2/currentuser",
+  "summary": "Oracle Goldengate Retrieve Current User Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcurrentuser200Example",
+      "example": {
+        "name": "Example Title",
+        "role": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ]
+}

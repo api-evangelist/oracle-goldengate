@@ -1,0 +1,26 @@
+{
+  "operationId": "getReplicatStats",
+  "method": "GET",
+  "path": "/services/v2/mpoints/{item}/statisticsReplicat",
+  "summary": "Oracle Goldengate Retrieve Replicat Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicatstats200Example",
+      "example": {
+        "processName": "example_value",
+        "totalOperations": 10,
+        "inserts": 10,
+        "updates": 10,
+        "deletes": 10,
+        "handlerStatistics": {
+          "recordsWritten": 10,
+          "bytesWritten": 10,
+          "batchesProcessed": 10
+        }
+      }
+    }
+  ]
+}

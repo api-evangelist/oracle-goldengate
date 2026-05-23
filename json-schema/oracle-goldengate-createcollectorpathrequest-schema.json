@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateCollectorPathRequest",
+  "title": "CreateCollectorPathRequest",
+  "type": "object",
+  "required": [
+    "trail"
+  ],
+  "properties": {
+    "trail": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "port": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operationId": "createMasterKeyVersion",
+  "method": "POST",
+  "path": "/services/v2/masterkey",
+  "summary": "Oracle Goldengate Create a New Master Key Version",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createmasterkeyversion201Example",
+      "example": {
+        "version": 10,
+        "status": "current",
+        "createdAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

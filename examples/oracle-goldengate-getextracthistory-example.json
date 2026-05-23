@@ -1,0 +1,25 @@
+{
+  "operationId": "getExtractHistory",
+  "method": "GET",
+  "path": "/services/v2/extracts/{extract}/info/history",
+  "summary": "Oracle Goldengate Retrieve Extract History",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getextracthistory200Example",
+      "example": {
+        "name": "Example Title",
+        "history": [
+          {
+            "startTime": "2026-01-15T10:30:00Z",
+            "endTime": "2026-01-15T10:30:00Z",
+            "status": "example_value",
+            "reason": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

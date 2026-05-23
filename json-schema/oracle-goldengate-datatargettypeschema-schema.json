@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DataTargetTypeSchema",
+  "title": "DataTargetTypeSchema",
+  "type": "object",
+  "description": "JSON Schema describing the handler configuration properties",
+  "properties": {
+    "type": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": true,
+      "example": "example_value"
+    }
+  }
+}

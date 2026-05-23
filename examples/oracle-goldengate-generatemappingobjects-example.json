@@ -1,0 +1,34 @@
+{
+  "operationId": "generateMappingObjects",
+  "method": "POST",
+  "path": "/services/configuration/cps/mappings",
+  "summary": "Oracle Goldengate Generate Mapping Objects From Rules",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GeneratemappingobjectsRequestExample",
+      "example": {
+        "sourceSchemaPattern": "example_value",
+        "targetSchemaPattern": "example_value",
+        "tablePattern": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Generatemappingobjects200Example",
+      "example": {
+        "mappings": [
+          {
+            "sourceSchema": "example_value",
+            "sourceTable": "example_value",
+            "targetSchema": "example_value",
+            "targetTable": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CacheStatistics",
+  "title": "CacheStatistics",
+  "type": "object",
+  "properties": {
+    "processName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "cacheSize": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "cacheUsed": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "cacheHitRatio": {
+      "type": "number",
+      "example": 42.5
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ComparePairStatisticsList",
+  "title": "ComparePairStatisticsList",
+  "type": "object",
+  "properties": {
+    "statistics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "comparePairId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sourceTable": {
+            "type": "string"
+          },
+          "targetTable": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "In Sync",
+              "Out Of Sync",
+              "Failed"
+            ]
+          },
+          "sourceRowCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "targetRowCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "outOfSyncRows": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

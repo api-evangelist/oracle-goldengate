@@ -1,0 +1,24 @@
+{
+  "operationId": "listConnectionAssignments",
+  "method": "GET",
+  "path": "/20200407/connectionAssignments",
+  "summary": "Oracle Goldengate List Connection Assignments",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listconnectionassignments200Example",
+      "example": {
+        "items": [
+          {
+            "id": "abc123",
+            "connectionId": "500123",
+            "deploymentId": "500123",
+            "lifecycleState": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

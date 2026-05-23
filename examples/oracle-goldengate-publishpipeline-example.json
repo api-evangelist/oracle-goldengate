@@ -1,0 +1,55 @@
+{
+  "operationId": "publishPipeline",
+  "method": "PATCH",
+  "path": "/services/v1/pipelines/{id}/publish",
+  "summary": "Oracle Goldengate Publish a Pipeline",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "PublishpipelineRequestExample",
+      "example": {
+        "sparkConfig": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Publishpipeline200Example",
+      "example": {
+        "id": "abc123",
+        "name": "Example Title",
+        "description": "A sample description.",
+        "status": "Draft",
+        "createdBy": "example_value",
+        "createdAt": "2026-01-15T10:30:00Z",
+        "updatedAt": "2026-01-15T10:30:00Z",
+        "sources": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "type": "Kafka",
+            "connectionName": "example_value"
+          }
+        ],
+        "targets": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "type": "Kafka",
+            "connectionName": "example_value"
+          }
+        ],
+        "stages": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "type": "Query",
+            "description": "A sample description."
+          }
+        ]
+      }
+    }
+  ]
+}

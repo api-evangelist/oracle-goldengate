@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProcessMetricsList",
+  "title": "ProcessMetricsList",
+  "type": "object",
+  "properties": {
+    "processes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "lag": {
+            "type": "number"
+          },
+          "operationsProcessed": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

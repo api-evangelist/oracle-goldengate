@@ -1,0 +1,24 @@
+{
+  "operationId": "getRepairStatistics",
+  "method": "GET",
+  "path": "/services/monitoring/repair/jobs",
+  "summary": "Oracle Goldengate Retrieve Repair Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getrepairstatistics200Example",
+      "example": {
+        "statistics": [
+          {
+            "runId": "500123",
+            "status": "example_value",
+            "rowsRepaired": 10,
+            "rowsFailed": 10
+          }
+        ]
+      }
+    }
+  ]
+}

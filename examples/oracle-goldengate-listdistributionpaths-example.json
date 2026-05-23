@@ -1,0 +1,24 @@
+{
+  "operationId": "listDistributionPaths",
+  "method": "GET",
+  "path": "/services/v2/sources",
+  "summary": "Oracle Goldengate List Distribution Paths",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdistributionpaths200Example",
+      "example": {
+        "paths": [
+          {
+            "name": "Example Title",
+            "status": "example_value",
+            "source": "example_value",
+            "target": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

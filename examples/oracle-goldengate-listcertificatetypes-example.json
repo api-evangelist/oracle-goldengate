@@ -1,0 +1,19 @@
+{
+  "operationId": "listCertificateTypes",
+  "method": "GET",
+  "path": "/services/v2/certificates",
+  "summary": "Oracle Goldengate Retrieve Available Certificate Types",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listcertificatetypes200Example",
+      "example": {
+        "types": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

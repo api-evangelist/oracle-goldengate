@@ -1,0 +1,25 @@
+{
+  "operationId": "listStatusChanges",
+  "method": "GET",
+  "path": "/services/v2/monitoring/statusChanges",
+  "summary": "Oracle Goldengate Retrieve Process Status Changes",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Liststatuschanges200Example",
+      "example": {
+        "statusChanges": [
+          {
+            "id": "abc123",
+            "timestamp": "2026-01-15T10:30:00Z",
+            "process": "example_value",
+            "previousStatus": "example_value",
+            "currentStatus": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

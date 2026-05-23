@@ -1,0 +1,20 @@
+{
+  "operationId": "getDistributionPathStats",
+  "method": "GET",
+  "path": "/services/v2/sources/{distpath}/stats",
+  "summary": "Oracle Goldengate Retrieve Distribution Path Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdistributionpathstats200Example",
+      "example": {
+        "name": "Example Title",
+        "bytesProcessed": 10,
+        "messagesProcessed": 10,
+        "lag": "example_value"
+      }
+    }
+  ]
+}

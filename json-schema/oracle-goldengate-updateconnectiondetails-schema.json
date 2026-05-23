@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateConnectionDetails",
+  "title": "UpdateConnectionDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "freeformTags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    }
+  }
+}

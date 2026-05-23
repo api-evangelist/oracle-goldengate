@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeploymentBackup",
+  "title": "DeploymentBackup",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "deploymentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sizeInBytes": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "backupType": {
+      "type": "string",
+      "enum": [
+        "INCREMENTAL",
+        "FULL"
+      ],
+      "example": "INCREMENTAL"
+    },
+    "oggVersion": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timeCreated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

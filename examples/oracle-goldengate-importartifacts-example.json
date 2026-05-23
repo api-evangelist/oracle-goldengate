@@ -1,0 +1,35 @@
+{
+  "operationId": "importArtifacts",
+  "method": "PATCH",
+  "path": "/services/v1/artifacts/import",
+  "summary": "Oracle Goldengate Import Ggsa Artifacts",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ImportartifactsRequestExample",
+      "example": {
+        "pipeline": "example_value",
+        "connections": [
+          {}
+        ],
+        "references": [
+          {}
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Importartifacts200Example",
+      "example": {
+        "success": true,
+        "importedArtifacts": 10,
+        "messages": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StopDeploymentDetails",
+  "title": "StopDeploymentDetails",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "DEFAULT"
+      ],
+      "example": "DEFAULT"
+    }
+  }
+}

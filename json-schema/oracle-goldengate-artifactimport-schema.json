@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArtifactImport",
+  "title": "ArtifactImport",
+  "type": "object",
+  "description": "JSON document containing exported GGSA artifacts",
+  "properties": {
+    "pipeline": {
+      "type": "object",
+      "additionalProperties": true,
+      "example": "example_value"
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "example": []
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "example": []
+    }
+  }
+}

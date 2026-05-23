@@ -1,0 +1,22 @@
+{
+  "operationId": "getReplicatDatabaseStats",
+  "method": "GET",
+  "path": "/services/v2/mpoints/{item}/statisticsReplicat",
+  "summary": "Oracle Goldengate Retrieve Replicat Database Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicatdatabasestats200Example",
+      "example": {
+        "processName": "example_value",
+        "totalOperations": 10,
+        "inserts": 10,
+        "updates": 10,
+        "deletes": 10,
+        "truncates": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "operationId": "collectDeploymentDiagnostics",
+  "method": "POST",
+  "path": "/20200407/deployments/{deploymentId}/actions/collectDiagnostics",
+  "summary": "Oracle Goldengate Collect Deployment Diagnostics",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CollectdeploymentdiagnosticsRequestExample",
+      "example": {
+        "namespaceName": "example_value",
+        "bucketName": "example_value",
+        "diagnosticNamePrefix": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

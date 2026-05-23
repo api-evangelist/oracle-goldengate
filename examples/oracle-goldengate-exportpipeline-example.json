@@ -1,0 +1,53 @@
+{
+  "operationId": "exportPipeline",
+  "method": "GET",
+  "path": "/services/v1/pipelines/{id}/export",
+  "summary": "Oracle Goldengate Export a Pipeline",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Exportpipeline200Example",
+      "example": {
+        "pipeline": {
+          "id": "abc123",
+          "name": "Example Title",
+          "description": "A sample description.",
+          "status": "Draft",
+          "createdBy": "example_value",
+          "createdAt": "2026-01-15T10:30:00Z",
+          "updatedAt": "2026-01-15T10:30:00Z",
+          "sources": [
+            {}
+          ],
+          "targets": [
+            {}
+          ],
+          "stages": [
+            {}
+          ]
+        },
+        "connections": [
+          {
+            "name": "Example Title",
+            "type": "example_value",
+            "configuration": "example_value"
+          }
+        ],
+        "references": [
+          {
+            "name": "Example Title",
+            "type": "example_value"
+          }
+        ],
+        "customJars": [
+          {
+            "name": "Example Title",
+            "path": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RepairReport",
+  "title": "RepairReport",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "totalRows": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "repairedRows": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "failedRows": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    }
+  }
+}

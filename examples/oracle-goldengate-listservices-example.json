@@ -1,0 +1,24 @@
+{
+  "operationId": "listServices",
+  "method": "GET",
+  "path": "/services/v2/deployments/{deployment}/services",
+  "summary": "Oracle Goldengate List Services for a Deployment",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listservices200Example",
+      "example": {
+        "services": [
+          {
+            "name": "Example Title",
+            "type": "example_value",
+            "status": "example_value",
+            "port": 10
+          }
+        ]
+      }
+    }
+  ]
+}

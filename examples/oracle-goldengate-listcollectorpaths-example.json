@@ -1,0 +1,22 @@
+{
+  "operationId": "listCollectorPaths",
+  "method": "GET",
+  "path": "/services/v2/targets",
+  "summary": "Oracle Goldengate List Collector/receiver Paths",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listcollectorpaths200Example",
+      "example": {
+        "paths": [
+          {
+            "name": "Example Title",
+            "status": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

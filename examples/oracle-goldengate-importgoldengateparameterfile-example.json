@@ -1,0 +1,27 @@
+{
+  "operationId": "importGoldenGateParameterFile",
+  "method": "POST",
+  "path": "/services/configuration/vgpp",
+  "summary": "Oracle Goldengate Import Goldengate Parameter File",
+  "requestExamples": [
+    {
+      "contentType": "text/plain",
+      "name": "ImportgoldengateparameterfileRequestExample",
+      "example": "example_value"
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Importgoldengateparameterfile200Example",
+      "example": {
+        "success": true,
+        "itemsImported": 10,
+        "messages": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

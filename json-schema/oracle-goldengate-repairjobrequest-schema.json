@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RepairJobRequest",
+  "title": "RepairJobRequest",
+  "type": "object",
+  "properties": {
+    "repairMode": {
+      "type": "string",
+      "enum": [
+        "insert",
+        "update",
+        "delete",
+        "all"
+      ],
+      "example": "insert"
+    }
+  }
+}

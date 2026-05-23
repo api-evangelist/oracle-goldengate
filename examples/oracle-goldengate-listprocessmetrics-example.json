@@ -1,0 +1,25 @@
+{
+  "operationId": "listProcessMetrics",
+  "method": "GET",
+  "path": "/services/v2/mpoints/processes",
+  "summary": "Oracle Goldengate Retrieve All Process Metrics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listprocessmetrics200Example",
+      "example": {
+        "processes": [
+          {
+            "name": "Example Title",
+            "type": "example_value",
+            "status": "example_value",
+            "lag": 42.5,
+            "operationsProcessed": 10
+          }
+        ]
+      }
+    }
+  ]
+}

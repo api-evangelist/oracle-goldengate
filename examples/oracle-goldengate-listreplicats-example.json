@@ -1,0 +1,24 @@
+{
+  "operationId": "listReplicats",
+  "method": "GET",
+  "path": "/services/v2/replicats",
+  "summary": "Oracle Goldengate List All Replicat Processes",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listreplicats200Example",
+      "example": {
+        "replicats": [
+          {
+            "name": "Example Title",
+            "type": "example_value",
+            "status": "example_value",
+            "handler": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ComparePair",
+  "title": "ComparePair",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "example": "abc123"
+    },
+    "groupId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "sourceSchema": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sourceTable": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "targetSchema": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "targetTable": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "profileId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "columnMappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ColumnMapping"
+      },
+      "example": []
+    }
+  }
+}

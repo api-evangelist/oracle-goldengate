@@ -1,0 +1,22 @@
+{
+  "operationId": "getDatabaseTables",
+  "method": "GET",
+  "path": "/services/v2/connections/{connection}/databases/{database}/{schema}",
+  "summary": "Oracle Goldengate Retrieve Database Tables",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatabasetables200Example",
+      "example": {
+        "tables": [
+          {
+            "name": "Example Title",
+            "owner": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

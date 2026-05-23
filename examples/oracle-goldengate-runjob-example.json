@@ -1,0 +1,29 @@
+{
+  "operationId": "runJob",
+  "method": "POST",
+  "path": "/services/execution/jobs/{Id}",
+  "summary": "Oracle Goldengate Run a Comparison Job",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RunjobRequestExample",
+      "example": {
+        "profileOverrides": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Runjob200Example",
+      "example": {
+        "runId": "500123",
+        "jobId": "500123",
+        "status": "running",
+        "startTime": "2026-01-15T10:30:00Z",
+        "endTime": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

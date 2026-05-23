@@ -1,0 +1,38 @@
+{
+  "operationId": "createDeploymentBackup",
+  "method": "POST",
+  "path": "/20200407/deploymentBackups",
+  "summary": "Oracle Goldengate Create a Deployment Backup",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatedeploymentbackupRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "compartmentId": "500123",
+        "deploymentId": "500123",
+        "namespaceName": "example_value",
+        "bucketName": "example_value",
+        "objectName": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createdeploymentbackup200Example",
+      "example": {
+        "id": "abc123",
+        "deploymentId": "500123",
+        "displayName": "example_value",
+        "compartmentId": "500123",
+        "lifecycleState": "example_value",
+        "sizeInBytes": 10,
+        "backupType": "INCREMENTAL",
+        "oggVersion": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

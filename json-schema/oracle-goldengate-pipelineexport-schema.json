@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineExport",
+  "title": "PipelineExport",
+  "type": "object",
+  "description": "Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)",
+  "properties": {
+    "pipeline": {
+      "$ref": "#/components/schemas/Pipeline"
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "example": []
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    },
+    "customJars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

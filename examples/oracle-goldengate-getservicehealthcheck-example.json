@@ -1,0 +1,19 @@
+{
+  "operationId": "getServiceHealthCheck",
+  "method": "GET",
+  "path": "/services/v2/config/health/check",
+  "summary": "Oracle Goldengate Get Service Health Summary Check",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getservicehealthcheck200Example",
+      "example": {
+        "healthy": true,
+        "status": "example_value",
+        "timestamp": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

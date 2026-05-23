@@ -1,0 +1,22 @@
+{
+  "operationId": "updateDeployment",
+  "method": "PUT",
+  "path": "/20200407/deployments/{deploymentId}",
+  "summary": "Oracle Goldengate Update a Deployment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatedeploymentRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "fqdn": "example_value",
+        "cpuCoreCount": 10,
+        "isAutoScalingEnabled": true,
+        "isPublic": true,
+        "freeformTags": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

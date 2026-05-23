@@ -1,0 +1,23 @@
+{
+  "operationId": "validateGroup",
+  "method": "POST",
+  "path": "/services/configuration/groups/validate/{Id}",
+  "summary": "Oracle Goldengate Validate a Compare Group",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Validategroup200Example",
+      "example": {
+        "valid": "500123",
+        "messages": [
+          {
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

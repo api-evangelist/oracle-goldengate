@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineTarget",
+  "title": "PipelineTarget",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "description": "Target type",
+      "enum": [
+        "Kafka",
+        "GoldenGate",
+        "Database",
+        "REST",
+        "Elasticsearch",
+        "ObjectStorage"
+      ],
+      "example": "Kafka"
+    },
+    "connectionName": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

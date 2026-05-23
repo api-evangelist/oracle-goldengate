@@ -1,0 +1,19 @@
+{
+  "operationId": "getEncryptionKey",
+  "method": "GET",
+  "path": "/services/v2/enckeys/{keyName}",
+  "summary": "Oracle Goldengate Retrieve an Encryption Key",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getencryptionkey200Example",
+      "example": {
+        "name": "Example Title",
+        "algorithm": "example_value",
+        "createdAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

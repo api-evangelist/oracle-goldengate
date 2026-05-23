@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProcessMetrics",
+  "title": "ProcessMetrics",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lag": {
+      "type": "number",
+      "example": 42.5
+    },
+    "checkpointLag": {
+      "type": "number",
+      "example": 42.5
+    },
+    "inputBytes": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "outputBytes": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "operationsProcessed": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    }
+  }
+}

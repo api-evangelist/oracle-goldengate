@@ -1,0 +1,26 @@
+{
+  "operationId": "getConnection",
+  "method": "GET",
+  "path": "/20200407/connections/{connectionId}",
+  "summary": "Oracle Goldengate Get a Connection",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getconnection200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "connectionType": "GOLDENGATE",
+        "technologyType": "example_value",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z",
+        "freeformTags": "example_value"
+      }
+    }
+  ]
+}

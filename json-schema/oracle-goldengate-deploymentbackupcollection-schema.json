@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeploymentBackupCollection",
+  "title": "DeploymentBackupCollection",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/DeploymentBackupSummary"
+      },
+      "example": []
+    }
+  }
+}

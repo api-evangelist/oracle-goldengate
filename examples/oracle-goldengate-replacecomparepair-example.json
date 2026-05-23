@@ -1,0 +1,42 @@
+{
+  "operationId": "replaceComparePair",
+  "method": "PUT",
+  "path": "/services/configuration/cps/{Id}",
+  "summary": "Oracle Goldengate Replace a Compare Pair",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReplacecomparepairRequestExample",
+      "example": {
+        "sourceSchema": "example_value",
+        "sourceTable": "example_value",
+        "targetSchema": "example_value",
+        "targetTable": "example_value",
+        "profileId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Replacecomparepair200Example",
+      "example": {
+        "id": "abc123",
+        "groupId": "500123",
+        "sourceSchema": "example_value",
+        "sourceTable": "example_value",
+        "targetSchema": "example_value",
+        "targetTable": "example_value",
+        "profileId": "500123",
+        "columnMappings": [
+          {
+            "sourceColumn": "example_value",
+            "targetColumn": "example_value",
+            "dataType": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "operationId": "createComparePairs",
+  "method": "POST",
+  "path": "/services/configuration/cps/group/{groupId}",
+  "summary": "Oracle Goldengate Create Compare Pairs in a Group",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatecomparepairsRequestExample",
+      "example": {
+        "comparePairs": [
+          {
+            "sourceSchema": "example_value",
+            "sourceTable": "example_value",
+            "targetSchema": "example_value",
+            "targetTable": "example_value"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createcomparepairs201Example",
+      "example": {
+        "comparePairs": [
+          {
+            "id": "abc123",
+            "groupId": "500123",
+            "sourceSchema": "example_value",
+            "sourceTable": "example_value",
+            "targetSchema": "example_value",
+            "targetTable": "example_value",
+            "profileId": "500123",
+            "columnMappings": {}
+          }
+        ]
+      }
+    }
+  ]
+}

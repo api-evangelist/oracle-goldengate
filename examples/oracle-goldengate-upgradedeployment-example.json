@@ -1,0 +1,17 @@
+{
+  "operationId": "upgradeDeployment",
+  "method": "POST",
+  "path": "/20200407/deployments/{deploymentId}/actions/upgrade",
+  "summary": "Oracle Goldengate Upgrade a Deployment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpgradedeploymentRequestExample",
+      "example": {
+        "type": "CURRENT_RELEASE",
+        "oggVersion": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

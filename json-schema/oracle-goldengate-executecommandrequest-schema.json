@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExecuteCommandRequest",
+  "title": "ExecuteCommandRequest",
+  "type": "object",
+  "required": [
+    "command"
+  ],
+  "properties": {
+    "command": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

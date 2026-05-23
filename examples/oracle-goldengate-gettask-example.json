@@ -1,0 +1,29 @@
+{
+  "operationId": "getTask",
+  "method": "GET",
+  "path": "/services/v2/tasks/{task}",
+  "summary": "Oracle Goldengate Retrieve a Task",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Gettask200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "active",
+        "description": "A sample description.",
+        "schedule": {
+          "type": "once",
+          "interval": "example_value",
+          "startTime": "2026-01-15T10:30:00Z"
+        },
+        "action": {
+          "type": "example_value",
+          "target": "example_value",
+          "command": "example_value"
+        }
+      }
+    }
+  ]
+}

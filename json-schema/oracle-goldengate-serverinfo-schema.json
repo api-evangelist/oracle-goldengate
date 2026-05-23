@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServerInfo",
+  "title": "ServerInfo",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "buildNumber": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "uptime": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "javaVersion": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

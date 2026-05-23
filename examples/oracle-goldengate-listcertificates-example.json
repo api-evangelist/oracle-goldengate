@@ -1,0 +1,24 @@
+{
+  "operationId": "listCertificates",
+  "method": "GET",
+  "path": "/20200407/deployments/{deploymentId}/certificates",
+  "summary": "Oracle Goldengate List Deployment Certificates",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listcertificates200Example",
+      "example": {
+        "items": [
+          {
+            "key": "example_value",
+            "subject": "example_value",
+            "lifecycleState": "example_value",
+            "timeCreated": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

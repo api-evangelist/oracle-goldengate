@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExtractTrailList",
+  "title": "ExtractTrailList",
+  "type": "object",
+  "properties": {
+    "extracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "extractName": {
+            "type": "string"
+          },
+          "trail": {
+            "type": "string"
+          },
+          "trailPath": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

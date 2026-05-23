@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobStatisticsList",
+  "title": "JobStatisticsList",
+  "type": "object",
+  "properties": {
+    "statistics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jobName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalComparePairs": {
+            "type": "integer"
+          },
+          "inSyncCount": {
+            "type": "integer"
+          },
+          "outOfSyncCount": {
+            "type": "integer"
+          },
+          "failedCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

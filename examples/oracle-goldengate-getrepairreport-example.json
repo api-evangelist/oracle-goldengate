@@ -1,0 +1,22 @@
+{
+  "operationId": "getRepairReport",
+  "method": "GET",
+  "path": "/services/monitoring/repair/{runId}/reports",
+  "summary": "Oracle Goldengate Retrieve Repair Report",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getrepairreport200Example",
+      "example": {
+        "runId": "500123",
+        "startTime": "2026-01-15T10:30:00Z",
+        "endTime": "2026-01-15T10:30:00Z",
+        "totalRows": 10,
+        "repairedRows": 10,
+        "failedRows": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Certificate",
+  "title": "Certificate",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "deploymentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "subject": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "issuer": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "isSelfSigned": {
+      "type": "boolean",
+      "example": true
+    },
+    "md5Hash": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "publicKey": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "publicKeyAlgorithm": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timeValidFrom": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "timeValidTo": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "serial": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timeCreated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

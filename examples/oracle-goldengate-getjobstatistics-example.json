@@ -1,0 +1,29 @@
+{
+  "operationId": "getJobStatistics",
+  "method": "GET",
+  "path": "/services/monitoring/jobs",
+  "summary": "Oracle Goldengate Retrieve Job Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getjobstatistics200Example",
+      "example": {
+        "statistics": [
+          {
+            "runId": "500123",
+            "jobName": "example_value",
+            "status": "example_value",
+            "startTime": "2026-01-15T10:30:00Z",
+            "endTime": "2026-01-15T10:30:00Z",
+            "totalComparePairs": 10,
+            "inSyncCount": 10,
+            "outOfSyncCount": 10,
+            "failedCount": 10
+          }
+        ]
+      }
+    }
+  ]
+}

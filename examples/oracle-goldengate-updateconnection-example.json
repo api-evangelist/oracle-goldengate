@@ -1,0 +1,18 @@
+{
+  "operationId": "updateConnection",
+  "method": "PUT",
+  "path": "/20200407/connections/{connectionId}",
+  "summary": "Oracle Goldengate Update a Connection",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateconnectionRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "freeformTags": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

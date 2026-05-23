@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RepairStatisticsList",
+  "title": "RepairStatisticsList",
+  "type": "object",
+  "properties": {
+    "statistics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "rowsRepaired": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rowsFailed": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

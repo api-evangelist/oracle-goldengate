@@ -1,0 +1,26 @@
+{
+  "operationId": "getDatabaseRegistration",
+  "method": "GET",
+  "path": "/20200407/databaseRegistrations/{databaseRegistrationId}",
+  "summary": "Oracle Goldengate Get a Database Registration",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatabaseregistration200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "databaseId": "500123",
+        "connectionString": "example_value",
+        "username": "example_value",
+        "fqdn": "example_value",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

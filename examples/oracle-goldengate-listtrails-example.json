@@ -1,0 +1,23 @@
+{
+  "operationId": "listTrails",
+  "method": "GET",
+  "path": "/services/v2/trails",
+  "summary": "Oracle Goldengate List Trail Files",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listtrails200Example",
+      "example": {
+        "trails": [
+          {
+            "name": "Example Title",
+            "path": "example_value",
+            "sequence": 10
+          }
+        ]
+      }
+    }
+  ]
+}

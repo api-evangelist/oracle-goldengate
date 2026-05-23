@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReplicatStatistics",
+  "title": "ReplicatStatistics",
+  "type": "object",
+  "properties": {
+    "processName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "totalOperations": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "inserts": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "updates": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "deletes": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "handlerStatistics": {
+      "type": "object",
+      "properties": {
+        "recordsWritten": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "bytesWritten": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "batchesProcessed": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

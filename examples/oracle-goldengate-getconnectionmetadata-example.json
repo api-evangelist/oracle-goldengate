@@ -1,0 +1,33 @@
+{
+  "operationId": "getConnectionMetadata",
+  "method": "POST",
+  "path": "/services/configuration/connections/{Id}/metadata",
+  "summary": "Oracle Goldengate Retrieve Connection Metadata",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetconnectionmetadataRequestExample",
+      "example": {
+        "schemaPattern": "example_value",
+        "tablePattern": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getconnectionmetadata200Example",
+      "example": {
+        "schemas": [
+          {
+            "name": "Example Title",
+            "tables": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

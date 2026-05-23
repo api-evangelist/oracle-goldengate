@@ -1,0 +1,25 @@
+{
+  "operationId": "getApiVersions",
+  "method": "GET",
+  "path": "/services",
+  "summary": "Oracle Goldengate Retrieve Api Versions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getapiversions200Example",
+      "example": {
+        "versions": [
+          {
+            "version": "example_value",
+            "isLatest": true,
+            "links": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

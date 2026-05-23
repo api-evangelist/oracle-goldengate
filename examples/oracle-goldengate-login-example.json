@@ -1,0 +1,19 @@
+{
+  "operationId": "login",
+  "method": "GET",
+  "path": "/auth/login",
+  "summary": "Oracle Goldengate Login to Veridata",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Login200Example",
+      "example": {
+        "token": "example_value",
+        "sessionTimeout": 10,
+        "username": "example_value"
+      }
+    }
+  ]
+}

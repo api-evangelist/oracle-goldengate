@@ -1,0 +1,25 @@
+{
+  "operationId": "listMonitoringMessages",
+  "method": "GET",
+  "path": "/services/v2/monitoring/messages",
+  "summary": "Oracle Goldengate Retrieve Process Messages",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmonitoringmessages200Example",
+      "example": {
+        "messages": [
+          {
+            "id": "abc123",
+            "timestamp": "2026-01-15T10:30:00Z",
+            "process": "example_value",
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

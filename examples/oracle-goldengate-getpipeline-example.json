@@ -1,0 +1,25 @@
+{
+  "operationId": "getPipeline",
+  "method": "GET",
+  "path": "/20200407/pipelines/{pipelineId}",
+  "summary": "Oracle Goldengate Get a Pipeline",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpipeline200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "sourceConnectionDetailId": "500123",
+        "targetConnectionDetailId": "500123",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

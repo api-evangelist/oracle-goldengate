@@ -1,0 +1,19 @@
+{
+  "operationId": "getDatabaseNames",
+  "method": "GET",
+  "path": "/services/v2/connections/{connection}/databases",
+  "summary": "Oracle Goldengate Retrieve Database Names",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatabasenames200Example",
+      "example": {
+        "databases": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

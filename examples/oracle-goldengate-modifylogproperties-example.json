@@ -1,0 +1,16 @@
+{
+  "operationId": "modifyLogProperties",
+  "method": "PATCH",
+  "path": "/services/v2/logs/{log}",
+  "summary": "Oracle Goldengate Modify Log Properties",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ModifylogpropertiesRequestExample",
+      "example": {
+        "level": "ERROR"
+      }
+    }
+  ],
+  "responseExamples": []
+}

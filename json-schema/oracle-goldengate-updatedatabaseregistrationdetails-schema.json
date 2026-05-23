@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateDatabaseRegistrationDetails",
+  "title": "UpdateDatabaseRegistrationDetails",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "fqdn": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "username": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "password": {
+      "type": "string",
+      "format": "password",
+      "example": "example_value"
+    },
+    "connectionString": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

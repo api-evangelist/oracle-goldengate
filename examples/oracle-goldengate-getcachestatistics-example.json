@@ -1,0 +1,20 @@
+{
+  "operationId": "getCacheStatistics",
+  "method": "GET",
+  "path": "/services/v2/mpoints/{item}/cacheStatistics",
+  "summary": "Oracle Goldengate Retrieve Cache Manager Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcachestatistics200Example",
+      "example": {
+        "processName": "example_value",
+        "cacheSize": 10,
+        "cacheUsed": 10,
+        "cacheHitRatio": 42.5
+      }
+    }
+  ]
+}

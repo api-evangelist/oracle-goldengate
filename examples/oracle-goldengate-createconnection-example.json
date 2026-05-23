@@ -1,0 +1,39 @@
+{
+  "operationId": "createConnection",
+  "method": "POST",
+  "path": "/20200407/connections",
+  "summary": "Oracle Goldengate Create a Connection",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateconnectionRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "connectionType": "example_value",
+        "technologyType": "example_value",
+        "freeformTags": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createconnection200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "connectionType": "GOLDENGATE",
+        "technologyType": "example_value",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z",
+        "freeformTags": "example_value"
+      }
+    }
+  ]
+}

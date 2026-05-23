@@ -1,0 +1,36 @@
+{
+  "operationId": "replaceConnection",
+  "method": "PUT",
+  "path": "/services/v2/connections/{connection}",
+  "summary": "Oracle Goldengate Replace a Database Connection",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReplaceconnectionRequestExample",
+      "example": {
+        "type": "example_value",
+        "connectionString": "example_value",
+        "credentials": {
+          "domain": "example_value",
+          "alias": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Replaceconnection200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "example_value",
+        "connectionString": "example_value",
+        "credentials": {
+          "domain": "example_value",
+          "alias": "example_value"
+        }
+      }
+    }
+  ]
+}

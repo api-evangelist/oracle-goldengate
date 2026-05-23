@@ -1,0 +1,21 @@
+{
+  "operationId": "getConfigSummary",
+  "method": "GET",
+  "path": "/services/v2/config/summary",
+  "summary": "Oracle Goldengate Get Service Configuration Summary",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getconfigsummary200Example",
+      "example": {
+        "serviceType": "example_value",
+        "status": "example_value",
+        "host": "example_value",
+        "port": 10,
+        "deploymentName": "example_value"
+      }
+    }
+  ]
+}

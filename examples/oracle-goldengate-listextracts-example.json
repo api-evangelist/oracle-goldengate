@@ -1,0 +1,23 @@
+{
+  "operationId": "listExtracts",
+  "method": "GET",
+  "path": "/services/v2/extracts",
+  "summary": "Oracle Goldengate List All Extract Processes",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listextracts200Example",
+      "example": {
+        "extracts": [
+          {
+            "name": "Example Title",
+            "type": "example_value",
+            "status": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

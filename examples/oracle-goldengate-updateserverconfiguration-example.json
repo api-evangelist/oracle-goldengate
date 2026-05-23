@@ -1,0 +1,30 @@
+{
+  "operationId": "updateServerConfiguration",
+  "method": "PATCH",
+  "path": "/services/server/configuration",
+  "summary": "Oracle Goldengate Update Server Configurations",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateserverconfigurationRequestExample",
+      "example": {
+        "maxConcurrentJobs": 10,
+        "maxThreadsPerJob": 10,
+        "reportRetentionDays": 10
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateserverconfiguration200Example",
+      "example": {
+        "maxConcurrentJobs": 10,
+        "maxThreadsPerJob": 10,
+        "reportRetentionDays": 10,
+        "oosRetentionDays": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConnectionAssignmentSummary",
+  "title": "ConnectionAssignmentSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "connectionId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "deploymentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

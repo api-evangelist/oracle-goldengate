@@ -1,0 +1,21 @@
+{
+  "operationId": "getHeartbeatTable",
+  "method": "GET",
+  "path": "/services/v2/connections/{connection}/tables/heartbeat",
+  "summary": "Oracle Goldengate Retrieve Heartbeat Table Configuration",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getheartbeattable200Example",
+      "example": {
+        "owner": "example_value",
+        "table": "example_value",
+        "retentionTime": 10,
+        "frequency": 10,
+        "purgeFrequency": 10
+      }
+    }
+  ]
+}

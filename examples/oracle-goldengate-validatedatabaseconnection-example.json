@@ -1,0 +1,36 @@
+{
+  "operationId": "validateDatabaseConnection",
+  "method": "POST",
+  "path": "/services/validate/connection/db",
+  "summary": "Oracle Goldengate Validate Database Connection",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ValidatedatabaseconnectionRequestExample",
+      "example": {
+        "host": "example_value",
+        "port": 10,
+        "databaseType": "example_value",
+        "serviceName": "example_value",
+        "username": "example_value",
+        "password": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Validatedatabaseconnection200Example",
+      "example": {
+        "valid": "500123",
+        "messages": [
+          {
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

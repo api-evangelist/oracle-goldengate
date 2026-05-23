@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TrailList",
+  "title": "TrailList",
+  "type": "object",
+  "properties": {
+    "trails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

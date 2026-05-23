@@ -1,0 +1,16 @@
+{
+  "operationId": "startDeployment",
+  "method": "POST",
+  "path": "/20200407/deployments/{deploymentId}/actions/start",
+  "summary": "Oracle Goldengate Start a Deployment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StartdeploymentRequestExample",
+      "example": {
+        "type": "DEFAULT"
+      }
+    }
+  ],
+  "responseExamples": []
+}

@@ -1,0 +1,22 @@
+{
+  "operationId": "listConfigFiles",
+  "method": "GET",
+  "path": "/services/v2/config/files",
+  "summary": "Oracle Goldengate List Configuration Files",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listconfigfiles200Example",
+      "example": {
+        "files": [
+          {
+            "name": "Example Title",
+            "lastModified": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

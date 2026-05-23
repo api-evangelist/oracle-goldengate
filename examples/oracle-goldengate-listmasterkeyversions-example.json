@@ -1,0 +1,23 @@
+{
+  "operationId": "listMasterKeyVersions",
+  "method": "GET",
+  "path": "/services/v2/masterkey",
+  "summary": "Oracle Goldengate List Master Key Versions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmasterkeyversions200Example",
+      "example": {
+        "versions": [
+          {
+            "version": 10,
+            "status": "current",
+            "createdAt": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

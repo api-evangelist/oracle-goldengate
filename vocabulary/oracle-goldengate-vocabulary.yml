@@ -1,0 +1,39 @@
+name: Oracle GoldenGate Domain Vocabulary
+provider: Oracle GoldenGate
+providerId: oracle-goldengate
+description: Tag-derived vocabulary for the Oracle GoldenGate API surface; sourced from openapi/ tags.
+terms:
+- term: Certificates
+  description: Manage SSL/TLS certificates
+- term: Commands
+  description: Execute GoldenGate commands
+- term: Configuration
+  description: Manage configuration settings and files
+- term: Connections
+  description: Manage database connections
+- term: Credentials
+  description: Manage credential store domains and aliases
+- term: Deployments
+  description: Manage GoldenGate deployments via the Service Manager
+- term: Distribution
+  description: Manage distribution paths for data delivery
+- term: Encryption
+  description: Manage encryption keys and profiles
+- term: Extracts
+  description: Configure and manage Extract processes
+- term: Heartbeat
+  description: Manage heartbeat tables for lag monitoring
+- term: Logs
+  description: Access service and process logs
+- term: Monitoring
+  description: Performance metrics and monitoring
+- term: Receiver
+  description: Manage receiver/collector paths
+- term: Replicats
+  description: Configure and manage Replicat processes
+- term: Tasks
+  description: Manage automated tasks
+- term: Trails
+  description: Manage trail files
+- term: Users
+  description: User management and authorization

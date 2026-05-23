@@ -1,0 +1,17 @@
+{
+  "operationId": "updatePipeline",
+  "method": "PUT",
+  "path": "/20200407/pipelines/{pipelineId}",
+  "summary": "Oracle Goldengate Update a Pipeline",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatepipelineRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description."
+      }
+    }
+  ],
+  "responseExamples": []
+}

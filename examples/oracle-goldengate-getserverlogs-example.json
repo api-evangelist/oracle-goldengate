@@ -1,0 +1,23 @@
+{
+  "operationId": "getServerLogs",
+  "method": "GET",
+  "path": "/services/logs/server",
+  "summary": "Oracle Goldengate Retrieve Server Logs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getserverlogs200Example",
+      "example": {
+        "entries": [
+          {
+            "timestamp": "2026-01-15T10:30:00Z",
+            "level": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

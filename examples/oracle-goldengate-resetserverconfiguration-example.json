@@ -1,0 +1,20 @@
+{
+  "operationId": "resetServerConfiguration",
+  "method": "PUT",
+  "path": "/services/server/configuration/reset",
+  "summary": "Oracle Goldengate Reset Server Configurations to Default",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Resetserverconfiguration200Example",
+      "example": {
+        "maxConcurrentJobs": 10,
+        "maxThreadsPerJob": 10,
+        "reportRetentionDays": 10,
+        "oosRetentionDays": 10
+      }
+    }
+  ]
+}

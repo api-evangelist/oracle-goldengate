@@ -1,0 +1,29 @@
+{
+  "operationId": "issueReplicatCommand",
+  "method": "POST",
+  "path": "/services/v2/replicats/{replicat}/command",
+  "summary": "Oracle Goldengate Issue a Command to a Replicat",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "IssuereplicatcommandRequestExample",
+      "example": {
+        "action": "start"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Issuereplicatcommand200Example",
+      "example": {
+        "response": {
+          "code": "example_value",
+          "severity": "example_value",
+          "message": "example_value"
+        }
+      }
+    }
+  ]
+}

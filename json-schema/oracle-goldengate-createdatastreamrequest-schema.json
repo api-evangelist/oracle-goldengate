@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateDataStreamRequest",
+  "title": "CreateDataStreamRequest",
+  "type": "object",
+  "required": [
+    "source",
+    "target"
+  ],
+  "properties": {
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "trailName"
+      ],
+      "properties": {
+        "trailName": {
+          "type": "string"
+        },
+        "extractName": {
+          "type": "string"
+        },
+        "beginPosition": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "type",
+        "uri"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "kafka",
+            "rest",
+            "ocistreaming",
+            "goldengate"
+          ]
+        },
+        "uri": {
+          "type": "string"
+        },
+        "topicName": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "json",
+            "avro",
+            "protobuf"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

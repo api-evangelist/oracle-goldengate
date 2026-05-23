@@ -1,0 +1,15 @@
+{
+  "operationId": "exportConfiguration",
+  "method": "GET",
+  "path": "/services/configuration/export",
+  "summary": "Oracle Goldengate Export Veridata Configurations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/xml",
+      "name": "Exportconfiguration200Example",
+      "example": "example_value"
+    }
+  ]
+}

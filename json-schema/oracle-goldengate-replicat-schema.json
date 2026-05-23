@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Replicat",
+  "title": "Replicat",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Replicat process name",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "classic",
+        "coordinated",
+        "integrated",
+        "parallel"
+      ],
+      "example": "classic"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "stopped",
+        "abended"
+      ],
+      "example": "running"
+    },
+    "trail": {
+      "type": "string",
+      "description": "Source trail file",
+      "example": "example_value"
+    },
+    "handler": {
+      "type": "string",
+      "description": "Big data handler type",
+      "enum": [
+        "kafka",
+        "kafkaconnect",
+        "hdfs",
+        "hbase",
+        "cassandra",
+        "mongodb",
+        "elasticsearch",
+        "jdbc",
+        "kinesis",
+        "bigquery",
+        "pubsub",
+        "objectstorage"
+      ],
+      "example": "kafka"
+    },
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Parameter file content including handler configuration",
+      "example": []
+    },
+    "handlerProperties": {
+      "type": "string",
+      "description": "Path to handler properties file",
+      "example": "example_value"
+    }
+  }
+}

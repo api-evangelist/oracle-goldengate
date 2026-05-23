@@ -1,0 +1,24 @@
+{
+  "operationId": "listDatabaseRegistrations",
+  "method": "GET",
+  "path": "/20200407/databaseRegistrations",
+  "summary": "Oracle Goldengate List Database Registrations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdatabaseregistrations200Example",
+      "example": {
+        "items": [
+          {
+            "id": "abc123",
+            "displayName": "example_value",
+            "databaseId": "500123",
+            "lifecycleState": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

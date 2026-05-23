@@ -1,0 +1,23 @@
+{
+  "operationId": "listLogs",
+  "method": "GET",
+  "path": "/services/v2/logs",
+  "summary": "Oracle Goldengate Retrieve Available Logs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listlogs200Example",
+      "example": {
+        "logs": [
+          {
+            "name": "Example Title",
+            "size": 10,
+            "lastModified": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

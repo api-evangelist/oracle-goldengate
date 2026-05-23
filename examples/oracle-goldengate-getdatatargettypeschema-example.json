@@ -1,0 +1,18 @@
+{
+  "operationId": "getDataTargetTypeSchema",
+  "method": "GET",
+  "path": "/services/v2/dataTargetTypes/{dataTargetType}",
+  "summary": "Oracle Goldengate Retrieve Json Schema for a Data Target Type",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatatargettypeschema200Example",
+      "example": {
+        "type": "example_value",
+        "properties": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "operationId": "getExtractCheckpoints",
+  "method": "GET",
+  "path": "/services/v2/extracts/{extract}/info/checkpoints",
+  "summary": "Oracle Goldengate Retrieve Extract Checkpoints",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getextractcheckpoints200Example",
+      "example": {
+        "name": "Example Title",
+        "readCheckpoint": {
+          "sequenceNumber": 10,
+          "rba": 10,
+          "timestamp": "2026-01-15T10:30:00Z"
+        },
+        "writeCheckpoint": {
+          "sequenceNumber": 10,
+          "rba": 10,
+          "timestamp": "2026-01-15T10:30:00Z"
+        }
+      }
+    }
+  ]
+}

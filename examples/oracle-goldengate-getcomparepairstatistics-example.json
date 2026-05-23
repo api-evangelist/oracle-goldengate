@@ -1,0 +1,27 @@
+{
+  "operationId": "getComparePairStatistics",
+  "method": "GET",
+  "path": "/services/monitoring/cps",
+  "summary": "Oracle Goldengate Retrieve Compare Pair Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcomparepairstatistics200Example",
+      "example": {
+        "statistics": [
+          {
+            "comparePairId": "500123",
+            "sourceTable": "example_value",
+            "targetTable": "example_value",
+            "status": "In Sync",
+            "sourceRowCount": 10,
+            "targetRowCount": 10,
+            "outOfSyncRows": 10
+          }
+        ]
+      }
+    }
+  ]
+}

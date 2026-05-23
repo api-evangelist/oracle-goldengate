@@ -1,0 +1,18 @@
+{
+  "operationId": "getExtractReport",
+  "method": "GET",
+  "path": "/services/v2/extracts/{extract}/info/reports/{report}",
+  "summary": "Oracle Goldengate Retrieve a Specific Extract Report",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getextractreport200Example",
+      "example": {
+        "name": "Example Title",
+        "content": "example_value"
+      }
+    }
+  ]
+}

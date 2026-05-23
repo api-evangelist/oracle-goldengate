@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RunJobRequest",
+  "title": "RunJobRequest",
+  "type": "object",
+  "properties": {
+    "profileOverrides": {
+      "type": "object",
+      "additionalProperties": true,
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operationId": "getLog",
+  "method": "GET",
+  "path": "/services/v2/logs/{log}",
+  "summary": "Oracle Goldengate Retrieve a Log File",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getlog200Example",
+      "example": {
+        "name": "Example Title",
+        "content": "example_value",
+        "size": 10
+      }
+    }
+  ]
+}

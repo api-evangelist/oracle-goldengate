@@ -1,0 +1,27 @@
+{
+  "operationId": "listGroups",
+  "method": "GET",
+  "path": "/services/configuration/groups",
+  "summary": "Oracle Goldengate Retrieve All Compare Groups",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listgroups200Example",
+      "example": {
+        "groups": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "description": "A sample description.",
+            "sourceConnectionId": "500123",
+            "targetConnectionId": "500123",
+            "profileId": "500123",
+            "comparePairCount": 10
+          }
+        ]
+      }
+    }
+  ]
+}

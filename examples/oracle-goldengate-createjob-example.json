@@ -1,0 +1,37 @@
+{
+  "operationId": "createJob",
+  "method": "POST",
+  "path": "/services/configuration/jobs",
+  "summary": "Oracle Goldengate Create a Job",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatejobRequestExample",
+      "example": {
+        "name": "Example Title",
+        "description": "A sample description.",
+        "groupIds": [
+          10
+        ],
+        "profileId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createjob201Example",
+      "example": {
+        "id": "abc123",
+        "name": "Example Title",
+        "description": "A sample description.",
+        "groupIds": [
+          10
+        ],
+        "profileId": "500123",
+        "status": "idle"
+      }
+    }
+  ]
+}

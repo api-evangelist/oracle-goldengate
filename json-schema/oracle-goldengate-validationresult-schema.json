@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ValidationResult",
+  "title": "ValidationResult",
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean",
+      "example": "500123"
+    },
+    "message": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

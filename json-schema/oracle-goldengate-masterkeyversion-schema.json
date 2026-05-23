@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MasterKeyVersion",
+  "title": "MasterKeyVersion",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "example": 10
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "current",
+        "retired"
+      ],
+      "example": "current"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

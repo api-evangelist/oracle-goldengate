@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateGroupRequest",
+  "title": "CreateGroupRequest",
+  "type": "object",
+  "required": [
+    "name",
+    "sourceConnectionId",
+    "targetConnectionId"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "sourceConnectionId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "targetConnectionId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "profileId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    }
+  }
+}

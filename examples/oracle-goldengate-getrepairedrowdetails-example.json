@@ -1,0 +1,25 @@
+{
+  "operationId": "getRepairedRowDetails",
+  "method": "GET",
+  "path": "/services/monitoring/repair/cps/{runId}",
+  "summary": "Oracle Goldengate Retrieve Repaired Row Details",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getrepairedrowdetails200Example",
+      "example": {
+        "runId": "500123",
+        "rows": [
+          {
+            "table": "example_value",
+            "repairType": "example_value",
+            "status": "example_value",
+            "keyValues": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

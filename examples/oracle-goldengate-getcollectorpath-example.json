@@ -1,0 +1,20 @@
+{
+  "operationId": "getCollectorPath",
+  "method": "GET",
+  "path": "/services/v2/targets/{path}",
+  "summary": "Oracle Goldengate Retrieve a Collector Path",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcollectorpath200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "running",
+        "trail": "example_value",
+        "port": 10
+      }
+    }
+  ]
+}

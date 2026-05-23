@@ -1,0 +1,32 @@
+{
+  "operationId": "validateAgentConnection",
+  "method": "POST",
+  "path": "/services/validate/connection",
+  "summary": "Oracle Goldengate Validate Agent Connection",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ValidateagentconnectionRequestExample",
+      "example": {
+        "host": "example_value",
+        "port": 10
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Validateagentconnection200Example",
+      "example": {
+        "valid": "500123",
+        "messages": [
+          {
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "operationId": "getReplicatCheckpoints",
+  "method": "GET",
+  "path": "/services/v2/replicats/{replicat}/info/checkpoints",
+  "summary": "Oracle Goldengate Retrieve Replicat Checkpoints",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicatcheckpoints200Example",
+      "example": {
+        "name": "Example Title",
+        "readCheckpoint": {
+          "sequenceNumber": 10,
+          "rba": 10,
+          "timestamp": "2026-01-15T10:30:00Z"
+        },
+        "writeCheckpoint": {
+          "sequenceNumber": 10,
+          "rba": 10,
+          "timestamp": "2026-01-15T10:30:00Z"
+        }
+      }
+    }
+  ]
+}

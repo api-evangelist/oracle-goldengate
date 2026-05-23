@@ -1,0 +1,27 @@
+{
+  "operationId": "importConfiguration",
+  "method": "POST",
+  "path": "/services/configuration/import",
+  "summary": "Oracle Goldengate Import Veridata Xml Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/xml",
+      "name": "ImportconfigurationRequestExample",
+      "example": "example_value"
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Importconfiguration200Example",
+      "example": {
+        "success": true,
+        "itemsImported": 10,
+        "messages": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

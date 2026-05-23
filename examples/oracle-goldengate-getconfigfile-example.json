@@ -1,0 +1,18 @@
+{
+  "operationId": "getConfigFile",
+  "method": "GET",
+  "path": "/services/v2/config/files/{file}",
+  "summary": "Oracle Goldengate Retrieve a Configuration File",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getconfigfile200Example",
+      "example": {
+        "name": "Example Title",
+        "content": "example_value"
+      }
+    }
+  ]
+}

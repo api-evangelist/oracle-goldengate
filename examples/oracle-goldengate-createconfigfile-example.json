@@ -1,0 +1,16 @@
+{
+  "operationId": "createConfigFile",
+  "method": "POST",
+  "path": "/services/v2/config/files/{file}",
+  "summary": "Oracle Goldengate Create a Configuration File",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateconfigfileRequestExample",
+      "example": {
+        "content": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

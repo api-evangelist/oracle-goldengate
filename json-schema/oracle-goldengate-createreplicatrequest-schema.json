@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateReplicatRequest",
+  "title": "CreateReplicatRequest",
+  "type": "object",
+  "required": [
+    "type",
+    "trail",
+    "config"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "classic",
+        "coordinated",
+        "integrated",
+        "parallel"
+      ],
+      "example": "classic"
+    },
+    "trail": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "begin": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "checkpointTable": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

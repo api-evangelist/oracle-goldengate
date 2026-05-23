@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StatusChangeList",
+  "title": "StatusChangeList",
+  "type": "object",
+  "properties": {
+    "statusChanges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "process": {
+            "type": "string"
+          },
+          "previousStatus": {
+            "type": "string"
+          },
+          "currentStatus": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

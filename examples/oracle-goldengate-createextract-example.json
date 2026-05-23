@@ -1,0 +1,36 @@
+{
+  "operationId": "createExtract",
+  "method": "POST",
+  "path": "/services/v2/extracts/{extract}",
+  "summary": "Oracle Goldengate Create an Extract Process",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateextractRequestExample",
+      "example": {
+        "type": "cdc",
+        "trail": "example_value",
+        "begin": "example_value",
+        "config": [
+          "example_value"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createextract201Example",
+      "example": {
+        "name": "Example Title",
+        "type": "cdc",
+        "status": "running",
+        "trail": "example_value",
+        "config": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

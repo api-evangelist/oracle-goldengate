@@ -1,0 +1,43 @@
+{
+  "operationId": "updateTask",
+  "method": "PATCH",
+  "path": "/services/v2/tasks/{task}",
+  "summary": "Oracle Goldengate Update a Task",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatetaskRequestExample",
+      "example": {
+        "description": "A sample description.",
+        "status": "example_value",
+        "schedule": {
+          "type": "example_value",
+          "interval": "example_value",
+          "startTime": "2026-01-15T10:30:00Z"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatetask200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "active",
+        "description": "A sample description.",
+        "schedule": {
+          "type": "once",
+          "interval": "example_value",
+          "startTime": "2026-01-15T10:30:00Z"
+        },
+        "action": {
+          "type": "example_value",
+          "target": "example_value",
+          "command": "example_value"
+        }
+      }
+    }
+  ]
+}

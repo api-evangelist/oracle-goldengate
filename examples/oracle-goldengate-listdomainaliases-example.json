@@ -1,0 +1,23 @@
+{
+  "operationId": "listDomainAliases",
+  "method": "GET",
+  "path": "/services/v2/credentials/{domain}",
+  "summary": "Oracle Goldengate List Aliases in a Credential Domain",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdomainaliases200Example",
+      "example": {
+        "aliases": [
+          {
+            "domain": "example_value",
+            "alias": "example_value",
+            "userid": "500123"
+          }
+        ]
+      }
+    }
+  ]
+}

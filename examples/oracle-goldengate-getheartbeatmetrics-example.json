@@ -1,0 +1,19 @@
+{
+  "operationId": "getHeartbeatMetrics",
+  "method": "GET",
+  "path": "/services/v2/mpoints/{item}/heartbeat",
+  "summary": "Oracle Goldengate Retrieve Heartbeat Timing Metrics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getheartbeatmetrics200Example",
+      "example": {
+        "processName": "example_value",
+        "lastHeartbeat": "2026-01-15T10:30:00Z",
+        "lagInSeconds": 42.5
+      }
+    }
+  ]
+}

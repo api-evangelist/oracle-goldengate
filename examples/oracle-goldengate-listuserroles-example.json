@@ -1,0 +1,19 @@
+{
+  "operationId": "listUserRoles",
+  "method": "GET",
+  "path": "/services/v2/authorizations",
+  "summary": "Oracle Goldengate List User Roles",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listuserroles200Example",
+      "example": {
+        "roles": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

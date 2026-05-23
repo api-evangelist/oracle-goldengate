@@ -1,0 +1,42 @@
+{
+  "operationId": "getDataStream",
+  "method": "GET",
+  "path": "/services/v2/stream/{streamname}",
+  "summary": "Oracle Goldengate Retrieve a Data Stream",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatastream200Example",
+      "example": {
+        "name": "Example Title",
+        "description": "A sample description.",
+        "status": "active",
+        "source": {
+          "trailName": "example_value",
+          "extractName": "example_value",
+          "beginPosition": "example_value"
+        },
+        "target": {
+          "type": "kafka",
+          "uri": "example_value",
+          "topicName": "example_value",
+          "format": "json"
+        },
+        "filters": [
+          {
+            "schema": "example_value",
+            "table": "example_value",
+            "operations": [
+              {}
+            ]
+          }
+        ],
+        "asyncApiSpec": "example_value",
+        "createdAt": "2026-01-15T10:30:00Z",
+        "updatedAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

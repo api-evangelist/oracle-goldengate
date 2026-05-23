@@ -1,0 +1,29 @@
+{
+  "operationId": "executeCommand",
+  "method": "POST",
+  "path": "/services/v2/commands/execute",
+  "summary": "Oracle Goldengate Execute a Goldengate Command",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ExecutecommandRequestExample",
+      "example": {
+        "command": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Executecommand200Example",
+      "example": {
+        "response": {
+          "code": "example_value",
+          "severity": "example_value",
+          "message": "example_value"
+        }
+      }
+    }
+  ]
+}

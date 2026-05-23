@@ -1,0 +1,25 @@
+{
+  "operationId": "listConnections",
+  "method": "GET",
+  "path": "/20200407/connections",
+  "summary": "Oracle Goldengate List Connections",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listconnections200Example",
+      "example": {
+        "items": [
+          {
+            "id": "abc123",
+            "displayName": "example_value",
+            "connectionType": "example_value",
+            "lifecycleState": "example_value",
+            "timeCreated": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

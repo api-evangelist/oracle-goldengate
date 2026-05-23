@@ -1,0 +1,19 @@
+{
+  "operationId": "createEncryptionKey",
+  "method": "POST",
+  "path": "/services/v2/enckeys/{keyName}",
+  "summary": "Oracle Goldengate Create an Encryption Key",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createencryptionkey201Example",
+      "example": {
+        "name": "Example Title",
+        "algorithm": "example_value",
+        "createdAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

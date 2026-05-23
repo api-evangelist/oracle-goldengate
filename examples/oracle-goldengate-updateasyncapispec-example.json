@@ -1,0 +1,26 @@
+{
+  "operationId": "updateAsyncApiSpec",
+  "method": "PATCH",
+  "path": "/services/v2/stream/{streamname}/yaml",
+  "summary": "Oracle Goldengate Update Asyncapi Specification",
+  "requestExamples": [
+    {
+      "contentType": "application/x-yaml",
+      "name": "UpdateasyncapispecRequestExample",
+      "example": "example_value"
+    },
+    {
+      "contentType": "text/yaml",
+      "name": "UpdateasyncapispecRequestExample",
+      "example": "example_value"
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/x-yaml",
+      "name": "Updateasyncapispec200Example",
+      "example": "example_value"
+    }
+  ]
+}

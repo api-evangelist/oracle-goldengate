@@ -1,0 +1,32 @@
+{
+  "operationId": "createHeartbeatTable",
+  "method": "POST",
+  "path": "/services/v2/connections/{connection}/tables/heartbeat",
+  "summary": "Oracle Goldengate Create Heartbeat Table",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateheartbeattableRequestExample",
+      "example": {
+        "owner": "example_value",
+        "retentionTime": 10,
+        "frequency": 10,
+        "purgeFrequency": 10
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createheartbeattable201Example",
+      "example": {
+        "owner": "example_value",
+        "table": "example_value",
+        "retentionTime": 10,
+        "frequency": 10,
+        "purgeFrequency": 10
+      }
+    }
+  ]
+}

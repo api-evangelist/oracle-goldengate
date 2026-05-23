@@ -1,0 +1,29 @@
+{
+  "operationId": "createDistributionPath",
+  "method": "POST",
+  "path": "/services/v2/sources/{distpath}",
+  "summary": "Oracle Goldengate Create a Distribution Path",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatedistributionpathRequestExample",
+      "example": {
+        "source": "example_value",
+        "target": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createdistributionpath201Example",
+      "example": {
+        "name": "Example Title",
+        "status": "example_value",
+        "source": "example_value",
+        "target": "example_value"
+      }
+    }
+  ]
+}

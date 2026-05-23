@@ -1,0 +1,16 @@
+{
+  "operationId": "changeDeploymentCompartment",
+  "method": "POST",
+  "path": "/20200407/deployments/{deploymentId}/actions/changeCompartment",
+  "summary": "Oracle Goldengate Change Deployment Compartment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ChangedeploymentcompartmentRequestExample",
+      "example": {
+        "compartmentId": "500123"
+      }
+    }
+  ],
+  "responseExamples": []
+}

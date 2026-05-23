@@ -1,0 +1,26 @@
+{
+  "operationId": "getOutOfSyncData",
+  "method": "GET",
+  "path": "/services/oos/{runId}",
+  "summary": "Oracle Goldengate Retrieve Out-of-sync Data",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getoutofsyncdata200Example",
+      "example": {
+        "runId": "500123",
+        "rows": [
+          {
+            "comparePairId": "500123",
+            "sourceTable": "example_value",
+            "targetTable": "example_value",
+            "oosType": "missing_in_target",
+            "keyValues": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

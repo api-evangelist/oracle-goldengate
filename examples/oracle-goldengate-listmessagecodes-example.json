@@ -1,0 +1,19 @@
+{
+  "operationId": "listMessageCodes",
+  "method": "GET",
+  "path": "/services/v2/oggerr",
+  "summary": "Oracle Goldengate List Message Codes",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmessagecodes200Example",
+      "example": {
+        "codes": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

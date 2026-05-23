@@ -1,0 +1,25 @@
+{
+  "operationId": "getHeartbeatEntries",
+  "method": "GET",
+  "path": "/services/v2/connections/{connection}/tables/heartbeatData",
+  "summary": "Oracle Goldengate Retrieve Heartbeat Table Entries",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getheartbeatentries200Example",
+      "example": {
+        "entries": [
+          {
+            "sourceProcess": "example_value",
+            "targetProcess": "example_value",
+            "lastHeartbeatSent": "2026-01-15T10:30:00Z",
+            "lastHeartbeatReceived": "2026-01-15T10:30:00Z",
+            "lagInSeconds": 42.5
+          }
+        ]
+      }
+    }
+  ]
+}

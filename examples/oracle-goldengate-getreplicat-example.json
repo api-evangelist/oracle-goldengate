@@ -1,0 +1,25 @@
+{
+  "operationId": "getReplicat",
+  "method": "GET",
+  "path": "/services/v2/replicats/{replicat}",
+  "summary": "Oracle Goldengate Retrieve a Replicat Process",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreplicat200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "classic",
+        "status": "running",
+        "trail": "example_value",
+        "handler": "kafka",
+        "config": [
+          "example_value"
+        ],
+        "handlerProperties": "example_value"
+      }
+    }
+  ]
+}

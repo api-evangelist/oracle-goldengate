@@ -1,0 +1,20 @@
+{
+  "operationId": "getMessageExplanation",
+  "method": "GET",
+  "path": "/services/v2/oggerr/{message}",
+  "summary": "Oracle Goldengate Retrieve Message Explanation",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getmessageexplanation200Example",
+      "example": {
+        "code": "example_value",
+        "message": "example_value",
+        "explanation": "example_value",
+        "action": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "operationId": "getProfile",
+  "method": "GET",
+  "path": "/services/configuration/profiles/{Id}",
+  "summary": "Oracle Goldengate Retrieve a Profile",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getprofile200Example",
+      "example": {
+        "id": "abc123",
+        "name": "Example Title",
+        "description": "A sample description.",
+        "comparisonMethod": "row",
+        "maxConcurrentComparePairs": 10,
+        "deltaProcessing": true,
+        "reportOutOfSync": true
+      }
+    }
+  ]
+}

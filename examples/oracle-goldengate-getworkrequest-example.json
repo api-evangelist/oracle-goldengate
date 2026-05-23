@@ -1,0 +1,31 @@
+{
+  "operationId": "getWorkRequest",
+  "method": "GET",
+  "path": "/20200407/workRequests/{workRequestId}",
+  "summary": "Oracle Goldengate Get a Work Request",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getworkrequest200Example",
+      "example": {
+        "id": "abc123",
+        "operationType": "example_value",
+        "status": "ACCEPTED",
+        "percentComplete": 42.5,
+        "timeAccepted": "2026-01-15T10:30:00Z",
+        "timeStarted": "2026-01-15T10:30:00Z",
+        "timeFinished": "2026-01-15T10:30:00Z",
+        "resources": [
+          {
+            "entityType": "example_value",
+            "actionType": "example_value",
+            "identifier": "example_value",
+            "entityUri": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

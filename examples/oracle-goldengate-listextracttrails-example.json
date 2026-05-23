@@ -1,0 +1,23 @@
+{
+  "operationId": "listExtractTrails",
+  "method": "GET",
+  "path": "/services/v2/exttrails",
+  "summary": "Oracle Goldengate List Deployment Extracts With Trail Files",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listextracttrails200Example",
+      "example": {
+        "extracts": [
+          {
+            "extractName": "example_value",
+            "trail": "example_value",
+            "trailPath": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

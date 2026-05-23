@@ -1,0 +1,27 @@
+{
+  "operationId": "manageSchemaSupplementalLogging",
+  "method": "POST",
+  "path": "/services/v2/connections/{connection}/trandata/schema",
+  "summary": "Oracle Goldengate Manage Schema Supplemental Logging",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ManageschemasupplementalloggingRequestExample",
+      "example": {
+        "operation": "add",
+        "name": "Example Title"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Manageschemasupplementallogging200Example",
+      "example": {
+        "result": "example_value",
+        "message": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CollectDiagnosticsDetails",
+  "title": "CollectDiagnosticsDetails",
+  "type": "object",
+  "required": [
+    "namespaceName",
+    "bucketName",
+    "diagnosticNamePrefix"
+  ],
+  "properties": {
+    "namespaceName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "bucketName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "diagnosticNamePrefix": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

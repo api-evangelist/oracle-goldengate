@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EncryptionKeyList",
+  "title": "EncryptionKeyList",
+  "type": "object",
+  "properties": {
+    "keys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/EncryptionKey"
+      },
+      "example": []
+    }
+  }
+}

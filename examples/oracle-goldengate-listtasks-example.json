@@ -1,0 +1,23 @@
+{
+  "operationId": "listTasks",
+  "method": "GET",
+  "path": "/services/v2/tasks",
+  "summary": "Oracle Goldengate List Automated Tasks",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listtasks200Example",
+      "example": {
+        "tasks": [
+          {
+            "name": "Example Title",
+            "status": "example_value",
+            "schedule": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

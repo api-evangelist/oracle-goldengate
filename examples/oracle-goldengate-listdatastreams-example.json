@@ -1,0 +1,23 @@
+{
+  "operationId": "listDataStreams",
+  "method": "GET",
+  "path": "/services/v2/stream",
+  "summary": "Oracle Goldengate List Data Streams",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdatastreams200Example",
+      "example": {
+        "streams": [
+          {
+            "name": "Example Title",
+            "status": "example_value",
+            "source": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "operationId": "getCertificate",
+  "method": "GET",
+  "path": "/services/v2/certificates/{type}/{certificate}",
+  "summary": "Oracle Goldengate Retrieve a Certificate",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcertificate200Example",
+      "example": {
+        "alias": "example_value",
+        "subject": "example_value",
+        "issuer": "example_value",
+        "serialNumber": "example_value",
+        "notBefore": "2026-01-15T10:30:00Z",
+        "notAfter": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

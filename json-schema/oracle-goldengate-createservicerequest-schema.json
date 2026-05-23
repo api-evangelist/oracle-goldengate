@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateServiceRequest",
+  "title": "CreateServiceRequest",
+  "type": "object",
+  "required": [
+    "type",
+    "port"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "AdminServer",
+        "DistributionServer",
+        "ReceiverServer",
+        "PerformanceMetricsServer"
+      ],
+      "example": "AdminServer"
+    },
+    "port": {
+      "type": "integer",
+      "example": 10
+    },
+    "secure": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

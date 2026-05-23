@@ -1,0 +1,23 @@
+{
+  "operationId": "getExtract",
+  "method": "GET",
+  "path": "/services/v2/extracts/{extract}",
+  "summary": "Oracle Goldengate Retrieve an Extract Process",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getextract200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "cdc",
+        "status": "running",
+        "trail": "example_value",
+        "config": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

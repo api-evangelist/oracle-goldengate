@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateReplicatRequest",
+  "title": "UpdateReplicatRequest",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ValidateDatabaseRequest",
+  "title": "ValidateDatabaseRequest",
+  "type": "object",
+  "required": [
+    "host",
+    "port",
+    "databaseType"
+  ],
+  "properties": {
+    "host": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "port": {
+      "type": "integer",
+      "example": 10
+    },
+    "databaseType": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "serviceName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "username": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "password": {
+      "type": "string",
+      "format": "password",
+      "example": "example_value"
+    }
+  }
+}

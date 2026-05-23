@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HeartbeatEntries",
+  "title": "HeartbeatEntries",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceProcess": {
+            "type": "string"
+          },
+          "targetProcess": {
+            "type": "string"
+          },
+          "lastHeartbeatSent": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastHeartbeatReceived": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lagInSeconds": {
+            "type": "number"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

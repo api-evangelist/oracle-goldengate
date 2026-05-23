@@ -1,0 +1,30 @@
+{
+  "operationId": "updateCollectorPath",
+  "method": "PATCH",
+  "path": "/services/v2/targets/{path}",
+  "summary": "Oracle Goldengate Update a Collector Path",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatecollectorpathRequestExample",
+      "example": {
+        "trail": "example_value",
+        "port": 10,
+        "status": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatecollectorpath200Example",
+      "example": {
+        "name": "Example Title",
+        "status": "running",
+        "trail": "example_value",
+        "port": 10
+      }
+    }
+  ]
+}

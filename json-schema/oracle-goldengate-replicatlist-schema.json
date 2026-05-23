@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReplicatList",
+  "title": "ReplicatList",
+  "type": "object",
+  "properties": {
+    "replicats": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ReplicatSummary"
+      },
+      "example": []
+    }
+  }
+}

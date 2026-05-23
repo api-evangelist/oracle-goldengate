@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConnectionStatus",
+  "title": "ConnectionStatus",
+  "type": "object",
+  "properties": {
+    "connectionId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected",
+        "error"
+      ],
+      "example": "connected"
+    },
+    "message": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

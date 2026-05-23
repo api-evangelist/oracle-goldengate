@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DataStreamList",
+  "title": "DataStreamList",
+  "type": "object",
+  "properties": {
+    "streams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/DataStreamSummary"
+      },
+      "example": []
+    }
+  }
+}

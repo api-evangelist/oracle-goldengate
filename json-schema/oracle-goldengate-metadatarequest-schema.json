@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MetadataRequest",
+  "title": "MetadataRequest",
+  "type": "object",
+  "properties": {
+    "schemaPattern": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "tablePattern": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

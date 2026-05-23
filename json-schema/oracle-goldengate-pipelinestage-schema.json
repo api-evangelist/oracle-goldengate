@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineStage",
+  "title": "PipelineStage",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Query",
+        "Pattern",
+        "Rule",
+        "ScoreModel",
+        "Custom"
+      ],
+      "example": "Query"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    }
+  }
+}

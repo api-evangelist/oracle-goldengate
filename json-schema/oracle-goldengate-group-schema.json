@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Group",
+  "title": "Group",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "sourceConnectionId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "targetConnectionId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "profileId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "comparePairCount": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

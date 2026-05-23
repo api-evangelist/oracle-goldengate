@@ -1,0 +1,35 @@
+{
+  "operationId": "getComparisonReport",
+  "method": "GET",
+  "path": "/services/monitoring/comparison/{runId}/reports",
+  "summary": "Oracle Goldengate Retrieve Comparison Report",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcomparisonreport200Example",
+      "example": {
+        "runId": "500123",
+        "jobName": "example_value",
+        "startTime": "2026-01-15T10:30:00Z",
+        "endTime": "2026-01-15T10:30:00Z",
+        "summary": {
+          "totalComparePairs": 10,
+          "inSync": 10,
+          "outOfSync": 10,
+          "failed": 10
+        },
+        "details": [
+          {
+            "sourceTable": "example_value",
+            "targetTable": "example_value",
+            "status": "example_value",
+            "sourceRowCount": 10,
+            "targetRowCount": 10
+          }
+        ]
+      }
+    }
+  ]
+}

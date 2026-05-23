@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeploymentList",
+  "title": "DeploymentList",
+  "type": "object",
+  "properties": {
+    "deployments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/DeploymentSummary"
+      },
+      "example": []
+    }
+  }
+}

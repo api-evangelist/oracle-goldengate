@@ -1,0 +1,19 @@
+{
+  "operationId": "listConfigTypes",
+  "method": "GET",
+  "path": "/services/v2/config/types",
+  "summary": "Oracle Goldengate List Configuration Data Types",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listconfigtypes200Example",
+      "example": {
+        "types": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

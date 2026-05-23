@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Connection",
+  "title": "Connection",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "connectionType": {
+      "type": "string",
+      "enum": [
+        "GOLDENGATE",
+        "KAFKA",
+        "KAFKA_SCHEMA_REGISTRY",
+        "MYSQL",
+        "POSTGRESQL",
+        "ORACLE",
+        "MICROSOFT_SQLSERVER",
+        "MONGODB",
+        "ELASTICSEARCH",
+        "AMAZON_S3",
+        "AMAZON_KINESIS",
+        "AZURE_DATA_LAKE_STORAGE",
+        "AZURE_SYNAPSE_ANALYTICS",
+        "GOOGLE_BIGQUERY",
+        "GOOGLE_CLOUD_STORAGE",
+        "HDFS",
+        "OCI_OBJECT_STORAGE",
+        "REDIS",
+        "SNOWFLAKE",
+        "JAVA_MESSAGE_SERVICE",
+        "DB2",
+        "GENERIC"
+      ],
+      "example": "GOLDENGATE"
+    },
+    "technologyType": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timeCreated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "timeUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "freeformTags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    }
+  }
+}

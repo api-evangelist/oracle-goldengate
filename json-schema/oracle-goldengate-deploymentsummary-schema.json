@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeploymentSummary",
+  "title": "DeploymentSummary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "OCID of the deployment",
+      "example": "abc123"
+    },
+    "displayName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timeCreated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "timeUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceHealthDetails",
+  "title": "ServiceHealthDetails",
+  "type": "object",
+  "properties": {
+    "healthy": {
+      "type": "boolean",
+      "example": true
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "secure": {
+            "type": "boolean"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

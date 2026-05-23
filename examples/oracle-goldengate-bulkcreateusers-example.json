@@ -1,0 +1,36 @@
+{
+  "operationId": "bulkCreateUsers",
+  "method": "POST",
+  "path": "/services/v2/authorizations/{role}",
+  "summary": "Oracle Goldengate Bulk Create Users for a Role",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "BulkcreateusersRequestExample",
+      "example": {
+        "users": [
+          {
+            "name": "Example Title",
+            "password": "example_value"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Bulkcreateusers201Example",
+      "example": {
+        "users": [
+          {
+            "name": "Example Title",
+            "role": "example_value",
+            "description": "A sample description."
+          }
+        ]
+      }
+    }
+  ]
+}

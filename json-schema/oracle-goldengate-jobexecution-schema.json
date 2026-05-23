@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobExecution",
+  "title": "JobExecution",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "jobId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "completed",
+        "stopped",
+        "failed"
+      ],
+      "example": "running"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

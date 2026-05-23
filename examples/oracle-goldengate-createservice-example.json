@@ -1,0 +1,31 @@
+{
+  "operationId": "createService",
+  "method": "POST",
+  "path": "/services/v2/deployments/{deployment}/services/{service}",
+  "summary": "Oracle Goldengate Create a Service",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateserviceRequestExample",
+      "example": {
+        "type": "AdminServer",
+        "port": 10,
+        "secure": true
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createservice201Example",
+      "example": {
+        "name": "Example Title",
+        "type": "AdminServer",
+        "status": "running",
+        "port": 10,
+        "secure": true
+      }
+    }
+  ]
+}

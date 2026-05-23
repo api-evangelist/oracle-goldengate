@@ -1,0 +1,27 @@
+{
+  "operationId": "listProfiles",
+  "method": "GET",
+  "path": "/services/configuration/profiles",
+  "summary": "Oracle Goldengate Retrieve All Profiles",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listprofiles200Example",
+      "example": {
+        "profiles": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "description": "A sample description.",
+            "comparisonMethod": "row",
+            "maxConcurrentComparePairs": 10,
+            "deltaProcessing": true,
+            "reportOutOfSync": true
+          }
+        ]
+      }
+    }
+  ]
+}

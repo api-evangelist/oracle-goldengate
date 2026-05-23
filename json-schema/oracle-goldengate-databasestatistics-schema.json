@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DatabaseStatistics",
+  "title": "DatabaseStatistics",
+  "type": "object",
+  "properties": {
+    "processName": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "totalOperations": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "inserts": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "updates": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "deletes": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    },
+    "truncates": {
+      "type": "integer",
+      "format": "int64",
+      "example": 10
+    }
+  }
+}

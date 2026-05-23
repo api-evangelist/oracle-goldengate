@@ -1,0 +1,26 @@
+{
+  "operationId": "describeApiVersion",
+  "method": "GET",
+  "path": "/services/v2",
+  "summary": "Oracle Goldengate Describe Api Version V2",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Describeapiversion200Example",
+      "example": {
+        "version": "example_value",
+        "isLatest": true,
+        "lifecycle": "example_value",
+        "links": [
+          {
+            "rel": "example_value",
+            "href": "example_value",
+            "mediaType": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

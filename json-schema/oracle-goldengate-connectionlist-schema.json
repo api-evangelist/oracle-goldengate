@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConnectionList",
+  "title": "ConnectionList",
+  "type": "object",
+  "properties": {
+    "connections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/DatabaseConnection"
+      },
+      "example": []
+    }
+  }
+}

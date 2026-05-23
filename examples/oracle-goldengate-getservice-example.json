@@ -1,0 +1,21 @@
+{
+  "operationId": "getService",
+  "method": "GET",
+  "path": "/services/v2/deployments/{deployment}/services/{service}",
+  "summary": "Oracle Goldengate Retrieve a Service",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getservice200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "AdminServer",
+        "status": "running",
+        "port": 10,
+        "secure": true
+      }
+    }
+  ]
+}

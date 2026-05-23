@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpgradeDeploymentDetails",
+  "title": "UpgradeDeploymentDetails",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "CURRENT_RELEASE",
+        "SPECIFIC_RELEASE"
+      ],
+      "example": "CURRENT_RELEASE"
+    },
+    "oggVersion": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

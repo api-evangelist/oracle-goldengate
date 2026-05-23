@@ -1,0 +1,1757 @@
+{
+  "provider": "Oracle GoldenGate",
+  "providerId": "oracle-goldengate",
+  "kind": "json-structure",
+  "description": "Structural overview of the Oracle GoldenGate API surface; extracted from openapi/.",
+  "schemaCount": 105,
+  "operationCount": 121,
+  "schemas": [
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ApiVersionList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ApiVersionDetails",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Link",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ConfigSummary",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ServiceHealthDetails",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "HealthCheckSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "DeploymentList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DeploymentSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Deployment",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "CreateDeploymentRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "oggHome"
+      ]
+    },
+    {
+      "name": "UpdateDeploymentRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ServiceList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ServiceSummary",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Service",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CreateServiceRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "type",
+        "port"
+      ]
+    },
+    {
+      "name": "UpdateServiceRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ExtractList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ExtractSummary",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Extract",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "CreateExtractRequest",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "type",
+        "trail",
+        "config"
+      ]
+    },
+    {
+      "name": "UpdateExtractRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ReplicatList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ReplicatSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Replicat",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "CreateReplicatRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "type",
+        "trail",
+        "config"
+      ]
+    },
+    {
+      "name": "UpdateReplicatRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ProcessCommand",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "action"
+      ]
+    },
+    {
+      "name": "CommandResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ProcessStatus",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Checkpoints",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ReportList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Report",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "LogList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ProcessHistory",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CredentialDomainList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CredentialAliasList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CredentialAlias",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CreateCredentialAliasRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "userid",
+        "password"
+      ]
+    },
+    {
+      "name": "ValidationResult",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ConnectionList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DatabaseConnection",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CreateConnectionRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "credentials"
+      ]
+    },
+    {
+      "name": "HeartbeatTable",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CreateHeartbeatTableRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "UpdateHeartbeatTableRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "HeartbeatEntries",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TrandataRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "operation"
+      ]
+    },
+    {
+      "name": "TrandataResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DatabaseNameList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TableList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TrailList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DistributionPathList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DistributionPathSummary",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "DistributionPath",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "CreateDistributionPathRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "source",
+        "target"
+      ]
+    },
+    {
+      "name": "UpdateDistributionPathRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PathStatistics",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CollectorPathList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CollectorPathSummary",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CollectorPath",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CreateCollectorPathRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "trail"
+      ]
+    },
+    {
+      "name": "UpdateCollectorPathRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ExecuteCommandRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "command"
+      ]
+    },
+    {
+      "name": "TaskList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TaskSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Task",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CreateTaskRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "schedule",
+        "action"
+      ]
+    },
+    {
+      "name": "UpdateTaskRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "EncryptionKeyList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "EncryptionKey",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "MasterKeyVersionList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "MasterKeyVersion",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "RoleList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "UserList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CreateUserRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "password"
+      ]
+    },
+    {
+      "name": "UpdateUserRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "BulkCreateUsersRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "LogContent",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ModifyLogRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "EventList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CertificateTypeList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CertificateNameList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Certificate",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "ProcessMetricsList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ProcessMetrics",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "DatabaseStatistics",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "HeartbeatMetrics",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CacheStatistics",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ProcessPerformance",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "MonitoringMessageList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "StatusChangeList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "MessageList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "RequestList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "RequestStatus",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ConfigTypeList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ConfigFileList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ConfigFile",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ConfigFileContent",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "content"
+      ]
+    },
+    {
+      "name": "ParameterNameList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ParameterInfo",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "MessageCodeList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "MessageExplanation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ExtractTrailList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/services",
+      "operationId": "getApiVersions",
+      "summary": "Oracle Goldengate Retrieve Api Versions",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2",
+      "operationId": "describeApiVersion",
+      "summary": "Oracle Goldengate Describe Api Version V2",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/summary",
+      "operationId": "getConfigSummary",
+      "summary": "Oracle Goldengate Get Service Configuration Summary",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/health",
+      "operationId": "getServiceHealthDetails",
+      "summary": "Oracle Goldengate Get Service Health Details",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/health/check",
+      "operationId": "getServiceHealthCheck",
+      "summary": "Oracle Goldengate Get Service Health Summary Check",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/deployments",
+      "operationId": "listDeployments",
+      "summary": "Oracle Goldengate List All Deployments",
+      "tags": [
+        "Deployments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/deployments/{deployment}",
+      "operationId": "getDeployment",
+      "summary": "Oracle Goldengate Retrieve a Deployment",
+      "tags": [
+        "Deployments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/deployments/{deployment}",
+      "operationId": "createDeployment",
+      "summary": "Oracle Goldengate Create a Deployment",
+      "tags": [
+        "Deployments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/deployments/{deployment}",
+      "operationId": "deleteDeployment",
+      "summary": "Oracle Goldengate Remove a Deployment",
+      "tags": [
+        "Deployments"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/deployments/{deployment}",
+      "operationId": "updateDeployment",
+      "summary": "Oracle Goldengate Update a Deployment",
+      "tags": [
+        "Deployments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/deployments/{deployment}/services",
+      "operationId": "listServices",
+      "summary": "Oracle Goldengate List Services for a Deployment",
+      "tags": []
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/deployments/{deployment}/services/{service}",
+      "operationId": "getService",
+      "summary": "Oracle Goldengate Retrieve a Service",
+      "tags": []
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/deployments/{deployment}/services/{service}",
+      "operationId": "createService",
+      "summary": "Oracle Goldengate Create a Service",
+      "tags": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/deployments/{deployment}/services/{service}",
+      "operationId": "deleteService",
+      "summary": "Oracle Goldengate Remove a Service",
+      "tags": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/deployments/{deployment}/services/{service}",
+      "operationId": "updateService",
+      "summary": "Oracle Goldengate Update Service Properties",
+      "tags": []
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts",
+      "operationId": "listExtracts",
+      "summary": "Oracle Goldengate List All Extract Processes",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}",
+      "operationId": "getExtract",
+      "summary": "Oracle Goldengate Retrieve an Extract Process",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/extracts/{extract}",
+      "operationId": "createExtract",
+      "summary": "Oracle Goldengate Create an Extract Process",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/extracts/{extract}",
+      "operationId": "deleteExtract",
+      "summary": "Oracle Goldengate Delete an Extract Process",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/extracts/{extract}",
+      "operationId": "updateExtract",
+      "summary": "Oracle Goldengate Update an Extract Process",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/extracts/{extract}/command",
+      "operationId": "issueExtractCommand",
+      "summary": "Oracle Goldengate Issue a Command to an Extract",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/status",
+      "operationId": "getExtractStatus",
+      "summary": "Oracle Goldengate Retrieve Extract Status",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/checkpoints",
+      "operationId": "getExtractCheckpoints",
+      "summary": "Oracle Goldengate Retrieve Extract Checkpoints",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/reports",
+      "operationId": "listExtractReports",
+      "summary": "Oracle Goldengate List Extract Reports",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/reports/{report}",
+      "operationId": "getExtractReport",
+      "summary": "Oracle Goldengate Retrieve a Specific Extract Report",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/logs",
+      "operationId": "listExtractLogs",
+      "summary": "Oracle Goldengate List Extract Logs",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/extracts/{extract}/info/history",
+      "operationId": "getExtractHistory",
+      "summary": "Oracle Goldengate Retrieve Extract History",
+      "tags": [
+        "Extracts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats",
+      "operationId": "listReplicats",
+      "summary": "Oracle Goldengate List All Replicat Processes",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats/{replicat}",
+      "operationId": "getReplicat",
+      "summary": "Oracle Goldengate Retrieve a Replicat Process",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/replicats/{replicat}",
+      "operationId": "createReplicat",
+      "summary": "Oracle Goldengate Create a Replicat Process",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/replicats/{replicat}",
+      "operationId": "deleteReplicat",
+      "summary": "Oracle Goldengate Delete a Replicat Process",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/replicats/{replicat}",
+      "operationId": "updateReplicat",
+      "summary": "Oracle Goldengate Update a Replicat Process",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/replicats/{replicat}/command",
+      "operationId": "issueReplicatCommand",
+      "summary": "Oracle Goldengate Issue a Command to a Replicat",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats/{replicat}/info/status",
+      "operationId": "getReplicatStatus",
+      "summary": "Oracle Goldengate Retrieve Replicat Status",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats/{replicat}/info/checkpoints",
+      "operationId": "getReplicatCheckpoints",
+      "summary": "Oracle Goldengate Retrieve Replicat Checkpoints",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats/{replicat}/info/reports",
+      "operationId": "listReplicatReports",
+      "summary": "Oracle Goldengate List Replicat Reports",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/replicats/{replicat}/info/history",
+      "operationId": "getReplicatHistory",
+      "summary": "Oracle Goldengate Retrieve Replicat History",
+      "tags": [
+        "Replicats"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/credentials",
+      "operationId": "listCredentialDomains",
+      "summary": "Oracle Goldengate List Credential Domains",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/credentials/{domain}",
+      "operationId": "listDomainAliases",
+      "summary": "Oracle Goldengate List Aliases in a Credential Domain",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/credentials/{domain}/{alias}",
+      "operationId": "getCredentialAlias",
+      "summary": "Oracle Goldengate Retrieve a Credential Alias",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/credentials/{domain}/{alias}",
+      "operationId": "createCredentialAlias",
+      "summary": "Oracle Goldengate Create a Credential Alias",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/v2/credentials/{domain}/{alias}",
+      "operationId": "replaceCredentialAlias",
+      "summary": "Oracle Goldengate Replace a Credential Alias",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/credentials/{domain}/{alias}",
+      "operationId": "deleteCredentialAlias",
+      "summary": "Oracle Goldengate Delete a Credential Alias",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/credentials/{domain}/{alias}/valid",
+      "operationId": "validateCredentialAlias",
+      "summary": "Oracle Goldengate Validate a Credential Alias",
+      "tags": [
+        "Credentials"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections",
+      "operationId": "listConnections",
+      "summary": "Oracle Goldengate List Database Connections",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections/{connection}",
+      "operationId": "getConnection",
+      "summary": "Oracle Goldengate Retrieve a Database Connection",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/connections/{connection}",
+      "operationId": "createConnection",
+      "summary": "Oracle Goldengate Create a Database Connection",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/v2/connections/{connection}",
+      "operationId": "replaceConnection",
+      "summary": "Oracle Goldengate Replace a Database Connection",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/connections/{connection}",
+      "operationId": "deleteConnection",
+      "summary": "Oracle Goldengate Delete a Database Connection",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections/{connection}/tables/heartbeat",
+      "operationId": "getHeartbeatTable",
+      "summary": "Oracle Goldengate Retrieve Heartbeat Table Configuration",
+      "tags": [
+        "Heartbeat"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/connections/{connection}/tables/heartbeat",
+      "operationId": "createHeartbeatTable",
+      "summary": "Oracle Goldengate Create Heartbeat Table",
+      "tags": [
+        "Heartbeat"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/connections/{connection}/tables/heartbeat",
+      "operationId": "deleteHeartbeatTable",
+      "summary": "Oracle Goldengate Delete Heartbeat Table",
+      "tags": [
+        "Heartbeat"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/connections/{connection}/tables/heartbeat",
+      "operationId": "updateHeartbeatTable",
+      "summary": "Oracle Goldengate Update Heartbeat Table",
+      "tags": [
+        "Heartbeat"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections/{connection}/tables/heartbeatData",
+      "operationId": "getHeartbeatEntries",
+      "summary": "Oracle Goldengate Retrieve Heartbeat Table Entries",
+      "tags": [
+        "Heartbeat"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/connections/{connection}/trandata/table",
+      "operationId": "manageTableSupplementalLogging",
+      "summary": "Oracle Goldengate Manage Table Supplemental Logging",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/connections/{connection}/trandata/schema",
+      "operationId": "manageSchemaSupplementalLogging",
+      "summary": "Oracle Goldengate Manage Schema Supplemental Logging",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections/{connection}/databases",
+      "operationId": "getDatabaseNames",
+      "summary": "Oracle Goldengate Retrieve Database Names",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/connections/{connection}/databases/{database}/{schema}",
+      "operationId": "getDatabaseTables",
+      "summary": "Oracle Goldengate Retrieve Database Tables",
+      "tags": [
+        "Connections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/trails",
+      "operationId": "listTrails",
+      "summary": "Oracle Goldengate List Trail Files",
+      "tags": [
+        "Trails"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/sources",
+      "operationId": "listDistributionPaths",
+      "summary": "Oracle Goldengate List Distribution Paths",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/sources/{distpath}",
+      "operationId": "getDistributionPath",
+      "summary": "Oracle Goldengate Retrieve a Distribution Path",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/sources/{distpath}",
+      "operationId": "createDistributionPath",
+      "summary": "Oracle Goldengate Create a Distribution Path",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/sources/{distpath}",
+      "operationId": "deleteDistributionPath",
+      "summary": "Oracle Goldengate Delete a Distribution Path",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/sources/{distpath}",
+      "operationId": "updateDistributionPath",
+      "summary": "Oracle Goldengate Update a Distribution Path",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/sources/{distpath}/stats",
+      "operationId": "getDistributionPathStats",
+      "summary": "Oracle Goldengate Retrieve Distribution Path Statistics",
+      "tags": [
+        "Distribution"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/targets",
+      "operationId": "listCollectorPaths",
+      "summary": "Oracle Goldengate List Collector/receiver Paths",
+      "tags": [
+        "Receiver"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/targets/{path}",
+      "operationId": "getCollectorPath",
+      "summary": "Oracle Goldengate Retrieve a Collector Path",
+      "tags": [
+        "Receiver"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/targets/{path}",
+      "operationId": "createCollectorPath",
+      "summary": "Oracle Goldengate Create a Collector Path",
+      "tags": [
+        "Receiver"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/targets/{path}",
+      "operationId": "deleteCollectorPath",
+      "summary": "Oracle Goldengate Delete a Collector Path",
+      "tags": [
+        "Receiver"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/targets/{path}",
+      "operationId": "updateCollectorPath",
+      "summary": "Oracle Goldengate Update a Collector Path",
+      "tags": [
+        "Receiver"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/commands/execute",
+      "operationId": "executeCommand",
+      "summary": "Oracle Goldengate Execute a Goldengate Command",
+      "tags": [
+        "Commands"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/tasks",
+      "operationId": "listTasks",
+      "summary": "Oracle Goldengate List Automated Tasks",
+      "tags": [
+        "Tasks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/tasks/{task}",
+      "operationId": "getTask",
+      "summary": "Oracle Goldengate Retrieve a Task",
+      "tags": [
+        "Tasks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/tasks/{task}",
+      "operationId": "createTask",
+      "summary": "Oracle Goldengate Create a Task",
+      "tags": [
+        "Tasks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/tasks/{task}",
+      "operationId": "deleteTask",
+      "summary": "Oracle Goldengate Delete a Task",
+      "tags": [
+        "Tasks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/tasks/{task}",
+      "operationId": "updateTask",
+      "summary": "Oracle Goldengate Update a Task",
+      "tags": [
+        "Tasks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/enckeys",
+      "operationId": "listEncryptionKeys",
+      "summary": "Oracle Goldengate List Encryption Keys",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/enckeys/{keyName}",
+      "operationId": "getEncryptionKey",
+      "summary": "Oracle Goldengate Retrieve an Encryption Key",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/enckeys/{keyName}",
+      "operationId": "createEncryptionKey",
+      "summary": "Oracle Goldengate Create an Encryption Key",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/enckeys/{keyName}",
+      "operationId": "deleteEncryptionKey",
+      "summary": "Oracle Goldengate Delete an Encryption Key",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/masterkey",
+      "operationId": "listMasterKeyVersions",
+      "summary": "Oracle Goldengate List Master Key Versions",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/masterkey",
+      "operationId": "createMasterKeyVersion",
+      "summary": "Oracle Goldengate Create a New Master Key Version",
+      "tags": [
+        "Encryption"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/authorizations",
+      "operationId": "listUserRoles",
+      "summary": "Oracle Goldengate List User Roles",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/authorizations/{role}",
+      "operationId": "listUsers",
+      "summary": "Oracle Goldengate List Users for a Role",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/authorizations/{role}",
+      "operationId": "bulkCreateUsers",
+      "summary": "Oracle Goldengate Bulk Create Users for a Role",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/authorizations/{role}/{user}",
+      "operationId": "getUser",
+      "summary": "Oracle Goldengate Retrieve a User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/authorizations/{role}/{user}",
+      "operationId": "createUser",
+      "summary": "Oracle Goldengate Create a User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/authorizations/{role}/{user}",
+      "operationId": "deleteUser",
+      "summary": "Oracle Goldengate Delete a User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/authorizations/{role}/{user}",
+      "operationId": "updateUser",
+      "summary": "Oracle Goldengate Update a User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/currentuser",
+      "operationId": "getCurrentUser",
+      "summary": "Oracle Goldengate Retrieve Current User Information",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/currentuser",
+      "operationId": "resetCurrentUserInfo",
+      "summary": "Oracle Goldengate Reset Current User Information",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/logs",
+      "operationId": "listLogs",
+      "summary": "Oracle Goldengate Retrieve Available Logs",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/logs/{log}",
+      "operationId": "getLog",
+      "summary": "Oracle Goldengate Retrieve a Log File",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/services/v2/logs/{log}",
+      "operationId": "modifyLogProperties",
+      "summary": "Oracle Goldengate Modify Log Properties",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/logs/events",
+      "operationId": "getCriticalEvents",
+      "summary": "Oracle Goldengate Get Critical Events",
+      "tags": [
+        "Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/certificates",
+      "operationId": "listCertificateTypes",
+      "summary": "Oracle Goldengate Retrieve Available Certificate Types",
+      "tags": [
+        "Certificates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/certificates/{type}",
+      "operationId": "listCertificates",
+      "summary": "Oracle Goldengate Retrieve Certificate Names",
+      "tags": [
+        "Certificates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/certificates/{type}/{certificate}",
+      "operationId": "getCertificate",
+      "summary": "Oracle Goldengate Retrieve a Certificate",
+      "tags": [
+        "Certificates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/processes",
+      "operationId": "listProcessMetrics",
+      "summary": "Oracle Goldengate Retrieve All Process Metrics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/process",
+      "operationId": "getProcessMetrics",
+      "summary": "Oracle Goldengate Retrieve Process Metrics for a Specific Process",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/statisticsExtract",
+      "operationId": "getExtractDatabaseStats",
+      "summary": "Oracle Goldengate Retrieve Extract Database Statistics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/statisticsReplicat",
+      "operationId": "getReplicatDatabaseStats",
+      "summary": "Oracle Goldengate Retrieve Replicat Database Statistics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/heartbeat",
+      "operationId": "getHeartbeatMetrics",
+      "summary": "Oracle Goldengate Retrieve Heartbeat Timing Metrics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/cacheStatistics",
+      "operationId": "getCacheStatistics",
+      "summary": "Oracle Goldengate Retrieve Cache Manager Statistics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/mpoints/{item}/processPerformance",
+      "operationId": "getProcessPerformance",
+      "summary": "Oracle Goldengate Retrieve Process Performance Utilization",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/monitoring/messages",
+      "operationId": "listMonitoringMessages",
+      "summary": "Oracle Goldengate Retrieve Process Messages",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/monitoring/statusChanges",
+      "operationId": "listStatusChanges",
+      "summary": "Oracle Goldengate Retrieve Process Status Changes",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/messages",
+      "operationId": "listMessages",
+      "summary": "Oracle Goldengate Retrieve Administrative Messages",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/requests",
+      "operationId": "listBackgroundRequests",
+      "summary": "Oracle Goldengate Retrieve Background Requests",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/requests/{request}",
+      "operationId": "getRequestStatus",
+      "summary": "Oracle Goldengate Retrieve Request Status",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/types",
+      "operationId": "listConfigTypes",
+      "summary": "Oracle Goldengate List Configuration Data Types",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/files",
+      "operationId": "listConfigFiles",
+      "summary": "Oracle Goldengate List Configuration Files",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/config/files/{file}",
+      "operationId": "getConfigFile",
+      "summary": "Oracle Goldengate Retrieve a Configuration File",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/services/v2/config/files/{file}",
+      "operationId": "createConfigFile",
+      "summary": "Oracle Goldengate Create a Configuration File",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/services/v2/config/files/{file}",
+      "operationId": "replaceConfigFile",
+      "summary": "Oracle Goldengate Replace a Configuration File",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/services/v2/config/files/{file}",
+      "operationId": "deleteConfigFile",
+      "summary": "Oracle Goldengate Delete a Configuration File",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/parameters",
+      "operationId": "listParameters",
+      "summary": "Oracle Goldengate List Parameter Names",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/parameters/{parameter}",
+      "operationId": "getParameterInfo",
+      "summary": "Oracle Goldengate Retrieve Parameter Information",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/oggerr",
+      "operationId": "listMessageCodes",
+      "summary": "Oracle Goldengate List Message Codes",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/oggerr/{message}",
+      "operationId": "getMessageExplanation",
+      "summary": "Oracle Goldengate Retrieve Message Explanation",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/services/v2/exttrails",
+      "operationId": "listExtractTrails",
+      "summary": "Oracle Goldengate List Deployment Extracts With Trail Files",
+      "tags": [
+        "Distribution"
+      ]
+    }
+  ]
+}

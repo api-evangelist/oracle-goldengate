@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReplicatSummary",
+  "title": "ReplicatSummary",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "handler": {
+      "type": "string",
+      "description": "Big data handler type (e.g., kafka, hdfs, mongodb)",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "operationId": "updateReplicat",
+  "method": "PATCH",
+  "path": "/services/v2/replicats/{replicat}",
+  "summary": "Oracle Goldengate Update a Replicat Process",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatereplicatRequestExample",
+      "example": {
+        "config": [
+          "example_value"
+        ],
+        "status": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatereplicat200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "classic",
+        "status": "running",
+        "trail": "example_value",
+        "handler": "kafka",
+        "config": [
+          "example_value"
+        ],
+        "handlerProperties": "example_value"
+      }
+    }
+  ]
+}

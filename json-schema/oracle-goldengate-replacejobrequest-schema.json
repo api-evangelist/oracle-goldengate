@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReplaceJobRequest",
+  "title": "ReplaceJobRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    },
+    "groupIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "example": []
+    },
+    "profileId": {
+      "type": "integer",
+      "format": "int64",
+      "example": "500123"
+    }
+  }
+}

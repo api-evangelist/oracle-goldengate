@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateHeartbeatTableRequest",
+  "title": "UpdateHeartbeatTableRequest",
+  "type": "object",
+  "properties": {
+    "retentionTime": {
+      "type": "integer",
+      "example": 10
+    },
+    "frequency": {
+      "type": "integer",
+      "example": 10
+    },
+    "purgeFrequency": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

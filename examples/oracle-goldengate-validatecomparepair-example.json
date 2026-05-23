@@ -1,0 +1,23 @@
+{
+  "operationId": "validateComparePair",
+  "method": "POST",
+  "path": "/services/configuration/cps/validate/{Id}",
+  "summary": "Oracle Goldengate Validate a Compare Pair",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Validatecomparepair200Example",
+      "example": {
+        "valid": "500123",
+        "messages": [
+          {
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

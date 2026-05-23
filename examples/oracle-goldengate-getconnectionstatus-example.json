@@ -1,0 +1,19 @@
+{
+  "operationId": "getConnectionStatus",
+  "method": "GET",
+  "path": "/services/configuration/connections/{Id}/status",
+  "summary": "Oracle Goldengate Retrieve Connection Status",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getconnectionstatus200Example",
+      "example": {
+        "connectionId": "500123",
+        "status": "connected",
+        "message": "example_value"
+      }
+    }
+  ]
+}

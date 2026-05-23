@@ -1,0 +1,63 @@
+{
+  "operationId": "createDeployment",
+  "method": "POST",
+  "path": "/20200407/deployments",
+  "summary": "Oracle Goldengate Create a Deployment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatedeploymentRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "subnetId": "500123",
+        "licenseModel": "LICENSE_INCLUDED",
+        "fqdn": "example_value",
+        "cpuCoreCount": 10,
+        "isAutoScalingEnabled": true,
+        "isPublic": true,
+        "oggData": {
+          "deploymentName": "example_value",
+          "adminUsername": "example_value",
+          "adminPassword": "example_value"
+        },
+        "freeformTags": "example_value",
+        "definedTags": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createdeployment200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "subnetId": "500123",
+        "licenseModel": "LICENSE_INCLUDED",
+        "fqdn": "example_value",
+        "cpuCoreCount": 10,
+        "isAutoScalingEnabled": true,
+        "isPublic": true,
+        "publicIpAddress": "example_value",
+        "privateIpAddress": "example_value",
+        "deploymentUrl": "https://www.example.com",
+        "lifecycleState": "CREATING",
+        "oggData": {
+          "deploymentName": "example_value",
+          "adminUsername": "example_value",
+          "oggVersion": "example_value",
+          "certificate": "example_value"
+        },
+        "timeCreated": "2026-01-15T10:30:00Z",
+        "timeUpdated": "2026-01-15T10:30:00Z",
+        "freeformTags": "example_value",
+        "definedTags": "example_value"
+      }
+    }
+  ]
+}

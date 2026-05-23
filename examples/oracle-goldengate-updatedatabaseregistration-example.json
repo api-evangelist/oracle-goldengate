@@ -1,0 +1,21 @@
+{
+  "operationId": "updateDatabaseRegistration",
+  "method": "PUT",
+  "path": "/20200407/databaseRegistrations/{databaseRegistrationId}",
+  "summary": "Oracle Goldengate Update a Database Registration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatedatabaseregistrationRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "fqdn": "example_value",
+        "username": "example_value",
+        "password": "example_value",
+        "connectionString": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MappingRulesRequest",
+  "title": "MappingRulesRequest",
+  "type": "object",
+  "properties": {
+    "sourceSchemaPattern": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "targetSchemaPattern": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "tablePattern": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

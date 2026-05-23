@@ -1,0 +1,41 @@
+{
+  "operationId": "createDatabaseRegistration",
+  "method": "POST",
+  "path": "/20200407/databaseRegistrations",
+  "summary": "Oracle Goldengate Create a Database Registration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatedatabaseregistrationRequestExample",
+      "example": {
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "fqdn": "example_value",
+        "username": "example_value",
+        "password": "example_value",
+        "connectionString": "example_value",
+        "databaseId": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createdatabaseregistration200Example",
+      "example": {
+        "id": "abc123",
+        "displayName": "example_value",
+        "description": "A sample description.",
+        "compartmentId": "500123",
+        "databaseId": "500123",
+        "connectionString": "example_value",
+        "username": "example_value",
+        "fqdn": "example_value",
+        "lifecycleState": "example_value",
+        "timeCreated": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

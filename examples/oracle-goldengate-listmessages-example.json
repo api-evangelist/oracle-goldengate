@@ -1,0 +1,23 @@
+{
+  "operationId": "listMessages",
+  "method": "GET",
+  "path": "/services/v2/messages",
+  "summary": "Oracle Goldengate Retrieve Administrative Messages",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmessages200Example",
+      "example": {
+        "messages": [
+          {
+            "timestamp": "2026-01-15T10:30:00Z",
+            "severity": "example_value",
+            "message": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

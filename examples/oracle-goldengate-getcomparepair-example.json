@@ -1,0 +1,30 @@
+{
+  "operationId": "getComparePair",
+  "method": "GET",
+  "path": "/services/configuration/cps/{Id}",
+  "summary": "Oracle Goldengate Retrieve a Compare Pair",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcomparepair200Example",
+      "example": {
+        "id": "abc123",
+        "groupId": "500123",
+        "sourceSchema": "example_value",
+        "sourceTable": "example_value",
+        "targetSchema": "example_value",
+        "targetTable": "example_value",
+        "profileId": "500123",
+        "columnMappings": [
+          {
+            "sourceColumn": "example_value",
+            "targetColumn": "example_value",
+            "dataType": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

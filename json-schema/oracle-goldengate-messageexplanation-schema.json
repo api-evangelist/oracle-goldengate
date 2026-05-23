@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageExplanation",
+  "title": "MessageExplanation",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "message": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "explanation": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "action": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

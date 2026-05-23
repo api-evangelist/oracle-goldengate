@@ -1,0 +1,39 @@
+{
+  "operationId": "createReplicat",
+  "method": "POST",
+  "path": "/services/v2/replicats/{replicat}",
+  "summary": "Oracle Goldengate Create a Replicat Process for a Big Data Target",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatereplicatRequestExample",
+      "example": {
+        "type": "classic",
+        "trail": "example_value",
+        "begin": "example_value",
+        "config": [
+          "example_value"
+        ],
+        "checkpointTable": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createreplicat201Example",
+      "example": {
+        "name": "Example Title",
+        "type": "classic",
+        "status": "running",
+        "trail": "example_value",
+        "handler": "kafka",
+        "config": [
+          "example_value"
+        ],
+        "handlerProperties": "example_value"
+      }
+    }
+  ]
+}

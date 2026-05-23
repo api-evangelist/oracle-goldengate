@@ -1,0 +1,23 @@
+{
+  "operationId": "getParameterInfo",
+  "method": "GET",
+  "path": "/services/v2/parameters/{parameter}",
+  "summary": "Oracle Goldengate Retrieve Parameter Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getparameterinfo200Example",
+      "example": {
+        "name": "Example Title",
+        "description": "A sample description.",
+        "type": "example_value",
+        "defaultValue": "example_value",
+        "validValues": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "operationId": "listEncryptionKeys",
+  "method": "GET",
+  "path": "/services/v2/enckeys",
+  "summary": "Oracle Goldengate List Encryption Keys",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listencryptionkeys200Example",
+      "example": {
+        "keys": [
+          {
+            "name": "Example Title",
+            "algorithm": "example_value",
+            "createdAt": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

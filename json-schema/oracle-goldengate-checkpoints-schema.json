@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Checkpoints",
+  "title": "Checkpoints",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "readCheckpoint": {
+      "type": "object",
+      "properties": {
+        "sequenceNumber": {
+          "type": "integer"
+        },
+        "rba": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "example": "example_value"
+    },
+    "writeCheckpoint": {
+      "type": "object",
+      "properties": {
+        "sequenceNumber": {
+          "type": "integer"
+        },
+        "rba": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

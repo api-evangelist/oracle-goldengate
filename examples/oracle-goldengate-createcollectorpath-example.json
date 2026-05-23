@@ -1,0 +1,29 @@
+{
+  "operationId": "createCollectorPath",
+  "method": "POST",
+  "path": "/services/v2/targets/{path}",
+  "summary": "Oracle Goldengate Create a Collector Path",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatecollectorpathRequestExample",
+      "example": {
+        "trail": "example_value",
+        "port": 10
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "name": "Createcollectorpath201Example",
+      "example": {
+        "name": "Example Title",
+        "status": "running",
+        "trail": "example_value",
+        "port": 10
+      }
+    }
+  ]
+}

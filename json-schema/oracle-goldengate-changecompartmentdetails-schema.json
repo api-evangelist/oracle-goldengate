@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChangeCompartmentDetails",
+  "title": "ChangeCompartmentDetails",
+  "type": "object",
+  "required": [
+    "compartmentId"
+  ],
+  "properties": {
+    "compartmentId": {
+      "type": "string",
+      "example": "500123"
+    }
+  }
+}
