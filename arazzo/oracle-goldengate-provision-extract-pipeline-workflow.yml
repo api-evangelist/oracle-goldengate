@@ -1,0 +1,158 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Provision Extract Pipeline
+  summary: Create a credential alias, create an Extract process, start it, and poll until running.
+  description: >-
+    Stands up a change-data-capture Extract from scratch. It first registers a
+    database credential alias in the credential store, then creates an Extract
+    process that references that alias, issues a START command to the process,
+    and polls the Extract status until it reports running. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-extract-pipeline
+  summary: Register a credential alias then create, start, and verify an Extract process.
+  description: >-
+    Creates a credential alias in a domain, creates a CDC Extract that uses it,
+    starts the Extract, and confirms it reaches a running state.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - domain
+    - alias
+    - userid
+    - password
+    - extract
+    - trail
+    - config
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value (e.g. "Basic dXNlcjpwYXNz").
+      domain:
+        type: string
+        description: Credential store domain name.
+      alias:
+        type: string
+        description: Credential alias to create.
+      userid:
+        type: string
+        description: Database user ID including connect string.
+      password:
+        type: string
+        description: Password for the database user.
+      extract:
+        type: string
+        description: Name of the Extract process to create.
+      trail:
+        type: string
+        description: Trail file prefix the Extract writes to (e.g. aa).
+      config:
+        type: array
+        items:
+          type: string
+        description: Extract parameter file content lines.
+  steps:
+  - stepId: createCredential
+    description: >-
+      Create the credential alias the Extract will use to connect to the source
+      database.
+    operationId: createCredentialAlias
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: domain
+      in: path
+      value: $inputs.domain
+    - name: alias
+      in: path
+      value: $inputs.alias
+    requestBody:
+      contentType: application/json
+      payload:
+        userid: $inputs.userid
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      credentialAlias: $response.body#/alias
+  - stepId: createExtract
+    description: >-
+      Create a change-data-capture Extract that references the credential alias
+      and writes to the supplied trail.
+    operationId: createExtract
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    requestBody:
+      contentType: application/json
+      payload:
+        type: cdc
+        trail: $inputs.trail
+        config: $inputs.config
+        credentials:
+          domain: $inputs.domain
+          alias: $inputs.alias
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      extractName: $response.body#/name
+      extractStatus: $response.body#/status
+  - stepId: startExtract
+    description: Issue a START command to the newly created Extract process.
+    operationId: issueExtractCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStatus
+    description: >-
+      Poll the Extract runtime status until it reports running, branching back
+      to retry while it is still starting.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      lag: $response.body#/lag
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "starting"
+        type: jsonpath
+  outputs:
+    extractName: $steps.createExtract.outputs.extractName
+    finalStatus: $steps.pollStatus.outputs.status
+    lag: $steps.pollStatus.outputs.lag

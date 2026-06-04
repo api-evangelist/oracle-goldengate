@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Stop Extract Gracefully
+  summary: Capture an Extract's status, issue a STOP command, and poll until stopped.
+  description: >-
+    Brings an Extract down cleanly. It first records the current runtime status,
+    issues a STOP command, then polls the status until the process reports
+    stopped. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stop-extract-gracefully
+  summary: Stop a running Extract and confirm it reaches a stopped state.
+  description: >-
+    Reads current status, issues STOP, and polls until the Extract is stopped.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - extract
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      extract:
+        type: string
+        description: Name of the Extract process to stop.
+  steps:
+  - stepId: getStatus
+    description: Capture the current runtime status of the Extract before stopping it.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      startingStatus: $response.body#/status
+  - stepId: stopExtract
+    description: Issue a STOP command to the Extract process.
+    operationId: issueExtractCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    requestBody:
+      contentType: application/json
+      payload:
+        action: stop
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStopped
+    description: >-
+      Poll the Extract status until it reports stopped, looping while it is
+      still running.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollStopped
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+  outputs:
+    finalStatus: $steps.pollStopped.outputs.status

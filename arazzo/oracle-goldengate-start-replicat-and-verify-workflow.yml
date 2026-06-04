@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Start Replicat and Verify
+  summary: Confirm a Replicat exists, start it, and poll until it is running.
+  description: >-
+    Operational flow for bringing an existing Replicat online. It retrieves the
+    Replicat configuration to confirm it exists, issues a START command, and
+    polls the runtime status until the process reports running. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-replicat-and-verify
+  summary: Start an existing Replicat process and confirm it reaches a running state.
+  description: >-
+    Reads the Replicat, starts it, and polls status until running.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - replicat
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      replicat:
+        type: string
+        description: Name of the Replicat process to start.
+  steps:
+  - stepId: getReplicat
+    description: Retrieve the Replicat to confirm it exists before starting it.
+    operationId: getReplicat
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      replicatName: $response.body#/name
+      currentStatus: $response.body#/status
+  - stepId: startReplicat
+    description: Issue a START command to the Replicat process.
+    operationId: issueReplicatCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStatus
+    description: >-
+      Poll the Replicat status until it reports running, looping while it is
+      still starting.
+    operationId: getReplicatStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "starting"
+        type: jsonpath
+  outputs:
+    replicatName: $steps.getReplicat.outputs.replicatName
+    finalStatus: $steps.pollStatus.outputs.status

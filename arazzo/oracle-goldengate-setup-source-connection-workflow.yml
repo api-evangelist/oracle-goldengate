@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Set Up Source Connection
+  summary: Create a database connection, enable table supplemental logging, and list databases.
+  description: >-
+    Prepares a source database for capture. It creates a database connection
+    bound to a credential alias, enables supplemental logging (trandata) on the
+    target table so changes can be captured, and lists the available database
+    names on the connection to confirm reachability. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: setup-source-connection
+  summary: Create a connection, add table supplemental logging, and list databases.
+  description: >-
+    Creates a database connection, enables supplemental logging on a table, and
+    retrieves the database names reachable through the connection.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - connection
+    - connectionString
+    - domain
+    - alias
+    - table
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      connection:
+        type: string
+        description: Name of the database connection to create.
+      connectionString:
+        type: string
+        description: Database connection string.
+      domain:
+        type: string
+        description: Credential store domain backing the connection.
+      alias:
+        type: string
+        description: Credential alias backing the connection.
+      table:
+        type: string
+        description: Fully qualified table name to enable supplemental logging on.
+  steps:
+  - stepId: createConnection
+    description: Create the database connection bound to the supplied credential alias.
+    operationId: createConnection
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: connection
+      in: path
+      value: $inputs.connection
+    requestBody:
+      contentType: application/json
+      payload:
+        connectionString: $inputs.connectionString
+        credentials:
+          domain: $inputs.domain
+          alias: $inputs.alias
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      connectionName: $response.body#/name
+  - stepId: enableTrandata
+    description: >-
+      Add supplemental logging for the target table so its changes can be
+      captured.
+    operationId: manageTableSupplementalLogging
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: connection
+      in: path
+      value: $inputs.connection
+    requestBody:
+      contentType: application/json
+      payload:
+        operation: add
+        name: $inputs.table
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+  - stepId: listDatabases
+    description: List the database names reachable through the connection.
+    operationId: getDatabaseNames
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: connection
+      in: path
+      value: $inputs.connection
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      databases: $response.body#/databases
+  outputs:
+    connectionName: $steps.createConnection.outputs.connectionName
+    trandataResult: $steps.enableTrandata.outputs.result
+    databases: $steps.listDatabases.outputs.databases

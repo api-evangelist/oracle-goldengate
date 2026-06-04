@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Health Check and Process Inventory
+  summary: Run a service health check, then list all Extract and Replicat processes.
+  description: >-
+    A monitoring sweep across a GoldenGate service. It runs a quick health check
+    summary and, when the service is healthy, lists every Extract and every
+    Replicat process so an operator can review the full replication inventory in
+    one pass. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: health-check-and-inventory
+  summary: Check service health, then inventory all Extract and Replicat processes.
+  description: >-
+    Runs the health check summary and, when healthy, lists Extracts and
+    Replicats.
+  inputs:
+    type: object
+    required:
+    - authorization
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+  steps:
+  - stepId: healthCheck
+    description: >-
+      Run the service health check summary and continue to the inventory only
+      when the service reports healthy.
+    operationId: getServiceHealthCheck
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      healthy: $response.body#/healthy
+      status: $response.body#/status
+    onSuccess:
+    - name: serviceHealthy
+      type: goto
+      stepId: listExtracts
+      criteria:
+      - context: $response.body
+        condition: $.healthy == true
+        type: jsonpath
+    - name: serviceUnhealthy
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.healthy == false
+        type: jsonpath
+  - stepId: listExtracts
+    description: List all Extract processes on the service.
+    operationId: listExtracts
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extracts: $response.body#/extracts
+  - stepId: listReplicats
+    description: List all Replicat processes on the service.
+    operationId: listReplicats
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      replicats: $response.body#/replicats
+  outputs:
+    healthy: $steps.healthCheck.outputs.healthy
+    extracts: $steps.listExtracts.outputs.extracts
+    replicats: $steps.listReplicats.outputs.replicats

@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Start Extract and Verify
+  summary: Confirm an Extract exists, start it, and poll until it is running.
+  description: >-
+    Operational flow for bringing an existing Extract online. It retrieves the
+    Extract configuration to confirm it exists, issues a START command, and polls
+    the runtime status until the process reports running. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-extract-and-verify
+  summary: Start an existing Extract process and confirm it reaches a running state.
+  description: >-
+    Reads the Extract, starts it, and polls status until running.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - extract
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      extract:
+        type: string
+        description: Name of the Extract process to start.
+  steps:
+  - stepId: getExtract
+    description: Retrieve the Extract to confirm it exists before starting it.
+    operationId: getExtract
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractName: $response.body#/name
+      currentStatus: $response.body#/status
+  - stepId: startExtract
+    description: Issue a START command to the Extract process.
+    operationId: issueExtractCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStatus
+    description: >-
+      Poll the Extract status until it reports running, looping while it is
+      still starting.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "starting"
+        type: jsonpath
+  outputs:
+    extractName: $steps.getExtract.outputs.extractName
+    finalStatus: $steps.pollStatus.outputs.status

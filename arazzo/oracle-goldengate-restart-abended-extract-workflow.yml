@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Restart Abended Extract
+  summary: Inspect an Extract's status and restart it only when it has abended.
+  description: >-
+    Recovery flow for a failed Extract. It reads the Extract status and branches:
+    when the process has abended it issues a START command and polls until the
+    process is running again; when the process is already running it ends without
+    taking action. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: restart-abended-extract
+  summary: Restart an Extract only when its status reports abended.
+  description: >-
+    Reads the Extract status, and if it has abended, starts it and polls until
+    running; otherwise ends without action.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - extract
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      extract:
+        type: string
+        description: Name of the Extract process to inspect and recover.
+  steps:
+  - stepId: getStatus
+    description: Read the Extract status and branch based on whether it has abended.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: needsRestart
+      type: goto
+      stepId: restartExtract
+      criteria:
+      - context: $response.body
+        condition: $.status == "abended"
+        type: jsonpath
+    - name: alreadyHealthy
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+  - stepId: restartExtract
+    description: Issue a START command to recover the abended Extract.
+    operationId: issueExtractCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStatus
+    description: >-
+      Poll the Extract status until it reports running, looping while it is
+      still starting.
+    operationId: getExtractStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: extract
+      in: path
+      value: $inputs.extract
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "starting"
+        type: jsonpath
+  outputs:
+    finalStatus: $steps.pollStatus.outputs.status

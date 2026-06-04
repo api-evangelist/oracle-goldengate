@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Create and Start Replicat With Checkpoint
+  summary: Create a credential alias, create a Replicat with a checkpoint table, and start it.
+  description: >-
+    Stands up a fully credentialed apply process. It registers a credential
+    alias, creates a parallel Replicat that references the alias and a checkpoint
+    table, and issues a START command so the process begins applying changes.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-and-start-replicat-with-checkpoint
+  summary: Register a credential, create a checkpointed Replicat, and start it.
+  description: >-
+    Creates a credential alias, creates a parallel Replicat bound to that alias
+    and a checkpoint table, and starts the process.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - domain
+    - alias
+    - userid
+    - password
+    - replicat
+    - trail
+    - checkpointTable
+    - config
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      domain:
+        type: string
+        description: Credential store domain name.
+      alias:
+        type: string
+        description: Credential alias to create.
+      userid:
+        type: string
+        description: Database user ID including connect string.
+      password:
+        type: string
+        description: Password for the database user.
+      replicat:
+        type: string
+        description: Name of the Replicat process to create.
+      trail:
+        type: string
+        description: Source trail file prefix the Replicat reads from.
+      checkpointTable:
+        type: string
+        description: Checkpoint table in schema.table form.
+      config:
+        type: array
+        items:
+          type: string
+        description: Replicat parameter file content lines.
+  steps:
+  - stepId: createCredential
+    description: Create the credential alias the Replicat will use to connect to the target.
+    operationId: createCredentialAlias
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: domain
+      in: path
+      value: $inputs.domain
+    - name: alias
+      in: path
+      value: $inputs.alias
+    requestBody:
+      contentType: application/json
+      payload:
+        userid: $inputs.userid
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      credentialAlias: $response.body#/alias
+  - stepId: createReplicat
+    description: >-
+      Create a parallel Replicat bound to the credential alias, the source
+      trail, and the checkpoint table.
+    operationId: createReplicat
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    requestBody:
+      contentType: application/json
+      payload:
+        type: parallel
+        trail: $inputs.trail
+        checkpointTable: $inputs.checkpointTable
+        config: $inputs.config
+        credentials:
+          domain: $inputs.domain
+          alias: $inputs.alias
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      replicatName: $response.body#/name
+      replicatStatus: $response.body#/status
+  - stepId: startReplicat
+    description: Issue a START command to the newly created Replicat process.
+    operationId: issueReplicatCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  outputs:
+    replicatName: $steps.createReplicat.outputs.replicatName
+    startMessage: $steps.startReplicat.outputs.commandMessage

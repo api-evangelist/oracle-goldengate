@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Provision Distribution Path
+  summary: Create a distribution path, confirm it, and poll its statistics until data flows.
+  description: >-
+    Provisions a distribution path that moves a source trail to a target
+    receiver. It creates the path, retrieves it to confirm the configuration,
+    and polls the path statistics until bytes have been processed. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-distribution-path
+  summary: Create a distribution path and verify data is flowing through it.
+  description: >-
+    Creates a distribution path from a source trail to a target receiver,
+    confirms it, and polls statistics until bytes have been processed.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - distpath
+    - source
+    - target
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      distpath:
+        type: string
+        description: Name of the distribution path to create.
+      source:
+        type: string
+        description: Source trail file the path reads from.
+      target:
+        type: string
+        description: Target receiver URL the path writes to.
+  steps:
+  - stepId: createPath
+    description: Create the distribution path from the source trail to the target receiver.
+    operationId: createDistributionPath
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: distpath
+      in: path
+      value: $inputs.distpath
+    requestBody:
+      contentType: application/json
+      payload:
+        source: $inputs.source
+        target: $inputs.target
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      pathName: $response.body#/name
+      pathStatus: $response.body#/status
+  - stepId: getPath
+    description: Retrieve the distribution path to confirm its configuration.
+    operationId: getDistributionPath
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: distpath
+      in: path
+      value: $inputs.distpath
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  - stepId: pollStats
+    description: >-
+      Poll the path statistics until bytes have been processed, looping while no
+      data has flowed yet.
+    operationId: getDistributionPathStats
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: distpath
+      in: path
+      value: $inputs.distpath
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bytesProcessed: $response.body#/bytesProcessed
+      messagesProcessed: $response.body#/messagesProcessed
+    onSuccess:
+    - name: noDataYet
+      type: goto
+      stepId: pollStats
+      criteria:
+      - context: $response.body
+        condition: $.bytesProcessed == 0
+        type: jsonpath
+  outputs:
+    pathName: $steps.createPath.outputs.pathName
+    bytesProcessed: $steps.pollStats.outputs.bytesProcessed
+    messagesProcessed: $steps.pollStats.outputs.messagesProcessed

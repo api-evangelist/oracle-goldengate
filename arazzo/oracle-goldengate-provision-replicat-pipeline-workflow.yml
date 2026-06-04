@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Oracle GoldenGate Provision Replicat Pipeline
+  summary: Create a Replicat process, start it, and poll until it reports running.
+  description: >-
+    Stands up the apply side of a replication pipeline. It creates a Replicat
+    process bound to a source trail and checkpoint table, issues a START command,
+    and polls the Replicat status until it reports running. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: goldengateApi
+  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-replicat-pipeline
+  summary: Create, start, and verify a Replicat process from a source trail.
+  description: >-
+    Creates a Replicat that applies changes from a source trail, starts it, and
+    confirms it reaches a running state.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - replicat
+    - trail
+    - config
+    properties:
+      authorization:
+        type: string
+        description: HTTP Basic Authorization header value.
+      replicat:
+        type: string
+        description: Name of the Replicat process to create.
+      trail:
+        type: string
+        description: Source trail file prefix the Replicat reads from.
+      checkpointTable:
+        type: string
+        description: Checkpoint table in schema.table form.
+      config:
+        type: array
+        items:
+          type: string
+        description: Replicat parameter file content lines.
+  steps:
+  - stepId: createReplicat
+    description: Create a parallel Replicat process bound to the source trail.
+    operationId: createReplicat
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    requestBody:
+      contentType: application/json
+      payload:
+        type: parallel
+        trail: $inputs.trail
+        checkpointTable: $inputs.checkpointTable
+        config: $inputs.config
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      replicatName: $response.body#/name
+      replicatStatus: $response.body#/status
+  - stepId: startReplicat
+    description: Issue a START command to the newly created Replicat process.
+    operationId: issueReplicatCommand
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    requestBody:
+      contentType: application/json
+      payload:
+        action: start
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commandMessage: $response.body#/response/message
+  - stepId: pollStatus
+    description: >-
+      Poll the Replicat runtime status until it reports running, looping while
+      it is still starting.
+    operationId: getReplicatStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: replicat
+      in: path
+      value: $inputs.replicat
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      lag: $response.body#/lag
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "starting"
+        type: jsonpath
+  outputs:
+    replicatName: $steps.createReplicat.outputs.replicatName
+    finalStatus: $steps.pollStatus.outputs.status
+    lag: $steps.pollStatus.outputs.lag
