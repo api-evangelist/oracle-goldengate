@@ -1,0 +1,2089 @@
+{
+  "item": [
+    {
+      "id": "e2a5e40e-c9a8-4736-ae66-372eb1065ceb",
+      "name": "AsyncAPI",
+      "description": {
+        "content": "Manage AsyncAPI specifications for data streams",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe00414a-4377-4e32-846c-6b5455e575af",
+          "name": "Oracle Goldengate Get Asyncapi Specification",
+          "request": {
+            "name": "Oracle Goldengate Get Asyncapi Specification",
+            "description": {
+              "content": "Retrieves the AsyncAPI YAML specification for a data stream, describing the stream's channels, messages, and schemas for downstream consumers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname",
+                "yaml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-yaml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cd03a38-0c6f-4ab1-b1c6-5fdb7e9a1db5",
+              "name": "AsyncAPI specification retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-yaml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-yaml"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "889a6fc0-903e-45b6-82b6-58acc3ea51fa",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1ae5ea1-1d3f-44bd-884b-9cfb20fb1660",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59d80921-6d2a-4773-973a-1f232277465d",
+          "name": "Oracle Goldengate Update Asyncapi Specification",
+          "request": {
+            "name": "Oracle Goldengate Update Asyncapi Specification",
+            "description": {
+              "content": "Updates the AsyncAPI YAML specification for a data stream. Allows customization of the stream metadata exposed to consumers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname",
+                "yaml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-yaml"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-yaml"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "1cb1cdd9-f8af-49d9-8e3f-32e7e6d54871",
+              "name": "AsyncAPI specification updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-yaml"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-yaml"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1601a32b-a33b-42bd-91cb-3d846985cf81",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d62cb72c-66d3-42a0-8f21-b5cb525b10ae",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84148824-fffb-4851-a14e-3b8d6f3a3ee3",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname",
+                    "yaml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "75b1abdc-a7e8-47a3-83a8-331993440bcd",
+      "name": "Data Streams",
+      "description": {
+        "content": "Manage data stream configurations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2da8946a-b90c-4f9d-9076-91634bc5aa56",
+          "name": "Oracle Goldengate List Data Streams",
+          "request": {
+            "name": "Oracle Goldengate List Data Streams",
+            "description": {
+              "content": "Returns a list of all configured data stream resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cd2937f-bdc7-4b3b-bf84-6ed2368a536d",
+              "name": "Data streams listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"streams\": [\n    {\n      \"name\": \"Example Title\",\n      \"status\": \"example_value\",\n      \"source\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66aa1eb5-9176-4a0d-9497-9429d98ce919",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31505fba-33a5-468d-9dab-aebfbf1c9455",
+          "name": "Oracle Goldengate Retrieve a Data Stream",
+          "request": {
+            "name": "Oracle Goldengate Retrieve a Data Stream",
+            "description": {
+              "content": "Returns the configuration of a specific data stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb9765c8-94e9-4af4-8439-ff2b663edc6a",
+              "name": "Data stream retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"example_value\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0faf1830-9e83-4866-a564-837e9ef1afe5",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cc01366-5196-401e-9bc6-f68e3d043edb",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cd6be76-cf06-406f-9692-95ce004e1d24",
+          "name": "Oracle Goldengate Create a Data Stream",
+          "request": {
+            "name": "Oracle Goldengate Create a Data Stream",
+            "description": {
+              "content": "Creates a new data stream configuration that defines how trail data is distributed to downstream consumers. Supports distribution to Kafka, REST endpoints, OCI Streaming, and other targets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2406af4f-a8bb-4c38-9f7f-abead019aed8",
+              "name": "Data stream created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"example_value\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0a93ade-cde6-4986-af64-0eac1c9b28e6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a50677a2-9ebd-4c0e-8280-b95c32fdf19d",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "349e09ff-f797-49af-a187-7b7addb21cfc",
+              "name": "Resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19e79f51-852d-4a36-90a7-f87a7f8e897e",
+          "name": "Oracle Goldengate Update a Data Stream",
+          "request": {
+            "name": "Oracle Goldengate Update a Data Stream",
+            "description": {
+              "content": "Updates the configuration of an existing data stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "263d005b-2b2d-490f-ac4c-5c36619d8b76",
+              "name": "Data stream updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"target\": {\n    \"type\": \"example_value\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"example_value\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"source\": {\n    \"trailName\": \"example_value\",\n    \"extractName\": \"example_value\",\n    \"beginPosition\": \"example_value\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"json\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"example_value\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b732e25c-57d6-4b8d-99cc-66bbd54ec654",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"target\": {\n    \"type\": \"example_value\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"example_value\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e85f6f01-a67f-448f-8bea-38228db691a5",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"target\": {\n    \"type\": \"example_value\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"example_value\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c486debe-04e4-40e7-aeb1-5f61c384893d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"A sample description.\",\n  \"status\": \"active\",\n  \"target\": {\n    \"type\": \"example_value\",\n    \"uri\": \"example_value\",\n    \"topicName\": \"example_value\",\n    \"format\": \"example_value\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"example_value\",\n      \"table\": \"example_value\",\n      \"operations\": [\n        {}\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79ccabda-f0fe-44ed-b065-fef06b580f68",
+          "name": "Oracle Goldengate Delete a Data Stream",
+          "request": {
+            "name": "Oracle Goldengate Delete a Data Stream",
+            "description": {
+              "content": "Deletes a data stream configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v2",
+                "stream",
+                ":streamname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamname",
+                  "description": "(Required) Name of the data stream resource"
+                },
+                {
+                  "description": "GoldenGate server host",
+                  "type": "any",
+                  "value": "{{goldengate-host}}",
+                  "key": "goldengate-host"
+                },
+                {
+                  "description": "HTTPS port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddccf623-fff9-400c-9318-dd53475f5be6",
+              "name": "Data stream deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94648f45-3239-406e-a3ac-e6582219f956",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b2eb385-a4d6-4aad-8fbe-e784c375f285",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v2",
+                    "stream",
+                    ":streamname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamname",
+                      "description": "(Required) Name of the data stream resource"
+                    },
+                    {
+                      "description": "GoldenGate server host",
+                      "type": "any",
+                      "value": "{{goldengate-host}}",
+                      "key": "goldengate-host"
+                    },
+                    {
+                      "description": "HTTPS port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "GoldenGate server host",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "goldengate-host"
+    },
+    {
+      "description": {
+        "content": "HTTPS port",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "443",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "https://{{goldengate-host}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa5af5ab-d4fc-4bc9-b0fe-a09a310c32ef",
+    "name": "Oracle GoldenGate Data Streams REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing Oracle GoldenGate Data Streams, enabling real-time data distribution to downstream consumers via the Distribution Server. Provides operations for creating, retrieving, updating, and deleting data stream configurations, as well as managing AsyncAPI specifications for stream metadata. Based on Oracle GoldenGate 26ai Data Streams REST API documentation.\n\nContact Support:\n Name: Oracle Support",
+      "type": "text/plain"
+    }
+  }
+}

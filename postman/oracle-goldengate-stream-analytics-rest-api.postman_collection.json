@@ -1,0 +1,2093 @@
+{
+  "info": {
+    "_postman_id": "99096232-ebbd-41b3-97f1-de1b4d733190",
+    "name": "Oracle GoldenGate Stream Analytics REST API",
+    "description": "REST API for managing Oracle GoldenGate Stream Analytics (GGSA) pipelines and users. Enables CI/CD integration by providing programmatic access to export, import, publish, and unpublish stream processing pipelines, as well as manage user accounts and roles. Based on Oracle GoldenGate Stream Analytics 19.1 REST API documentation.\n\nContact Support:\n Name: Oracle Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:14:04.000Z",
+    "updatedAt": "2026-06-05T15:14:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-99096232-ebbd-41b3-97f1-de1b4d733190"
+  },
+  "item": [
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "pipelines",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Oracle Goldengate Export a Pipeline",
+                          "id": "d2c4fd78-c05b-47db-a260-d0fad19dca23",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/pipelines/:id/export",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "pipelines",
+                                ":id",
+                                "export"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "2fc81c34-b729-42e7-82f3-ff4941290af7",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Pipeline identifier"
+                                }
+                              ]
+                            },
+                            "description": "Exports a GGSA pipeline and all its dependencies as a JSON artifact, including sources, targets, references, connections, predictive models, geo fences, visualizations, and custom jars."
+                          },
+                          "response": [
+                            {
+                              "id": "8f671715-0965-46fa-9deb-5cbad2b4f823",
+                              "name": "Pipeline exported",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/export",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "export"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"pipeline\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"Draft\",\n    \"createdBy\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"sources\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"REST\",\n        \"connectionName\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"Database\",\n        \"connectionName\": \"<string>\"\n      }\n    ],\n    \"targets\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"GoldenGate\",\n        \"connectionName\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"REST\",\n        \"connectionName\": \"<string>\"\n      }\n    ],\n    \"stages\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"Pattern\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"Custom\",\n        \"description\": \"<string>\"\n      }\n    ]\n  },\n  \"connections\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"configuration\": {\n        \"quis_b4\": \"officia\",\n        \"quif3d\": -61140753,\n        \"nulla294\": \"qui\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"configuration\": {\n        \"magnaba\": -76094526.16666643\n      }\n    }\n  ],\n  \"references\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"customJars\": [\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-8f671715-0965-46fa-9deb-5cbad2b4f823"
+                            },
+                            {
+                              "id": "d70dfd59-9848-4009-920a-75dab611f71f",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/export",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "export"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-d70dfd59-9848-4009-920a-75dab611f71f"
+                            },
+                            {
+                              "id": "3a98e285-062f-4c66-8e41-7b0e00b37f14",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/export",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "export"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-3a98e285-062f-4c66-8e41-7b0e00b37f14"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-d2c4fd78-c05b-47db-a260-d0fad19dca23"
+                        }
+                      ],
+                      "id": "af654d8d-e502-4261-999f-ba9e6bb1963a",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-af654d8d-e502-4261-999f-ba9e6bb1963a"
+                    },
+                    {
+                      "name": "publish",
+                      "item": [
+                        {
+                          "name": "Oracle Goldengate Publish a Pipeline",
+                          "id": "1b2a19a0-9915-4af3-a92d-27ffb696bf58",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"sparkConfig\": {\n    \"est_9\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/pipelines/:id/publish",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "pipelines",
+                                ":id",
+                                "publish"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "2c701040-ad89-4e9b-87ed-ee899b460cf4",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Pipeline identifier"
+                                }
+                              ]
+                            },
+                            "description": "Publishes a pipeline, deploying it to the Spark runtime for execution. A published pipeline actively processes streaming data from configured sources and writes results to configured targets."
+                          },
+                          "response": [
+                            {
+                              "id": "fc80cfe3-863d-44f4-9bc9-7c4658ee0320",
+                              "name": "Pipeline published",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sparkConfig\": {\n    \"est_9\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/publish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "publish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"Published\",\n  \"createdBy\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"sources\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"REST\",\n      \"connectionName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"GoldenGate\",\n      \"connectionName\": \"<string>\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ObjectStorage\",\n      \"connectionName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ObjectStorage\",\n      \"connectionName\": \"<string>\"\n    }\n  ],\n  \"stages\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ScoreModel\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"Pattern\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-fc80cfe3-863d-44f4-9bc9-7c4658ee0320"
+                            },
+                            {
+                              "id": "0b7fb6cc-1c75-4517-91df-32fae454b53e",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sparkConfig\": {\n    \"est_9\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/publish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "publish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-0b7fb6cc-1c75-4517-91df-32fae454b53e"
+                            },
+                            {
+                              "id": "ca92a439-2663-4df0-8d3c-f977c09ed662",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sparkConfig\": {\n    \"est_9\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/publish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "publish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-ca92a439-2663-4df0-8d3c-f977c09ed662"
+                            },
+                            {
+                              "id": "06ca4509-72b5-4cd8-9f01-af7fb1c3956b",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sparkConfig\": {\n    \"est_9\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/publish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "publish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-06ca4509-72b5-4cd8-9f01-af7fb1c3956b"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-1b2a19a0-9915-4af3-a92d-27ffb696bf58"
+                        }
+                      ],
+                      "id": "d3dba3f1-4f2b-4ea1-9a98-18cdf4f1c97e",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-d3dba3f1-4f2b-4ea1-9a98-18cdf4f1c97e"
+                    },
+                    {
+                      "name": "unpublish",
+                      "item": [
+                        {
+                          "name": "Oracle Goldengate Unpublish a Pipeline",
+                          "id": "cffcf34e-70c9-41c1-9da1-4ecac7930c61",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/pipelines/:id/unpublish",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "pipelines",
+                                ":id",
+                                "unpublish"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "558ebbea-ec01-4d07-bd65-246dc3caca3c",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Pipeline identifier"
+                                }
+                              ]
+                            },
+                            "description": "Unpublishes a pipeline, stopping its execution on the Spark runtime. The pipeline configuration is preserved and can be re-published later."
+                          },
+                          "response": [
+                            {
+                              "id": "3d85e55c-0de8-4be9-b0aa-cb2e96b3a384",
+                              "name": "Pipeline unpublished",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/unpublish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "unpublish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"Published\",\n  \"createdBy\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"sources\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"REST\",\n      \"connectionName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"GoldenGate\",\n      \"connectionName\": \"<string>\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ObjectStorage\",\n      \"connectionName\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ObjectStorage\",\n      \"connectionName\": \"<string>\"\n    }\n  ],\n  \"stages\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"ScoreModel\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"Pattern\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-3d85e55c-0de8-4be9-b0aa-cb2e96b3a384"
+                            },
+                            {
+                              "id": "1c82eda3-b6c8-40df-bdd2-8207f563e68d",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/unpublish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "unpublish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-1c82eda3-b6c8-40df-bdd2-8207f563e68d"
+                            },
+                            {
+                              "id": "eaabbc33-8776-427d-ba52-9b51a60c1181",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/pipelines/:id/unpublish",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "pipelines",
+                                    ":id",
+                                    "unpublish"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-eaabbc33-8776-427d-ba52-9b51a60c1181"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-cffcf34e-70c9-41c1-9da1-4ecac7930c61"
+                        }
+                      ],
+                      "id": "77d28e7f-b86a-4f4f-a770-b1dbe552862e",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-77d28e7f-b86a-4f4f-a770-b1dbe552862e"
+                    }
+                  ],
+                  "id": "af682dd6-4a69-42cc-b3fd-f19c36803a65",
+                  "createdAt": "2026-06-05T15:14:05.000Z",
+                  "updatedAt": "2026-06-05T15:14:05.000Z",
+                  "uid": "35240-af682dd6-4a69-42cc-b3fd-f19c36803a65"
+                },
+                {
+                  "name": "Oracle Goldengate List Pipelines",
+                  "id": "ea77f46d-6598-4f3d-956b-572f7afdd74b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/services/v1/pipelines",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        "v1",
+                        "pipelines"
+                      ]
+                    },
+                    "description": "Returns a list of all GGSA pipelines with their current status. Includes published and unpublished pipelines."
+                  },
+                  "response": [
+                    {
+                      "id": "8472a4bc-7e98-4194-a440-2e49c308db00",
+                      "name": "Pipelines listed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v1/pipelines",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v1",
+                            "pipelines"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"pipelines\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"Running\",\n      \"createdBy\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"sources\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"GoldenGate\",\n          \"connectionName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Kafka\",\n          \"connectionName\": \"<string>\"\n        }\n      ],\n      \"targets\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Elasticsearch\",\n          \"connectionName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Kafka\",\n          \"connectionName\": \"<string>\"\n        }\n      ],\n      \"stages\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Custom\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Rule\",\n          \"description\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"Published\",\n      \"createdBy\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"sources\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"CSV\",\n          \"connectionName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Kafka\",\n          \"connectionName\": \"<string>\"\n        }\n      ],\n      \"targets\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Database\",\n          \"connectionName\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Elasticsearch\",\n          \"connectionName\": \"<string>\"\n        }\n      ],\n      \"stages\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"ScoreModel\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"type\": \"Pattern\",\n          \"description\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-8472a4bc-7e98-4194-a440-2e49c308db00"
+                    },
+                    {
+                      "id": "dbabe14d-02eb-4559-8d8e-337d7c52a2ce",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v1/pipelines",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v1",
+                            "pipelines"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-dbabe14d-02eb-4559-8d8e-337d7c52a2ce"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:14:05.000Z",
+                  "updatedAt": "2026-06-05T15:14:05.000Z",
+                  "uid": "35240-ea77f46d-6598-4f3d-956b-572f7afdd74b"
+                }
+              ],
+              "id": "26812682-7d72-40c6-a23c-8a37ccdc7ca2",
+              "createdAt": "2026-06-05T15:14:05.000Z",
+              "updatedAt": "2026-06-05T15:14:05.000Z",
+              "uid": "35240-26812682-7d72-40c6-a23c-8a37ccdc7ca2"
+            },
+            {
+              "name": "artifacts",
+              "item": [
+                {
+                  "name": "import",
+                  "item": [
+                    {
+                      "name": "Oracle Goldengate Import Ggsa Artifacts",
+                      "id": "c8cc7290-ddc8-4671-b7a1-15c2cac549c0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"pipeline\": {\n    \"nond4\": \"elit sit\",\n    \"ad_0\": -89183658.84597534\n  },\n  \"connections\": [\n    {\n      \"Duise_\": \"exerc\"\n    },\n    {\n      \"ut9e\": 16319493.648106232,\n      \"labore_b9f\": \"officia esse sint\"\n    }\n  ],\n  \"references\": [\n    {\n      \"labore_a2\": -7978666.481668606\n    },\n    {\n      \"essed4\": false\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v1/artifacts/import",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v1",
+                            "artifacts",
+                            "import"
+                          ]
+                        },
+                        "description": "Imports GGSA artifacts (pipelines, sources, targets, connections, etc.) from a previously exported JSON document. Supports CI/CD workflows by enabling promotion of pipelines across environments."
+                      },
+                      "response": [
+                        {
+                          "id": "d1bf7fc7-abfa-423a-8966-a50372a25960",
+                          "name": "Artifacts imported",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"pipeline\": {\n    \"nond4\": \"elit sit\",\n    \"ad_0\": -89183658.84597534\n  },\n  \"connections\": [\n    {\n      \"Duise_\": \"exerc\"\n    },\n    {\n      \"ut9e\": 16319493.648106232,\n      \"labore_b9f\": \"officia esse sint\"\n    }\n  ],\n  \"references\": [\n    {\n      \"labore_a2\": -7978666.481668606\n    },\n    {\n      \"essed4\": false\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/artifacts/import",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "artifacts",
+                                "import"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"success\": \"<boolean>\",\n  \"importedArtifacts\": \"<integer>\",\n  \"messages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-d1bf7fc7-abfa-423a-8966-a50372a25960"
+                        },
+                        {
+                          "id": "e1c5d6d1-5e77-4da6-8fb1-b11a33cfecb3",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"pipeline\": {\n    \"nond4\": \"elit sit\",\n    \"ad_0\": -89183658.84597534\n  },\n  \"connections\": [\n    {\n      \"Duise_\": \"exerc\"\n    },\n    {\n      \"ut9e\": 16319493.648106232,\n      \"labore_b9f\": \"officia esse sint\"\n    }\n  ],\n  \"references\": [\n    {\n      \"labore_a2\": -7978666.481668606\n    },\n    {\n      \"essed4\": false\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/artifacts/import",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "artifacts",
+                                "import"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-e1c5d6d1-5e77-4da6-8fb1-b11a33cfecb3"
+                        },
+                        {
+                          "id": "11062565-a032-4354-967a-f8a105edc82a",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"pipeline\": {\n    \"nond4\": \"elit sit\",\n    \"ad_0\": -89183658.84597534\n  },\n  \"connections\": [\n    {\n      \"Duise_\": \"exerc\"\n    },\n    {\n      \"ut9e\": 16319493.648106232,\n      \"labore_b9f\": \"officia esse sint\"\n    }\n  ],\n  \"references\": [\n    {\n      \"labore_a2\": -7978666.481668606\n    },\n    {\n      \"essed4\": false\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/artifacts/import",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "artifacts",
+                                "import"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-11062565-a032-4354-967a-f8a105edc82a"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-c8cc7290-ddc8-4671-b7a1-15c2cac549c0"
+                    }
+                  ],
+                  "id": "29c1660e-5eb9-4e66-9275-f1603a3ed098",
+                  "createdAt": "2026-06-05T15:14:05.000Z",
+                  "updatedAt": "2026-06-05T15:14:05.000Z",
+                  "uid": "35240-29c1660e-5eb9-4e66-9275-f1603a3ed098"
+                }
+              ],
+              "id": "e11215a0-f1a2-4620-9346-1561e1792ed3",
+              "createdAt": "2026-06-05T15:14:05.000Z",
+              "updatedAt": "2026-06-05T15:14:05.000Z",
+              "uid": "35240-e11215a0-f1a2-4620-9346-1561e1792ed3"
+            },
+            {
+              "name": "authorizations",
+              "item": [
+                {
+                  "name": "{role}",
+                  "item": [
+                    {
+                      "name": "{user}",
+                      "item": [
+                        {
+                          "name": "Oracle Goldengate Retrieve a User",
+                          "id": "7c0f270f-926b-4e3e-8233-10617aca3aa7",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "authorizations",
+                                ":role",
+                                ":user"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f17c9dc0-801e-4595-9e91-b6aa6d2e406a",
+                                  "key": "role",
+                                  "value": "Operator",
+                                  "description": "(Required) Authorization role"
+                                },
+                                {
+                                  "id": "2f14cd62-dedc-4d05-92dc-5e4aabb8a844",
+                                  "key": "user",
+                                  "value": "<string>",
+                                  "description": "(Required) Username"
+                                }
+                              ]
+                            },
+                            "description": "Returns details of a specific user in the given role."
+                          },
+                          "response": [
+                            {
+                              "id": "815b902c-d437-4d72-9e89-b75dedec96db",
+                              "name": "User retrieved",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"role\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-815b902c-d437-4d72-9e89-b75dedec96db"
+                            },
+                            {
+                              "id": "2a06c2d3-7130-41f3-8271-77bdf8bc7a3f",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-2a06c2d3-7130-41f3-8271-77bdf8bc7a3f"
+                            },
+                            {
+                              "id": "d5df079b-7d3e-44d5-a186-b32f82fa375d",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-d5df079b-7d3e-44d5-a186-b32f82fa375d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-7c0f270f-926b-4e3e-8233-10617aca3aa7"
+                        },
+                        {
+                          "name": "Oracle Goldengate Create a User",
+                          "id": "a40dbf5a-d205-4a63-a8c0-dd39dadacd91",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "authorizations",
+                                ":role",
+                                ":user"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ae25b3d5-2668-457a-b804-82227db1f086",
+                                  "key": "role",
+                                  "value": "Operator",
+                                  "description": "(Required) Authorization role"
+                                },
+                                {
+                                  "id": "59d72073-f677-4b27-b432-29470361df5b",
+                                  "key": "user",
+                                  "value": "<string>",
+                                  "description": "(Required) Username"
+                                }
+                              ]
+                            },
+                            "description": "Creates a new user with the specified role for GGSA access."
+                          },
+                          "response": [
+                            {
+                              "id": "abf40e3c-d7f8-416b-a27c-b2725d8c954d",
+                              "name": "User created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"role\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-abf40e3c-d7f8-416b-a27c-b2725d8c954d"
+                            },
+                            {
+                              "id": "3da0fec3-7943-4cc9-b8a5-5542b7a0bd1e",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-3da0fec3-7943-4cc9-b8a5-5542b7a0bd1e"
+                            },
+                            {
+                              "id": "0b8fcc0e-554d-49c3-a5a1-f46172b3aead",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-0b8fcc0e-554d-49c3-a5a1-f46172b3aead"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-a40dbf5a-d205-4a63-a8c0-dd39dadacd91"
+                        },
+                        {
+                          "name": "Oracle Goldengate Update a User",
+                          "id": "f2b19db7-b454-4fd0-ad82-187a33d25e24",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "authorizations",
+                                ":role",
+                                ":user"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4edbbce1-3ba8-4612-a2fc-c83e723243eb",
+                                  "key": "role",
+                                  "value": "Operator",
+                                  "description": "(Required) Authorization role"
+                                },
+                                {
+                                  "id": "33f91e0d-2bef-4213-ae1d-deead0a57d25",
+                                  "key": "user",
+                                  "value": "<string>",
+                                  "description": "(Required) Username"
+                                }
+                              ]
+                            },
+                            "description": "Updates user properties or role assignment."
+                          },
+                          "response": [
+                            {
+                              "id": "35879c3c-34db-41da-837b-3d15f2dbf8d4",
+                              "name": "User updated",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"role\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-35879c3c-34db-41da-837b-3d15f2dbf8d4"
+                            },
+                            {
+                              "id": "fb8ac9e2-2ddc-4436-bfc4-d8493a8ffc07",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-fb8ac9e2-2ddc-4436-bfc4-d8493a8ffc07"
+                            },
+                            {
+                              "id": "22ed4e76-00ec-4c63-ab2f-886bd5ea947d",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"password\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v1/authorizations/:role/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v1",
+                                    "authorizations",
+                                    ":role",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "role"
+                                    },
+                                    {
+                                      "key": "user"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:05.000Z",
+                              "updatedAt": "2026-06-05T15:14:05.000Z",
+                              "uid": "35240-22ed4e76-00ec-4c63-ab2f-886bd5ea947d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-f2b19db7-b454-4fd0-ad82-187a33d25e24"
+                        }
+                      ],
+                      "id": "6f905af0-be3f-45fe-a5a4-fb7f4e2a2bbb",
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-6f905af0-be3f-45fe-a5a4-fb7f4e2a2bbb"
+                    },
+                    {
+                      "name": "Oracle Goldengate List Users for a Role",
+                      "id": "3b6e24e0-50f8-4d21-a548-cdaeec6983b7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v1/authorizations/:role",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v1",
+                            "authorizations",
+                            ":role"
+                          ],
+                          "variable": [
+                            {
+                              "id": "acf53ebb-4c3d-4369-94db-dfc3474b662b",
+                              "key": "role",
+                              "value": "Operator",
+                              "description": "(Required) Authorization role"
+                            }
+                          ]
+                        },
+                        "description": "Returns a list of all users assigned to a specific role."
+                      },
+                      "response": [
+                        {
+                          "id": "e94f3a79-0f1b-4719-837b-52a53d13b2f8",
+                          "name": "Users listed",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/authorizations/:role",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "authorizations",
+                                ":role"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "role"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"users\": [\n    {\n      \"name\": \"<string>\",\n      \"role\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"role\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-e94f3a79-0f1b-4719-837b-52a53d13b2f8"
+                        },
+                        {
+                          "id": "32c68434-75f0-4686-8eed-ceb25e480d83",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v1/authorizations/:role",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v1",
+                                "authorizations",
+                                ":role"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "role"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:05.000Z",
+                          "updatedAt": "2026-06-05T15:14:05.000Z",
+                          "uid": "35240-32c68434-75f0-4686-8eed-ceb25e480d83"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:05.000Z",
+                      "updatedAt": "2026-06-05T15:14:05.000Z",
+                      "uid": "35240-3b6e24e0-50f8-4d21-a548-cdaeec6983b7"
+                    }
+                  ],
+                  "id": "bc6613a3-0ef2-4dc6-894f-05556f8f38a4",
+                  "createdAt": "2026-06-05T15:14:05.000Z",
+                  "updatedAt": "2026-06-05T15:14:05.000Z",
+                  "uid": "35240-bc6613a3-0ef2-4dc6-894f-05556f8f38a4"
+                }
+              ],
+              "id": "d4eec9eb-f8c1-4d3a-900f-132cb84b028e",
+              "createdAt": "2026-06-05T15:14:05.000Z",
+              "updatedAt": "2026-06-05T15:14:05.000Z",
+              "uid": "35240-d4eec9eb-f8c1-4d3a-900f-132cb84b028e"
+            }
+          ],
+          "id": "a79992ab-5549-4026-aed1-7ff4d3cd6558",
+          "createdAt": "2026-06-05T15:14:05.000Z",
+          "updatedAt": "2026-06-05T15:14:05.000Z",
+          "uid": "35240-a79992ab-5549-4026-aed1-7ff4d3cd6558"
+        }
+      ],
+      "id": "dac1c866-33ba-4102-88e6-672034ca82de",
+      "createdAt": "2026-06-05T15:14:05.000Z",
+      "updatedAt": "2026-06-05T15:14:05.000Z",
+      "uid": "35240-dac1c866-33ba-4102-88e6-672034ca82de"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "ggsa-host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "9080"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{ggsa-host}}:{{port}}/osa"
+    }
+  ]
+}

@@ -1,0 +1,1265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate Veridata REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/server/info"
+          },
+          "docs": "Returns server information including version, uptime, and system details."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/server/configuration"
+          },
+          "docs": "Returns the current server configuration settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update Server Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/server/configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates server configuration settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Reset Server Configurations to Default",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/server/configuration/reset"
+          },
+          "docs": "Resets all server configuration settings to their factory default values."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Login to Veridata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/auth/login",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "example_value"
+              }
+            ]
+          },
+          "docs": "Authenticates a user and establishes a session."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Extend User Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/session/extend"
+          },
+          "docs": "Extends the current user session timeout."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Invalidate Session (logout)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/session/invalidate"
+          },
+          "docs": "Invalidates the current user session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections"
+          },
+          "docs": "Returns a list of all configured source and target database connections."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new database connection for use as a source or target in comparisons."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Connection Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections/:Id/status",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Returns the connectivity status of a database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Connection Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/connections/:Id/metadata",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns database metadata (schemas, tables, columns) for a connection."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Compare Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups"
+          },
+          "docs": "Returns a list of all compare groups configured in Veridata."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new compare group linking source and target connections for data comparison."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific compare group including its source and target connections."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing compare group."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a compare group and its associated compare pairs."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Clone a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups/clone/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a copy of an existing compare group including all its compare pairs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/groups/validate/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ]
+          },
+          "docs": "Validates the configuration of a compare group including connection and table accessibility."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate a Compare Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/validate/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ]
+          },
+          "docs": "Validates the configuration of a compare pair including table and column accessibility."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate Agent Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/validate/connection",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests connectivity to a Veridata agent."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/validate/connection/db",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests database connectivity through a Veridata agent."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Compare Pairs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Create Compare Pairs in a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/group/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more compare pairs within a specific compare group."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Compare Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific compare pair including source and target table mappings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Compare Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing compare pair."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Compare Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a compare pair from its group."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Generate Column Mapping Pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/:Id/colmap",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ]
+          },
+          "docs": "Automatically generates column mappings between source and target tables for a compare pair."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Generate Mapping Objects From Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/cps/mappings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates compare pair mappings based on mapping rules for automatic pair creation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/jobs"
+          },
+          "docs": "Returns a list of all comparison jobs configured in Veridata."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comparison job that references one or more compare groups. Jobs control the execution of data comparisons."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific comparison job."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing comparison job."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a comparison job."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles"
+          },
+          "docs": "Returns a list of all comparison profiles that define comparison behavior settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comparison profile with custom comparison settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Reset a Profile to Defaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/profiles/:Id/reset",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Resets a comparison profile to its default settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Execution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Run a Comparison Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/execution/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a comparison job to compare data between source and target databases."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/execution/jobs/:runId/stop",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Stops a currently running comparison job or specific compare pairs within it."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Job Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/jobs"
+          },
+          "docs": "Returns comparison statistics for completed and running jobs."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Compare Pair Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/cps"
+          },
+          "docs": "Returns detailed comparison statistics at the compare pair level."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Out-of-sync Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/oos/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns the rows identified as out-of-sync during a comparison run."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Comparison Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/comparison/:runId/reports",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns a detailed comparison report for a specific job run."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Purge Comparison Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/purge/stats"
+          },
+          "docs": "Deletes stored comparison and repair statistics data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Repair",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Repair Out-of-sync Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/repair/jobs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a repair operation to synchronize out-of-sync rows found during a comparison."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Repair Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/repair/jobs/:runId/stop",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Stops a currently running repair operation."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repair Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/repair/jobs"
+          },
+          "docs": "Returns statistics for repair operations."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repaired Row Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/repair/cps/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about rows that were repaired during a repair operation."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repair Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/monitoring/repair/:runId/reports",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns a detailed repair report for a specific repair run."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Import/Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Export Veridata Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/export"
+          },
+          "docs": "Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Veridata Xml Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/import"
+          },
+          "docs": "Imports Veridata configurations from an XML document."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Goldengate Parameter File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/configuration/vgpp"
+          },
+          "docs": "Imports a GoldenGate parameter file to automatically create compare pairs from table mappings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/users"
+          },
+          "docs": "Returns a list of all Veridata users."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Veridata user account."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/users/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific user."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/users/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces user account details."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/users/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a Veridata user account."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All User Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/usergroups"
+          },
+          "docs": "Returns a list of all user groups."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/usergroups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user group with specified permissions."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/usergroups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User group identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a user group."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/usergroups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User group identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces a user group configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a User Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/admin/usergroups/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "User group identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a user group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{veridata-host}:{port}/veridata/v1/services/logs/server",
+            "params": [
+              {
+                "name": "logType",
+                "value": "api",
+                "type": "query"
+              },
+              {
+                "name": "logLevel",
+                "value": "ERROR",
+                "type": "query"
+              },
+              {
+                "name": "lastLines",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns server log entries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

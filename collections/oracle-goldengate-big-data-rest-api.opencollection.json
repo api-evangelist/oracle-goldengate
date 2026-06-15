@@ -1,0 +1,723 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Get Service Health Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/health"
+          },
+          "docs": "Returns detailed health information for the GoldenGate for Big Data service."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Process Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/processes"
+          },
+          "docs": "Returns performance metrics for all running processes."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/statisticsReplicat",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name for metrics"
+              }
+            ]
+          },
+          "docs": "Returns handler-level statistics for a big data Replicat including records written to the target."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Extracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List All Extract Processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts"
+          },
+          "docs": "Returns a list of all Extract processes configured for source data capture."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ]
+          },
+          "docs": "Returns configuration and status of a specific Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Extract process for source data capture."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ]
+          },
+          "docs": "Deletes an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Issue a Command to an Extract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/command",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Replicats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List All Replicat Processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats"
+          },
+          "docs": "Returns a list of all Replicat processes configured for big data targets such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Returns the configuration and status of a Replicat process targeting a big data system. Includes handler configuration details."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Replicat Process for a Big Data Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Replicat process with a big data handler. Supported handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, JDBC, Kinesis, Google BigQuery, Google Pub/Sub, and OCI Object Storage."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a Replicat targeting a big data system."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Deletes a Replicat process targeting a big data system."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Issue a Command to a Replicat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/command",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues an operational command to a Replicat process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/info/status",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Returns the current runtime status of a big data Replicat process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Targets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Available Data Target Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/dataTargetTypes"
+          },
+          "docs": "Returns the list of available big data target types including Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery, Pub/Sub, and OCI Object Storage."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Json Schema for a Data Target Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/dataTargetTypes/:dataTargetType",
+            "params": [
+              {
+                "name": "dataTargetType",
+                "value": "kafka",
+                "type": "path",
+                "description": "The data target type name"
+              }
+            ]
+          },
+          "docs": "Returns the JSON schema describing the configuration for a specific data target type handler."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Credentials",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Credential Domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/credentials"
+          },
+          "docs": "Returns all credential store domains used for big data target authentication."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Credential Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/credentials/:domain/:alias",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "Credential store domain"
+              },
+              {
+                "name": "alias",
+                "value": "",
+                "type": "path",
+                "description": "Credential alias name"
+              }
+            ]
+          },
+          "docs": "Returns a credential alias used for target system authentication."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Credential Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/credentials/:domain/:alias",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "Credential store domain"
+              },
+              {
+                "name": "alias",
+                "value": "",
+                "type": "path",
+                "description": "Credential alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a credential alias for authenticating with big data targets."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Credential Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/v2/credentials/:domain/:alias",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "Credential store domain"
+              },
+              {
+                "name": "alias",
+                "value": "",
+                "type": "path",
+                "description": "Credential alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing credential alias."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Credential Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/credentials/:domain/:alias",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "Credential store domain"
+              },
+              {
+                "name": "alias",
+                "value": "",
+                "type": "path",
+                "description": "Credential alias name"
+              }
+            ]
+          },
+          "docs": "Deletes a credential alias."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Configuration Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/files"
+          },
+          "docs": "Returns configuration files including handler properties for big data targets."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Configuration File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/files/:file",
+            "params": [
+              {
+                "name": "file",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns content of a configuration file, including handler property files for Kafka, HDFS, and other big data targets."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Configuration File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/files/:file",
+            "params": [
+              {
+                "name": "file",
+                "value": "example_value",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a configuration file such as a Kafka handler properties file, custom formatter, or Avro schema mapping."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Configuration File",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/files/:file",
+            "params": [
+              {
+                "name": "file",
+                "value": "example_value",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the content of an existing configuration file."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Configuration File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/files/:file",
+            "params": [
+              {
+                "name": "file",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a configuration file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Trail Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/trails"
+          },
+          "docs": "Returns trail files used by big data replicats."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Distribution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Distribution Paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/sources"
+          },
+          "docs": "Returns distribution paths configured for big data deployments."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Distribution Path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/sources/:distpath",
+            "params": [
+              {
+                "name": "distpath",
+                "value": "",
+                "type": "path",
+                "description": "Distribution path name"
+              }
+            ]
+          },
+          "docs": "Returns a specific distribution path."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Distribution Path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/sources/:distpath",
+            "params": [
+              {
+                "name": "distpath",
+                "value": "",
+                "type": "path",
+                "description": "Distribution path name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a distribution path for delivering trail data to a big data deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Distribution Path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/sources/:distpath",
+            "params": [
+              {
+                "name": "distpath",
+                "value": "",
+                "type": "path",
+                "description": "Distribution path name"
+              }
+            ]
+          },
+          "docs": "Deletes a distribution path."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Commands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Execute a Goldengate Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/commands/execute",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a GGSCI-style command against the Big Data Administrative Server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

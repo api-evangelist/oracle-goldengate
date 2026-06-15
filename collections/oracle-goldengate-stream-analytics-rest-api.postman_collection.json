@@ -1,0 +1,2536 @@
+{
+  "item": [
+    {
+      "id": "246b233f-fd33-435b-9d1f-6cb2ead8ff46",
+      "name": "Artifacts",
+      "description": {
+        "content": "Import and export GGSA artifacts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e947c7fe-5b68-4f2c-ad86-465a76357a3f",
+          "name": "Oracle Goldengate Import Ggsa Artifacts",
+          "request": {
+            "name": "Oracle Goldengate Import Ggsa Artifacts",
+            "description": {
+              "content": "Imports GGSA artifacts (pipelines, sources, targets, connections, etc.) from a previously exported JSON document. Supports CI/CD workflows by enabling promotion of pipelines across environments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "artifacts",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pipeline\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"connections\": [\n    {\n      \"key_0\": false\n    },\n    {\n      \"key_0\": 6760.999394184845\n    }\n  ],\n  \"references\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": true,\n      \"key_2\": 1774.452196352515\n    },\n    {\n      \"key_0\": 318.1848099601825,\n      \"key_1\": 426,\n      \"key_2\": false,\n      \"key_3\": 4770.812262298489\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "afb377f0-8e8a-497b-879d-ecee0b95ae5f",
+              "name": "Artifacts imported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "artifacts",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pipeline\": \"example_value\",\n  \"connections\": [\n    {}\n  ],\n  \"references\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"importedArtifacts\": 10,\n  \"messages\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fca4e09c-f71a-455d-b90c-8603ae9f3e19",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "artifacts",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pipeline\": \"example_value\",\n  \"connections\": [\n    {}\n  ],\n  \"references\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02e5d9fb-cd37-45c2-99ef-4a0c85612872",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "artifacts",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pipeline\": \"example_value\",\n  \"connections\": [\n    {}\n  ],\n  \"references\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9cec1035-f06e-4fed-853f-4e58282a09a1",
+      "name": "Pipelines",
+      "description": {
+        "content": "Manage stream processing pipelines",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "70633026-a10a-4c6d-90aa-a6c0ca478d0d",
+          "name": "Oracle Goldengate List Pipelines",
+          "request": {
+            "name": "Oracle Goldengate List Pipelines",
+            "description": {
+              "content": "Returns a list of all GGSA pipelines with their current status. Includes published and unpublished pipelines.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f7800cf-dc3e-489d-abf6-490720a60d7a",
+              "name": "Pipelines listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pipelines\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"description\": \"A sample description.\",\n      \"status\": \"Draft\",\n      \"createdBy\": \"example_value\",\n      \"createdAt\": \"2026-01-15T10:30:00Z\",\n      \"updatedAt\": \"2026-01-15T10:30:00Z\",\n      \"sources\": {},\n      \"targets\": {},\n      \"stages\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf12a959-7227-4253-9a2b-30a923e305b3",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bfaf512-2704-405e-a233-a15a0e4b23e3",
+          "name": "Oracle Goldengate Export a Pipeline",
+          "request": {
+            "name": "Oracle Goldengate Export a Pipeline",
+            "description": {
+              "content": "Exports a GGSA pipeline and all its dependencies as a JSON artifact, including sources, targets, references, connections, predictive models, geo fences, visualizations, and custom jars.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "pipelines",
+                ":id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Pipeline identifier"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eda20dcb-0c45-4317-9c6a-3dd22d943daf",
+              "name": "Pipeline exported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pipeline\": {\n    \"id\": \"abc123\",\n    \"name\": \"Example Title\",\n    \"description\": \"A sample description.\",\n    \"status\": \"Draft\",\n    \"createdBy\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"sources\": [\n      {}\n    ],\n    \"targets\": [\n      {}\n    ],\n    \"stages\": [\n      {}\n    ]\n  },\n  \"connections\": [\n    {\n      \"name\": \"Example Title\",\n      \"type\": \"example_value\",\n      \"configuration\": \"example_value\"\n    }\n  ],\n  \"references\": [\n    {\n      \"name\": \"Example Title\",\n      \"type\": \"example_value\"\n    }\n  ],\n  \"customJars\": [\n    {\n      \"name\": \"Example Title\",\n      \"path\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70ce14eb-f5e0-421a-a292-19e9d142dd52",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f3fd9f4-1544-45f8-bd21-b2e0da403d27",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f00b810-4a10-4971-bdb6-b86031a8223a",
+          "name": "Oracle Goldengate Publish a Pipeline",
+          "request": {
+            "name": "Oracle Goldengate Publish a Pipeline",
+            "description": {
+              "content": "Publishes a pipeline, deploying it to the Spark runtime for execution. A published pipeline actively processes streaming data from configured sources and writes results to configured targets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "pipelines",
+                ":id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Pipeline identifier"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sparkConfig\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75b4350c-0539-483d-af9b-47104dd36e89",
+              "name": "Pipeline published",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sparkConfig\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"status\": \"Draft\",\n  \"createdBy\": \"example_value\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\",\n  \"sources\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Kafka\",\n      \"connectionName\": \"example_value\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Kafka\",\n      \"connectionName\": \"example_value\"\n    }\n  ],\n  \"stages\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Query\",\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00223002-f28b-4449-8c90-0e0cee21f305",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sparkConfig\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1e0a9f2-5c9f-4036-9af5-917128a33b82",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sparkConfig\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c42bb57a-d132-4116-8237-74ddf9ff1d7c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sparkConfig\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a67ef8ae-3a1c-447f-b4b3-bf6a8ee60486",
+          "name": "Oracle Goldengate Unpublish a Pipeline",
+          "request": {
+            "name": "Oracle Goldengate Unpublish a Pipeline",
+            "description": {
+              "content": "Unpublishes a pipeline, stopping its execution on the Spark runtime. The pipeline configuration is preserved and can be re-published later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "pipelines",
+                ":id",
+                "unpublish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Pipeline identifier"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73a68111-72e6-4c69-917f-00d33969fe4a",
+              "name": "Pipeline unpublished",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"status\": \"Draft\",\n  \"createdBy\": \"example_value\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\",\n  \"sources\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Kafka\",\n      \"connectionName\": \"example_value\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Kafka\",\n      \"connectionName\": \"example_value\"\n    }\n  ],\n  \"stages\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"type\": \"Query\",\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfe1206c-9f2b-431a-9c3d-88d689d2895f",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "479d758e-5895-4cf1-ad8d-223a44ab9e75",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "pipelines",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Pipeline identifier"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5a883d56-eb4f-46fd-985d-526db3768aba",
+      "name": "Users",
+      "description": {
+        "content": "User management and authorization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57fb6f82-abca-46bf-914f-57c966be1e96",
+          "name": "Oracle Goldengate List Users for a Role",
+          "request": {
+            "name": "Oracle Goldengate List Users for a Role",
+            "description": {
+              "content": "Returns a list of all users assigned to a specific role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "authorizations",
+                ":role"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role",
+                  "description": "(Required) Authorization role"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ac908bd-7200-4eaf-bde5-5cc806438cc5",
+              "name": "Users listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"name\": \"Example Title\",\n      \"role\": \"example_value\",\n      \"description\": \"A sample description.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51e2729d-6194-441f-9353-7289ba9a233b",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c66e2411-fa3a-4e55-b383-5e0762c11b69",
+          "name": "Oracle Goldengate Retrieve a User",
+          "request": {
+            "name": "Oracle Goldengate Retrieve a User",
+            "description": {
+              "content": "Returns details of a specific user in the given role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "authorizations",
+                ":role",
+                ":user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role",
+                  "description": "(Required) Authorization role"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) Username"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75e028be-c342-4a26-af7e-a3607db5d611",
+              "name": "User retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"role\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56e28810-caec-4199-b026-a574fb1b2450",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a73d1ee-c92a-490f-a424-b4a665a93a44",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "338285bc-ddf6-444a-ae34-0f3f6d095b10",
+          "name": "Oracle Goldengate Create a User",
+          "request": {
+            "name": "Oracle Goldengate Create a User",
+            "description": {
+              "content": "Creates a new user with the specified role for GGSA access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "authorizations",
+                ":role",
+                ":user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role",
+                  "description": "(Required) Authorization role"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) Username"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<password>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91ae3dad-6665-4291-beff-5ebeb9236566",
+              "name": "User created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"role\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bab779ec-883f-4099-824c-2f01df5e1d1c",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17fa4948-f468-473c-8f5b-e4dff7f36dcc",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1059977b-567c-4852-b8a3-869343073dd6",
+          "name": "Oracle Goldengate Update a User",
+          "request": {
+            "name": "Oracle Goldengate Update a User",
+            "description": {
+              "content": "Updates user properties or role assignment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "v1",
+                "authorizations",
+                ":role",
+                ":user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role",
+                  "description": "(Required) Authorization role"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) Username"
+                },
+                {
+                  "description": "GGSA server host",
+                  "type": "any",
+                  "value": "{{ggsa-host}}",
+                  "key": "ggsa-host"
+                },
+                {
+                  "description": "GGSA HTTP/S port",
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<password>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58ee45dc-4f4e-42a2-9e90-35fe04d7ce8a",
+              "name": "User updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"role\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e31a175f-550f-4552-a5e2-8f9ce842f7b6",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a16bbca-b31e-46ca-b32f-f8a31281dec9",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "v1",
+                    "authorizations",
+                    ":role",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role",
+                      "description": "(Required) Authorization role"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) Username"
+                    },
+                    {
+                      "description": "GGSA server host",
+                      "type": "any",
+                      "value": "{{ggsa-host}}",
+                      "key": "ggsa-host"
+                    },
+                    {
+                      "description": "GGSA HTTP/S port",
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"example_value\",\n  \"description\": \"A sample description.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "GGSA server host",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "ggsa-host"
+    },
+    {
+      "description": {
+        "content": "GGSA HTTP/S port",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "9080",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "https://{{ggsa-host}}:{{port}}/osa",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4d3dbc64-f8f4-4e50-8db9-67b8ec352362",
+    "name": "Oracle GoldenGate Stream Analytics REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for managing Oracle GoldenGate Stream Analytics (GGSA) pipelines and users. Enables CI/CD integration by providing programmatic access to export, import, publish, and unpublish stream processing pipelines, as well as manage user accounts and roles. Based on Oracle GoldenGate Stream Analytics 19.1 REST API documentation.\n\nContact Support:\n Name: Oracle Support",
+      "type": "text/plain"
+    }
+  }
+}

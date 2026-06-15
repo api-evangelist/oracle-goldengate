@@ -1,0 +1,1691 @@
+{
+  "info": {
+    "_postman_id": "2df80200-29c3-4409-8135-b398fa1854be",
+    "name": "Oracle GoldenGate Data Streams REST API",
+    "description": "REST API for managing Oracle GoldenGate Data Streams, enabling real-time data distribution to downstream consumers via the Distribution Server. Provides operations for creating, retrieving, updating, and deleting data stream configurations, as well as managing AsyncAPI specifications for stream metadata. Based on Oracle GoldenGate 26ai Data Streams REST API documentation.\n\nContact Support:\n Name: Oracle Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:14:06.000Z",
+    "updatedAt": "2026-06-05T15:14:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2df80200-29c3-4409-8135-b398fa1854be"
+  },
+  "item": [
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "stream",
+              "item": [
+                {
+                  "name": "{streamname}",
+                  "item": [
+                    {
+                      "name": "yaml",
+                      "item": [
+                        {
+                          "name": "Oracle Goldengate Get Asyncapi Specification",
+                          "id": "8e753e9e-f534-4ea1-a25a-5256d278a97b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/x-yaml"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname",
+                                "yaml"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e3d7bb02-6c63-4297-bc18-478317d6d181",
+                                  "key": "streamname",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the data stream resource"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the AsyncAPI YAML specification for a data stream, describing the stream's channels, messages, and schemas for downstream consumers."
+                          },
+                          "response": [
+                            {
+                              "id": "a607ac36-0ba3-480b-957a-787f785cae21",
+                              "name": "AsyncAPI specification retrieved",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/x-yaml"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-a607ac36-0ba3-480b-957a-787f785cae21"
+                            },
+                            {
+                              "id": "d3282ab6-c9dd-4440-b7b3-5363807f4650",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-d3282ab6-c9dd-4440-b7b3-5363807f4650"
+                            },
+                            {
+                              "id": "d22ad455-f950-4bd8-a0be-bb173d97b05d",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-d22ad455-f950-4bd8-a0be-bb173d97b05d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-8e753e9e-f534-4ea1-a25a-5256d278a97b"
+                        },
+                        {
+                          "name": "Oracle Goldengate Update Asyncapi Specification",
+                          "id": "9f1a146c-bf73-4791-80b1-188663d22b3a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-yaml"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/x-yaml"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "<string>"
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname",
+                                "yaml"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "11b257d6-9bd2-4619-a293-5c2bdf60bcd0",
+                                  "key": "streamname",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the data stream resource"
+                                }
+                              ]
+                            },
+                            "description": "Updates the AsyncAPI YAML specification for a data stream. Allows customization of the stream metadata exposed to consumers."
+                          },
+                          "response": [
+                            {
+                              "id": "7e0cc2d4-dac9-401e-807f-99a263dd0199",
+                              "name": "AsyncAPI specification updated",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "<string>"
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/x-yaml"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-7e0cc2d4-dac9-401e-807f-99a263dd0199"
+                            },
+                            {
+                              "id": "61289402-da7d-4d9d-8d2f-01369adc887f",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "<string>"
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-61289402-da7d-4d9d-8d2f-01369adc887f"
+                            },
+                            {
+                              "id": "cdca12cd-0fd0-43c8-a62c-f3a80fdf5e3b",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "<string>"
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-cdca12cd-0fd0-43c8-a62c-f3a80fdf5e3b"
+                            },
+                            {
+                              "id": "d912d355-7e96-4044-abb1-da4d388a0eb3",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-yaml"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "<string>"
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/services/v2/stream/:streamname/yaml",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "services",
+                                    "v2",
+                                    "stream",
+                                    ":streamname",
+                                    "yaml"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "streamname"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:14:07.000Z",
+                              "updatedAt": "2026-06-05T15:14:07.000Z",
+                              "uid": "35240-d912d355-7e96-4044-abb1-da4d388a0eb3"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-9f1a146c-bf73-4791-80b1-188663d22b3a"
+                        }
+                      ],
+                      "id": "553522de-4fe0-4bae-b89d-bcc6227f386e",
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-553522de-4fe0-4bae-b89d-bcc6227f386e"
+                    },
+                    {
+                      "name": "Oracle Goldengate Retrieve a Data Stream",
+                      "id": "05bff064-1d6b-4823-84b7-fca26158e4f8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream",
+                            ":streamname"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5d8dbb9b-a110-40e1-b1c4-46fbfff4796e",
+                              "key": "streamname",
+                              "value": "<string>",
+                              "description": "(Required) Name of the data stream resource"
+                            }
+                          ]
+                        },
+                        "description": "Returns the configuration of a specific data stream."
+                      },
+                      "response": [
+                        {
+                          "id": "c6d4a07e-d185-4bc9-b52a-5e9203ae9dcd",
+                          "name": "Data stream retrieved",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"error\",\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"goldengate\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"protobuf\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"UPDATE\",\n        \"DELETE\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"INSERT\",\n        \"DELETE\"\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-c6d4a07e-d185-4bc9-b52a-5e9203ae9dcd"
+                        },
+                        {
+                          "id": "f2308f7f-87c7-4272-acf6-5654909fc7fa",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-f2308f7f-87c7-4272-acf6-5654909fc7fa"
+                        },
+                        {
+                          "id": "c82c9d8a-2e07-44b6-bfc6-f367f4417212",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-c82c9d8a-2e07-44b6-bfc6-f367f4417212"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-05bff064-1d6b-4823-84b7-fca26158e4f8"
+                    },
+                    {
+                      "name": "Oracle Goldengate Create a Data Stream",
+                      "id": "22e717d4-2f00-4d16-82ac-2cfe5ffbbb9c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"avro\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream",
+                            ":streamname"
+                          ],
+                          "variable": [
+                            {
+                              "id": "508d55f0-daaf-46da-81a8-6fdb1d8a6a94",
+                              "key": "streamname",
+                              "value": "<string>",
+                              "description": "(Required) Name of the data stream resource"
+                            }
+                          ]
+                        },
+                        "description": "Creates a new data stream configuration that defines how trail data is distributed to downstream consumers. Supports distribution to Kafka, REST endpoints, OCI Streaming, and other targets."
+                      },
+                      "response": [
+                        {
+                          "id": "f75a89d7-edb3-4d7f-a72d-9d51975ab0b7",
+                          "name": "Data stream created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"avro\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"error\",\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"goldengate\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"protobuf\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"UPDATE\",\n        \"DELETE\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"INSERT\",\n        \"DELETE\"\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-f75a89d7-edb3-4d7f-a72d-9d51975ab0b7"
+                        },
+                        {
+                          "id": "51b4eec7-c0c2-454d-ae8f-6fca5d62d377",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"avro\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-51b4eec7-c0c2-454d-ae8f-6fca5d62d377"
+                        },
+                        {
+                          "id": "9a5d1bb3-22a4-4e0c-8f56-76551c7c1c3d",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"avro\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-9a5d1bb3-22a4-4e0c-8f56-76551c7c1c3d"
+                        },
+                        {
+                          "id": "ca439409-2d73-476d-9921-5f40200e71f4",
+                          "name": "Resource already exists",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"kafka\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"avro\"\n  },\n  \"description\": \"<string>\",\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-ca439409-2d73-476d-9921-5f40200e71f4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-22e717d4-2f00-4d16-82ac-2cfe5ffbbb9c"
+                    },
+                    {
+                      "name": "Oracle Goldengate Update a Data Stream",
+                      "id": "3d4d4962-e5a0-483d-a984-11602886dc01",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"inactive\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream",
+                            ":streamname"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2edff25d-d96b-46c7-9821-141c3263fa37",
+                              "key": "streamname",
+                              "value": "<string>",
+                              "description": "(Required) Name of the data stream resource"
+                            }
+                          ]
+                        },
+                        "description": "Updates the configuration of an existing data stream."
+                      },
+                      "response": [
+                        {
+                          "id": "09c81cb9-84a2-4bb2-9912-9f91fa498ae6",
+                          "name": "Data stream updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"inactive\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"error\",\n  \"source\": {\n    \"trailName\": \"<string>\",\n    \"extractName\": \"<string>\",\n    \"beginPosition\": \"<string>\"\n  },\n  \"target\": {\n    \"type\": \"goldengate\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"protobuf\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"UPDATE\",\n        \"DELETE\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"INSERT\",\n        \"DELETE\"\n      ]\n    }\n  ],\n  \"asyncApiSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-09c81cb9-84a2-4bb2-9912-9f91fa498ae6"
+                        },
+                        {
+                          "id": "08ee06e1-f083-4880-9867-1b2e1d49422b",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"inactive\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-08ee06e1-f083-4880-9867-1b2e1d49422b"
+                        },
+                        {
+                          "id": "6026bea8-117c-41b6-bc0e-3e12d74fb689",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"inactive\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-6026bea8-117c-41b6-bc0e-3e12d74fb689"
+                        },
+                        {
+                          "id": "7c2e140a-e2da-4153-8342-b5fcd3741d0c",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"description\": \"<string>\",\n  \"status\": \"inactive\",\n  \"target\": {\n    \"type\": \"<string>\",\n    \"uri\": \"<string>\",\n    \"topicName\": \"<string>\",\n    \"format\": \"<string>\"\n  },\n  \"filters\": [\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"schema\": \"<string>\",\n      \"table\": \"<string>\",\n      \"operations\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-7c2e140a-e2da-4153-8342-b5fcd3741d0c"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-3d4d4962-e5a0-483d-a984-11602886dc01"
+                    },
+                    {
+                      "name": "Oracle Goldengate Delete a Data Stream",
+                      "id": "9ca7fce2-4a1c-48a6-866b-e7588f45a096",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream",
+                            ":streamname"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c8a26b53-2828-43ba-b42e-4c18b6b4980d",
+                              "key": "streamname",
+                              "value": "<string>",
+                              "description": "(Required) Name of the data stream resource"
+                            }
+                          ]
+                        },
+                        "description": "Deletes a data stream configuration."
+                      },
+                      "response": [
+                        {
+                          "id": "0fd0271b-bc64-4c27-a8c3-11724afc003b",
+                          "name": "Data stream deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-0fd0271b-bc64-4c27-a8c3-11724afc003b"
+                        },
+                        {
+                          "id": "e0d96ee5-30b9-4769-bb1d-9cc7d26fc43c",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-e0d96ee5-30b9-4769-bb1d-9cc7d26fc43c"
+                        },
+                        {
+                          "id": "8777de0a-4da2-4706-8c4d-33b731caa313",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/services/v2/stream/:streamname",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "services",
+                                "v2",
+                                "stream",
+                                ":streamname"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "streamname"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:14:07.000Z",
+                          "updatedAt": "2026-06-05T15:14:07.000Z",
+                          "uid": "35240-8777de0a-4da2-4706-8c4d-33b731caa313"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-9ca7fce2-4a1c-48a6-866b-e7588f45a096"
+                    }
+                  ],
+                  "id": "1701f491-6438-410b-abcd-b85620414ede",
+                  "createdAt": "2026-06-05T15:14:07.000Z",
+                  "updatedAt": "2026-06-05T15:14:07.000Z",
+                  "uid": "35240-1701f491-6438-410b-abcd-b85620414ede"
+                },
+                {
+                  "name": "Oracle Goldengate List Data Streams",
+                  "id": "35a77627-5b9f-4269-ac56-3b83eed423cb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/services/v2/stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "services",
+                        "v2",
+                        "stream"
+                      ]
+                    },
+                    "description": "Returns a list of all configured data stream resources."
+                  },
+                  "response": [
+                    {
+                      "id": "3c940639-eff3-4535-95e0-333140a31f75",
+                      "name": "Data streams listed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"streams\": [\n    {\n      \"name\": \"<string>\",\n      \"status\": \"<string>\",\n      \"source\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"status\": \"<string>\",\n      \"source\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-3c940639-eff3-4535-95e0-333140a31f75"
+                    },
+                    {
+                      "id": "fc5ce26b-6f55-4ea3-842f-76db241eb027",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/services/v2/stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "services",
+                            "v2",
+                            "stream"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:14:07.000Z",
+                      "updatedAt": "2026-06-05T15:14:07.000Z",
+                      "uid": "35240-fc5ce26b-6f55-4ea3-842f-76db241eb027"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:14:07.000Z",
+                  "updatedAt": "2026-06-05T15:14:07.000Z",
+                  "uid": "35240-35a77627-5b9f-4269-ac56-3b83eed423cb"
+                }
+              ],
+              "id": "d4aa29db-42cc-45d8-be01-c1035a269b30",
+              "createdAt": "2026-06-05T15:14:07.000Z",
+              "updatedAt": "2026-06-05T15:14:07.000Z",
+              "uid": "35240-d4aa29db-42cc-45d8-be01-c1035a269b30"
+            }
+          ],
+          "id": "d6e15ac6-ea89-4c5b-8ea3-2c2e34701e8f",
+          "createdAt": "2026-06-05T15:14:07.000Z",
+          "updatedAt": "2026-06-05T15:14:07.000Z",
+          "uid": "35240-d6e15ac6-ea89-4c5b-8ea3-2c2e34701e8f"
+        }
+      ],
+      "id": "c60ea786-5f2a-43a0-94f9-a80324cbbab1",
+      "createdAt": "2026-06-05T15:14:07.000Z",
+      "updatedAt": "2026-06-05T15:14:07.000Z",
+      "uid": "35240-c60ea786-5f2a-43a0-94f9-a80324cbbab1"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "goldengate-host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "443"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{goldengate-host}}:{{port}}"
+    }
+  ]
+}

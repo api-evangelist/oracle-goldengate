@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate Stream Analytics REST API",
+    "version": "19.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pipelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/pipelines"
+          },
+          "docs": "Returns a list of all GGSA pipelines with their current status. Includes published and unpublished pipelines."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Export a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/pipelines/:id/export",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ]
+          },
+          "docs": "Exports a GGSA pipeline and all its dependencies as a JSON artifact, including sources, targets, references, connections, predictive models, geo fences, visualizations, and custom jars."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Publish a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/pipelines/:id/publish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publishes a pipeline, deploying it to the Spark runtime for execution. A published pipeline actively processes streaming data from configured sources and writes results to configured targets."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Unpublish a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/pipelines/:id/unpublish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ]
+          },
+          "docs": "Unpublishes a pipeline, stopping its execution on the Spark runtime. The pipeline configuration is preserved and can be re-published later."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Artifacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Ggsa Artifacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/artifacts/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports GGSA artifacts (pipelines, sources, targets, connections, etc.) from a previously exported JSON document. Supports CI/CD workflows by enabling promotion of pipelines across environments."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Users for a Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/authorizations/:role",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "Authorization role"
+              }
+            ]
+          },
+          "docs": "Returns a list of all users assigned to a specific role."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/authorizations/:role/:user",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "Authorization role"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific user in the given role."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/authorizations/:role/:user",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "Authorization role"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user with the specified role for GGSA access."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{ggsa-host}:{port}/osa/services/v1/authorizations/:role/:user",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "path",
+                "description": "Authorization role"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates user properties or role assignment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

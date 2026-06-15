@@ -1,0 +1,1191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate Cloud Service API",
+    "version": "20200407"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "lifecycleState",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "displayName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of GoldenGate deployments in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments",
+            "headers": [
+              {
+                "name": "opc-retry-token",
+                "value": ""
+              },
+              {
+                "name": "opc-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GoldenGate deployment in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ]
+          },
+          "docs": "Deletes a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Start a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/actions/start",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a stopped GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/actions/stop",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops a running GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Upgrade a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/actions/upgrade",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrades a GoldenGate deployment to a newer version."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Change Deployment Compartment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/actions/changeCompartment",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves a deployment to a different compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Collect Deployment Diagnostics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/actions/collectDiagnostics",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Collects diagnostic information from a GoldenGate deployment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deployment Backups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployment Backups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentBackups",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of deployment backups in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Deployment Backup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentBackups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a backup of a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Deployment Backup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentBackups/:deploymentBackupId",
+            "params": [
+              {
+                "name": "deploymentBackupId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment backup"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific deployment backup."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Deployment Backup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentBackups/:deploymentBackupId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentBackupId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment backup"
+              }
+            ]
+          },
+          "docs": "Deletes a deployment backup."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Restore a Deployment From Backup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentBackups/:deploymentBackupId/actions/restore",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentBackupId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment backup"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Restores a GoldenGate deployment from a backup."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connections",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              },
+              {
+                "name": "connectionType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of connections in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new connection for a source or target system. Supports Oracle, MySQL, PostgreSQL, SQL Server, MongoDB, Kafka, Elasticsearch, Amazon S3, Google BigQuery, Snowflake, and many other connection types."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connections/:connectionId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a connection's configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connections/:connectionId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ]
+          },
+          "docs": "Deletes a connection."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connection Assignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Connection Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connectionAssignments",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "deploymentId",
+                "value": "500123",
+                "type": "query"
+              },
+              {
+                "name": "connectionId",
+                "value": "500123",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns connection-to-deployment assignments."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Connection Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connectionAssignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a connection to a deployment for use in replication."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Connection Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connectionAssignments/:connectionAssignmentId",
+            "params": [
+              {
+                "name": "connectionAssignmentId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a specific connection assignment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Connection Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/connectionAssignments/:connectionAssignmentId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "connectionAssignmentId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a connection assignment from a deployment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Database Registrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Database Registrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/databaseRegistrations",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of registered databases."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/databaseRegistrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a database for use with GoldenGate."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/databaseRegistrations/:databaseRegistrationId",
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a database registration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/databaseRegistrations/:databaseRegistrationId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a database registration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/databaseRegistrations/:databaseRegistrationId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a database registration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pipelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of data replication pipelines."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new data replication pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines/:pipelineId",
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines/:pipelineId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a pipeline configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines/:pipelineId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Deletes a data replication pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Start a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines/:pipelineId/actions/start",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Starts a stopped pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/pipelines/:pipelineId/actions/stop",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Stops a running pipeline."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployment Certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/certificates",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns SSL certificates associated with a deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Add a Certificate to a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deployments/:deploymentId/certificates",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a trusted SSL certificate to a GoldenGate deployment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Work Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/workRequests",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of asynchronous work requests in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Work Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/workRequests/:workRequestId",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific asynchronous work request."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Request Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/workRequests/:workRequestId/logs",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns log entries for a work request."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Request Errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/workRequests/:workRequestId/errors",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns error entries for a work request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deployment Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployment Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://goldengate.{region}.oci.oraclecloud.com/20200407/deploymentVersions",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              }
+            ]
+          },
+          "docs": "Returns available GoldenGate deployment versions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
