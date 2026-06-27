@@ -107,7 +107,7 @@ apis:
         url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/latest/
       - type: OpenAPI
         url: openapi/oracle-goldengate-cloud-service-api-openapi.yml
-      - type: SDK
+      - type: SDKs
         url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm
       - type: CLI
         url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm
@@ -119,7 +119,7 @@ apis:
         url: https://docs.oracle.com/en/cloud/paas/goldengate-service/tutorials.html
       - type: ChangeLog
         url: https://docs.oracle.com/en-us/iaas/releasenotes/services/goldengate/
-      - type: SDK
+      - type: SDKs
         url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
       - type: APIReference
         url: https://docs.oracle.com/en-us/iaas/goldengate/doc/using-rest-api.html
@@ -179,51 +179,48 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/oracle-goldengate/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/oracle-goldengate-create-and-start-replicat-with-checkpoint-workflow.yml
-        name: Oracle GoldenGate Create and Start Replicat With Checkpoint
-        summary: Create a credential alias, create a Replicat with a checkpoint table, and start it.
-      - url: arazzo/oracle-goldengate-credential-validate-then-extract-workflow.yml
-        name: Oracle GoldenGate Validate Credential Then Create Extract
-        summary: Create a credential alias, validate it can connect, and create an Extract that uses it.
-      - url: arazzo/oracle-goldengate-health-check-and-inventory-workflow.yml
-        name: Oracle GoldenGate Health Check and Process Inventory
-        summary: Run a service health check, then list all Extract and Replicat processes.
-      - url: arazzo/oracle-goldengate-provision-deployment-workflow.yml
-        name: Oracle GoldenGate Provision Deployment
-        summary: Create a GoldenGate deployment and poll until it reports running.
-      - url: arazzo/oracle-goldengate-provision-distribution-path-workflow.yml
-        name: Oracle GoldenGate Provision Distribution Path
-        summary: Create a distribution path, confirm it, and poll its statistics until data flows.
-      - url: arazzo/oracle-goldengate-provision-extract-pipeline-workflow.yml
-        name: Oracle GoldenGate Provision Extract Pipeline
-        summary: Create a credential alias, create an Extract process, start it, and poll until running.
-      - url: arazzo/oracle-goldengate-provision-replicat-pipeline-workflow.yml
-        name: Oracle GoldenGate Provision Replicat Pipeline
-        summary: Create a Replicat process, start it, and poll until it reports running.
-      - url: arazzo/oracle-goldengate-restart-abended-extract-workflow.yml
-        name: Oracle GoldenGate Restart Abended Extract
-        summary: Inspect an Extract's status and restart it only when it has abended.
-      - url: arazzo/oracle-goldengate-setup-source-connection-workflow.yml
-        name: Oracle GoldenGate Set Up Source Connection
-        summary: Create a database connection, enable table supplemental logging, and list databases.
-      - url: arazzo/oracle-goldengate-start-extract-and-verify-workflow.yml
-        name: Oracle GoldenGate Start Extract and Verify
-        summary: Confirm an Extract exists, start it, and poll until it is running.
-      - url: arazzo/oracle-goldengate-start-replicat-and-verify-workflow.yml
-        name: Oracle GoldenGate Start Replicat and Verify
-        summary: Confirm a Replicat exists, start it, and poll until it is running.
-      - url: arazzo/oracle-goldengate-stop-extract-gracefully-workflow.yml
-        name: Oracle GoldenGate Stop Extract Gracefully
-        summary: Capture an Extract's status, issue a STOP command, and poll until stopped.
-      - url: arazzo/oracle-goldengate-stop-replicat-gracefully-workflow.yml
-        name: Oracle GoldenGate Stop Replicat Gracefully
-        summary: Capture a Replicat's status, issue a STOP command, and poll until stopped.
-      - url: arazzo/oracle-goldengate-teardown-extract-workflow.yml
-        name: Oracle GoldenGate Tear Down Extract
-        summary: Stop an Extract, wait until it is stopped, then delete it.
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-create-and-start-replicat-with-checkpoint-workflow.yml
+    name: Oracle GoldenGate Create and Start Replicat With Checkpoint
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-credential-validate-then-extract-workflow.yml
+    name: Oracle GoldenGate Validate Credential Then Create Extract
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-health-check-and-inventory-workflow.yml
+    name: Oracle GoldenGate Health Check and Process Inventory
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-provision-deployment-workflow.yml
+    name: Oracle GoldenGate Provision Deployment
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-provision-distribution-path-workflow.yml
+    name: Oracle GoldenGate Provision Distribution Path
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-provision-extract-pipeline-workflow.yml
+    name: Oracle GoldenGate Provision Extract Pipeline
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-provision-replicat-pipeline-workflow.yml
+    name: Oracle GoldenGate Provision Replicat Pipeline
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-restart-abended-extract-workflow.yml
+    name: Oracle GoldenGate Restart Abended Extract
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-setup-source-connection-workflow.yml
+    name: Oracle GoldenGate Set Up Source Connection
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-start-extract-and-verify-workflow.yml
+    name: Oracle GoldenGate Start Extract and Verify
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-start-replicat-and-verify-workflow.yml
+    name: Oracle GoldenGate Start Replicat and Verify
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-stop-extract-gracefully-workflow.yml
+    name: Oracle GoldenGate Stop Extract Gracefully
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-stop-replicat-gracefully-workflow.yml
+    name: Oracle GoldenGate Stop Replicat Gracefully
+  - type: Arazzo
+    url: arazzo/oracle-goldengate-teardown-extract-workflow.yml
+    name: Oracle GoldenGate Tear Down Extract
   - type: Portal
     url: https://www.oracle.com/integration/goldengate/
   - type: Blog
@@ -238,7 +235,7 @@ common:
     url: https://www.oracle.com/legal/privacy/
   - type: Documentation
     url: https://docs.oracle.com/en/cloud/paas/goldengate-service/docs.html
-  - type: SignUp
+  - type: Signup
     url: https://www.oracle.com/cloud/free/
   - type: Login
     url: https://cloud.oracle.com/
