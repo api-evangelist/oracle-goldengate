@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/oracle-goldengate-big-data-rest-api-openapi.yml, openapi/oracle-goldengate-cloud-service-api-openapi.yml,
+  openapi/oracle-goldengate-data-streams-rest-api-openapi.yml, openapi/oracle-goldengate-rest-api-openapi.yml,
+  openapi/oracle-goldengate-stream-analytics-rest-api-openapi.yml, openapi/oracle-goldengate-veridata-rest-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/oracle-goldengate-big-data-rest-api-openapi.yml
+  - openapi/oracle-goldengate-data-streams-rest-api-openapi.yml
+  - openapi/oracle-goldengate-rest-api-openapi.yml
+  - openapi/oracle-goldengate-stream-analytics-rest-api-openapi.yml
+  - openapi/oracle-goldengate-veridata-rest-api-openapi.yml
+- name: ociSignature
+  type: http
+  scheme: bearer
+  description: OCI API request signature (RFC 7616) or bearer token authentication
+  sources:
+  - openapi/oracle-goldengate-cloud-service-api-openapi.yml

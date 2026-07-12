@@ -177,6 +177,10 @@ apis:
       - type: Support
         url: https://support.oracle.com
 common:
+  - type: DomainSecurity
+    url: security/oracle-goldengate-domain-security.yml
+  - type: Authentication
+    url: authentication/oracle-goldengate-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/oracle-goldengate/overview
   - type: Arazzo
