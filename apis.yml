@@ -177,6 +177,8 @@ apis:
       - type: Support
         url: https://support.oracle.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/oracle-goldengate-agentic-access.yml
   - type: DomainSecurity
     url: security/oracle-goldengate-domain-security.yml
   - type: Authentication
