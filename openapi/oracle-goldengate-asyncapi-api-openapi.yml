@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts AsyncAPI API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: AsyncAPI
+  description: Manage AsyncAPI specifications for data streams
+paths:
+  /services/v2/stream/{streamname}/yaml:
+    get:
+      operationId: getAsyncApiSpec
+      summary: Oracle Goldengate Get Asyncapi Specification
+      description: Retrieves the AsyncAPI YAML specification for a data stream, describing the stream's channels, messages, and schemas for downstream consumers.
+      tags:
+      - AsyncAPI
+      parameters:
+      - $ref: '#/components/parameters/streamnameParam'
+      responses:
+        '200':
+          description: AsyncAPI specification retrieved
+          content:
+            application/x-yaml:
+              schema:
+                type: string
+                description: AsyncAPI YAML specification document
+              examples:
+                Getasyncapispec200Example:
+                  summary: Default getAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
+            text/yaml:
+              schema:
+                type: string
+              examples:
+                Getasyncapispec200Example:
+                  summary: Default getAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateAsyncApiSpec
+      summary: Oracle Goldengate Update Asyncapi Specification
+      description: Updates the AsyncAPI YAML specification for a data stream. Allows customization of the stream metadata exposed to consumers.
+      tags:
+      - AsyncAPI
+      parameters:
+      - $ref: '#/components/parameters/streamnameParam'
+      requestBody:
+        required: true
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+              description: AsyncAPI YAML specification document
+            examples:
+              UpdateasyncapispecRequestExample:
+                summary: Default updateAsyncApiSpec request
+                x-microcks-default: true
+                value: example_value
+          text/yaml:
+            schema:
+              type: string
+            examples:
+              UpdateasyncapispecRequestExample:
+                summary: Default updateAsyncApiSpec request
+                x-microcks-default: true
+                value: example_value
+      responses:
+        '200':
+          description: AsyncAPI specification updated
+          content:
+            application/x-yaml:
+              schema:
+                type: string
+              examples:
+                Updateasyncapispec200Example:
+                  summary: Default updateAsyncApiSpec 200 response
+                  x-microcks-default: true
+                  value: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    streamnameParam:
+      name: streamname
+      in: path
+      required: true
+      description: Name of the data stream resource
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

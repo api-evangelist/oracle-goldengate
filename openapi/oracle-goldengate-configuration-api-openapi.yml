@@ -1,0 +1,560 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Configuration API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Configuration
+  description: Configuration files and settings for big data handlers
+paths:
+  /services/v2/config/files:
+    get:
+      operationId: listConfigFiles
+      summary: Oracle Goldengate List Configuration Files
+      description: Returns configuration files including handler properties for big data targets.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Configuration files listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFileList'
+              examples:
+                Listconfigfiles200Example:
+                  summary: Default listConfigFiles 200 response
+                  x-microcks-default: true
+                  value:
+                    files:
+                    - name: Example Title
+                      lastModified: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/config/files/{file}:
+    get:
+      operationId: getConfigFile
+      summary: Oracle Goldengate Retrieve a Configuration File
+      description: Returns content of a configuration file, including handler property files for Kafka, HDFS, and other big data targets.
+      tags:
+      - Configuration
+      parameters:
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Configuration file retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFile'
+              examples:
+                Getconfigfile200Example:
+                  summary: Default getConfigFile 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    content: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConfigFile
+      summary: Oracle Goldengate Create a Configuration File
+      description: Creates a configuration file such as a Kafka handler properties file, custom formatter, or Avro schema mapping.
+      tags:
+      - Configuration
+      parameters:
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+            examples:
+              CreateconfigfileRequestExample:
+                summary: Default createConfigFile request
+                x-microcks-default: true
+                value:
+                  content: example_value
+      responses:
+        '201':
+          description: Configuration file created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceConfigFile
+      summary: Oracle Goldengate Replace a Configuration File
+      description: Replaces the content of an existing configuration file.
+      tags:
+      - Configuration
+      parameters:
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFileContent'
+            examples:
+              ReplaceconfigfileRequestExample:
+                summary: Default replaceConfigFile request
+                x-microcks-default: true
+                value:
+                  content: example_value
+      responses:
+        '200':
+          description: Configuration file replaced
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteConfigFile
+      summary: Oracle Goldengate Delete a Configuration File
+      description: Deletes a configuration file.
+      tags:
+      - Configuration
+      parameters:
+      - name: file
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '204':
+          description: File deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services:
+    get:
+      operationId: getApiVersions
+      summary: Oracle Goldengate Retrieve Api Versions
+      description: Returns the list of available REST API versions supported by this GoldenGate instance.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successfully retrieved API versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiVersionList'
+              examples:
+                Getapiversions200Example:
+                  summary: Default getApiVersions 200 response
+                  x-microcks-default: true
+                  value:
+                    versions:
+                    - version: example_value
+                      isLatest: true
+                      links:
+                      - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2:
+    get:
+      operationId: describeApiVersion
+      summary: Oracle Goldengate Describe Api Version V2
+      description: Returns details about the v2 REST API including available resources and metadata.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successfully retrieved API version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiVersionDetails'
+              examples:
+                Describeapiversion200Example:
+                  summary: Default describeApiVersion 200 response
+                  x-microcks-default: true
+                  value:
+                    version: example_value
+                    isLatest: true
+                    lifecycle: example_value
+                    links:
+                    - rel: example_value
+                      href: example_value
+                      mediaType: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/config/summary:
+    get:
+      operationId: getConfigSummary
+      summary: Oracle Goldengate Get Service Configuration Summary
+      description: Returns a summary of the current service configuration.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Configuration summary retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigSummary'
+              examples:
+                Getconfigsummary200Example:
+                  summary: Default getConfigSummary 200 response
+                  x-microcks-default: true
+                  value:
+                    serviceType: example_value
+                    status: example_value
+                    host: example_value
+                    port: 10
+                    deploymentName: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/config/types:
+    get:
+      operationId: listConfigTypes
+      summary: Oracle Goldengate List Configuration Data Types
+      description: Returns a list of available configuration data types.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Configuration types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigTypeList'
+              examples:
+                Listconfigtypes200Example:
+                  summary: Default listConfigTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    types:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/parameters:
+    get:
+      operationId: listParameters
+      summary: Oracle Goldengate List Parameter Names
+      description: Returns a list of all available GoldenGate parameter names.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Parameters listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterNameList'
+              examples:
+                Listparameters200Example:
+                  summary: Default listParameters 200 response
+                  x-microcks-default: true
+                  value:
+                    parameters:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/parameters/{parameter}:
+    get:
+      operationId: getParameterInfo
+      summary: Oracle Goldengate Retrieve Parameter Information
+      description: Returns detailed information about a specific GoldenGate parameter.
+      tags:
+      - Configuration
+      parameters:
+      - name: parameter
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Parameter information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterInfo'
+              examples:
+                Getparameterinfo200Example:
+                  summary: Default getParameterInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    description: A sample description.
+                    type: example_value
+                    defaultValue: example_value
+                    validValues:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ParameterNameList:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            type: string
+          example: []
+    ApiVersionDetails:
+      type: object
+      properties:
+        version:
+          type: string
+          example: example_value
+        isLatest:
+          type: boolean
+          example: true
+        lifecycle:
+          type: string
+          example: example_value
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+          example: []
+    ApiVersionList:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+              isLatest:
+                type: boolean
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+          example: []
+    ConfigTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+          example: []
+    ConfigFileList:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    ConfigSummary:
+      type: object
+      properties:
+        serviceType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        deploymentName:
+          type: string
+          example: example_value
+    ConfigFile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ConfigFileContent:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          example: example_value
+    ParameterInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        type:
+          type: string
+          example: example_value
+        defaultValue:
+          type: string
+          example: example_value
+        validValues:
+          type: array
+          items:
+            type: string
+          example: []
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: example_value
+        href:
+          type: string
+          example: example_value
+        mediaType:
+          type: string
+          example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  responses:
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

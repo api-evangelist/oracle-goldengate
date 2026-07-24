@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Deployment Versions API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Deployment Versions
+  description: Query available deployment versions
+paths:
+  /20200407/deploymentVersions:
+    get:
+      operationId: listDeploymentVersions
+      summary: Oracle Goldengate List Deployment Versions
+      description: Returns available GoldenGate deployment versions.
+      tags:
+      - Deployment Versions
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      responses:
+        '200':
+          description: Versions listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentVersionCollection'
+              examples:
+                Listdeploymentversions200Example:
+                  summary: Default listDeploymentVersions 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - oggVersion: example_value
+                      deploymentType: example_value
+                      releaseType: example_value
+                      isSecurityFix: true
+                      timeReleased: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    DeploymentVersionCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              oggVersion:
+                type: string
+              deploymentType:
+                type: string
+              releaseType:
+                type: string
+              isSecurityFix:
+                type: boolean
+              timeReleased:
+                type: string
+                format: date-time
+          example: []
+  parameters:
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

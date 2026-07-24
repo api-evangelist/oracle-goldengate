@@ -1,0 +1,1186 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Deployments API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Deployments
+  description: Manage GoldenGate deployment instances
+paths:
+  /20200407/deployments:
+    get:
+      operationId: listDeployments
+      summary: Oracle Goldengate List Deployments
+      description: Returns a list of GoldenGate deployments in the specified compartment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - $ref: '#/components/parameters/lifecycleStateParam'
+      - $ref: '#/components/parameters/displayNameParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/sortByParam'
+      - $ref: '#/components/parameters/sortOrderParam'
+      responses:
+        '200':
+          description: Deployment list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentCollection'
+              examples:
+                Listdeployments200Example:
+                  summary: Default listDeployments 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      displayName: example_value
+                      compartmentId: '500123'
+                      lifecycleState: example_value
+                      timeCreated: '2026-01-15T10:30:00Z'
+                      timeUpdated: '2026-01-15T10:30:00Z'
+          headers:
+            opc-next-page:
+              schema:
+                type: string
+            opc-request-id:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDeployment
+      summary: Oracle Goldengate Create a Deployment
+      description: Creates a new GoldenGate deployment in the specified compartment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/opcRetryTokenParam'
+      - $ref: '#/components/parameters/opcRequestIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentDetails'
+            examples:
+              CreatedeploymentRequestExample:
+                summary: Default createDeployment request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  compartmentId: '500123'
+                  subnetId: '500123'
+                  licenseModel: LICENSE_INCLUDED
+                  fqdn: example_value
+                  cpuCoreCount: 10
+                  isAutoScalingEnabled: true
+                  isPublic: true
+                  oggData:
+                    deploymentName: example_value
+                    adminUsername: example_value
+                    adminPassword: example_value
+                  freeformTags: example_value
+                  definedTags: example_value
+      responses:
+        '200':
+          description: Deployment creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+              examples:
+                Createdeployment200Example:
+                  summary: Default createDeployment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    subnetId: '500123'
+                    licenseModel: LICENSE_INCLUDED
+                    fqdn: example_value
+                    cpuCoreCount: 10
+                    isAutoScalingEnabled: true
+                    isPublic: true
+                    publicIpAddress: example_value
+                    privateIpAddress: example_value
+                    deploymentUrl: https://www.example.com
+                    lifecycleState: CREATING
+                    oggData:
+                      deploymentName: example_value
+                      adminUsername: example_value
+                      oggVersion: example_value
+                      certificate: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+                    freeformTags: example_value
+                    definedTags: example_value
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+            opc-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}:
+    get:
+      operationId: getDeployment
+      summary: Oracle Goldengate Get a Deployment
+      description: Returns the details of a specific GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      responses:
+        '200':
+          description: Deployment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+              examples:
+                Getdeployment200Example:
+                  summary: Default getDeployment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    subnetId: '500123'
+                    licenseModel: LICENSE_INCLUDED
+                    fqdn: example_value
+                    cpuCoreCount: 10
+                    isAutoScalingEnabled: true
+                    isPublic: true
+                    publicIpAddress: example_value
+                    privateIpAddress: example_value
+                    deploymentUrl: https://www.example.com
+                    lifecycleState: CREATING
+                    oggData:
+                      deploymentName: example_value
+                      adminUsername: example_value
+                      oggVersion: example_value
+                      certificate: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+                    freeformTags: example_value
+                    definedTags: example_value
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateDeployment
+      summary: Oracle Goldengate Update a Deployment
+      description: Updates the configuration of a GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentDetails'
+            examples:
+              UpdatedeploymentRequestExample:
+                summary: Default updateDeployment request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  fqdn: example_value
+                  cpuCoreCount: 10
+                  isAutoScalingEnabled: true
+                  isPublic: true
+                  freeformTags: example_value
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDeployment
+      summary: Oracle Goldengate Delete a Deployment
+      description: Deletes a GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}/actions/start:
+    post:
+      operationId: startDeployment
+      summary: Oracle Goldengate Start a Deployment
+      description: Starts a stopped GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartDeploymentDetails'
+            examples:
+              StartdeploymentRequestExample:
+                summary: Default startDeployment request
+                x-microcks-default: true
+                value:
+                  type: DEFAULT
+      responses:
+        '202':
+          description: Start initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}/actions/stop:
+    post:
+      operationId: stopDeployment
+      summary: Oracle Goldengate Stop a Deployment
+      description: Stops a running GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopDeploymentDetails'
+            examples:
+              StopdeploymentRequestExample:
+                summary: Default stopDeployment request
+                x-microcks-default: true
+                value:
+                  type: DEFAULT
+      responses:
+        '202':
+          description: Stop initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}/actions/upgrade:
+    post:
+      operationId: upgradeDeployment
+      summary: Oracle Goldengate Upgrade a Deployment
+      description: Upgrades a GoldenGate deployment to a newer version.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeDeploymentDetails'
+            examples:
+              UpgradedeploymentRequestExample:
+                summary: Default upgradeDeployment request
+                x-microcks-default: true
+                value:
+                  type: CURRENT_RELEASE
+                  oggVersion: example_value
+      responses:
+        '202':
+          description: Upgrade initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}/actions/changeCompartment:
+    post:
+      operationId: changeDeploymentCompartment
+      summary: Oracle Goldengate Change Deployment Compartment
+      description: Moves a deployment to a different compartment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCompartmentDetails'
+            examples:
+              ChangedeploymentcompartmentRequestExample:
+                summary: Default changeDeploymentCompartment request
+                x-microcks-default: true
+                value:
+                  compartmentId: '500123'
+      responses:
+        '202':
+          description: Compartment change initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deployments/{deploymentId}/actions/collectDiagnostics:
+    post:
+      operationId: collectDeploymentDiagnostics
+      summary: Oracle Goldengate Collect Deployment Diagnostics
+      description: Collects diagnostic information from a GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectDiagnosticsDetails'
+            examples:
+              CollectdeploymentdiagnosticsRequestExample:
+                summary: Default collectDeploymentDiagnostics request
+                x-microcks-default: true
+                value:
+                  namespaceName: example_value
+                  bucketName: example_value
+                  diagnosticNamePrefix: example_value
+      responses:
+        '202':
+          description: Diagnostic collection initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/deployments:
+    get:
+      operationId: listDeployments
+      summary: Oracle Goldengate List All Deployments
+      description: Returns a list of all GoldenGate deployments managed by the Service Manager.
+      tags:
+      - Deployments
+      responses:
+        '200':
+          description: Successfully retrieved deployment list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
+              examples:
+                Listdeployments200Example:
+                  summary: Default listDeployments 200 response
+                  x-microcks-default: true
+                  value:
+                    deployments:
+                    - name: Example Title
+                      status: example_value
+                      description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/deployments/{deployment}:
+    get:
+      operationId: getDeployment
+      summary: Oracle Goldengate Retrieve a Deployment
+      description: Returns the configuration details of a specific GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '200':
+          description: Deployment details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment_2'
+              examples:
+                Getdeployment200Example:
+                  summary: Default getDeployment 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    description: A sample description.
+                    oggHome: example_value
+                    oggVersion: example_value
+                    environmentVariables: example_value
+                    services:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      port: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDeployment
+      summary: Oracle Goldengate Create a Deployment
+      description: Creates a new GoldenGate deployment with the specified configuration.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentRequest'
+            examples:
+              CreatedeploymentRequestExample:
+                summary: Default createDeployment request
+                x-microcks-default: true
+                value:
+                  oggHome: example_value
+                  description: A sample description.
+                  environmentVariables: example_value
+                  autoStart: true
+      responses:
+        '201':
+          description: Deployment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment_2'
+              examples:
+                Createdeployment201Example:
+                  summary: Default createDeployment 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    description: A sample description.
+                    oggHome: example_value
+                    oggVersion: example_value
+                    environmentVariables: example_value
+                    services:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      port: 10
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateDeployment
+      summary: Oracle Goldengate Update a Deployment
+      description: Updates configuration properties of an existing GoldenGate deployment.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentRequest'
+            examples:
+              UpdatedeploymentRequestExample:
+                summary: Default updateDeployment request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  environmentVariables: example_value
+                  autoStart: true
+      responses:
+        '200':
+          description: Deployment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment_2'
+              examples:
+                Updatedeployment200Example:
+                  summary: Default updateDeployment 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    description: A sample description.
+                    oggHome: example_value
+                    oggVersion: example_value
+                    environmentVariables: example_value
+                    services:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      port: 10
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDeployment
+      summary: Oracle Goldengate Remove a Deployment
+      description: Removes a GoldenGate deployment and its associated services.
+      tags:
+      - Deployments
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '204':
+          description: Deployment removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    deploymentParam:
+      name: deployment
+      in: path
+      required: true
+      description: Name of the GoldenGate deployment
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    lifecycleStateParam:
+      name: lifecycleState
+      in: query
+      schema:
+        type: string
+        enum:
+        - CREATING
+        - UPDATING
+        - ACTIVE
+        - INACTIVE
+        - DELETING
+        - DELETED
+        - FAILED
+        - NEEDS_ATTENTION
+        - IN_PROGRESS
+        - CANCELING
+        - CANCELED
+        - SUCCEEDED
+    opcRequestIdParam:
+      name: opc-request-id
+      in: header
+      description: Unique request identifier
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    sortByParam:
+      name: sortBy
+      in: query
+      schema:
+        type: string
+        enum:
+        - timeCreated
+        - displayName
+    opcRetryTokenParam:
+      name: opc-retry-token
+      in: header
+      description: Idempotent retry token
+      schema:
+        type: string
+    displayNameParam:
+      name: displayName
+      in: query
+      description: Filter by display name
+      schema:
+        type: string
+    sortOrderParam:
+      name: sortOrder
+      in: query
+      schema:
+        type: string
+        enum:
+        - ASC
+        - DESC
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    CreateDeploymentDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - subnetId
+      - licenseModel
+      - cpuCoreCount
+      - isAutoScalingEnabled
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        subnetId:
+          type: string
+          example: '500123'
+        licenseModel:
+          type: string
+          enum:
+          - LICENSE_INCLUDED
+          - BRING_YOUR_OWN_LICENSE
+          example: LICENSE_INCLUDED
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        oggData:
+          type: object
+          required:
+          - deploymentName
+          - adminUsername
+          - adminPassword
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            adminPassword:
+              type: string
+              format: password
+          example: example_value
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    DeploymentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OCID of the deployment
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        compartmentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeUpdated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    StopDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    Deployment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OCID of the deployment
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        subnetId:
+          type: string
+          example: '500123'
+        licenseModel:
+          type: string
+          enum:
+          - LICENSE_INCLUDED
+          - BRING_YOUR_OWN_LICENSE
+          example: LICENSE_INCLUDED
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        publicIpAddress:
+          type: string
+          example: example_value
+        privateIpAddress:
+          type: string
+          example: example_value
+        deploymentUrl:
+          type: string
+          example: https://www.example.com
+        lifecycleState:
+          type: string
+          enum:
+          - CREATING
+          - UPDATING
+          - ACTIVE
+          - INACTIVE
+          - DELETING
+          - DELETED
+          - FAILED
+          - NEEDS_ATTENTION
+          - IN_PROGRESS
+          - CANCELING
+          - CANCELED
+          - SUCCEEDED
+          example: CREATING
+        oggData:
+          type: object
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            oggVersion:
+              type: string
+            certificate:
+              type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeUpdated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+          example: example_value
+    UpdateDeploymentRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        autoStart:
+          type: boolean
+          example: true
+    DeploymentList:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary_2'
+          example: []
+    CollectDiagnosticsDetails:
+      type: object
+      required:
+      - namespaceName
+      - bucketName
+      - diagnosticNamePrefix
+      properties:
+        namespaceName:
+          type: string
+          example: example_value
+        bucketName:
+          type: string
+          example: example_value
+        diagnosticNamePrefix:
+          type: string
+          example: example_value
+    StartDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    Deployment_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Unique name of the deployment
+          example: Example Title
+        status:
+          type: string
+          description: Current status of the deployment
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        description:
+          type: string
+          description: Description of the deployment
+          example: A sample description.
+        oggHome:
+          type: string
+          description: Oracle GoldenGate home directory
+          example: example_value
+        oggVersion:
+          type: string
+          description: GoldenGate software version
+          example: example_value
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    UpgradeDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - CURRENT_RELEASE
+          - SPECIFIC_RELEASE
+          example: CURRENT_RELEASE
+        oggVersion:
+          type: string
+          example: example_value
+    DeploymentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary'
+          example: []
+    ChangeCompartmentDetails:
+      type: object
+      required:
+      - compartmentId
+      properties:
+        compartmentId:
+          type: string
+          example: '500123'
+    DeploymentSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    UpdateDeploymentDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    CreateDeploymentRequest:
+      type: object
+      required:
+      - oggHome
+      properties:
+        oggHome:
+          type: string
+          description: Oracle GoldenGate home directory path
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        autoStart:
+          type: boolean
+          description: Whether to automatically start the deployment
+          example: true
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

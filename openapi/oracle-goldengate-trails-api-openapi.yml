@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Trails API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Trails
+  description: Trail file management
+paths:
+  /services/v2/trails:
+    get:
+      operationId: listTrails
+      summary: Oracle Goldengate List Trail Files
+      description: Returns trail files used by big data replicats.
+      tags:
+      - Trails
+      responses:
+        '200':
+          description: Trails listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailList'
+              examples:
+                Listtrails200Example:
+                  summary: Default listTrails 200 response
+                  x-microcks-default: true
+                  value:
+                    trails:
+                    - name: Example Title
+                      path: example_value
+                      sequence: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    TrailList:
+      type: object
+      properties:
+        trails:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+              sequence:
+                type: integer
+          example: []
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

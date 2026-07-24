@@ -1,0 +1,450 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Compare Pairs API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Compare Pairs
+  description: Manage compare pairs within groups
+paths:
+  /services/configuration/cps/group/{groupId}:
+    post:
+      operationId: createComparePairs
+      summary: Oracle Goldengate Create Compare Pairs in a Group
+      description: Creates one or more compare pairs within a specific compare group.
+      tags:
+      - Compare Pairs
+      parameters:
+      - $ref: '#/components/parameters/groupIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateComparePairsRequest'
+            examples:
+              CreatecomparepairsRequestExample:
+                summary: Default createComparePairs request
+                x-microcks-default: true
+                value:
+                  comparePairs:
+                  - sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
+      responses:
+        '201':
+          description: Compare pairs created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePairList'
+              examples:
+                Createcomparepairs201Example:
+                  summary: Default createComparePairs 201 response
+                  x-microcks-default: true
+                  value:
+                    comparePairs:
+                    - id: abc123
+                      groupId: '500123'
+                      sourceSchema: example_value
+                      sourceTable: example_value
+                      targetSchema: example_value
+                      targetTable: example_value
+                      profileId: '500123'
+                      columnMappings: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/cps/{Id}:
+    get:
+      operationId: getComparePair
+      summary: Oracle Goldengate Retrieve a Compare Pair
+      description: Returns the details of a specific compare pair including source and target table mappings.
+      tags:
+      - Compare Pairs
+      parameters:
+      - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Compare pair retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePair'
+              examples:
+                Getcomparepair200Example:
+                  summary: Default getComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    groupId: '500123'
+                    sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
+                    profileId: '500123'
+                    columnMappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceComparePair
+      summary: Oracle Goldengate Replace a Compare Pair
+      description: Replaces the configuration of an existing compare pair.
+      tags:
+      - Compare Pairs
+      parameters:
+      - $ref: '#/components/parameters/comparePairIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceComparePairRequest'
+            examples:
+              ReplacecomparepairRequestExample:
+                summary: Default replaceComparePair request
+                x-microcks-default: true
+                value:
+                  sourceSchema: example_value
+                  sourceTable: example_value
+                  targetSchema: example_value
+                  targetTable: example_value
+                  profileId: '500123'
+      responses:
+        '200':
+          description: Compare pair replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePair'
+              examples:
+                Replacecomparepair200Example:
+                  summary: Default replaceComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    groupId: '500123'
+                    sourceSchema: example_value
+                    sourceTable: example_value
+                    targetSchema: example_value
+                    targetTable: example_value
+                    profileId: '500123'
+                    columnMappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteComparePair
+      summary: Oracle Goldengate Delete a Compare Pair
+      description: Deletes a compare pair from its group.
+      tags:
+      - Compare Pairs
+      parameters:
+      - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '204':
+          description: Compare pair deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/cps/{Id}/colmap:
+    post:
+      operationId: generateColumnMappings
+      summary: Oracle Goldengate Generate Column Mapping Pairs
+      description: Automatically generates column mappings between source and target tables for a compare pair.
+      tags:
+      - Compare Pairs
+      parameters:
+      - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Column mappings generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ColumnMappingList'
+              examples:
+                Generatecolumnmappings200Example:
+                  summary: Default generateColumnMappings 200 response
+                  x-microcks-default: true
+                  value:
+                    mappings:
+                    - sourceColumn: example_value
+                      targetColumn: example_value
+                      dataType: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/cps/mappings:
+    post:
+      operationId: generateMappingObjects
+      summary: Oracle Goldengate Generate Mapping Objects From Rules
+      description: Generates compare pair mappings based on mapping rules for automatic pair creation.
+      tags:
+      - Compare Pairs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MappingRulesRequest'
+            examples:
+              GeneratemappingobjectsRequestExample:
+                summary: Default generateMappingObjects request
+                x-microcks-default: true
+                value:
+                  sourceSchemaPattern: example_value
+                  targetSchemaPattern: example_value
+                  tablePattern: example_value
+      responses:
+        '200':
+          description: Mapping objects generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MappingObjectList'
+              examples:
+                Generatemappingobjects200Example:
+                  summary: Default generateMappingObjects 200 response
+                  x-microcks-default: true
+                  value:
+                    mappings:
+                    - sourceSchema: example_value
+                      sourceTable: example_value
+                      targetSchema: example_value
+                      targetTable: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    MappingRulesRequest:
+      type: object
+      properties:
+        sourceSchemaPattern:
+          type: string
+          example: example_value
+        targetSchemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
+    ReplaceComparePairRequest:
+      type: object
+      properties:
+        sourceSchema:
+          type: string
+          example: example_value
+        sourceTable:
+          type: string
+          example: example_value
+        targetSchema:
+          type: string
+          example: example_value
+        targetTable:
+          type: string
+          example: example_value
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ColumnMappingList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+          example: []
+    CreateComparePairsRequest:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            type: object
+            required:
+            - sourceSchema
+            - sourceTable
+            - targetSchema
+            - targetTable
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
+    ComparePair:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        groupId:
+          type: integer
+          format: int64
+          example: '500123'
+        sourceSchema:
+          type: string
+          example: example_value
+        sourceTable:
+          type: string
+          example: example_value
+        targetSchema:
+          type: string
+          example: example_value
+        targetTable:
+          type: string
+          example: example_value
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+        columnMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+          example: []
+    ComparePairList:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComparePair'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    MappingObjectList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
+    ColumnMapping:
+      type: object
+      properties:
+        sourceColumn:
+          type: string
+          example: example_value
+        targetColumn:
+          type: string
+          example: example_value
+        dataType:
+          type: string
+          example: example_value
+  parameters:
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdPathParam:
+      name: groupId
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

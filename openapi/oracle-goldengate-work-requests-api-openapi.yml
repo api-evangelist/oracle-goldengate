@@ -1,0 +1,324 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Work Requests API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Work Requests
+  description: Track asynchronous operations
+paths:
+  /20200407/workRequests:
+    get:
+      operationId: listWorkRequests
+      summary: Oracle Goldengate List Work Requests
+      description: Returns a list of asynchronous work requests in the specified compartment.
+      tags:
+      - Work Requests
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Work requests listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestCollection'
+              examples:
+                Listworkrequests200Example:
+                  summary: Default listWorkRequests 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      operationType: example_value
+                      status: example_value
+                      percentComplete: 42.5
+                      timeAccepted: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/workRequests/{workRequestId}:
+    get:
+      operationId: getWorkRequest
+      summary: Oracle Goldengate Get a Work Request
+      description: Returns the details of a specific asynchronous work request.
+      tags:
+      - Work Requests
+      parameters:
+      - name: workRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Work request retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequest'
+              examples:
+                Getworkrequest200Example:
+                  summary: Default getWorkRequest 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    operationType: example_value
+                    status: ACCEPTED
+                    percentComplete: 42.5
+                    timeAccepted: '2026-01-15T10:30:00Z'
+                    timeStarted: '2026-01-15T10:30:00Z'
+                    timeFinished: '2026-01-15T10:30:00Z'
+                    resources:
+                    - entityType: example_value
+                      actionType: example_value
+                      identifier: example_value
+                      entityUri: example_value
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/workRequests/{workRequestId}/logs:
+    get:
+      operationId: listWorkRequestLogs
+      summary: Oracle Goldengate List Work Request Logs
+      description: Returns log entries for a work request.
+      tags:
+      - Work Requests
+      parameters:
+      - name: workRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestLogEntryCollection'
+              examples:
+                Listworkrequestlogs200Example:
+                  summary: Default listWorkRequestLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - message: example_value
+                      timestamp: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/workRequests/{workRequestId}/errors:
+    get:
+      operationId: listWorkRequestErrors
+      summary: Oracle Goldengate List Work Request Errors
+      description: Returns error entries for a work request.
+      tags:
+      - Work Requests
+      parameters:
+      - name: workRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Errors listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkRequestErrorCollection'
+              examples:
+                Listworkrequesterrors200Example:
+                  summary: Default listWorkRequestErrors 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - code: example_value
+                      message: example_value
+                      timestamp: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+  schemas:
+    WorkRequestLogEntryCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    WorkRequestErrorCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    WorkRequestSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        operationType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        percentComplete:
+          type: number
+          example: 42.5
+        timeAccepted:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    WorkRequestCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRequestSummary'
+          example: []
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    WorkRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        operationType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          enum:
+          - ACCEPTED
+          - IN_PROGRESS
+          - FAILED
+          - SUCCEEDED
+          - CANCELING
+          - CANCELED
+          example: ACCEPTED
+        percentComplete:
+          type: number
+          example: 42.5
+        timeAccepted:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeStarted:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeFinished:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              entityType:
+                type: string
+              actionType:
+                type: string
+              identifier:
+                type: string
+              entityUri:
+                type: string
+          example: []
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

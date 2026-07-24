@@ -1,0 +1,279 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Validation API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Validation
+  description: Validate connections and configurations
+paths:
+  /services/configuration/groups/validate/{Id}:
+    post:
+      operationId: validateGroup
+      summary: Oracle Goldengate Validate a Compare Group
+      description: Validates the configuration of a compare group including connection and table accessibility.
+      tags:
+      - Validation
+      parameters:
+      - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validategroup200Example:
+                  summary: Default validateGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/cps/validate/{Id}:
+    post:
+      operationId: validateComparePair
+      summary: Oracle Goldengate Validate a Compare Pair
+      description: Validates the configuration of a compare pair including table and column accessibility.
+      tags:
+      - Validation
+      parameters:
+      - $ref: '#/components/parameters/comparePairIdParam'
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validatecomparepair200Example:
+                  summary: Default validateComparePair 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/validate/connection:
+    post:
+      operationId: validateAgentConnection
+      summary: Oracle Goldengate Validate Agent Connection
+      description: Tests connectivity to a Veridata agent.
+      tags:
+      - Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateConnectionRequest'
+            examples:
+              ValidateagentconnectionRequestExample:
+                summary: Default validateAgentConnection request
+                x-microcks-default: true
+                value:
+                  host: example_value
+                  port: 10
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validateagentconnection200Example:
+                  summary: Default validateAgentConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/validate/connection/db:
+    post:
+      operationId: validateDatabaseConnection
+      summary: Oracle Goldengate Validate Database Connection
+      description: Tests database connectivity through a Veridata agent.
+      tags:
+      - Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDatabaseRequest'
+            examples:
+              ValidatedatabaseconnectionRequestExample:
+                summary: Default validateDatabaseConnection request
+                x-microcks-default: true
+                value:
+                  host: example_value
+                  port: 10
+                  databaseType: example_value
+                  serviceName: example_value
+                  username: example_value
+                  password: example_value
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+              examples:
+                Validatedatabaseconnection200Example:
+                  summary: Default validateDatabaseConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    valid: '500123'
+                    messages:
+                    - severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ValidateConnectionRequest:
+      type: object
+      required:
+      - host
+      - port
+      properties:
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    ValidationResult:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          example: '500123'
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+              message:
+                type: string
+          example: []
+    ValidateDatabaseRequest:
+      type: object
+      required:
+      - host
+      - port
+      - databaseType
+      properties:
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        databaseType:
+          type: string
+          example: example_value
+        serviceName:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  parameters:
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

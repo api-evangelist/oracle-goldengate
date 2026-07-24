@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Connection Assignments API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Connection Assignments
+  description: Manage connection-to-deployment assignments
+paths:
+  /20200407/connectionAssignments:
+    get:
+      operationId: listConnectionAssignments
+      summary: Oracle Goldengate List Connection Assignments
+      description: Returns connection-to-deployment assignments.
+      tags:
+      - Connection Assignments
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - name: deploymentId
+        in: query
+        schema:
+          type: string
+        example: '500123'
+      - name: connectionId
+        in: query
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Assignments listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignmentCollection'
+              examples:
+                Listconnectionassignments200Example:
+                  summary: Default listConnectionAssignments 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      connectionId: '500123'
+                      deploymentId: '500123'
+                      lifecycleState: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConnectionAssignment
+      summary: Oracle Goldengate Create a Connection Assignment
+      description: Assigns a connection to a deployment for use in replication.
+      tags:
+      - Connection Assignments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionAssignmentDetails'
+            examples:
+              CreateconnectionassignmentRequestExample:
+                summary: Default createConnectionAssignment request
+                x-microcks-default: true
+                value:
+                  connectionId: '500123'
+                  deploymentId: '500123'
+      responses:
+        '200':
+          description: Assignment creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignment'
+              examples:
+                Createconnectionassignment200Example:
+                  summary: Default createConnectionAssignment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    connectionId: '500123'
+                    deploymentId: '500123'
+                    compartmentId: '500123'
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/connectionAssignments/{connectionAssignmentId}:
+    get:
+      operationId: getConnectionAssignment
+      summary: Oracle Goldengate Get a Connection Assignment
+      description: Returns a specific connection assignment.
+      tags:
+      - Connection Assignments
+      parameters:
+      - name: connectionAssignmentId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Assignment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionAssignment'
+              examples:
+                Getconnectionassignment200Example:
+                  summary: Default getConnectionAssignment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    connectionId: '500123'
+                    deploymentId: '500123'
+                    compartmentId: '500123'
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteConnectionAssignment
+      summary: Oracle Goldengate Delete a Connection Assignment
+      description: Removes a connection assignment from a deployment.
+      tags:
+      - Connection Assignments
+      parameters:
+      - name: connectionAssignmentId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+  schemas:
+    ConnectionAssignmentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+          example: []
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    ConnectionAssignment:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
+        compartmentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeUpdated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    CreateConnectionAssignmentDetails:
+      type: object
+      required:
+      - connectionId
+      - deploymentId
+      properties:
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
+    ConnectionAssignmentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Encryption API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Encryption
+  description: Manage encryption keys and profiles
+paths:
+  /services/v2/enckeys:
+    get:
+      operationId: listEncryptionKeys
+      summary: Oracle Goldengate List Encryption Keys
+      description: Returns a list of all encryption keys in the wallet.
+      tags:
+      - Encryption
+      responses:
+        '200':
+          description: Encryption keys listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKeyList'
+              examples:
+                Listencryptionkeys200Example:
+                  summary: Default listEncryptionKeys 200 response
+                  x-microcks-default: true
+                  value:
+                    keys:
+                    - name: Example Title
+                      algorithm: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/enckeys/{keyName}:
+    get:
+      operationId: getEncryptionKey
+      summary: Oracle Goldengate Retrieve an Encryption Key
+      description: Returns details of a specific encryption key.
+      tags:
+      - Encryption
+      parameters:
+      - name: keyName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Encryption key retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKey'
+              examples:
+                Getencryptionkey200Example:
+                  summary: Default getEncryptionKey 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    algorithm: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createEncryptionKey
+      summary: Oracle Goldengate Create an Encryption Key
+      description: Creates a new encryption key in the wallet.
+      tags:
+      - Encryption
+      parameters:
+      - name: keyName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '201':
+          description: Encryption key created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionKey'
+              examples:
+                Createencryptionkey201Example:
+                  summary: Default createEncryptionKey 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    algorithm: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteEncryptionKey
+      summary: Oracle Goldengate Delete an Encryption Key
+      description: Deletes an encryption key from the wallet.
+      tags:
+      - Encryption
+      parameters:
+      - name: keyName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '204':
+          description: Encryption key deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/masterkey:
+    get:
+      operationId: listMasterKeyVersions
+      summary: Oracle Goldengate List Master Key Versions
+      description: Returns all versions of the master encryption key.
+      tags:
+      - Encryption
+      responses:
+        '200':
+          description: Master key versions listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterKeyVersionList'
+              examples:
+                Listmasterkeyversions200Example:
+                  summary: Default listMasterKeyVersions 200 response
+                  x-microcks-default: true
+                  value:
+                    versions:
+                    - version: 10
+                      status: current
+                      createdAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createMasterKeyVersion
+      summary: Oracle Goldengate Create a New Master Key Version
+      description: Creates a new version of the master encryption key.
+      tags:
+      - Encryption
+      responses:
+        '201':
+          description: Master key version created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterKeyVersion'
+              examples:
+                Createmasterkeyversion201Example:
+                  summary: Default createMasterKeyVersion 201 response
+                  x-microcks-default: true
+                  value:
+                    version: 10
+                    status: current
+                    createdAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    MasterKeyVersion:
+      type: object
+      properties:
+        version:
+          type: integer
+          example: 10
+        status:
+          type: string
+          enum:
+          - current
+          - retired
+          example: current
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    EncryptionKey:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        algorithm:
+          type: string
+          example: example_value
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    EncryptionKeyList:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptionKey'
+          example: []
+    MasterKeyVersionList:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterKeyVersion'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

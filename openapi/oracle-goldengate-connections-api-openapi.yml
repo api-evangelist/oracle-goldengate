@@ -1,0 +1,1393 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Connections API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Connections
+  description: Manage database and service connections
+paths:
+  /20200407/connections:
+    get:
+      operationId: listConnections
+      summary: Oracle Goldengate List Connections
+      description: Returns a list of connections in the specified compartment.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      - name: connectionType
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - GOLDENGATE
+            - KAFKA
+            - KAFKA_SCHEMA_REGISTRY
+            - MYSQL
+            - POSTGRESQL
+            - ORACLE
+            - MICROSOFT_SQLSERVER
+            - MONGODB
+            - ELASTICSEARCH
+            - AMAZON_S3
+            - AMAZON_KINESIS
+            - AZURE_DATA_LAKE_STORAGE
+            - AZURE_SYNAPSE_ANALYTICS
+            - GOOGLE_BIGQUERY
+            - GOOGLE_CLOUD_STORAGE
+            - HDFS
+            - OCI_OBJECT_STORAGE
+            - REDIS
+            - SNOWFLAKE
+            - JAVA_MESSAGE_SERVICE
+            - DB2
+            - GENERIC
+        example: []
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionCollection'
+              examples:
+                Listconnections200Example:
+                  summary: Default listConnections 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      displayName: example_value
+                      connectionType: example_value
+                      lifecycleState: example_value
+                      timeCreated: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConnection
+      summary: Oracle Goldengate Create a Connection
+      description: Creates a new connection for a source or target system. Supports Oracle, MySQL, PostgreSQL, SQL Server, MongoDB, Kafka, Elasticsearch, Amazon S3, Google BigQuery, Snowflake, and many other connection types.
+      tags:
+      - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionDetails'
+            examples:
+              CreateconnectionRequestExample:
+                summary: Default createConnection request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  compartmentId: '500123'
+                  connectionType: example_value
+                  technologyType: example_value
+                  freeformTags: example_value
+      responses:
+        '200':
+          description: Connection creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+              examples:
+                Createconnection200Example:
+                  summary: Default createConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    connectionType: GOLDENGATE
+                    technologyType: example_value
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+                    freeformTags: example_value
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/connections/{connectionId}:
+    get:
+      operationId: getConnection
+      summary: Oracle Goldengate Get a Connection
+      description: Returns the details of a specific connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam'
+      responses:
+        '200':
+          description: Connection retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+              examples:
+                Getconnection200Example:
+                  summary: Default getConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    connectionType: GOLDENGATE
+                    technologyType: example_value
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+                    timeUpdated: '2026-01-15T10:30:00Z'
+                    freeformTags: example_value
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateConnection
+      summary: Oracle Goldengate Update a Connection
+      description: Updates a connection's configuration.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionDetails'
+            examples:
+              UpdateconnectionRequestExample:
+                summary: Default updateConnection request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  freeformTags: example_value
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteConnection
+      summary: Oracle Goldengate Delete a Connection
+      description: Deletes a connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections:
+    get:
+      operationId: listConnections
+      summary: Oracle Goldengate List Database Connections
+      description: Returns a list of all configured database connections.
+      tags:
+      - Connections
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionList'
+              examples:
+                Listconnections200Example:
+                  summary: Default listConnections 200 response
+                  x-microcks-default: true
+                  value:
+                    connections:
+                    - name: Example Title
+                      type: example_value
+                      connectionString: example_value
+                      credentials: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}:
+    get:
+      operationId: getConnection
+      summary: Oracle Goldengate Retrieve a Database Connection
+      description: Returns details of a specific database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Connection details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+              examples:
+                Getconnection200Example:
+                  summary: Default getConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: example_value
+                    connectionString: example_value
+                    credentials:
+                      domain: example_value
+                      alias: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConnection
+      summary: Oracle Goldengate Create a Database Connection
+      description: Creates a new database connection with the specified credentials and connection string.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+            examples:
+              CreateconnectionRequestExample:
+                summary: Default createConnection request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  connectionString: example_value
+                  credentials:
+                    domain: example_value
+                    alias: example_value
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+              examples:
+                Createconnection201Example:
+                  summary: Default createConnection 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: example_value
+                    connectionString: example_value
+                    credentials:
+                      domain: example_value
+                      alias: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceConnection
+      summary: Oracle Goldengate Replace a Database Connection
+      description: Replaces the configuration of an existing database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+            examples:
+              ReplaceconnectionRequestExample:
+                summary: Default replaceConnection request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  connectionString: example_value
+                  credentials:
+                    domain: example_value
+                    alias: example_value
+      responses:
+        '200':
+          description: Connection replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseConnection'
+              examples:
+                Replaceconnection200Example:
+                  summary: Default replaceConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: example_value
+                    connectionString: example_value
+                    credentials:
+                      domain: example_value
+                      alias: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteConnection
+      summary: Oracle Goldengate Delete a Database Connection
+      description: Deletes a database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '204':
+          description: Connection deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}/trandata/table:
+    post:
+      operationId: manageTableSupplementalLogging
+      summary: Oracle Goldengate Manage Table Supplemental Logging
+      description: Adds or removes supplemental logging for a specific table to enable change data capture.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrandataRequest'
+            examples:
+              ManagetablesupplementalloggingRequestExample:
+                summary: Default manageTableSupplementalLogging request
+                x-microcks-default: true
+                value:
+                  operation: add
+                  name: Example Title
+      responses:
+        '200':
+          description: Supplemental logging managed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrandataResponse'
+              examples:
+                Managetablesupplementallogging200Example:
+                  summary: Default manageTableSupplementalLogging 200 response
+                  x-microcks-default: true
+                  value:
+                    result: example_value
+                    message: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}/trandata/schema:
+    post:
+      operationId: manageSchemaSupplementalLogging
+      summary: Oracle Goldengate Manage Schema Supplemental Logging
+      description: Adds or removes supplemental logging for all tables in a schema.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrandataRequest'
+            examples:
+              ManageschemasupplementalloggingRequestExample:
+                summary: Default manageSchemaSupplementalLogging request
+                x-microcks-default: true
+                value:
+                  operation: add
+                  name: Example Title
+      responses:
+        '200':
+          description: Schema supplemental logging managed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrandataResponse'
+              examples:
+                Manageschemasupplementallogging200Example:
+                  summary: Default manageSchemaSupplementalLogging 200 response
+                  x-microcks-default: true
+                  value:
+                    result: example_value
+                    message: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}/databases:
+    get:
+      operationId: getDatabaseNames
+      summary: Oracle Goldengate Retrieve Database Names
+      description: Returns available database names for a connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Database names retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseNameList'
+              examples:
+                Getdatabasenames200Example:
+                  summary: Default getDatabaseNames 200 response
+                  x-microcks-default: true
+                  value:
+                    databases:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}/databases/{database}/{schema}:
+    get:
+      operationId: getDatabaseTables
+      summary: Oracle Goldengate Retrieve Database Tables
+      description: Returns a list of tables in a specific database schema.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      - name: database
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: schema
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Tables retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableList'
+              examples:
+                Getdatabasetables200Example:
+                  summary: Default getDatabaseTables 200 response
+                  x-microcks-default: true
+                  value:
+                    tables:
+                    - name: Example Title
+                      owner: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/connections:
+    get:
+      operationId: listConnections
+      summary: Oracle Goldengate Retrieve All Connections
+      description: Returns a list of all configured source and target database connections.
+      tags:
+      - Connections
+      responses:
+        '200':
+          description: Connections listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionList_2'
+              examples:
+                Listconnections200Example:
+                  summary: Default listConnections 200 response
+                  x-microcks-default: true
+                  value:
+                    connections:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      databaseType: Oracle
+                      host: example_value
+                      port: 10
+                      serviceName: example_value
+                      schema: example_value
+                      agentHost: example_value
+                      agentPort: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConnection
+      summary: Oracle Goldengate Create a Connection
+      description: Creates a new database connection for use as a source or target in comparisons.
+      tags:
+      - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest_2'
+            examples:
+              CreateconnectionRequestExample:
+                summary: Default createConnection request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  databaseType: example_value
+                  host: example_value
+                  port: 10
+                  serviceName: example_value
+                  schema: example_value
+                  username: example_value
+                  password: example_value
+                  agentHost: example_value
+                  agentPort: 10
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection_2'
+              examples:
+                Createconnection201Example:
+                  summary: Default createConnection 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
+        '400':
+          $ref: '#/components/responses/BadRequest_3'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/connections/{Id}:
+    get:
+      operationId: getConnection
+      summary: Oracle Goldengate Retrieve a Connection
+      description: Returns the details of a specific database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam_2'
+      responses:
+        '200':
+          description: Connection retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection_2'
+              examples:
+                Getconnection200Example:
+                  summary: Default getConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateConnection
+      summary: Oracle Goldengate Update a Connection
+      description: Updates properties of an existing database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam_2'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionRequest'
+            examples:
+              UpdateconnectionRequestExample:
+                summary: Default updateConnection request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  host: example_value
+                  port: 10
+                  username: example_value
+                  password: example_value
+      responses:
+        '200':
+          description: Connection updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection_2'
+              examples:
+                Updateconnection200Example:
+                  summary: Default updateConnection 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    databaseType: Oracle
+                    host: example_value
+                    port: 10
+                    serviceName: example_value
+                    schema: example_value
+                    agentHost: example_value
+                    agentPort: 10
+        '400':
+          $ref: '#/components/responses/BadRequest_3'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteConnection
+      summary: Oracle Goldengate Delete a Connection
+      description: Deletes a database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam_2'
+      responses:
+        '204':
+          description: Connection deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/connections/{Id}/status:
+    get:
+      operationId: getConnectionStatus
+      summary: Oracle Goldengate Retrieve Connection Status
+      description: Returns the connectivity status of a database connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam_2'
+      responses:
+        '200':
+          description: Connection status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatus'
+              examples:
+                Getconnectionstatus200Example:
+                  summary: Default getConnectionStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    connectionId: '500123'
+                    status: connected
+                    message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/connections/{Id}/metadata:
+    post:
+      operationId: getConnectionMetadata
+      summary: Oracle Goldengate Retrieve Connection Metadata
+      description: Returns database metadata (schemas, tables, columns) for a connection.
+      tags:
+      - Connections
+      parameters:
+      - $ref: '#/components/parameters/connectionIdParam_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataRequest'
+            examples:
+              GetconnectionmetadataRequestExample:
+                summary: Default getConnectionMetadata request
+                x-microcks-default: true
+                value:
+                  schemaPattern: example_value
+                  tablePattern: example_value
+      responses:
+        '200':
+          description: Metadata retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionMetadata'
+              examples:
+                Getconnectionmetadata200Example:
+                  summary: Default getConnectionMetadata 200 response
+                  x-microcks-default: true
+                  value:
+                    schemas:
+                    - name: Example Title
+                      tables:
+                      - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UpdateConnectionDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    MetadataRequest:
+      type: object
+      properties:
+        schemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ConnectionStatus:
+      type: object
+      properties:
+        connectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - connected
+          - disconnected
+          - error
+          example: connected
+        message:
+          type: string
+          example: example_value
+    ConnectionList_2:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection_2'
+          example: []
+    CreateConnectionRequest_2:
+      type: object
+      required:
+      - name
+      - databaseType
+      - host
+      - port
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        databaseType:
+          type: string
+          example: example_value
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        serviceName:
+          type: string
+          example: example_value
+        schema:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        agentHost:
+          type: string
+          example: example_value
+        agentPort:
+          type: integer
+          example: 10
+    TableList:
+      type: object
+      properties:
+        tables:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              owner:
+                type: string
+          example: []
+    DatabaseNameList:
+      type: object
+      properties:
+        databases:
+          type: array
+          items:
+            type: string
+          example: []
+    CreateConnectionDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - connectionType
+      - technologyType
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        connectionType:
+          type: string
+          example: example_value
+        technologyType:
+          type: string
+          example: example_value
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    ConnectionMetadata:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              tables:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    columns:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          dataType:
+                            type: string
+                          nullable:
+                            type: boolean
+                          primaryKey:
+                            type: boolean
+          example: []
+    UpdateConnectionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+    ConnectionCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionSummary'
+          example: []
+    DatabaseConnection:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Connection name
+          example: Example Title
+        type:
+          type: string
+          description: Database type
+          example: example_value
+        connectionString:
+          type: string
+          description: Database connection string
+          example: example_value
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    TrandataRequest:
+      type: object
+      required:
+      - operation
+      properties:
+        operation:
+          type: string
+          enum:
+          - add
+          - delete
+          - info
+          example: add
+        name:
+          type: string
+          description: Table or schema name
+          example: Example Title
+    ConnectionList:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseConnection'
+          example: []
+    CreateConnectionRequest:
+      type: object
+      required:
+      - credentials
+      properties:
+        type:
+          type: string
+          example: example_value
+        connectionString:
+          type: string
+          example: example_value
+        credentials:
+          type: object
+          required:
+          - domain
+          - alias
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    ConnectionSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        connectionType:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    TrandataResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    Connection_2:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        databaseType:
+          type: string
+          enum:
+          - Oracle
+          - MySQL
+          - SQL Server
+          - PostgreSQL
+          - DB2
+          - Sybase
+          - Teradata
+          example: Oracle
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        serviceName:
+          type: string
+          example: example_value
+        schema:
+          type: string
+          example: example_value
+        agentHost:
+          type: string
+          example: example_value
+        agentPort:
+          type: integer
+          example: 10
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        connectionType:
+          type: string
+          enum:
+          - GOLDENGATE
+          - KAFKA
+          - KAFKA_SCHEMA_REGISTRY
+          - MYSQL
+          - POSTGRESQL
+          - ORACLE
+          - MICROSOFT_SQLSERVER
+          - MONGODB
+          - ELASTICSEARCH
+          - AMAZON_S3
+          - AMAZON_KINESIS
+          - AZURE_DATA_LAKE_STORAGE
+          - AZURE_SYNAPSE_ANALYTICS
+          - GOOGLE_BIGQUERY
+          - GOOGLE_CLOUD_STORAGE
+          - HDFS
+          - OCI_OBJECT_STORAGE
+          - REDIS
+          - SNOWFLAKE
+          - JAVA_MESSAGE_SERVICE
+          - DB2
+          - GENERIC
+          example: GOLDENGATE
+        technologyType:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeUpdated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+  responses:
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest_3:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound_3:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    connectionIdParam_2:
+      name: Id
+      in: path
+      required: true
+      description: Connection identifier
+      schema:
+        type: integer
+        format: int64
+    connectionIdParam:
+      name: connectionId
+      in: path
+      required: true
+      description: The OCID of the connection
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

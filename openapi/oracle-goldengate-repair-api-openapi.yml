@@ -1,0 +1,324 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Repair API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Repair
+  description: Repair out-of-sync data
+paths:
+  /services/repair/jobs/{runId}:
+    post:
+      operationId: repairJob
+      summary: Oracle Goldengate Repair Out-of-sync Data
+      description: Initiates a repair operation to synchronize out-of-sync rows found during a comparison.
+      tags:
+      - Repair
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairJobRequest'
+            examples:
+              RepairjobRequestExample:
+                summary: Default repairJob request
+                x-microcks-default: true
+                value:
+                  repairMode: insert
+      responses:
+        '200':
+          description: Repair initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairExecution'
+              examples:
+                Repairjob200Example:
+                  summary: Default repairJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/repair/jobs/{runId}/stop:
+    post:
+      operationId: stopRepairJob
+      summary: Oracle Goldengate Stop a Repair Job
+      description: Stops a currently running repair operation.
+      tags:
+      - Repair
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair stopped
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/repair/jobs:
+    get:
+      operationId: getRepairStatistics
+      summary: Oracle Goldengate Retrieve Repair Statistics
+      description: Returns statistics for repair operations.
+      tags:
+      - Repair
+      responses:
+        '200':
+          description: Repair statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairStatisticsList'
+              examples:
+                Getrepairstatistics200Example:
+                  summary: Default getRepairStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - runId: '500123'
+                      status: example_value
+                      rowsRepaired: 10
+                      rowsFailed: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/repair/cps/{runId}:
+    get:
+      operationId: getRepairedRowDetails
+      summary: Oracle Goldengate Retrieve Repaired Row Details
+      description: Returns detailed information about rows that were repaired during a repair operation.
+      tags:
+      - Repair
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairedRowDetails'
+              examples:
+                Getrepairedrowdetails200Example:
+                  summary: Default getRepairedRowDetails 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    rows:
+                    - table: example_value
+                      repairType: example_value
+                      status: example_value
+                      keyValues: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/repair/{runId}/reports:
+    get:
+      operationId: getRepairReport
+      summary: Oracle Goldengate Retrieve Repair Report
+      description: Returns a detailed repair report for a specific repair run.
+      tags:
+      - Repair
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Repair report retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairReport'
+              examples:
+                Getrepairreport200Example:
+                  summary: Default getRepairReport 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+                    totalRows: 10
+                    repairedRows: 10
+                    failedRows: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RepairJobRequest:
+      type: object
+      properties:
+        repairMode:
+          type: string
+          enum:
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
+    RepairedRowDetails:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              table:
+                type: string
+              repairType:
+                type: string
+              status:
+                type: string
+              keyValues:
+                type: object
+                additionalProperties: true
+          example: []
+    RepairReport:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        totalRows:
+          type: integer
+          format: int64
+          example: 10
+        repairedRows:
+          type: integer
+          format: int64
+          example: 10
+        failedRows:
+          type: integer
+          format: int64
+          example: 10
+    RepairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              status:
+                type: string
+              rowsRepaired:
+                type: integer
+                format: int64
+              rowsFailed:
+                type: integer
+                format: int64
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    RepairExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  parameters:
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

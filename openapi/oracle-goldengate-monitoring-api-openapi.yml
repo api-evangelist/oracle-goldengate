@@ -1,0 +1,1224 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Monitoring API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Monitoring
+  description: Performance metrics and process monitoring
+paths:
+  /services/v2/config/health:
+    get:
+      operationId: getServiceHealth
+      summary: Oracle Goldengate Get Service Health Details
+      description: Returns detailed health information for the GoldenGate for Big Data service.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Service health details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceHealth'
+              examples:
+                Getservicehealth200Example:
+                  summary: Default getServiceHealth 200 response
+                  x-microcks-default: true
+                  value:
+                    healthy: true
+                    services:
+                    - name: Example Title
+                      status: example_value
+                      port: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/processes:
+    get:
+      operationId: listProcessMetrics
+      summary: Oracle Goldengate Retrieve All Process Metrics
+      description: Returns performance metrics for all running processes.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessMetricsList'
+              examples:
+                Listprocessmetrics200Example:
+                  summary: Default listProcessMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    processes:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      lag: 42.5
+                      operationsProcessed: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/statisticsReplicat:
+    get:
+      operationId: getReplicatStats
+      summary: Oracle Goldengate Retrieve Replicat Statistics
+      description: Returns handler-level statistics for a big data Replicat including records written to the target.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam'
+      responses:
+        '200':
+          description: Statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicatStatistics'
+              examples:
+                Getreplicatstats200Example:
+                  summary: Default getReplicatStats 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    totalOperations: 10
+                    inserts: 10
+                    updates: 10
+                    deletes: 10
+                    handlerStatistics:
+                      recordsWritten: 10
+                      bytesWritten: 10
+                      batchesProcessed: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/config/health/check:
+    get:
+      operationId: getServiceHealthCheck
+      summary: Oracle Goldengate Get Service Health Summary Check
+      description: Returns a quick health check summary indicating overall service status.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Health check passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckSummary'
+              examples:
+                Getservicehealthcheck200Example:
+                  summary: Default getServiceHealthCheck 200 response
+                  x-microcks-default: true
+                  value:
+                    healthy: true
+                    status: example_value
+                    timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/process:
+    get:
+      operationId: getProcessMetrics
+      summary: Oracle Goldengate Retrieve Process Metrics for a Specific Process
+      description: Returns detailed performance metrics for a specific GoldenGate process.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam_2'
+      responses:
+        '200':
+          description: Process metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessMetrics'
+              examples:
+                Getprocessmetrics200Example:
+                  summary: Default getProcessMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: example_value
+                    status: example_value
+                    lag: 42.5
+                    checkpointLag: 42.5
+                    inputBytes: 10
+                    outputBytes: 10
+                    operationsProcessed: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/statisticsExtract:
+    get:
+      operationId: getExtractDatabaseStats
+      summary: Oracle Goldengate Retrieve Extract Database Statistics
+      description: Returns database-level statistics for an Extract process.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam_2'
+      responses:
+        '200':
+          description: Extract statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseStatistics'
+              examples:
+                Getextractdatabasestats200Example:
+                  summary: Default getExtractDatabaseStats 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    totalOperations: 10
+                    inserts: 10
+                    updates: 10
+                    deletes: 10
+                    truncates: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/heartbeat:
+    get:
+      operationId: getHeartbeatMetrics
+      summary: Oracle Goldengate Retrieve Heartbeat Timing Metrics
+      description: Returns heartbeat timing information used to measure replication lag.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam_2'
+      responses:
+        '200':
+          description: Heartbeat metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatMetrics'
+              examples:
+                Getheartbeatmetrics200Example:
+                  summary: Default getHeartbeatMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    lastHeartbeat: '2026-01-15T10:30:00Z'
+                    lagInSeconds: 42.5
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/cacheStatistics:
+    get:
+      operationId: getCacheStatistics
+      summary: Oracle Goldengate Retrieve Cache Manager Statistics
+      description: Returns cache manager statistics for a process.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam_2'
+      responses:
+        '200':
+          description: Cache statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheStatistics'
+              examples:
+                Getcachestatistics200Example:
+                  summary: Default getCacheStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    cacheSize: 10
+                    cacheUsed: 10
+                    cacheHitRatio: 42.5
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/mpoints/{item}/processPerformance:
+    get:
+      operationId: getProcessPerformance
+      summary: Oracle Goldengate Retrieve Process Performance Utilization
+      description: Returns CPU and memory utilization metrics for a GoldenGate process.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/mpointItemParam_2'
+      responses:
+        '200':
+          description: Performance metrics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessPerformance'
+              examples:
+                Getprocessperformance200Example:
+                  summary: Default getProcessPerformance 200 response
+                  x-microcks-default: true
+                  value:
+                    processName: example_value
+                    cpuUsage: 42.5
+                    memoryUsage: 10
+                    threadCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/monitoring/messages:
+    get:
+      operationId: listMonitoringMessages
+      summary: Oracle Goldengate Retrieve Process Messages
+      description: Returns messages from all monitored processes.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringMessageList'
+              examples:
+                Listmonitoringmessages200Example:
+                  summary: Default listMonitoringMessages 200 response
+                  x-microcks-default: true
+                  value:
+                    messages:
+                    - id: abc123
+                      timestamp: '2026-01-15T10:30:00Z'
+                      process: example_value
+                      severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/monitoring/statusChanges:
+    get:
+      operationId: listStatusChanges
+      summary: Oracle Goldengate Retrieve Process Status Changes
+      description: Returns a log of process status changes across all monitored processes.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Status changes retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusChangeList'
+              examples:
+                Liststatuschanges200Example:
+                  summary: Default listStatusChanges 200 response
+                  x-microcks-default: true
+                  value:
+                    statusChanges:
+                    - id: abc123
+                      timestamp: '2026-01-15T10:30:00Z'
+                      process: example_value
+                      previousStatus: example_value
+                      currentStatus: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/messages:
+    get:
+      operationId: listMessages
+      summary: Oracle Goldengate Retrieve Administrative Messages
+      description: Returns administrative messages from the server.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+              examples:
+                Listmessages200Example:
+                  summary: Default listMessages 200 response
+                  x-microcks-default: true
+                  value:
+                    messages:
+                    - timestamp: '2026-01-15T10:30:00Z'
+                      severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/requests:
+    get:
+      operationId: listBackgroundRequests
+      summary: Oracle Goldengate Retrieve Background Requests
+      description: Returns a list of background requests that are being processed.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Background requests listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestList'
+              examples:
+                Listbackgroundrequests200Example:
+                  summary: Default listBackgroundRequests 200 response
+                  x-microcks-default: true
+                  value:
+                    requests:
+                    - id: abc123
+                      status: example_value
+                      type: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/requests/{request}:
+    get:
+      operationId: getRequestStatus
+      summary: Oracle Goldengate Retrieve Request Status
+      description: Returns the status of a specific background request.
+      tags:
+      - Monitoring
+      parameters:
+      - name: request
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Request status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestStatus'
+              examples:
+                Getrequeststatus200Example:
+                  summary: Default getRequestStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    status: pending
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+                    result: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/oggerr:
+    get:
+      operationId: listMessageCodes
+      summary: Oracle Goldengate List Message Codes
+      description: Returns a list of GoldenGate error and informational message codes.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Message codes listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageCodeList'
+              examples:
+                Listmessagecodes200Example:
+                  summary: Default listMessageCodes 200 response
+                  x-microcks-default: true
+                  value:
+                    codes:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/oggerr/{message}:
+    get:
+      operationId: getMessageExplanation
+      summary: Oracle Goldengate Retrieve Message Explanation
+      description: Returns a detailed explanation and recommended action for a specific message code.
+      tags:
+      - Monitoring
+      parameters:
+      - name: message
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Message explanation retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageExplanation'
+              examples:
+                Getmessageexplanation200Example:
+                  summary: Default getMessageExplanation 200 response
+                  x-microcks-default: true
+                  value:
+                    code: example_value
+                    message: example_value
+                    explanation: example_value
+                    action: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/jobs:
+    get:
+      operationId: getJobStatistics
+      summary: Oracle Goldengate Retrieve Job Statistics
+      description: Returns comparison statistics for completed and running jobs.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Job statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatisticsList'
+              examples:
+                Getjobstatistics200Example:
+                  summary: Default getJobStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - runId: '500123'
+                      jobName: example_value
+                      status: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+                      endTime: '2026-01-15T10:30:00Z'
+                      totalComparePairs: 10
+                      inSyncCount: 10
+                      outOfSyncCount: 10
+                      failedCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/cps:
+    get:
+      operationId: getComparePairStatistics
+      summary: Oracle Goldengate Retrieve Compare Pair Statistics
+      description: Returns detailed comparison statistics at the compare pair level.
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Compare pair statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparePairStatisticsList'
+              examples:
+                Getcomparepairstatistics200Example:
+                  summary: Default getComparePairStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    statistics:
+                    - comparePairId: '500123'
+                      sourceTable: example_value
+                      targetTable: example_value
+                      status: In Sync
+                      sourceRowCount: 10
+                      targetRowCount: 10
+                      outOfSyncRows: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/oos/{runId}:
+    get:
+      operationId: getOutOfSyncData
+      summary: Oracle Goldengate Retrieve Out-of-sync Data
+      description: Returns the rows identified as out-of-sync during a comparison run.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Out-of-sync data retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutOfSyncData'
+              examples:
+                Getoutofsyncdata200Example:
+                  summary: Default getOutOfSyncData 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    rows:
+                    - comparePairId: '500123'
+                      sourceTable: example_value
+                      targetTable: example_value
+                      oosType: missing_in_target
+                      keyValues: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/monitoring/comparison/{runId}/reports:
+    get:
+      operationId: getComparisonReport
+      summary: Oracle Goldengate Retrieve Comparison Report
+      description: Returns a detailed comparison report for a specific job run.
+      tags:
+      - Monitoring
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Report retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonReport'
+              examples:
+                Getcomparisonreport200Example:
+                  summary: Default getComparisonReport 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobName: example_value
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+                    summary:
+                      totalComparePairs: 10
+                      inSync: 10
+                      outOfSync: 10
+                      failed: 10
+                    details:
+                    - sourceTable: example_value
+                      targetTable: example_value
+                      status: example_value
+                      sourceRowCount: 10
+                      targetRowCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/purge/stats:
+    delete:
+      operationId: purgeStatistics
+      summary: Oracle Goldengate Purge Comparison Statistics
+      description: Deletes stored comparison and repair statistics data.
+      tags:
+      - Monitoring
+      responses:
+        '204':
+          description: Statistics purged
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CacheStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+          example: example_value
+        cacheSize:
+          type: integer
+          format: int64
+          example: 10
+        cacheUsed:
+          type: integer
+          format: int64
+          example: 10
+        cacheHitRatio:
+          type: number
+          example: 42.5
+    ReplicatStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+          example: example_value
+        totalOperations:
+          type: integer
+          format: int64
+          example: 10
+        inserts:
+          type: integer
+          format: int64
+          example: 10
+        updates:
+          type: integer
+          format: int64
+          example: 10
+        deletes:
+          type: integer
+          format: int64
+          example: 10
+        handlerStatistics:
+          type: object
+          properties:
+            recordsWritten:
+              type: integer
+              format: int64
+            bytesWritten:
+              type: integer
+              format: int64
+            batchesProcessed:
+              type: integer
+              format: int64
+          example: example_value
+    ProcessMetricsList:
+      type: object
+      properties:
+        processes:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              status:
+                type: string
+              lag:
+                type: number
+              operationsProcessed:
+                type: integer
+                format: int64
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    MonitoringMessageList:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              timestamp:
+                type: string
+                format: date-time
+              process:
+                type: string
+              severity:
+                type: string
+              message:
+                type: string
+          example: []
+    ComparisonReport:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        jobName:
+          type: string
+          example: example_value
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        summary:
+          type: object
+          properties:
+            totalComparePairs:
+              type: integer
+            inSync:
+              type: integer
+            outOfSync:
+              type: integer
+            failed:
+              type: integer
+          example: example_value
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              status:
+                type: string
+              sourceRowCount:
+                type: integer
+                format: int64
+              targetRowCount:
+                type: integer
+                format: int64
+          example: []
+    MessageCodeList:
+      type: object
+      properties:
+        codes:
+          type: array
+          items:
+            type: string
+          example: []
+    StatusChangeList:
+      type: object
+      properties:
+        statusChanges:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              timestamp:
+                type: string
+                format: date-time
+              process:
+                type: string
+              previousStatus:
+                type: string
+              currentStatus:
+                type: string
+          example: []
+    MessageExplanation:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+        explanation:
+          type: string
+          example: example_value
+        action:
+          type: string
+          example: example_value
+    OutOfSyncData:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              comparePairId:
+                type: integer
+                format: int64
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              oosType:
+                type: string
+                enum:
+                - missing_in_target
+                - missing_in_source
+                - different
+              keyValues:
+                type: object
+                additionalProperties: true
+          example: []
+    HeartbeatMetrics:
+      type: object
+      properties:
+        processName:
+          type: string
+          example: example_value
+        lastHeartbeat:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        lagInSeconds:
+          type: number
+          example: 42.5
+    RequestStatus:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        status:
+          type: string
+          enum:
+          - pending
+          - running
+          - completed
+          - failed
+          example: pending
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        result:
+          type: string
+          example: example_value
+    DatabaseStatistics:
+      type: object
+      properties:
+        processName:
+          type: string
+          example: example_value
+        totalOperations:
+          type: integer
+          format: int64
+          example: 10
+        inserts:
+          type: integer
+          format: int64
+          example: 10
+        updates:
+          type: integer
+          format: int64
+          example: 10
+        deletes:
+          type: integer
+          format: int64
+          example: 10
+        truncates:
+          type: integer
+          format: int64
+          example: 10
+    MessageList:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              severity:
+                type: string
+              message:
+                type: string
+          example: []
+    ComparePairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              comparePairId:
+                type: integer
+                format: int64
+              sourceTable:
+                type: string
+              targetTable:
+                type: string
+              status:
+                type: string
+                enum:
+                - In Sync
+                - Out Of Sync
+                - Failed
+              sourceRowCount:
+                type: integer
+                format: int64
+              targetRowCount:
+                type: integer
+                format: int64
+              outOfSyncRows:
+                type: integer
+                format: int64
+          example: []
+    JobStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              jobName:
+                type: string
+              status:
+                type: string
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              totalComparePairs:
+                type: integer
+              inSyncCount:
+                type: integer
+              outOfSyncCount:
+                type: integer
+              failedCount:
+                type: integer
+          example: []
+    ProcessMetrics:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: number
+          example: 42.5
+        checkpointLag:
+          type: number
+          example: 42.5
+        inputBytes:
+          type: integer
+          format: int64
+          example: 10
+        outputBytes:
+          type: integer
+          format: int64
+          example: 10
+        operationsProcessed:
+          type: integer
+          format: int64
+          example: 10
+    ProcessPerformance:
+      type: object
+      properties:
+        processName:
+          type: string
+          example: example_value
+        cpuUsage:
+          type: number
+          example: 42.5
+        memoryUsage:
+          type: integer
+          format: int64
+          example: 10
+        threadCount:
+          type: integer
+          example: 10
+    HealthCheckSummary:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: example_value
+        timestamp:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    RequestList:
+      type: object
+      properties:
+        requests:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              status:
+                type: string
+              type:
+                type: string
+              startTime:
+                type: string
+                format: date-time
+          example: []
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ServiceHealth:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+          example: true
+        services:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              port:
+                type: integer
+          example: []
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+  parameters:
+    mpointItemParam:
+      name: item
+      in: path
+      required: true
+      description: Process name for metrics
+      schema:
+        type: string
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+    mpointItemParam_2:
+      name: item
+      in: path
+      required: true
+      description: Process name or identifier for metrics
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

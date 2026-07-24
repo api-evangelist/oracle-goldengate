@@ -1,0 +1,333 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Logs API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Logs
+  description: Access service and process logs
+paths:
+  /services/v2/logs:
+    get:
+      operationId: listLogs
+      summary: Oracle Goldengate Retrieve Available Logs
+      description: Returns a list of available service log files.
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: Logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogList'
+              examples:
+                Listlogs200Example:
+                  summary: Default listLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    logs:
+                    - name: Example Title
+                      size: 10
+                      lastModified: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/logs/{log}:
+    get:
+      operationId: getLog
+      summary: Oracle Goldengate Retrieve a Log File
+      description: Returns the content of a specific service log file.
+      tags:
+      - Logs
+      parameters:
+      - name: log
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Log content retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogContent'
+              examples:
+                Getlog200Example:
+                  summary: Default getLog 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    content: example_value
+                    size: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: modifyLogProperties
+      summary: Oracle Goldengate Modify Log Properties
+      description: Modifies the properties of a log such as log level.
+      tags:
+      - Logs
+      parameters:
+      - name: log
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyLogRequest'
+            examples:
+              ModifylogpropertiesRequestExample:
+                summary: Default modifyLogProperties request
+                x-microcks-default: true
+                value:
+                  level: ERROR
+      responses:
+        '200':
+          description: Log properties updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/logs/events:
+    get:
+      operationId: getCriticalEvents
+      summary: Oracle Goldengate Get Critical Events
+      description: Returns critical event log entries.
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: Critical events retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+              examples:
+                Getcriticalevents200Example:
+                  summary: Default getCriticalEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    events:
+                    - timestamp: '2026-01-15T10:30:00Z'
+                      severity: example_value
+                      source: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/logs/server:
+    get:
+      operationId: getServerLogs
+      summary: Oracle Goldengate Retrieve Server Logs
+      description: Returns server log entries.
+      tags:
+      - Logs
+      parameters:
+      - name: logType
+        in: query
+        schema:
+          type: string
+          enum:
+          - api
+          - perf
+          - both
+        example: api
+      - name: logLevel
+        in: query
+        schema:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+        example: ERROR
+      - name: lastLines
+        in: query
+        schema:
+          type: integer
+        example: 10
+      responses:
+        '200':
+          description: Logs retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerLogs'
+              examples:
+                Getserverlogs200Example:
+                  summary: Default getServerLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    entries:
+                    - timestamp: '2026-01-15T10:30:00Z'
+                      level: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EventList:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              severity:
+                type: string
+              source:
+                type: string
+              message:
+                type: string
+          example: []
+    LogList:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    LogContent:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+        size:
+          type: integer
+          example: 10
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ModifyLogRequest:
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+          example: ERROR
+    ServerLogs:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              level:
+                type: string
+              message:
+                type: string
+          example: []
+  responses:
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

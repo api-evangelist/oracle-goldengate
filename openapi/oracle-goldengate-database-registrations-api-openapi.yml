@@ -1,0 +1,390 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Database Registrations API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Database Registrations
+  description: Manage registered source and target databases
+paths:
+  /20200407/databaseRegistrations:
+    get:
+      operationId: listDatabaseRegistrations
+      summary: Oracle Goldengate List Database Registrations
+      description: Returns a list of registered databases.
+      tags:
+      - Database Registrations
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Registrations listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistrationCollection'
+              examples:
+                Listdatabaseregistrations200Example:
+                  summary: Default listDatabaseRegistrations 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      displayName: example_value
+                      databaseId: '500123'
+                      lifecycleState: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDatabaseRegistration
+      summary: Oracle Goldengate Create a Database Registration
+      description: Registers a database for use with GoldenGate.
+      tags:
+      - Database Registrations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseRegistrationDetails'
+            examples:
+              CreatedatabaseregistrationRequestExample:
+                summary: Default createDatabaseRegistration request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  compartmentId: '500123'
+                  fqdn: example_value
+                  username: example_value
+                  password: example_value
+                  connectionString: example_value
+                  databaseId: '500123'
+      responses:
+        '200':
+          description: Registration initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistration'
+              examples:
+                Createdatabaseregistration200Example:
+                  summary: Default createDatabaseRegistration 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    databaseId: '500123'
+                    connectionString: example_value
+                    username: example_value
+                    fqdn: example_value
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/databaseRegistrations/{databaseRegistrationId}:
+    get:
+      operationId: getDatabaseRegistration
+      summary: Oracle Goldengate Get a Database Registration
+      description: Returns the details of a database registration.
+      tags:
+      - Database Registrations
+      parameters:
+      - name: databaseRegistrationId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Registration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRegistration'
+              examples:
+                Getdatabaseregistration200Example:
+                  summary: Default getDatabaseRegistration 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    displayName: example_value
+                    description: A sample description.
+                    compartmentId: '500123'
+                    databaseId: '500123'
+                    connectionString: example_value
+                    username: example_value
+                    fqdn: example_value
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateDatabaseRegistration
+      summary: Oracle Goldengate Update a Database Registration
+      description: Updates a database registration.
+      tags:
+      - Database Registrations
+      parameters:
+      - name: databaseRegistrationId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatabaseRegistrationDetails'
+            examples:
+              UpdatedatabaseregistrationRequestExample:
+                summary: Default updateDatabaseRegistration request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  description: A sample description.
+                  fqdn: example_value
+                  username: example_value
+                  password: example_value
+                  connectionString: example_value
+      responses:
+        '200':
+          description: Update initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDatabaseRegistration
+      summary: Oracle Goldengate Delete a Database Registration
+      description: Deletes a database registration.
+      tags:
+      - Database Registrations
+      parameters:
+      - name: databaseRegistrationId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateDatabaseRegistrationDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - fqdn
+      - username
+      - password
+      - connectionString
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        fqdn:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        connectionString:
+          type: string
+          example: example_value
+        databaseId:
+          type: string
+          example: '500123'
+    UpdateDatabaseRegistrationDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        fqdn:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        connectionString:
+          type: string
+          example: example_value
+    DatabaseRegistrationSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        databaseId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+    DatabaseRegistration:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        databaseId:
+          type: string
+          example: '500123'
+        connectionString:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        fqdn:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    DatabaseRegistrationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseRegistrationSummary'
+          example: []
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

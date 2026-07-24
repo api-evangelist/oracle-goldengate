@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Receiver API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Receiver
+  description: Manage receiver/collector paths
+paths:
+  /services/v2/targets:
+    get:
+      operationId: listCollectorPaths
+      summary: Oracle Goldengate List Collector/receiver Paths
+      description: Returns a list of all collector paths in the Receiver Server.
+      tags:
+      - Receiver
+      responses:
+        '200':
+          description: Collector paths listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPathList'
+              examples:
+                Listcollectorpaths200Example:
+                  summary: Default listCollectorPaths 200 response
+                  x-microcks-default: true
+                  value:
+                    paths:
+                    - name: Example Title
+                      status: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/targets/{path}:
+    get:
+      operationId: getCollectorPath
+      summary: Oracle Goldengate Retrieve a Collector Path
+      description: Returns configuration details of a specific collector/receiver path.
+      tags:
+      - Receiver
+      parameters:
+      - $ref: '#/components/parameters/pathParam'
+      responses:
+        '200':
+          description: Collector path retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+              examples:
+                Getcollectorpath200Example:
+                  summary: Default getCollectorPath 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    trail: example_value
+                    port: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCollectorPath
+      summary: Oracle Goldengate Create a Collector Path
+      description: Creates a new collector path for receiving trail data from a remote source.
+      tags:
+      - Receiver
+      parameters:
+      - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectorPathRequest'
+            examples:
+              CreatecollectorpathRequestExample:
+                summary: Default createCollectorPath request
+                x-microcks-default: true
+                value:
+                  trail: example_value
+                  port: 10
+      responses:
+        '201':
+          description: Collector path created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+              examples:
+                Createcollectorpath201Example:
+                  summary: Default createCollectorPath 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    trail: example_value
+                    port: 10
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateCollectorPath
+      summary: Oracle Goldengate Update a Collector Path
+      description: Updates the configuration of an existing collector path.
+      tags:
+      - Receiver
+      parameters:
+      - $ref: '#/components/parameters/pathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectorPathRequest'
+            examples:
+              UpdatecollectorpathRequestExample:
+                summary: Default updateCollectorPath request
+                x-microcks-default: true
+                value:
+                  trail: example_value
+                  port: 10
+                  status: example_value
+      responses:
+        '200':
+          description: Collector path updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPath'
+              examples:
+                Updatecollectorpath200Example:
+                  summary: Default updateCollectorPath 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    trail: example_value
+                    port: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteCollectorPath
+      summary: Oracle Goldengate Delete a Collector Path
+      description: Deletes a collector path.
+      tags:
+      - Receiver
+      parameters:
+      - $ref: '#/components/parameters/pathParam'
+      responses:
+        '204':
+          description: Collector path deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CollectorPath:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        trail:
+          type: string
+          description: Target trail file
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    UpdateCollectorPathRequest:
+      type: object
+      properties:
+        trail:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        status:
+          type: string
+          example: example_value
+    CollectorPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CreateCollectorPathRequest:
+      type: object
+      required:
+      - trail
+      properties:
+        trail:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    CollectorPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorPathSummary'
+          example: []
+  parameters:
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: Name of the collector/receiver path
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

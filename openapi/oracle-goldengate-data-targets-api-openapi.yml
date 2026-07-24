@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Data Targets API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Data Targets
+  description: Manage big data target type configurations
+paths:
+  /services/v2/dataTargetTypes:
+    get:
+      operationId: listDataTargetTypes
+      summary: Oracle Goldengate List Available Data Target Types
+      description: Returns the list of available big data target types including Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery, Pub/Sub, and OCI Object Storage.
+      tags:
+      - Data Targets
+      responses:
+        '200':
+          description: Data target types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTargetTypeList'
+              examples:
+                Listdatatargettypes200Example:
+                  summary: Default listDataTargetTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    types:
+                    - name: Example Title
+                      description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/dataTargetTypes/{dataTargetType}:
+    get:
+      operationId: getDataTargetTypeSchema
+      summary: Oracle Goldengate Retrieve Json Schema for a Data Target Type
+      description: Returns the JSON schema describing the configuration for a specific data target type handler.
+      tags:
+      - Data Targets
+      parameters:
+      - name: dataTargetType
+        in: path
+        required: true
+        description: The data target type name
+        schema:
+          type: string
+          enum:
+          - kafka
+          - kafkaconnect
+          - hdfs
+          - hbase
+          - cassandra
+          - mongodb
+          - elasticsearch
+          - jdbc
+          - kinesis
+          - bigquery
+          - pubsub
+          - objectstorage
+        example: kafka
+      responses:
+        '200':
+          description: Target type schema retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataTargetTypeSchema'
+              examples:
+                Getdatatargettypeschema200Example:
+                  summary: Default getDataTargetTypeSchema 200 response
+                  x-microcks-default: true
+                  value:
+                    type: example_value
+                    properties: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    DataTargetTypeSchema:
+      type: object
+      description: JSON Schema describing the handler configuration properties
+      properties:
+        type:
+          type: string
+          example: example_value
+        properties:
+          type: object
+          additionalProperties: true
+          example: example_value
+    DataTargetTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Handler type name
+              description:
+                type: string
+          example: []
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

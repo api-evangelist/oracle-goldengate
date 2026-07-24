@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Commands API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Commands
+  description: Execute GoldenGate commands
+paths:
+  /services/v2/commands/execute:
+    post:
+      operationId: executeCommand
+      summary: Oracle Goldengate Execute a Goldengate Command
+      description: Executes a GGSCI-style command against the Big Data Administrative Server.
+      tags:
+      - Commands
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteCommandRequest'
+            examples:
+              ExecutecommandRequestExample:
+                summary: Default executeCommand request
+                x-microcks-default: true
+                value:
+                  command: example_value
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Executecommand200Example:
+                  summary: Default executeCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ExecuteCommandRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

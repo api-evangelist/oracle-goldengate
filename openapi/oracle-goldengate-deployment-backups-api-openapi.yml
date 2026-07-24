@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Deployment Backups API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Deployment Backups
+  description: Manage deployment backups
+paths:
+  /20200407/deploymentBackups:
+    get:
+      operationId: listDeploymentBackups
+      summary: Oracle Goldengate List Deployment Backups
+      description: Returns a list of deployment backups in the specified compartment.
+      tags:
+      - Deployment Backups
+      parameters:
+      - $ref: '#/components/parameters/compartmentIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Backup list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackupCollection'
+              examples:
+                Listdeploymentbackups200Example:
+                  summary: Default listDeploymentBackups 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - id: abc123
+                      deploymentId: '500123'
+                      displayName: example_value
+                      lifecycleState: example_value
+                      timeCreated: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDeploymentBackup
+      summary: Oracle Goldengate Create a Deployment Backup
+      description: Creates a backup of a GoldenGate deployment.
+      tags:
+      - Deployment Backups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentBackupDetails'
+            examples:
+              CreatedeploymentbackupRequestExample:
+                summary: Default createDeploymentBackup request
+                x-microcks-default: true
+                value:
+                  displayName: example_value
+                  compartmentId: '500123'
+                  deploymentId: '500123'
+                  namespaceName: example_value
+                  bucketName: example_value
+                  objectName: example_value
+      responses:
+        '200':
+          description: Backup creation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackup'
+              examples:
+                Createdeploymentbackup200Example:
+                  summary: Default createDeploymentBackup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    deploymentId: '500123'
+                    displayName: example_value
+                    compartmentId: '500123'
+                    lifecycleState: example_value
+                    sizeInBytes: 10
+                    backupType: INCREMENTAL
+                    oggVersion: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deploymentBackups/{deploymentBackupId}:
+    get:
+      operationId: getDeploymentBackup
+      summary: Oracle Goldengate Get a Deployment Backup
+      description: Returns the details of a specific deployment backup.
+      tags:
+      - Deployment Backups
+      parameters:
+      - $ref: '#/components/parameters/deploymentBackupIdParam'
+      responses:
+        '200':
+          description: Backup retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentBackup'
+              examples:
+                Getdeploymentbackup200Example:
+                  summary: Default getDeploymentBackup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    deploymentId: '500123'
+                    displayName: example_value
+                    compartmentId: '500123'
+                    lifecycleState: example_value
+                    sizeInBytes: 10
+                    backupType: INCREMENTAL
+                    oggVersion: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDeploymentBackup
+      summary: Oracle Goldengate Delete a Deployment Backup
+      description: Deletes a deployment backup.
+      tags:
+      - Deployment Backups
+      parameters:
+      - $ref: '#/components/parameters/deploymentBackupIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      responses:
+        '202':
+          description: Deletion accepted
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /20200407/deploymentBackups/{deploymentBackupId}/actions/restore:
+    post:
+      operationId: restoreDeployment
+      summary: Oracle Goldengate Restore a Deployment From Backup
+      description: Restores a GoldenGate deployment from a backup.
+      tags:
+      - Deployment Backups
+      parameters:
+      - $ref: '#/components/parameters/deploymentBackupIdParam'
+      - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreDeploymentDetails'
+            examples:
+              RestoredeploymentRequestExample:
+                summary: Default restoreDeployment request
+                x-microcks-default: true
+                value:
+                  type: DEFAULT
+      responses:
+        '202':
+          description: Restore initiated
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    DeploymentBackupCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentBackupSummary'
+          example: []
+    RestoreDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    DeploymentBackupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        deploymentId:
+          type: string
+          example: '500123'
+        displayName:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    CreateDeploymentBackupDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - deploymentId
+      - namespaceName
+      - bucketName
+      - objectName
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        compartmentId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
+        namespaceName:
+          type: string
+          example: example_value
+        bucketName:
+          type: string
+          example: example_value
+        objectName:
+          type: string
+          example: example_value
+    DeploymentBackup:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        deploymentId:
+          type: string
+          example: '500123'
+        displayName:
+          type: string
+          example: example_value
+        compartmentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+        sizeInBytes:
+          type: integer
+          format: int64
+          example: 10
+        backupType:
+          type: string
+          enum:
+          - INCREMENTAL
+          - FULL
+          example: INCREMENTAL
+        oggVersion:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    deploymentBackupIdParam:
+      name: deploymentBackupId
+      in: path
+      required: true
+      description: The OCID of the deployment backup
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

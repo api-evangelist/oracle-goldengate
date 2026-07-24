@@ -1,0 +1,364 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Profiles API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Profiles
+  description: Manage comparison profiles
+paths:
+  /services/configuration/profiles:
+    get:
+      operationId: listProfiles
+      summary: Oracle Goldengate Retrieve All Profiles
+      description: Returns a list of all comparison profiles that define comparison behavior settings.
+      tags:
+      - Profiles
+      responses:
+        '200':
+          description: Profiles listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileList'
+              examples:
+                Listprofiles200Example:
+                  summary: Default listProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    profiles:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      comparisonMethod: row
+                      maxConcurrentComparePairs: 10
+                      deltaProcessing: true
+                      reportOutOfSync: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createProfile
+      summary: Oracle Goldengate Create a Profile
+      description: Creates a new comparison profile with custom comparison settings.
+      tags:
+      - Profiles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileRequest'
+            examples:
+              CreateprofileRequestExample:
+                summary: Default createProfile request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  comparisonMethod: row
+                  maxConcurrentComparePairs: 10
+                  deltaProcessing: true
+      responses:
+        '201':
+          description: Profile created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Createprofile201Example:
+                  summary: Default createProfile 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/profiles/{Id}:
+    get:
+      operationId: getProfile
+      summary: Oracle Goldengate Retrieve a Profile
+      description: Returns the details of a specific comparison profile.
+      tags:
+      - Profiles
+      parameters:
+      - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '200':
+          description: Profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Getprofile200Example:
+                  summary: Default getProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateProfile
+      summary: Oracle Goldengate Update a Profile
+      description: Updates properties of an existing comparison profile.
+      tags:
+      - Profiles
+      parameters:
+      - $ref: '#/components/parameters/profileIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+            examples:
+              UpdateprofileRequestExample:
+                summary: Default updateProfile request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  comparisonMethod: example_value
+                  maxConcurrentComparePairs: 10
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Updateprofile200Example:
+                  summary: Default updateProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProfile
+      summary: Oracle Goldengate Delete a Profile
+      description: Deletes a comparison profile.
+      tags:
+      - Profiles
+      parameters:
+      - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '204':
+          description: Profile deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/profiles/{Id}/reset:
+    put:
+      operationId: resetProfile
+      summary: Oracle Goldengate Reset a Profile to Defaults
+      description: Resets a comparison profile to its default settings.
+      tags:
+      - Profiles
+      parameters:
+      - $ref: '#/components/parameters/profileIdParam'
+      responses:
+        '200':
+          description: Profile reset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Resetprofile200Example:
+                  summary: Default resetProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    comparisonMethod: row
+                    maxConcurrentComparePairs: 10
+                    deltaProcessing: true
+                    reportOutOfSync: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ProfileList:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+          example: []
+    CreateProfileRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        comparisonMethod:
+          type: string
+          enum:
+          - row
+          - hash
+          example: row
+        maxConcurrentComparePairs:
+          type: integer
+          example: 10
+        deltaProcessing:
+          type: boolean
+          example: true
+    UpdateProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        comparisonMethod:
+          type: string
+          example: example_value
+        maxConcurrentComparePairs:
+          type: integer
+          example: 10
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        comparisonMethod:
+          type: string
+          enum:
+          - row
+          - hash
+          example: row
+        maxConcurrentComparePairs:
+          type: integer
+          example: 10
+        deltaProcessing:
+          type: boolean
+          example: true
+        reportOutOfSync:
+          type: boolean
+          example: true
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  parameters:
+    profileIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Profile identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

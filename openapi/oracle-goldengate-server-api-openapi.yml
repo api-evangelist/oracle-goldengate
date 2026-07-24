@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Server API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Server
+  description: Server information and configuration
+paths:
+  /services/server/info:
+    get:
+      operationId: getServerInfo
+      summary: Oracle Goldengate Retrieve Server Details
+      description: Returns server information including version, uptime, and system details.
+      tags:
+      - Server
+      responses:
+        '200':
+          description: Server information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerInfo'
+              examples:
+                Getserverinfo200Example:
+                  summary: Default getServerInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    version: example_value
+                    buildNumber: example_value
+                    uptime: example_value
+                    javaVersion: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/server/configuration:
+    get:
+      operationId: getServerConfiguration
+      summary: Oracle Goldengate Retrieve Server Configurations
+      description: Returns the current server configuration settings.
+      tags:
+      - Server
+      responses:
+        '200':
+          description: Configuration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Getserverconfiguration200Example:
+                  summary: Default getServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateServerConfiguration
+      summary: Oracle Goldengate Update Server Configurations
+      description: Updates server configuration settings.
+      tags:
+      - Server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServerConfigurationRequest'
+            examples:
+              UpdateserverconfigurationRequestExample:
+                summary: Default updateServerConfiguration request
+                x-microcks-default: true
+                value:
+                  maxConcurrentJobs: 10
+                  maxThreadsPerJob: 10
+                  reportRetentionDays: 10
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Updateserverconfiguration200Example:
+                  summary: Default updateServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/server/configuration/reset:
+    put:
+      operationId: resetServerConfiguration
+      summary: Oracle Goldengate Reset Server Configurations to Default
+      description: Resets all server configuration settings to their factory default values.
+      tags:
+      - Server
+      responses:
+        '200':
+          description: Configuration reset to defaults
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfiguration'
+              examples:
+                Resetserverconfiguration200Example:
+                  summary: Default resetServerConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    maxConcurrentJobs: 10
+                    maxThreadsPerJob: 10
+                    reportRetentionDays: 10
+                    oosRetentionDays: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /auth/login:
+    get:
+      operationId: login
+      summary: Oracle Goldengate Login to Veridata
+      description: Authenticates a user and establishes a session.
+      tags:
+      - Server
+      security: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login200Example:
+                  summary: Default login 200 response
+                  x-microcks-default: true
+                  value:
+                    token: example_value
+                    sessionTimeout: 10
+                    username: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /session/extend:
+    get:
+      operationId: extendSession
+      summary: Oracle Goldengate Extend User Session
+      description: Extends the current user session timeout.
+      tags:
+      - Server
+      responses:
+        '200':
+          description: Session extended
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /session/invalidate:
+    get:
+      operationId: invalidateSession
+      summary: Oracle Goldengate Invalidate Session (logout)
+      description: Invalidates the current user session.
+      tags:
+      - Server
+      responses:
+        '200':
+          description: Session invalidated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: example_value
+        sessionTimeout:
+          type: integer
+          example: 10
+        username:
+          type: string
+          example: example_value
+    ServerInfo:
+      type: object
+      properties:
+        version:
+          type: string
+          example: example_value
+        buildNumber:
+          type: string
+          example: example_value
+        uptime:
+          type: string
+          example: example_value
+        javaVersion:
+          type: string
+          example: example_value
+    ServerConfiguration:
+      type: object
+      properties:
+        maxConcurrentJobs:
+          type: integer
+          example: 10
+        maxThreadsPerJob:
+          type: integer
+          example: 10
+        reportRetentionDays:
+          type: integer
+          example: 10
+        oosRetentionDays:
+          type: integer
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    UpdateServerConfigurationRequest:
+      type: object
+      properties:
+        maxConcurrentJobs:
+          type: integer
+          example: 10
+        maxThreadsPerJob:
+          type: integer
+          example: 10
+        reportRetentionDays:
+          type: integer
+          example: 10
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

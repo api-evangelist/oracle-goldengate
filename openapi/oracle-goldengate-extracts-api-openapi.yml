@@ -1,0 +1,755 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Extracts API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Extracts
+  description: Manage Extract processes for source data capture
+paths:
+  /services/v2/extracts:
+    get:
+      operationId: listExtracts
+      summary: Oracle Goldengate List All Extract Processes
+      description: Returns a list of all Extract processes configured for source data capture.
+      tags:
+      - Extracts
+      responses:
+        '200':
+          description: Extracts listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractList'
+              examples:
+                Listextracts200Example:
+                  summary: Default listExtracts 200 response
+                  x-microcks-default: true
+                  value:
+                    extracts:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}:
+    get:
+      operationId: getExtract
+      summary: Oracle Goldengate Retrieve an Extract Process
+      description: Returns configuration and status of a specific Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam'
+      responses:
+        '200':
+          description: Extract details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+              examples:
+                Getextract200Example:
+                  summary: Default getExtract 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createExtract
+      summary: Oracle Goldengate Create an Extract Process
+      description: Creates a new Extract process for source data capture.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExtractRequest'
+            examples:
+              CreateextractRequestExample:
+                summary: Default createExtract request
+                x-microcks-default: true
+                value:
+                  type: cdc
+                  trail: example_value
+                  begin: example_value
+                  config:
+                  - example_value
+      responses:
+        '201':
+          description: Extract created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+              examples:
+                Createextract201Example:
+                  summary: Default createExtract 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateExtract
+      summary: Oracle Goldengate Update an Extract Process
+      description: Updates the configuration of an existing Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtractRequest'
+            examples:
+              UpdateextractRequestExample:
+                summary: Default updateExtract request
+                x-microcks-default: true
+                value:
+                  config:
+                  - example_value
+                  status: example_value
+      responses:
+        '200':
+          description: Extract updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extract'
+              examples:
+                Updateextract200Example:
+                  summary: Default updateExtract 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: cdc
+                    status: running
+                    trail: example_value
+                    config:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteExtract
+      summary: Oracle Goldengate Delete an Extract Process
+      description: Deletes an Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam'
+      responses:
+        '204':
+          description: Extract deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/command:
+    post:
+      operationId: issueExtractCommand
+      summary: Oracle Goldengate Issue a Command to an Extract
+      description: Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+            examples:
+              IssueextractcommandRequestExample:
+                summary: Default issueExtractCommand request
+                x-microcks-default: true
+                value:
+                  action: start
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Issueextractcommand200Example:
+                  summary: Default issueExtractCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/status:
+    get:
+      operationId: getExtractStatus
+      summary: Oracle Goldengate Retrieve Extract Status
+      description: Returns the current runtime status of an Extract process including lag, checkpoint, and position information.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      responses:
+        '200':
+          description: Extract status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStatus'
+              examples:
+                Getextractstatus200Example:
+                  summary: Default getExtractStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    lag: example_value
+                    checkpoint: example_value
+                    since: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/checkpoints:
+    get:
+      operationId: getExtractCheckpoints
+      summary: Oracle Goldengate Retrieve Extract Checkpoints
+      description: Returns checkpoint information for an Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      responses:
+        '200':
+          description: Extract checkpoints retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkpoints'
+              examples:
+                Getextractcheckpoints200Example:
+                  summary: Default getExtractCheckpoints 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    readCheckpoint:
+                      sequenceNumber: 10
+                      rba: 10
+                      timestamp: '2026-01-15T10:30:00Z'
+                    writeCheckpoint:
+                      sequenceNumber: 10
+                      rba: 10
+                      timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/reports:
+    get:
+      operationId: listExtractReports
+      summary: Oracle Goldengate List Extract Reports
+      description: Returns a list of available process reports for an Extract.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      responses:
+        '200':
+          description: Extract reports listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportList'
+              examples:
+                Listextractreports200Example:
+                  summary: Default listExtractReports 200 response
+                  x-microcks-default: true
+                  value:
+                    reports:
+                    - name: Example Title
+                      timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/reports/{report}:
+    get:
+      operationId: getExtractReport
+      summary: Oracle Goldengate Retrieve a Specific Extract Report
+      description: Returns the content of a specific Extract process report.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      - $ref: '#/components/parameters/reportParam'
+      responses:
+        '200':
+          description: Report content retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+              examples:
+                Getextractreport200Example:
+                  summary: Default getExtractReport 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    content: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/logs:
+    get:
+      operationId: listExtractLogs
+      summary: Oracle Goldengate List Extract Logs
+      description: Returns a list of available log files for an Extract process.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      responses:
+        '200':
+          description: Extract logs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogList'
+              examples:
+                Listextractlogs200Example:
+                  summary: Default listExtractLogs 200 response
+                  x-microcks-default: true
+                  value:
+                    logs:
+                    - name: Example Title
+                      size: 10
+                      lastModified: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/extracts/{extract}/info/history:
+    get:
+      operationId: getExtractHistory
+      summary: Oracle Goldengate Retrieve Extract History
+      description: Returns the processing history for an Extract.
+      tags:
+      - Extracts
+      parameters:
+      - $ref: '#/components/parameters/extractParam_2'
+      responses:
+        '200':
+          description: History retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessHistory'
+              examples:
+                Getextracthistory200Example:
+                  summary: Default getExtractHistory 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    history:
+                    - startTime: '2026-01-15T10:30:00Z'
+                      endTime: '2026-01-15T10:30:00Z'
+                      status: example_value
+                      reason: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          description: Process lag in seconds
+          example: example_value
+        checkpoint:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    CreateExtractRequest:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
+        type:
+          type: string
+          enum:
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
+        trail:
+          type: string
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
+          example: []
+    ExtractList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractSummary'
+          example: []
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ProcessCommand:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
+    LogList:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    Report:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+    UpdateExtractRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        status:
+          type: string
+          example: example_value
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    Extract:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          enum:
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - abended
+          example: running
+        trail:
+          type: string
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+    ExtractSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    extractParam:
+      name: extract
+      in: path
+      required: true
+      description: Extract process name
+      schema:
+        type: string
+    reportParam:
+      name: report
+      in: path
+      required: true
+      description: Report identifier
+      schema:
+        type: string
+    extractParam_2:
+      name: extract
+      in: path
+      required: true
+      description: Name of the Extract process
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

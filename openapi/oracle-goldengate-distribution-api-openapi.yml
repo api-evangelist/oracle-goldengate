@@ -1,0 +1,463 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Distribution API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Distribution
+  description: Distribution paths for trail data delivery
+paths:
+  /services/v2/sources:
+    get:
+      operationId: listDistributionPaths
+      summary: Oracle Goldengate List Distribution Paths
+      description: Returns distribution paths configured for big data deployments.
+      tags:
+      - Distribution
+      responses:
+        '200':
+          description: Paths listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPathList'
+              examples:
+                Listdistributionpaths200Example:
+                  summary: Default listDistributionPaths 200 response
+                  x-microcks-default: true
+                  value:
+                    paths:
+                    - name: Example Title
+                      status: example_value
+                      source: example_value
+                      target: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/sources/{distpath}:
+    get:
+      operationId: getDistributionPath
+      summary: Oracle Goldengate Retrieve a Distribution Path
+      description: Returns a specific distribution path.
+      tags:
+      - Distribution
+      parameters:
+      - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '200':
+          description: Path retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+              examples:
+                Getdistributionpath200Example:
+                  summary: Default getDistributionPath 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    source: example_value
+                    target: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDistributionPath
+      summary: Oracle Goldengate Create a Distribution Path
+      description: Creates a distribution path for delivering trail data to a big data deployment.
+      tags:
+      - Distribution
+      parameters:
+      - $ref: '#/components/parameters/distpathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDistributionPathRequest'
+            examples:
+              CreatedistributionpathRequestExample:
+                summary: Default createDistributionPath request
+                x-microcks-default: true
+                value:
+                  source: example_value
+                  target: example_value
+      responses:
+        '201':
+          description: Path created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath'
+              examples:
+                Createdistributionpath201Example:
+                  summary: Default createDistributionPath 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    source: example_value
+                    target: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDistributionPath
+      summary: Oracle Goldengate Delete a Distribution Path
+      description: Deletes a distribution path.
+      tags:
+      - Distribution
+      parameters:
+      - $ref: '#/components/parameters/distpathParam'
+      responses:
+        '204':
+          description: Path deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateDistributionPath
+      summary: Oracle Goldengate Update a Distribution Path
+      description: Updates the configuration of an existing distribution path.
+      tags:
+      - Distribution
+      parameters:
+      - $ref: '#/components/parameters/distpathParam_2'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDistributionPathRequest'
+            examples:
+              UpdatedistributionpathRequestExample:
+                summary: Default updateDistributionPath request
+                x-microcks-default: true
+                value:
+                  source: example_value
+                  target: example_value
+                  status: example_value
+      responses:
+        '200':
+          description: Distribution path updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistributionPath_2'
+              examples:
+                Updatedistributionpath200Example:
+                  summary: Default updateDistributionPath 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: running
+                    source: example_value
+                    target: example_value
+                    targetType: example_value
+                    ruleName: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/sources/{distpath}/stats:
+    get:
+      operationId: getDistributionPathStats
+      summary: Oracle Goldengate Retrieve Distribution Path Statistics
+      description: Returns performance statistics for a distribution path.
+      tags:
+      - Distribution
+      parameters:
+      - $ref: '#/components/parameters/distpathParam_2'
+      responses:
+        '200':
+          description: Statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathStatistics'
+              examples:
+                Getdistributionpathstats200Example:
+                  summary: Default getDistributionPathStats 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    bytesProcessed: 10
+                    messagesProcessed: 10
+                    lag: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/exttrails:
+    get:
+      operationId: listExtractTrails
+      summary: Oracle Goldengate List Deployment Extracts With Trail Files
+      description: Returns a list of extracts and their associated trail files for the Distribution Server.
+      tags:
+      - Distribution
+      responses:
+        '200':
+          description: Extract trails listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractTrailList'
+              examples:
+                Listextracttrails200Example:
+                  summary: Default listExtractTrails 200 response
+                  x-microcks-default: true
+                  value:
+                    extracts:
+                    - extractName: example_value
+                      trail: example_value
+                      trailPath: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    distpathParam_2:
+      name: distpath
+      in: path
+      required: true
+      description: Name of the distribution path
+      schema:
+        type: string
+    distpathParam:
+      name: distpath
+      in: path
+      required: true
+      description: Distribution path name
+      schema:
+        type: string
+  schemas:
+    DistributionPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+    DistributionPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionPathSummary'
+          example: []
+    CreateDistributionPathRequest:
+      type: object
+      required:
+      - source
+      - target
+      properties:
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+    DistributionPath:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+    PathStatistics:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        bytesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        messagesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        lag:
+          type: string
+          example: example_value
+    UpdateDistributionPathRequest:
+      type: object
+      properties:
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ExtractTrailList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            type: object
+            properties:
+              extractName:
+                type: string
+              trail:
+                type: string
+              trailPath:
+                type: string
+          example: []
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    DistributionPath_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Distribution path name
+          example: Example Title
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        source:
+          type: string
+          description: Source trail file
+          example: example_value
+        target:
+          type: string
+          description: Target receiver URL
+          example: example_value
+        targetType:
+          type: string
+          description: Target data type
+          example: example_value
+        ruleName:
+          type: string
+          description: Filter rule name
+          example: example_value
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

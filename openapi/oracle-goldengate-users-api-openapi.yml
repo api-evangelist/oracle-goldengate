@@ -1,0 +1,1153 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Users API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Users
+  description: User management and authorization
+paths:
+  /services/v2/authorizations:
+    get:
+      operationId: listUserRoles
+      summary: Oracle Goldengate List User Roles
+      description: Returns a list of available authorization roles.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Roles listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleList'
+              examples:
+                Listuserroles200Example:
+                  summary: Default listUserRoles 200 response
+                  x-microcks-default: true
+                  value:
+                    roles:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/authorizations/{role}:
+    get:
+      operationId: listUsers
+      summary: Oracle Goldengate List Users for a Role
+      description: Returns a list of users assigned to a specific role.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                Listusers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - name: Example Title
+                      role: example_value
+                      description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: bulkCreateUsers
+      summary: Oracle Goldengate Bulk Create Users for a Role
+      description: Creates multiple users with the specified role in a single operation.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCreateUsersRequest'
+            examples:
+              BulkcreateusersRequestExample:
+                summary: Default bulkCreateUsers request
+                x-microcks-default: true
+                value:
+                  users:
+                  - name: Example Title
+                    password: example_value
+      responses:
+        '201':
+          description: Users created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                Bulkcreateusers201Example:
+                  summary: Default bulkCreateUsers 201 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - name: Example Title
+                      role: example_value
+                      description: A sample description.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/authorizations/{role}/{user}:
+    get:
+      operationId: getUser
+      summary: Oracle Goldengate Retrieve a User
+      description: Returns details of a specific user.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
+      responses:
+        '200':
+          description: User details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Getuser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Oracle Goldengate Create a User
+      description: Creates a new user with the specified role.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              CreateuserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Createuser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateUser
+      summary: Oracle Goldengate Update a User
+      description: Updates properties of an existing user.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+            examples:
+              UpdateuserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updateuser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: Oracle Goldengate Delete a User
+      description: Deletes a user from the system.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam'
+      - $ref: '#/components/parameters/userParam'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/currentuser:
+    get:
+      operationId: getCurrentUser
+      summary: Oracle Goldengate Retrieve Current User Information
+      description: Returns information about the currently authenticated user.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Current user information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Getcurrentuser200Example:
+                  summary: Default getCurrentUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: resetCurrentUserInfo
+      summary: Oracle Goldengate Reset Current User Information
+      description: Resets cached information for the current user.
+      tags:
+      - Users
+      responses:
+        '204':
+          description: User information reset
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v1/authorizations/{role}:
+    get:
+      operationId: listUsers
+      summary: Oracle Goldengate List Users for a Role
+      description: Returns a list of all users assigned to a specific role.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam_2'
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                Listusers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - name: Example Title
+                      role: example_value
+                      description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v1/authorizations/{role}/{user}:
+    get:
+      operationId: getUser
+      summary: Oracle Goldengate Retrieve a User
+      description: Returns details of a specific user in the given role.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam_2'
+      - $ref: '#/components/parameters/userParam'
+      responses:
+        '200':
+          description: User retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Getuser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Oracle Goldengate Create a User
+      description: Creates a new user with the specified role for GGSA access.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam_2'
+      - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              CreateuserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Createuser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateUser
+      summary: Oracle Goldengate Update a User
+      description: Updates user properties or role assignment.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/roleParam_2'
+      - $ref: '#/components/parameters/userParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+            examples:
+              UpdateuserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  password: example_value
+                  description: A sample description.
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updateuser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    role: example_value
+                    description: A sample description.
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/admin/users:
+    get:
+      operationId: listUsers
+      summary: Oracle Goldengate Retrieve All Users
+      description: Returns a list of all Veridata users.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Users listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                Listusers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                    - id: abc123
+                      username: example_value
+                      firstName: example_value
+                      lastName: example_value
+                      email: user@example.com
+                      role: example_value
+                      userGroupId: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Oracle Goldengate Create a User
+      description: Creates a new Veridata user account.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest_2'
+            examples:
+              CreateuserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  username: example_value
+                  password: example_value
+                  firstName: example_value
+                  lastName: example_value
+                  email: user@example.com
+                  role: example_value
+                  userGroupId: '500123'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              examples:
+                Createuser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
+        '400':
+          $ref: '#/components/responses/BadRequest_3'
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/admin/users/{Id}:
+    get:
+      operationId: getUser
+      summary: Oracle Goldengate Retrieve a User
+      description: Returns the details of a specific user.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userIdParam'
+      responses:
+        '200':
+          description: User retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              examples:
+                Getuser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceUser
+      summary: Oracle Goldengate Replace a User
+      description: Replaces user account details.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserRequest'
+            examples:
+              ReplaceuserRequestExample:
+                summary: Default replaceUser request
+                x-microcks-default: true
+                value:
+                  firstName: example_value
+                  lastName: example_value
+                  email: user@example.com
+                  role: example_value
+                  userGroupId: '500123'
+      responses:
+        '200':
+          description: User replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              examples:
+                Replaceuser200Example:
+                  summary: Default replaceUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    username: example_value
+                    firstName: example_value
+                    lastName: example_value
+                    email: user@example.com
+                    role: example_value
+                    userGroupId: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: Oracle Goldengate Delete a User
+      description: Deletes a Veridata user account.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userIdParam'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/admin/usergroups:
+    get:
+      operationId: listUserGroups
+      summary: Oracle Goldengate Retrieve All User Groups
+      description: Returns a list of all user groups.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: User groups listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+              examples:
+                Listusergroups200Example:
+                  summary: Default listUserGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    userGroups:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      permissions: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUserGroup
+      summary: Oracle Goldengate Create a User Group
+      description: Creates a new user group with specified permissions.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserGroupRequest'
+            examples:
+              CreateusergroupRequestExample:
+                summary: Default createUserGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  permissions:
+                  - example_value
+      responses:
+        '201':
+          description: User group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+              examples:
+                Createusergroup201Example:
+                  summary: Default createUserGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
+        '400':
+          $ref: '#/components/responses/BadRequest_3'
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/admin/usergroups/{Id}:
+    get:
+      operationId: getUserGroup
+      summary: Oracle Goldengate Retrieve a User Group
+      description: Returns the details of a user group.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userGroupIdParam'
+      responses:
+        '200':
+          description: User group retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+              examples:
+                Getusergroup200Example:
+                  summary: Default getUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceUserGroup
+      summary: Oracle Goldengate Replace a User Group
+      description: Replaces a user group configuration.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userGroupIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceUserGroupRequest'
+            examples:
+              ReplaceusergroupRequestExample:
+                summary: Default replaceUserGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  permissions:
+                  - example_value
+      responses:
+        '200':
+          description: User group replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+              examples:
+                Replaceusergroup200Example:
+                  summary: Default replaceUserGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    permissions:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUserGroup
+      summary: Oracle Goldengate Delete a User Group
+      description: Deletes a user group.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userGroupIdParam'
+      responses:
+        '204':
+          description: User group deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized_3'
+        '404':
+          $ref: '#/components/responses/NotFound_3'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          example: []
+    UpdateUserRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          format: password
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    CreateUserRequest_2:
+      type: object
+      required:
+      - username
+      - password
+      properties:
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        firstName:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        email:
+          type: string
+          example: user@example.com
+        role:
+          type: string
+          example: example_value
+        userGroupId:
+          type: integer
+          format: int64
+          example: '500123'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CreateUserGroupRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        permissions:
+          type: array
+          items:
+            type: string
+          example: []
+    BulkCreateUsersRequest:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              password:
+                type: string
+                format: password
+          example: []
+    RoleList:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+          example: []
+    CreateUserRequest:
+      type: object
+      required:
+      - password
+      properties:
+        password:
+          type: string
+          format: password
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    User_2:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        username:
+          type: string
+          example: example_value
+        firstName:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        email:
+          type: string
+          example: user@example.com
+        role:
+          type: string
+          example: example_value
+        userGroupId:
+          type: integer
+          format: int64
+          example: '500123'
+    UserGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        permissions:
+          type: array
+          items:
+            type: string
+          example: []
+    ReplaceUserGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        permissions:
+          type: array
+          items:
+            type: string
+          example: []
+    UserGroupList:
+      type: object
+      properties:
+        userGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          example: []
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        role:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    ErrorResponse_3:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    ReplaceUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        email:
+          type: string
+          example: user@example.com
+        role:
+          type: string
+          example: example_value
+        userGroupId:
+          type: integer
+          format: int64
+          example: '500123'
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  responses:
+    BadRequest_2:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_3:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    Unauthorized_3:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound_3:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    roleParam_2:
+      name: role
+      in: path
+      required: true
+      description: Authorization role
+      schema:
+        type: string
+        enum:
+        - Admin
+        - Operator
+        - Viewer
+    userGroupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: User group identifier
+      schema:
+        type: integer
+        format: int64
+    userParam:
+      name: user
+      in: path
+      required: true
+      description: Username
+      schema:
+        type: string
+    userIdParam:
+      name: Id
+      in: path
+      required: true
+      description: User identifier
+      schema:
+        type: integer
+        format: int64
+    roleParam:
+      name: role
+      in: path
+      required: true
+      description: Authorization role name
+      schema:
+        type: string
+        enum:
+        - Security
+        - Administrator
+        - Operator
+        - User
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

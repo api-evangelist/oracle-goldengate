@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Execution API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Execution
+  description: Run and stop comparison jobs
+paths:
+  /services/execution/jobs/{Id}:
+    post:
+      operationId: runJob
+      summary: Oracle Goldengate Run a Comparison Job
+      description: Starts execution of a comparison job to compare data between source and target databases.
+      tags:
+      - Execution
+      parameters:
+      - $ref: '#/components/parameters/jobIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunJobRequest'
+            examples:
+              RunjobRequestExample:
+                summary: Default runJob request
+                x-microcks-default: true
+                value:
+                  profileOverrides: example_value
+      responses:
+        '200':
+          description: Job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecution'
+              examples:
+                Runjob200Example:
+                  summary: Default runJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/execution/jobs/{runId}/stop:
+    post:
+      operationId: stopJob
+      summary: Oracle Goldengate Stop a Running Job
+      description: Stops a currently running comparison job or specific compare pairs within it.
+      tags:
+      - Execution
+      parameters:
+      - $ref: '#/components/parameters/runIdParam'
+      responses:
+        '200':
+          description: Job stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobExecution'
+              examples:
+                Stopjob200Example:
+                  summary: Default stopJob 200 response
+                  x-microcks-default: true
+                  value:
+                    runId: '500123'
+                    jobId: '500123'
+                    status: running
+                    startTime: '2026-01-15T10:30:00Z'
+                    endTime: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RunJobRequest:
+      type: object
+      properties:
+        profileOverrides:
+          type: object
+          additionalProperties: true
+          example: example_value
+    JobExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        jobId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  parameters:
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,327 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Heartbeat API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Heartbeat
+  description: Manage heartbeat tables for lag monitoring
+paths:
+  /services/v2/connections/{connection}/tables/heartbeat:
+    get:
+      operationId: getHeartbeatTable
+      summary: Oracle Goldengate Retrieve Heartbeat Table Configuration
+      description: Returns the heartbeat table configuration for a database connection.
+      tags:
+      - Heartbeat
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Heartbeat table configuration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+              examples:
+                Getheartbeattable200Example:
+                  summary: Default getHeartbeatTable 200 response
+                  x-microcks-default: true
+                  value:
+                    owner: example_value
+                    table: example_value
+                    retentionTime: 10
+                    frequency: 10
+                    purgeFrequency: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHeartbeatTable
+      summary: Oracle Goldengate Create Heartbeat Table
+      description: Creates the heartbeat table in the target database for lag monitoring.
+      tags:
+      - Heartbeat
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHeartbeatTableRequest'
+            examples:
+              CreateheartbeattableRequestExample:
+                summary: Default createHeartbeatTable request
+                x-microcks-default: true
+                value:
+                  owner: example_value
+                  retentionTime: 10
+                  frequency: 10
+                  purgeFrequency: 10
+      responses:
+        '201':
+          description: Heartbeat table created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+              examples:
+                Createheartbeattable201Example:
+                  summary: Default createHeartbeatTable 201 response
+                  x-microcks-default: true
+                  value:
+                    owner: example_value
+                    table: example_value
+                    retentionTime: 10
+                    frequency: 10
+                    purgeFrequency: 10
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateHeartbeatTable
+      summary: Oracle Goldengate Update Heartbeat Table
+      description: Updates the heartbeat table configuration.
+      tags:
+      - Heartbeat
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateHeartbeatTableRequest'
+            examples:
+              UpdateheartbeattableRequestExample:
+                summary: Default updateHeartbeatTable request
+                x-microcks-default: true
+                value:
+                  retentionTime: 10
+                  frequency: 10
+                  purgeFrequency: 10
+      responses:
+        '200':
+          description: Heartbeat table updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatTable'
+              examples:
+                Updateheartbeattable200Example:
+                  summary: Default updateHeartbeatTable 200 response
+                  x-microcks-default: true
+                  value:
+                    owner: example_value
+                    table: example_value
+                    retentionTime: 10
+                    frequency: 10
+                    purgeFrequency: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteHeartbeatTable
+      summary: Oracle Goldengate Delete Heartbeat Table
+      description: Deletes the heartbeat table from the database.
+      tags:
+      - Heartbeat
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '204':
+          description: Heartbeat table deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/connections/{connection}/tables/heartbeatData:
+    get:
+      operationId: getHeartbeatEntries
+      summary: Oracle Goldengate Retrieve Heartbeat Table Entries
+      description: Returns the heartbeat data entries showing lag information across processes.
+      tags:
+      - Heartbeat
+      parameters:
+      - $ref: '#/components/parameters/connectionParam'
+      responses:
+        '200':
+          description: Heartbeat entries retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeartbeatEntries'
+              examples:
+                Getheartbeatentries200Example:
+                  summary: Default getHeartbeatEntries 200 response
+                  x-microcks-default: true
+                  value:
+                    entries:
+                    - sourceProcess: example_value
+                      targetProcess: example_value
+                      lastHeartbeatSent: '2026-01-15T10:30:00Z'
+                      lastHeartbeatReceived: '2026-01-15T10:30:00Z'
+                      lagInSeconds: 42.5
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
+  schemas:
+    CreateHeartbeatTableRequest:
+      type: object
+      properties:
+        owner:
+          type: string
+          example: example_value
+        retentionTime:
+          type: integer
+          example: 10
+        frequency:
+          type: integer
+          example: 10
+        purgeFrequency:
+          type: integer
+          example: 10
+    UpdateHeartbeatTableRequest:
+      type: object
+      properties:
+        retentionTime:
+          type: integer
+          example: 10
+        frequency:
+          type: integer
+          example: 10
+        purgeFrequency:
+          type: integer
+          example: 10
+    HeartbeatEntries:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceProcess:
+                type: string
+              targetProcess:
+                type: string
+              lastHeartbeatSent:
+                type: string
+                format: date-time
+              lastHeartbeatReceived:
+                type: string
+                format: date-time
+              lagInSeconds:
+                type: number
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    HeartbeatTable:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: Schema owner of the heartbeat table
+          example: example_value
+        table:
+          type: string
+          description: Heartbeat table name
+          example: example_value
+        retentionTime:
+          type: integer
+          description: Retention time in days
+          example: 10
+        frequency:
+          type: integer
+          description: Update frequency in seconds
+          example: 10
+        purgeFrequency:
+          type: integer
+          description: Purge frequency in minutes
+          example: 10
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

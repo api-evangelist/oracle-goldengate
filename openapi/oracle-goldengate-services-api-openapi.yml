@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Services API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Services
+paths:
+  /services/v2/deployments/{deployment}/services:
+    get:
+      operationId: listServices
+      summary: Oracle Goldengate List Services for a Deployment
+      description: Returns a list of all services configured within a specific deployment.
+      tags:
+      - Services
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      responses:
+        '200':
+          description: Successfully retrieved service list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+              examples:
+                Listservices200Example:
+                  summary: Default listServices 200 response
+                  x-microcks-default: true
+                  value:
+                    services:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      port: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/deployments/{deployment}/services/{service}:
+    get:
+      operationId: getService
+      summary: Oracle Goldengate Retrieve a Service
+      description: Returns the configuration and status of a specific service within a deployment.
+      tags:
+      - Services
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      - $ref: '#/components/parameters/serviceParam'
+      responses:
+        '200':
+          description: Service details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+              examples:
+                Getservice200Example:
+                  summary: Default getService 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: AdminServer
+                    status: running
+                    port: 10
+                    secure: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createService
+      summary: Oracle Goldengate Create a Service
+      description: Creates a new service within a deployment.
+      tags:
+      - Services
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      - $ref: '#/components/parameters/serviceParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServiceRequest'
+            examples:
+              CreateserviceRequestExample:
+                summary: Default createService request
+                x-microcks-default: true
+                value:
+                  type: AdminServer
+                  port: 10
+                  secure: true
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+              examples:
+                Createservice201Example:
+                  summary: Default createService 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: AdminServer
+                    status: running
+                    port: 10
+                    secure: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateService
+      summary: Oracle Goldengate Update Service Properties
+      description: Updates the configuration properties of an existing service.
+      tags:
+      - Services
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      - $ref: '#/components/parameters/serviceParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServiceRequest'
+            examples:
+              UpdateserviceRequestExample:
+                summary: Default updateService request
+                x-microcks-default: true
+                value:
+                  port: 10
+                  secure: true
+                  status: example_value
+      responses:
+        '200':
+          description: Service updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+              examples:
+                Updateservice200Example:
+                  summary: Default updateService 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: AdminServer
+                    status: running
+                    port: 10
+                    secure: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteService
+      summary: Oracle Goldengate Remove a Service
+      description: Removes a service from a deployment.
+      tags:
+      - Services
+      parameters:
+      - $ref: '#/components/parameters/deploymentParam'
+      - $ref: '#/components/parameters/serviceParam'
+      responses:
+        '204':
+          description: Service removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    Service:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Service name
+          example: Example Title
+        type:
+          type: string
+          description: Service type
+          enum:
+          - AdminServer
+          - DistributionServer
+          - ReceiverServer
+          - PerformanceMetricsServer
+          example: AdminServer
+        status:
+          type: string
+          description: Service status
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        port:
+          type: integer
+          description: Service listening port
+          example: 10
+        secure:
+          type: boolean
+          description: Whether the service uses SSL/TLS
+          example: true
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    UpdateServiceRequest:
+      type: object
+      properties:
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: example_value
+    CreateServiceRequest:
+      type: object
+      required:
+      - type
+      - port
+      properties:
+        type:
+          type: string
+          enum:
+          - AdminServer
+          - DistributionServer
+          - ReceiverServer
+          - PerformanceMetricsServer
+          example: AdminServer
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
+  parameters:
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
+      schema:
+        type: string
+    deploymentParam:
+      name: deployment
+      in: path
+      required: true
+      description: Name of the GoldenGate deployment
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

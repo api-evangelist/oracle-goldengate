@@ -1,0 +1,335 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Jobs API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Jobs
+  description: Manage and execute comparison jobs
+paths:
+  /services/configuration/jobs:
+    get:
+      operationId: listJobs
+      summary: Oracle Goldengate Retrieve All Jobs
+      description: Returns a list of all comparison jobs configured in Veridata.
+      tags:
+      - Jobs
+      responses:
+        '200':
+          description: Jobs listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobList'
+              examples:
+                Listjobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    jobs:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      groupIds: {}
+                      profileId: '500123'
+                      status: idle
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createJob
+      summary: Oracle Goldengate Create a Job
+      description: Creates a new comparison job that references one or more compare groups. Jobs control the execution of data comparisons.
+      tags:
+      - Jobs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+            examples:
+              CreatejobRequestExample:
+                summary: Default createJob request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  groupIds:
+                  - 10
+                  profileId: '500123'
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+              examples:
+                Createjob201Example:
+                  summary: Default createJob 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/jobs/{Id}:
+    get:
+      operationId: getJob
+      summary: Oracle Goldengate Retrieve a Job
+      description: Returns the details of a specific comparison job.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/jobIdParam'
+      responses:
+        '200':
+          description: Job retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+              examples:
+                Getjob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: replaceJob
+      summary: Oracle Goldengate Replace a Job
+      description: Replaces the configuration of an existing comparison job.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/jobIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceJobRequest'
+            examples:
+              ReplacejobRequestExample:
+                summary: Default replaceJob request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  groupIds:
+                  - 10
+                  profileId: '500123'
+      responses:
+        '200':
+          description: Job replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+              examples:
+                Replacejob200Example:
+                  summary: Default replaceJob 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    groupIds:
+                    - 10
+                    profileId: '500123'
+                    status: idle
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteJob
+      summary: Oracle Goldengate Delete a Job
+      description: Deletes a comparison job.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/jobIdParam'
+      responses:
+        '204':
+          description: Job deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - idle
+          - running
+          - completed
+          - failed
+          example: idle
+    ReplaceJobRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    CreateJobRequest:
+      type: object
+      required:
+      - name
+      - groupIds
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    JobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+          example: []
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

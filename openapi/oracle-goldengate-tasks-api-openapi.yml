@@ -1,0 +1,385 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Tasks API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Tasks
+  description: Manage automated tasks
+paths:
+  /services/v2/tasks:
+    get:
+      operationId: listTasks
+      summary: Oracle Goldengate List Automated Tasks
+      description: Returns a list of all configured automated tasks.
+      tags:
+      - Tasks
+      responses:
+        '200':
+          description: Tasks listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskList'
+              examples:
+                Listtasks200Example:
+                  summary: Default listTasks 200 response
+                  x-microcks-default: true
+                  value:
+                    tasks:
+                    - name: Example Title
+                      status: example_value
+                      schedule: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/tasks/{task}:
+    get:
+      operationId: getTask
+      summary: Oracle Goldengate Retrieve a Task
+      description: Returns the configuration of a specific automated task.
+      tags:
+      - Tasks
+      parameters:
+      - $ref: '#/components/parameters/taskParam'
+      responses:
+        '200':
+          description: Task details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                Gettask200Example:
+                  summary: Default getTask 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: active
+                    description: A sample description.
+                    schedule:
+                      type: once
+                      interval: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+                    action:
+                      type: example_value
+                      target: example_value
+                      command: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createTask
+      summary: Oracle Goldengate Create a Task
+      description: Creates a new automated task for scheduled operations.
+      tags:
+      - Tasks
+      parameters:
+      - $ref: '#/components/parameters/taskParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+            examples:
+              CreatetaskRequestExample:
+                summary: Default createTask request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  schedule:
+                    type: example_value
+                    interval: example_value
+                    startTime: '2026-01-15T10:30:00Z'
+                  action:
+                    type: example_value
+                    target: example_value
+                    command: example_value
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                Createtask201Example:
+                  summary: Default createTask 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: active
+                    description: A sample description.
+                    schedule:
+                      type: once
+                      interval: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+                    action:
+                      type: example_value
+                      target: example_value
+                      command: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateTask
+      summary: Oracle Goldengate Update a Task
+      description: Updates the configuration of an existing automated task.
+      tags:
+      - Tasks
+      parameters:
+      - $ref: '#/components/parameters/taskParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+            examples:
+              UpdatetaskRequestExample:
+                summary: Default updateTask request
+                x-microcks-default: true
+                value:
+                  description: A sample description.
+                  status: example_value
+                  schedule:
+                    type: example_value
+                    interval: example_value
+                    startTime: '2026-01-15T10:30:00Z'
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                Updatetask200Example:
+                  summary: Default updateTask 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: active
+                    description: A sample description.
+                    schedule:
+                      type: once
+                      interval: example_value
+                      startTime: '2026-01-15T10:30:00Z'
+                    action:
+                      type: example_value
+                      target: example_value
+                      command: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteTask
+      summary: Oracle Goldengate Delete a Task
+      description: Deletes an automated task.
+      tags:
+      - Tasks
+      parameters:
+      - $ref: '#/components/parameters/taskParam'
+      responses:
+        '204':
+          description: Task deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UpdateTaskRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        status:
+          type: string
+          example: example_value
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+          example: example_value
+    TaskSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        schedule:
+          type: string
+          example: example_value
+    CreateTaskRequest:
+      type: object
+      required:
+      - schedule
+      - action
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+          example: example_value
+        action:
+          type: object
+          properties:
+            type:
+              type: string
+            target:
+              type: string
+            command:
+              type: string
+          example: example_value
+    Task:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        description:
+          type: string
+          example: A sample description.
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - once
+              - recurring
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+          example: example_value
+        action:
+          type: object
+          properties:
+            type:
+              type: string
+            target:
+              type: string
+            command:
+              type: string
+          example: example_value
+    TaskList:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  parameters:
+    taskParam:
+      name: task
+      in: path
+      required: true
+      description: Name of the automated task
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

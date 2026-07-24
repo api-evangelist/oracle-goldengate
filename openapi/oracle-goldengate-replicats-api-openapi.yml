@@ -1,0 +1,696 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Replicats API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Replicats
+  description: Manage Replicat processes targeting big data systems
+paths:
+  /services/v2/replicats:
+    get:
+      operationId: listReplicats
+      summary: Oracle Goldengate List All Replicat Processes
+      description: Returns a list of all Replicat processes configured for big data targets such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch.
+      tags:
+      - Replicats
+      responses:
+        '200':
+          description: Replicats listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicatList'
+              examples:
+                Listreplicats200Example:
+                  summary: Default listReplicats 200 response
+                  x-microcks-default: true
+                  value:
+                    replicats:
+                    - name: Example Title
+                      type: example_value
+                      status: example_value
+                      handler: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}:
+    get:
+      operationId: getReplicat
+      summary: Oracle Goldengate Retrieve a Replicat Process
+      description: Returns the configuration and status of a Replicat process targeting a big data system. Includes handler configuration details.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Replicat details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+              examples:
+                Getreplicat200Example:
+                  summary: Default getReplicat 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createReplicat
+      summary: Oracle Goldengate Create a Replicat Process for a Big Data Target
+      description: Creates a new Replicat process with a big data handler. Supported handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, JDBC, Kinesis, Google BigQuery, Google Pub/Sub, and OCI Object Storage.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplicatRequest'
+            examples:
+              CreatereplicatRequestExample:
+                summary: Default createReplicat request
+                x-microcks-default: true
+                value:
+                  type: classic
+                  trail: example_value
+                  begin: example_value
+                  config:
+                  - example_value
+                  checkpointTable: example_value
+      responses:
+        '201':
+          description: Replicat created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+              examples:
+                Createreplicat201Example:
+                  summary: Default createReplicat 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateReplicat
+      summary: Oracle Goldengate Update a Replicat Process
+      description: Updates the configuration of a Replicat targeting a big data system.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicatRequest'
+            examples:
+              UpdatereplicatRequestExample:
+                summary: Default updateReplicat request
+                x-microcks-default: true
+                value:
+                  config:
+                  - example_value
+                  status: example_value
+      responses:
+        '200':
+          description: Replicat updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replicat'
+              examples:
+                Updatereplicat200Example:
+                  summary: Default updateReplicat 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: classic
+                    status: running
+                    trail: example_value
+                    handler: kafka
+                    config:
+                    - example_value
+                    handlerProperties: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteReplicat
+      summary: Oracle Goldengate Delete a Replicat Process
+      description: Deletes a Replicat process targeting a big data system.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '204':
+          description: Replicat deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}/command:
+    post:
+      operationId: issueReplicatCommand
+      summary: Oracle Goldengate Issue a Command to a Replicat
+      description: Issues an operational command to a Replicat process.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommand'
+            examples:
+              IssuereplicatcommandRequestExample:
+                summary: Default issueReplicatCommand request
+                x-microcks-default: true
+                value:
+                  action: start
+      responses:
+        '200':
+          description: Command executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+              examples:
+                Issuereplicatcommand200Example:
+                  summary: Default issueReplicatCommand 200 response
+                  x-microcks-default: true
+                  value:
+                    response:
+                      code: example_value
+                      severity: example_value
+                      message: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}/info/status:
+    get:
+      operationId: getReplicatStatus
+      summary: Oracle Goldengate Retrieve Replicat Status
+      description: Returns the current runtime status of a big data Replicat process.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam'
+      responses:
+        '200':
+          description: Status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStatus'
+              examples:
+                Getreplicatstatus200Example:
+                  summary: Default getReplicatStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    status: example_value
+                    lag: example_value
+                    since: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}/info/checkpoints:
+    get:
+      operationId: getReplicatCheckpoints
+      summary: Oracle Goldengate Retrieve Replicat Checkpoints
+      description: Returns checkpoint information for a Replicat process.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam_2'
+      responses:
+        '200':
+          description: Replicat checkpoints retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkpoints'
+              examples:
+                Getreplicatcheckpoints200Example:
+                  summary: Default getReplicatCheckpoints 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    readCheckpoint:
+                      sequenceNumber: 10
+                      rba: 10
+                      timestamp: '2026-01-15T10:30:00Z'
+                    writeCheckpoint:
+                      sequenceNumber: 10
+                      rba: 10
+                      timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}/info/reports:
+    get:
+      operationId: listReplicatReports
+      summary: Oracle Goldengate List Replicat Reports
+      description: Returns a list of available process reports for a Replicat.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam_2'
+      responses:
+        '200':
+          description: Replicat reports listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportList'
+              examples:
+                Listreplicatreports200Example:
+                  summary: Default listReplicatReports 200 response
+                  x-microcks-default: true
+                  value:
+                    reports:
+                    - name: Example Title
+                      timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/replicats/{replicat}/info/history:
+    get:
+      operationId: getReplicatHistory
+      summary: Oracle Goldengate Retrieve Replicat History
+      description: Returns the processing history for a Replicat.
+      tags:
+      - Replicats
+      parameters:
+      - $ref: '#/components/parameters/replicatParam_2'
+      responses:
+        '200':
+          description: History retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessHistory'
+              examples:
+                Getreplicathistory200Example:
+                  summary: Default getReplicatHistory 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    history:
+                    - startTime: '2026-01-15T10:30:00Z'
+                      endTime: '2026-01-15T10:30:00Z'
+                      status: example_value
+                      reason: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
+          example: []
+    ReplicatList:
+      type: object
+      properties:
+        replicats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicatSummary'
+          example: []
+    UpdateReplicatRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        status:
+          type: string
+          example: example_value
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ProcessCommand:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
+    CreateReplicatRequest:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
+        type:
+          type: string
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        trail:
+          type: string
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        checkpointTable:
+          type: string
+          example: example_value
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    ReplicatSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        handler:
+          type: string
+          description: Big data handler type (e.g., kafka, hdfs, mongodb)
+          example: example_value
+    Replicat:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Replicat process name
+          example: Example Title
+        type:
+          type: string
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - abended
+          example: running
+        trail:
+          type: string
+          description: Source trail file
+          example: example_value
+        handler:
+          type: string
+          description: Big data handler type
+          enum:
+          - kafka
+          - kafkaconnect
+          - hdfs
+          - hbase
+          - cassandra
+          - mongodb
+          - elasticsearch
+          - jdbc
+          - kinesis
+          - bigquery
+          - pubsub
+          - objectstorage
+          example: kafka
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content including handler configuration
+          example: []
+        handlerProperties:
+          type: string
+          description: Path to handler properties file
+          example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  parameters:
+    replicatParam:
+      name: replicat
+      in: path
+      required: true
+      description: Replicat process name
+      schema:
+        type: string
+    replicatParam_2:
+      name: replicat
+      in: path
+      required: true
+      description: Name of the Replicat process
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Import/Export API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Import/Export
+  description: Import and export Veridata configurations
+paths:
+  /services/configuration/export:
+    get:
+      operationId: exportConfiguration
+      summary: Oracle Goldengate Export Veridata Configurations
+      description: Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document.
+      tags:
+      - Import/Export
+      responses:
+        '200':
+          description: Configuration exported
+          content:
+            application/xml:
+              schema:
+                type: string
+              examples:
+                Exportconfiguration200Example:
+                  summary: Default exportConfiguration 200 response
+                  x-microcks-default: true
+                  value: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/import:
+    post:
+      operationId: importConfiguration
+      summary: Oracle Goldengate Import Veridata Xml Configuration
+      description: Imports Veridata configurations from an XML document.
+      tags:
+      - Import/Export
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+            examples:
+              ImportconfigurationRequestExample:
+                summary: Default importConfiguration request
+                x-microcks-default: true
+                value: example_value
+      responses:
+        '200':
+          description: Configuration imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importconfiguration200Example:
+                  summary: Default importConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    itemsImported: 10
+                    messages:
+                    - example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/vgpp:
+    post:
+      operationId: importGoldenGateParameterFile
+      summary: Oracle Goldengate Import Goldengate Parameter File
+      description: Imports a GoldenGate parameter file to automatically create compare pairs from table mappings.
+      tags:
+      - Import/Export
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            examples:
+              ImportgoldengateparameterfileRequestExample:
+                summary: Default importGoldenGateParameterFile request
+                x-microcks-default: true
+                value: example_value
+      responses:
+        '200':
+          description: Parameter file imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importgoldengateparameterfile200Example:
+                  summary: Default importGoldenGateParameterFile 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    itemsImported: 10
+                    messages:
+                    - example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ImportResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        itemsImported:
+          type: integer
+          example: 10
+        messages:
+          type: array
+          items:
+            type: string
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

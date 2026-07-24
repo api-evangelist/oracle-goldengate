@@ -1,0 +1,382 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Groups API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Groups
+  description: Manage compare groups
+paths:
+  /services/configuration/groups:
+    get:
+      operationId: listGroups
+      summary: Oracle Goldengate Retrieve All Compare Groups
+      description: Returns a list of all compare groups configured in Veridata.
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Groups listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+              examples:
+                Listgroups200Example:
+                  summary: Default listGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    groups:
+                    - id: abc123
+                      name: Example Title
+                      description: A sample description.
+                      sourceConnectionId: '500123'
+                      targetConnectionId: '500123'
+                      profileId: '500123'
+                      comparePairCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createGroup
+      summary: Oracle Goldengate Create a Compare Group
+      description: Creates a new compare group linking source and target connections for data comparison.
+      tags:
+      - Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+            examples:
+              CreategroupRequestExample:
+                summary: Default createGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  sourceConnectionId: '500123'
+                  targetConnectionId: '500123'
+                  profileId: '500123'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Creategroup201Example:
+                  summary: Default createGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/groups/{Id}:
+    get:
+      operationId: getGroup
+      summary: Oracle Goldengate Retrieve a Compare Group
+      description: Returns the details of a specific compare group including its source and target connections.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '200':
+          description: Group retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Getgroup200Example:
+                  summary: Default getGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateGroup
+      summary: Oracle Goldengate Update a Compare Group
+      description: Updates properties of an existing compare group.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+            examples:
+              UpdategroupRequestExample:
+                summary: Default updateGroup request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  description: A sample description.
+                  profileId: '500123'
+      responses:
+        '200':
+          description: Group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Updategroup200Example:
+                  summary: Default updateGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteGroup
+      summary: Oracle Goldengate Delete a Compare Group
+      description: Deletes a compare group and its associated compare pairs.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupIdParam'
+      responses:
+        '204':
+          description: Group deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/configuration/groups/clone/{Id}:
+    post:
+      operationId: cloneGroup
+      summary: Oracle Goldengate Clone a Compare Group
+      description: Creates a copy of an existing compare group including all its compare pairs.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/groupIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneGroupRequest'
+            examples:
+              ClonegroupRequestExample:
+                summary: Default cloneGroup request
+                x-microcks-default: true
+                value:
+                  newName: example_value
+      responses:
+        '201':
+          description: Group cloned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Clonegroup201Example:
+                  summary: Default cloneGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    description: A sample description.
+                    sourceConnectionId: '500123'
+                    targetConnectionId: '500123'
+                    profileId: '500123'
+                    comparePairCount: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+          example: []
+    CreateGroupRequest:
+      type: object
+      required:
+      - name
+      - sourceConnectionId
+      - targetConnectionId
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        sourceConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        targetConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    UpdateGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        sourceConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        targetConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+        comparePairCount:
+          type: integer
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    CloneGroupRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+          example: example_value
+  parameters:
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

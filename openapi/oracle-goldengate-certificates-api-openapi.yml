@@ -1,0 +1,399 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts Certificates API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Certificates
+  description: Manage SSL certificates for deployments
+paths:
+  /20200407/deployments/{deploymentId}/certificates:
+    get:
+      operationId: listCertificates
+      summary: Oracle Goldengate List Deployment Certificates
+      description: Returns SSL certificates associated with a deployment.
+      tags:
+      - Certificates
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: Certificates listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateCollection'
+              examples:
+                Listcertificates200Example:
+                  summary: Default listCertificates 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - key: example_value
+                      subject: example_value
+                      lifecycleState: example_value
+                      timeCreated: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCertificate
+      summary: Oracle Goldengate Add a Certificate to a Deployment
+      description: Adds a trusted SSL certificate to a GoldenGate deployment.
+      tags:
+      - Certificates
+      parameters:
+      - $ref: '#/components/parameters/deploymentIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCertificateDetails'
+            examples:
+              CreatecertificateRequestExample:
+                summary: Default createCertificate request
+                x-microcks-default: true
+                value:
+                  key: example_value
+                  certificateContent: example_value
+      responses:
+        '200':
+          description: Certificate added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+              examples:
+                Createcertificate200Example:
+                  summary: Default createCertificate 200 response
+                  x-microcks-default: true
+                  value:
+                    key: example_value
+                    deploymentId: '500123'
+                    subject: example_value
+                    issuer: example_value
+                    isSelfSigned: true
+                    md5Hash: example_value
+                    publicKey: example_value
+                    publicKeyAlgorithm: example_value
+                    timeValidFrom: '2026-01-15T10:30:00Z'
+                    timeValidTo: '2026-01-15T10:30:00Z'
+                    serial: example_value
+                    lifecycleState: example_value
+                    timeCreated: '2026-01-15T10:30:00Z'
+          headers:
+            opc-work-request-id:
+              schema:
+                type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/certificates:
+    get:
+      operationId: listCertificateTypes
+      summary: Oracle Goldengate Retrieve Available Certificate Types
+      description: Returns the list of available certificate types (trusted, server, client).
+      tags:
+      - Certificates
+      responses:
+        '200':
+          description: Certificate types listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateTypeList'
+              examples:
+                Listcertificatetypes200Example:
+                  summary: Default listCertificateTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    types:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/certificates/{type}:
+    get:
+      operationId: listCertificates
+      summary: Oracle Goldengate Retrieve Certificate Names
+      description: Returns a list of certificate names for a specific type.
+      tags:
+      - Certificates
+      parameters:
+      - name: type
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - trusted
+          - server
+          - client
+        example: trusted
+      responses:
+        '200':
+          description: Certificates listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateNameList'
+              examples:
+                Listcertificates200Example:
+                  summary: Default listCertificates 200 response
+                  x-microcks-default: true
+                  value:
+                    certificates:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /services/v2/certificates/{type}/{certificate}:
+    get:
+      operationId: getCertificate
+      summary: Oracle Goldengate Retrieve a Certificate
+      description: Returns the details of a specific certificate.
+      tags:
+      - Certificates
+      parameters:
+      - name: type
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: certificate
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Certificate retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate_2'
+              examples:
+                Getcertificate200Example:
+                  summary: Default getCertificate 200 response
+                  x-microcks-default: true
+                  value:
+                    alias: example_value
+                    subject: example_value
+                    issuer: example_value
+                    serialNumber: example_value
+                    notBefore: '2026-01-15T10:30:00Z'
+                    notAfter: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateCertificateDetails:
+      type: object
+      required:
+      - key
+      - certificateContent
+      properties:
+        key:
+          type: string
+          example: example_value
+        certificateContent:
+          type: string
+          example: example_value
+    CertificateCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificateSummary'
+          example: []
+    CertificateTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+          example: []
+    CertificateSummary:
+      type: object
+      properties:
+        key:
+          type: string
+          example: example_value
+        subject:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CertificateNameList:
+      type: object
+      properties:
+        certificates:
+          type: array
+          items:
+            type: string
+          example: []
+    Certificate:
+      type: object
+      properties:
+        key:
+          type: string
+          example: example_value
+        deploymentId:
+          type: string
+          example: '500123'
+        subject:
+          type: string
+          example: example_value
+        issuer:
+          type: string
+          example: example_value
+        isSelfSigned:
+          type: boolean
+          example: true
+        md5Hash:
+          type: string
+          example: example_value
+        publicKey:
+          type: string
+          example: example_value
+        publicKeyAlgorithm:
+          type: string
+          example: example_value
+        timeValidFrom:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeValidTo:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        serial:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Certificate_2:
+      type: object
+      properties:
+        alias:
+          type: string
+          example: example_value
+        subject:
+          type: string
+          example: example_value
+        issuer:
+          type: string
+          example: example_value
+        serialNumber:
+          type: string
+          example: example_value
+        notBefore:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        notAfter:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

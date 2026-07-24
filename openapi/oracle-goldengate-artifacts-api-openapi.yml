@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: Oracle GoldenGate for Big Data REST Artifacts API
+  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  version: 21.3.0
+  contact:
+    name: Oracle Support
+    url: https://support.oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+  x-documentation:
+  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+    description: Oracle GoldenGate for Big Data Administration Guide
+servers:
+- url: https://{goldengate-host}:{port}
+  description: Oracle GoldenGate for Big Data Microservices server
+  variables:
+    goldengate-host:
+      default: localhost
+      description: GoldenGate Big Data host
+    port:
+      default: '443'
+      description: HTTPS port
+security:
+- basicAuth: []
+tags:
+- name: Artifacts
+  description: Import and export GGSA artifacts
+paths:
+  /services/v1/artifacts/import:
+    patch:
+      operationId: importArtifacts
+      summary: Oracle Goldengate Import Ggsa Artifacts
+      description: Imports GGSA artifacts (pipelines, sources, targets, connections, etc.) from a previously exported JSON document. Supports CI/CD workflows by enabling promotion of pipelines across environments.
+      tags:
+      - Artifacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactImport'
+            examples:
+              ImportartifactsRequestExample:
+                summary: Default importArtifacts request
+                x-microcks-default: true
+                value:
+                  pipeline: example_value
+                  connections:
+                  - {}
+                  references:
+                  - {}
+      responses:
+        '200':
+          description: Artifacts imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+              examples:
+                Importartifacts200Example:
+                  summary: Default importArtifacts 200 response
+                  x-microcks-default: true
+                  value:
+                    success: true
+                    importedArtifacts: 10
+                    messages:
+                    - example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ArtifactImport:
+      type: object
+      description: JSON document containing exported GGSA artifacts
+      properties:
+        pipeline:
+          type: object
+          additionalProperties: true
+          example: example_value
+        connections:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          example: []
+        references:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          example: []
+    ImportResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        importedArtifacts:
+          type: integer
+          example: 10
+        messages:
+          type: array
+          items:
+            type: string
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
