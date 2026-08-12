@@ -2542,6 +2542,9 @@ apis:
     url: >-
       https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 common:
+  - type: License
+    name: UPL-1.0
+    url: https://github.com/oracle/docker-images/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/oracle-goldengate-agentic-access.yml
   - type: DomainSecurity
