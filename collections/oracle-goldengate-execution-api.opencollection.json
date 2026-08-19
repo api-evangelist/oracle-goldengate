@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Execution API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Execution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Run a Comparison Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/execution/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts execution of a comparison job to compare data between source and target databases."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Running Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/execution/jobs/:runId/stop",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Stops a currently running comparison job or specific compare pairs within it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

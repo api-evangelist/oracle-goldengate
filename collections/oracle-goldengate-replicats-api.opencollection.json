@@ -1,0 +1,219 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Replicats API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Replicats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List All Replicat Processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats"
+          },
+          "docs": "Returns a list of all Replicat processes configured for big data targets such as Kafka, HDFS, HBase, Cassandra, MongoDB, and Elasticsearch."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Returns the configuration and status of a Replicat process targeting a big data system. Includes handler configuration details."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Replicat Process for a Big Data Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Replicat process with a big data handler. Supported handlers include Kafka, Kafka Connect, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, JDBC, Kinesis, Google BigQuery, Google Pub/Sub, and OCI Object Storage."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a Replicat targeting a big data system."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Replicat Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Deletes a Replicat process targeting a big data system."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Issue a Command to a Replicat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/command",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues an operational command to a Replicat process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/info/status",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Replicat process name"
+              }
+            ]
+          },
+          "docs": "Returns the current runtime status of a big data Replicat process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat Checkpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/info/checkpoints",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Replicat process"
+              }
+            ]
+          },
+          "docs": "Returns checkpoint information for a Replicat process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Replicat Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/info/reports",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Replicat process"
+              }
+            ]
+          },
+          "docs": "Returns a list of available process reports for a Replicat."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/replicats/:replicat/info/history",
+            "params": [
+              {
+                "name": "replicat",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Replicat process"
+              }
+            ]
+          },
+          "docs": "Returns the processing history for a Replicat."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

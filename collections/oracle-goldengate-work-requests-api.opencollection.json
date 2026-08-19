@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Work Requests API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/workRequests",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of asynchronous work requests in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Work Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/workRequests/:workRequestId",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific asynchronous work request."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Request Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/workRequests/:workRequestId/logs",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns log entries for a work request."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Work Request Errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/workRequests/:workRequestId/errors",
+            "params": [
+              {
+                "name": "workRequestId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns error entries for a work request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Database Registrations API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Registrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Database Registrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/databaseRegistrations",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of registered databases."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/databaseRegistrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a database for use with GoldenGate."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/databaseRegistrations/:databaseRegistrationId",
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a database registration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/20200407/databaseRegistrations/:databaseRegistrationId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a database registration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Database Registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/20200407/databaseRegistrations/:databaseRegistrationId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "databaseRegistrationId",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a database registration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

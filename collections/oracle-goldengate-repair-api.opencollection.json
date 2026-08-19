@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Repair API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Repair",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Repair Out-of-sync Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/repair/jobs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a repair operation to synchronize out-of-sync rows found during a comparison."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Repair Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/repair/jobs/:runId/stop",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Stops a currently running repair operation."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repair Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/repair/jobs"
+          },
+          "docs": "Returns statistics for repair operations."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repaired Row Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/repair/cps/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about rows that were repaired during a repair operation."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Repair Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/repair/:runId/reports",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns a detailed repair report for a specific repair run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

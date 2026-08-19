@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Server API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/server/info"
+          },
+          "docs": "Returns server information including version, uptime, and system details."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/server/configuration"
+          },
+          "docs": "Returns the current server configuration settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update Server Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/server/configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates server configuration settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Reset Server Configurations to Default",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/server/configuration/reset"
+          },
+          "docs": "Resets all server configuration settings to their factory default values."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Login to Veridata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/auth/login",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "example_value"
+              }
+            ]
+          },
+          "docs": "Authenticates a user and establishes a session."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Extend User Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/session/extend"
+          },
+          "docs": "Extends the current user session timeout."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Invalidate Session (logout)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/session/invalidate"
+          },
+          "docs": "Invalidates the current user session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

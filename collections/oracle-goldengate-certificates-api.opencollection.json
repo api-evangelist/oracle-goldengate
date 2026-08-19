@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Certificates API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployment Certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/certificates",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns SSL certificates associated with a deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Add a Certificate to a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/certificates",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a trusted SSL certificate to a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Available Certificate Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/certificates"
+          },
+          "docs": "Returns the list of available certificate types (trusted, server, client)."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Certificate Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/certificates/:type",
+            "params": [
+              {
+                "name": "type",
+                "value": "trusted",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of certificate names for a specific type."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/certificates/:type/:certificate",
+            "params": [
+              {
+                "name": "type",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "certificate",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific certificate."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

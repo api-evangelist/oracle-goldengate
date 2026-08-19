@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Artifacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Ggsa Artifacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v1/artifacts/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports GGSA artifacts (pipelines, sources, targets, connections, etc.) from a previously exported JSON document. Supports CI/CD workflows by enabling promotion of pipelines across environments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

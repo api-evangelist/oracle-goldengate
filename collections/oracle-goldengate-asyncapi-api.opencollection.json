@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts AsyncAPI API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AsyncAPI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Get Asyncapi Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/stream/:streamname/yaml",
+            "params": [
+              {
+                "name": "streamname",
+                "value": "",
+                "type": "path",
+                "description": "Name of the data stream resource"
+              }
+            ]
+          },
+          "docs": "Retrieves the AsyncAPI YAML specification for a data stream, describing the stream's channels, messages, and schemas for downstream consumers."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update Asyncapi Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/stream/:streamname/yaml",
+            "params": [
+              {
+                "name": "streamname",
+                "value": "",
+                "type": "path",
+                "description": "Name of the data stream resource"
+              }
+            ]
+          },
+          "docs": "Updates the AsyncAPI YAML specification for a data stream. Allows customization of the stream metadata exposed to consumers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

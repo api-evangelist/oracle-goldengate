@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Validation API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate a Compare Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/groups/validate/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare group identifier"
+              }
+            ]
+          },
+          "docs": "Validates the configuration of a compare group including connection and table accessibility."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate a Compare Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/cps/validate/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Compare pair identifier"
+              }
+            ]
+          },
+          "docs": "Validates the configuration of a compare pair including table and column accessibility."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate Agent Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/validate/connection",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests connectivity to a Veridata agent."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Validate Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/validate/connection/db",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tests database connectivity through a Veridata agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

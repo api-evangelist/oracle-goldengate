@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Jobs API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/jobs"
+          },
+          "docs": "Returns a list of all comparison jobs configured in Veridata."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comparison job that references one or more compare groups. Jobs control the execution of data comparisons."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific comparison job."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing comparison job."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/configuration/jobs/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Job identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a comparison job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

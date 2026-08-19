@@ -1,0 +1,334 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Monitoring API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Get Service Health Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/health"
+          },
+          "docs": "Returns detailed health information for the GoldenGate for Big Data service."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Process Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/processes"
+          },
+          "docs": "Returns performance metrics for all running processes."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Replicat Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/statisticsReplicat",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name for metrics"
+              }
+            ]
+          },
+          "docs": "Returns handler-level statistics for a big data Replicat including records written to the target."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get Service Health Summary Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/config/health/check"
+          },
+          "docs": "Returns a quick health check summary indicating overall service status."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Process Metrics for a Specific Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/process",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name or identifier for metrics"
+              }
+            ]
+          },
+          "docs": "Returns detailed performance metrics for a specific GoldenGate process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Extract Database Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/statisticsExtract",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name or identifier for metrics"
+              }
+            ]
+          },
+          "docs": "Returns database-level statistics for an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Heartbeat Timing Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/heartbeat",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name or identifier for metrics"
+              }
+            ]
+          },
+          "docs": "Returns heartbeat timing information used to measure replication lag."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Cache Manager Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/cacheStatistics",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name or identifier for metrics"
+              }
+            ]
+          },
+          "docs": "Returns cache manager statistics for a process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Process Performance Utilization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/mpoints/:item/processPerformance",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "path",
+                "description": "Process name or identifier for metrics"
+              }
+            ]
+          },
+          "docs": "Returns CPU and memory utilization metrics for a GoldenGate process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Process Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/monitoring/messages"
+          },
+          "docs": "Returns messages from all monitored processes."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Process Status Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/monitoring/statusChanges"
+          },
+          "docs": "Returns a log of process status changes across all monitored processes."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Administrative Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/messages"
+          },
+          "docs": "Returns administrative messages from the server."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Background Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/requests"
+          },
+          "docs": "Returns a list of background requests that are being processed."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Request Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/requests/:request",
+            "params": [
+              {
+                "name": "request",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the status of a specific background request."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Message Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/oggerr"
+          },
+          "docs": "Returns a list of GoldenGate error and informational message codes."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Message Explanation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/oggerr/:message",
+            "params": [
+              {
+                "name": "message",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a detailed explanation and recommended action for a specific message code."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Job Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/jobs"
+          },
+          "docs": "Returns comparison statistics for completed and running jobs."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Compare Pair Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/cps"
+          },
+          "docs": "Returns detailed comparison statistics at the compare pair level."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Out-of-sync Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/oos/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns the rows identified as out-of-sync during a comparison run."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Comparison Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/monitoring/comparison/:runId/reports",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "Job or repair run identifier"
+              }
+            ]
+          },
+          "docs": "Returns a detailed comparison report for a specific job run."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Purge Comparison Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/purge/stats"
+          },
+          "docs": "Deletes stored comparison and repair statistics data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

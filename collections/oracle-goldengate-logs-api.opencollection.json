@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Logs API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Available Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/logs"
+          },
+          "docs": "Returns a list of available service log files."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Log File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/logs/:log",
+            "params": [
+              {
+                "name": "log",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the content of a specific service log file."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Modify Log Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/logs/:log",
+            "params": [
+              {
+                "name": "log",
+                "value": "example_value",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies the properties of a log such as log level."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get Critical Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/logs/events"
+          },
+          "docs": "Returns critical event log entries."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Server Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/logs/server",
+            "params": [
+              {
+                "name": "logType",
+                "value": "api",
+                "type": "query"
+              },
+              {
+                "name": "logLevel",
+                "value": "ERROR",
+                "type": "query"
+              },
+              {
+                "name": "lastLines",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns server log entries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

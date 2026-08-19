@@ -1,0 +1,415 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Deployments API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "lifecycleState",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "displayName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of GoldenGate deployments in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments",
+            "headers": [
+              {
+                "name": "opc-retry-token",
+                "value": ""
+              },
+              {
+                "name": "opc-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GoldenGate deployment in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ]
+          },
+          "docs": "Deletes a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Start a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/actions/start",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a stopped GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/actions/stop",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops a running GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Upgrade a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/actions/upgrade",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upgrades a GoldenGate deployment to a newer version."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Change Deployment Compartment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/actions/changeCompartment",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves a deployment to a different compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Collect Deployment Diagnostics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/deployments/:deploymentId/actions/collectDiagnostics",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Collects diagnostic information from a GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List All Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/deployments"
+          },
+          "docs": "Returns a list of all GoldenGate deployments managed by the Service Manager."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/deployments/:deployment",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "Name of the GoldenGate deployment"
+              }
+            ]
+          },
+          "docs": "Returns the configuration details of a specific GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/deployments/:deployment",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "Name of the GoldenGate deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GoldenGate deployment with the specified configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/deployments/:deployment",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "Name of the GoldenGate deployment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates configuration properties of an existing GoldenGate deployment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Remove a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/deployments/:deployment",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "Name of the GoldenGate deployment"
+              }
+            ]
+          },
+          "docs": "Removes a GoldenGate deployment and its associated services."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

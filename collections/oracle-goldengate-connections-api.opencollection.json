@@ -1,0 +1,467 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Connections API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/connections",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              },
+              {
+                "name": "connectionType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of connections in the specified compartment."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new connection for a source or target system. Supports Oracle, MySQL, PostgreSQL, SQL Server, MongoDB, Kafka, Elasticsearch, Amazon S3, Google BigQuery, Snowflake, and many other connection types."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/20200407/connections/:connectionId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a connection's configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/20200407/connections/:connectionId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the connection"
+              }
+            ]
+          },
+          "docs": "Deletes a connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Database Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections"
+          },
+          "docs": "Returns a list of all configured database connections."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new database connection with the specified credentials and connection string."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Replace a Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Database Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ]
+          },
+          "docs": "Deletes a database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Manage Table Supplemental Logging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection/trandata/table",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or removes supplemental logging for a specific table to enable change data capture."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Manage Schema Supplemental Logging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection/trandata/schema",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or removes supplemental logging for all tables in a schema."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Database Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection/databases",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              }
+            ]
+          },
+          "docs": "Returns available database names for a connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Database Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/connections/:connection/databases/:database/:schema",
+            "params": [
+              {
+                "name": "connection",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database connection"
+              },
+              {
+                "name": "database",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "schema",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of tables in a specific database schema."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections"
+          },
+          "docs": "Returns a list of all configured source and target database connections."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new database connection for use as a source or target in comparisons."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Connection Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections/:Id/status",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ]
+          },
+          "docs": "Returns the connectivity status of a database connection."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Connection Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/connections/:Id/metadata",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Connection identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns database metadata (schemas, tables, columns) for a connection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

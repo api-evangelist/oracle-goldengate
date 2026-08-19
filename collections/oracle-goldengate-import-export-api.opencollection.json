@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Import/Export API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Import/Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Export Veridata Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/export"
+          },
+          "docs": "Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Veridata Xml Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/import"
+          },
+          "docs": "Imports Veridata configurations from an XML document."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Import Goldengate Parameter File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/vgpp"
+          },
+          "docs": "Imports a GoldenGate parameter file to automatically create compare pairs from table mappings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

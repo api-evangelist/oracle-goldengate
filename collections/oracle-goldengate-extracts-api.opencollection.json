@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Extracts API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Extracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List All Extract Processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts"
+          },
+          "docs": "Returns a list of all Extract processes configured for source data capture."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ]
+          },
+          "docs": "Returns configuration and status of a specific Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Extract process for source data capture."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete an Extract Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ]
+          },
+          "docs": "Deletes an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Issue a Command to an Extract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/command",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Extract process name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues an operational command (START, STOP, KILL, STATUS, STATS) to an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Extract Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/status",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              }
+            ]
+          },
+          "docs": "Returns the current runtime status of an Extract process including lag, checkpoint, and position information."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Extract Checkpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/checkpoints",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              }
+            ]
+          },
+          "docs": "Returns checkpoint information for an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Extract Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/reports",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              }
+            ]
+          },
+          "docs": "Returns a list of available process reports for an Extract."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Specific Extract Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/reports/:report",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              },
+              {
+                "name": "report",
+                "value": "",
+                "type": "path",
+                "description": "Report identifier"
+              }
+            ]
+          },
+          "docs": "Returns the content of a specific Extract process report."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Extract Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/logs",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              }
+            ]
+          },
+          "docs": "Returns a list of available log files for an Extract process."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Extract History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/extracts/:extract/info/history",
+            "params": [
+              {
+                "name": "extract",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Extract process"
+              }
+            ]
+          },
+          "docs": "Returns the processing history for an Extract."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

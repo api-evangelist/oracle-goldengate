@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Data Targets API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Targets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Available Data Target Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/dataTargetTypes"
+          },
+          "docs": "Returns the list of available big data target types including Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, Kinesis, BigQuery, Pub/Sub, and OCI Object Storage."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve Json Schema for a Data Target Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v2/dataTargetTypes/:dataTargetType",
+            "params": [
+              {
+                "name": "dataTargetType",
+                "value": "kafka",
+                "type": "path",
+                "description": "The data target type name"
+              }
+            ]
+          },
+          "docs": "Returns the JSON schema describing the configuration for a specific data target type handler."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

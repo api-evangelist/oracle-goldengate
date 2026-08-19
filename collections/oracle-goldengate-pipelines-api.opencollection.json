@@ -1,0 +1,266 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Pipelines API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pipelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines",
+            "params": [
+              {
+                "name": "compartmentId",
+                "value": "",
+                "type": "query",
+                "description": "The OCID of the compartment"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of data replication pipelines."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new data replication pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Get a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines/:pipelineId",
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines/:pipelineId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a pipeline configuration."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines/:pipelineId",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Deletes a data replication pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Start a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines/:pipelineId/actions/start",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Starts a stopped pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Stop a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/20200407/pipelines/:pipelineId/actions/stop",
+            "headers": [
+              {
+                "name": "if-match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pipelineId",
+                "value": "",
+                "type": "path",
+                "description": "The OCID of the pipeline"
+              }
+            ]
+          },
+          "docs": "Stops a running pipeline."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate List Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v1/pipelines"
+          },
+          "docs": "Returns a list of all GGSA pipelines with their current status. Includes published and unpublished pipelines."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Export a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/v1/pipelines/:id/export",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ]
+          },
+          "docs": "Exports a GGSA pipeline and all its dependencies as a JSON artifact, including sources, targets, references, connections, predictive models, geo fences, visualizations, and custom jars."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Publish a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v1/pipelines/:id/publish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publishes a pipeline, deploying it to the Spark runtime for execution. A published pipeline actively processes streaming data from configured sources and writes results to configured targets."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Unpublish a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/v1/pipelines/:id/unpublish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Pipeline identifier"
+              }
+            ]
+          },
+          "docs": "Unpublishes a pipeline, stopping its execution on the Spark runtime. The pipeline configuration is preserved and can be re-published later."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle GoldenGate for Big Data REST Artifacts Profiles API",
+    "version": "21.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve All Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles"
+          },
+          "docs": "Returns a list of all comparison profiles that define comparison behavior settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Create a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comparison profile with custom comparison settings."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Retrieve a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Update a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Delete a Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles/:Id",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a comparison profile."
+        },
+        {
+          "info": {
+            "name": "Oracle Goldengate Reset a Profile to Defaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{goldengate-host}:{port}/services/configuration/profiles/:Id/reset",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "Profile identifier"
+              }
+            ]
+          },
+          "docs": "Resets a comparison profile to its default settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
