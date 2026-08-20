@@ -983,6 +983,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -1323,6 +1325,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -1459,6 +1463,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Import Export
+  tags_raw:
   - Import/Export
   properties:
   - type: OpenAPI
@@ -1527,6 +1533,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -2207,6 +2215,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -2343,6 +2353,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
