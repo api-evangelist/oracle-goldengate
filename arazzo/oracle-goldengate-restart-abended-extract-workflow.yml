@@ -10,8 +10,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: goldengateApi
-  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+- name: extractsApi
+  url: ../openapi/oracle-goldengate-extracts-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: restart-abended-extract

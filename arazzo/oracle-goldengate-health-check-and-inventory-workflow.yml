@@ -10,8 +10,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: goldengateApi
-  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+- name: extractsApi
+  url: ../openapi/oracle-goldengate-extracts-api-openapi.yml
+  type: openapi
+- name: monitoringApi
+  url: ../openapi/oracle-goldengate-monitoring-api-openapi.yml
+  type: openapi
+- name: replicatsApi
+  url: ../openapi/oracle-goldengate-replicats-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: health-check-and-inventory

@@ -9,8 +9,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: goldengateApi
-  url: ../openapi/oracle-goldengate-rest-api-openapi.yml
+- name: replicatsApi
+  url: ../openapi/oracle-goldengate-replicats-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: stop-replicat-gracefully
