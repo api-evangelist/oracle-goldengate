@@ -1,0 +1,27 @@
+slug: oracle-goldengate
+provider: Oracle GoldenGate
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Users
+  spec_file: oracle-goldengate-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: GET /services/v2/authorizations 'List User Roles'; POST /services/v2/authorizations/{role}/{user}
+    'Create a User'; schemas RoleList, UserGroup
+  reason: Operations create, update and delete users and user groups against authorization roles — role-based
+    user administration, i.e. Identity & Access Management. Confidence held below 0.9 because this is
+    product-local account administration rather than an enterprise IAM service.
