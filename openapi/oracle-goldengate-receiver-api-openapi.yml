@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Receiver API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  title: Oracle GoldenGate REST Receiver API
+  description: RESTful API for managing Oracle GoldenGate Microservices Architecture, including deployment configuration, extract and replicat process management, credentials, database connections, distribution and receiver services, performance metrics, and monitoring. Based on Oracle GoldenGate 21c Microservices Architecture REST API documentation.
   version: 21.3.0
   contact:
     name: Oracle Support
@@ -10,18 +10,20 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
+    description: Oracle GoldenGate REST API Reference 21c
+  - url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
+    description: Oracle GoldenGate REST API Reference 26ai
 servers:
 - url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+  description: Oracle GoldenGate Microservices server
   variables:
     goldengate-host:
       default: localhost
-      description: GoldenGate Big Data host
+      description: GoldenGate Microservices host
     port:
       default: '443'
-      description: HTTPS port
+      description: HTTPS port for the service
 security:
 - basicAuth: []
 tags:
@@ -228,6 +230,14 @@ components:
         status:
           type: string
           example: example_value
+    CollectorPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorPathSummary'
+          example: []
     CollectorPathSummary:
       type: object
       properties:
@@ -263,31 +273,15 @@ components:
         port:
           type: integer
           example: 10
-    CollectorPathList:
-      type: object
-      properties:
-        paths:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectorPathSummary'
-          example: []
-  parameters:
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: Name of the collector/receiver path
-      schema:
-        type: string
   responses:
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
@@ -298,7 +292,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: Name of the collector/receiver path
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+      description: HTTP Basic authentication with GoldenGate user credentials

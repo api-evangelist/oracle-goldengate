@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Replicats API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  title: Oracle Goldengate Replicats API
   version: 21.3.0
   contact:
     name: Oracle Support
@@ -9,9 +8,9 @@ info:
   license:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
-  x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  x-refined-note:
+  - x-documentation differs across the merged source definitions and was not carried
+  description: 'Operations tagged Replicats across 2 of this provider''s published API definitions: oracle-goldengate-big-data-rest-api-openapi.yml, oracle-goldengate-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{goldengate-host}:{port}
   description: Oracle GoldenGate for Big Data Microservices server
@@ -57,6 +56,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/replicats/{replicat}:
     get:
       operationId: getReplicat
@@ -212,6 +221,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/replicats/{replicat}/command:
     post:
       operationId: issueReplicatCommand
@@ -256,6 +275,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/replicats/{replicat}/info/status:
     get:
       operationId: getReplicatStatus
@@ -288,6 +317,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/replicats/{replicat}/info/checkpoints:
     get:
       operationId: getReplicatCheckpoints
@@ -325,6 +364,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/replicats/{replicat}/info/reports:
     get:
       operationId: listReplicatReports
@@ -356,6 +405,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/replicats/{replicat}/info/history:
     get:
       operationId: getReplicatHistory
@@ -390,192 +449,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
 components:
   schemas:
-    ProcessStatus:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        lag:
-          type: string
-          example: example_value
-        since:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    ProcessHistory:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        history:
-          type: array
-          items:
-            type: object
-            properties:
-              startTime:
-                type: string
-                format: date-time
-              endTime:
-                type: string
-                format: date-time
-              status:
-                type: string
-              reason:
-                type: string
-          example: []
-    ReplicatList:
-      type: object
-      properties:
-        replicats:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReplicatSummary'
-          example: []
-    UpdateReplicatRequest:
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: string
-          example: []
-        status:
-          type: string
-          example: example_value
-    Checkpoints:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        readCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-        writeCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
-          type: string
-          example: example_value
-    ProcessCommand:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - start
-          - stop
-          - kill
-          - forcestop
-          - status
-          - stats
-          example: start
-    CommandResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            code:
-              type: string
-            severity:
-              type: string
-            message:
-              type: string
-          example: example_value
-    CreateReplicatRequest:
-      type: object
-      required:
-      - type
-      - trail
-      - config
-      properties:
-        type:
-          type: string
-          enum:
-          - classic
-          - coordinated
-          - integrated
-          - parallel
-          example: classic
-        trail:
-          type: string
-          example: example_value
-        begin:
-          type: string
-          example: example_value
-        config:
-          type: array
-          items:
-            type: string
-          example: []
-        checkpointTable:
-          type: string
-          example: example_value
-    ReportList:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
-          example: []
-    ReplicatSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        handler:
-          type: string
-          description: Big data handler type (e.g., kafka, hdfs, mongodb)
-          example: example_value
     Replicat:
       type: object
       properties:
@@ -629,6 +514,255 @@ components:
           type: string
           description: Path to handler properties file
           example: example_value
+    UpdateReplicatRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        status:
+          type: string
+          example: example_value
+    CreateReplicatRequest:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
+        type:
+          type: string
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        trail:
+          type: string
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        checkpointTable:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ProcessCommand:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
+    ReplicatList:
+      type: object
+      properties:
+        replicats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicatSummary'
+          example: []
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
+    ReplicatSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        handler:
+          type: string
+          description: Big data handler type (e.g., kafka, hdfs, mongodb)
+          example: example_value
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Replicat_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Replicat process name
+          example: Example Title
+        type:
+          type: string
+          description: Type of replicat
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        status:
+          type: string
+          description: Current process status
+          enum:
+          - running
+          - stopped
+          - abended
+          - starting
+          example: running
+        description:
+          type: string
+          example: A sample description.
+        trail:
+          type: string
+          description: Source trail file path
+          example: example_value
+        checkpointTable:
+          type: string
+          description: Checkpoint table name
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content lines
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    UpdateReplicatRequest_2:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+    ReplicatSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
     ErrorResponse_2:
       type: object
       properties:
@@ -644,6 +778,157 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    ProcessCommand_2:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          description: Command action to execute
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          - lag
+          - info
+          - getlag
+          example: start
+        options:
+          type: string
+          description: Additional command options
+          example: example_value
+    CreateReplicatRequest_2:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
+        type:
+          type: string
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        description:
+          type: string
+          example: A sample description.
+        trail:
+          type: string
+          description: Source trail file prefix
+          example: example_value
+        checkpointTable:
+          type: string
+          description: Checkpoint table in format schema.table
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
+          example: []
+    ProcessStatus_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          description: Process lag in seconds
+          example: example_value
+        checkpoint:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
   parameters:
     replicatParam:
       name: replicat
@@ -659,38 +944,10 @@ components:
       description: Name of the Replicat process
       schema:
         type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+x-refined-from:
+- oracle-goldengate-big-data-rest-api-openapi.yml
+- oracle-goldengate-rest-api-openapi.yml

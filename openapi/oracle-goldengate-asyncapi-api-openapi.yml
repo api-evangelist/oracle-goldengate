@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts AsyncAPI API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
-  version: 21.3.0
+  title: Oracle GoldenGate Data Streams REST Async API
+  description: REST API for managing Oracle GoldenGate Data Streams, enabling real-time data distribution to downstream consumers via the Distribution Server. Provides operations for creating, retrieving, updating, and deleting data stream configurations, as well as managing AsyncAPI specifications for stream metadata. Based on Oracle GoldenGate 26ai Data Streams REST API documentation.
+  version: '2.0'
   contact:
     name: Oracle Support
     url: https://support.oracle.com
@@ -10,15 +10,15 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    description: Oracle GoldenGate Data Streams REST API Documentation
 servers:
 - url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+  description: Oracle GoldenGate Microservices server
   variables:
     goldengate-host:
       default: localhost
-      description: GoldenGate Big Data host
+      description: GoldenGate server host
     port:
       default: '443'
       description: HTTPS port
@@ -156,3 +156,4 @@ components:
     basicAuth:
       type: http
       scheme: basic
+      description: HTTP Basic authentication with GoldenGate credentials

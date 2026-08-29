@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Extracts API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  title: Oracle Goldengate Extracts API
   version: 21.3.0
   contact:
     name: Oracle Support
@@ -9,9 +8,9 @@ info:
   license:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
-  x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  x-refined-note:
+  - x-documentation differs across the merged source definitions and was not carried
+  description: 'Operations tagged Extracts across 2 of this provider''s published API definitions: oracle-goldengate-big-data-rest-api-openapi.yml, oracle-goldengate-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{goldengate-host}:{port}
   description: Oracle GoldenGate for Big Data Microservices server
@@ -56,6 +55,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/extracts/{extract}:
     get:
       operationId: getExtract
@@ -204,6 +213,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/extracts/{extract}/command:
     post:
       operationId: issueExtractCommand
@@ -248,6 +267,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/extracts/{extract}/info/status:
     get:
       operationId: getExtractStatus
@@ -281,6 +310,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/extracts/{extract}/info/checkpoints:
     get:
       operationId: getExtractCheckpoints
@@ -318,6 +357,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/extracts/{extract}/info/reports:
     get:
       operationId: listExtractReports
@@ -349,6 +398,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/extracts/{extract}/info/reports/{report}:
     get:
       operationId: getExtractReport
@@ -380,6 +439,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/extracts/{extract}/info/logs:
     get:
       operationId: listExtractLogs
@@ -412,6 +481,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/extracts/{extract}/info/history:
     get:
       operationId: getExtractHistory
@@ -446,28 +525,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
 components:
   schemas:
-    ProcessStatus:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        lag:
-          type: string
-          description: Process lag in seconds
-          example: example_value
-        checkpoint:
-          type: string
-          example: example_value
-        since:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     CreateExtractRequest:
       type: object
       required:
@@ -492,154 +561,6 @@ components:
           type: array
           items:
             type: string
-          example: []
-    ProcessHistory:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        history:
-          type: array
-          items:
-            type: object
-            properties:
-              startTime:
-                type: string
-                format: date-time
-              endTime:
-                type: string
-                format: date-time
-              status:
-                type: string
-              reason:
-                type: string
-          example: []
-    ExtractList:
-      type: object
-      properties:
-        extracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractSummary'
-          example: []
-    Checkpoints:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        readCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-        writeCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
-          type: string
-          example: example_value
-    ProcessCommand:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - start
-          - stop
-          - kill
-          - forcestop
-          - status
-          - stats
-          example: start
-    CommandResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            code:
-              type: string
-            severity:
-              type: string
-            message:
-              type: string
-          example: example_value
-    LogList:
-      type: object
-      properties:
-        logs:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              size:
-                type: integer
-              lastModified:
-                type: string
-                format: date-time
-          example: []
-    Report:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
-          type: string
-          example: example_value
-    UpdateExtractRequest:
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: string
-          example: []
-        status:
-          type: string
-          example: example_value
-    ReportList:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
           example: []
     Extract:
       type: object
@@ -669,6 +590,65 @@ components:
           items:
             type: string
           example: []
+    UpdateExtractRequest:
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        status:
+          type: string
+          example: example_value
+    ExtractList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractSummary'
+          example: []
+    ProcessCommand:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
     ExtractSummary:
       type: object
       properties:
@@ -680,6 +660,249 @@ components:
           example: example_value
         status:
           type: string
+          example: example_value
+    LogList:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
+          example: []
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          description: Process lag in seconds
+          example: example_value
+        checkpoint:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+    UpdateExtractRequest_2:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+        begin:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ExtractSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        trail:
+          type: string
+          example: example_value
+    CreateExtractRequest_2:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
+        type:
+          type: string
+          enum:
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
+        description:
+          type: string
+          example: A sample description.
+        begin:
+          type: string
+          description: Begin position (NOW, SCN value, or timestamp)
+          example: example_value
+        trail:
+          type: string
+          description: Trail file prefix (e.g., aa)
+          example: example_value
+        trailSize:
+          type: integer
+          description: Trail file size in MB (default 500)
+          example: 10
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content
+          example: []
+        registration:
+          type: string
+          example: example_value
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    Extract_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Extract process name
+          example: Example Title
+        type:
+          type: string
+          description: Type of extract
+          enum:
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
+        status:
+          type: string
+          description: Current process status
+          enum:
+          - running
+          - stopped
+          - abended
+          - starting
+          example: running
+        description:
+          type: string
+          example: A sample description.
+        begin:
+          type: string
+          description: Begin position (NOW, SCN value, or timestamp)
+          example: example_value
+        trail:
+          type: string
+          description: Trail file path
+          example: example_value
+        trailSize:
+          type: integer
+          description: Trail file size in MB
+          example: 10
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content lines
+          example: []
+        registration:
+          type: string
+          description: Database registration alias
+          example: example_value
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
           example: example_value
     ErrorResponse_2:
       type: object
@@ -696,9 +919,53 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    ProcessCommand_2:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          description: Command action to execute
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          - lag
+          - info
+          - getlag
+          example: start
+        options:
+          type: string
+          description: Additional command options
+          example: example_value
+    Report:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
   responses:
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -709,37 +976,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized:
-      description: Authentication required
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
     NotFound_2:
       description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     extractParam:
       name: extract
       in: path
       required: true
       description: Extract process name
-      schema:
-        type: string
-    reportParam:
-      name: report
-      in: path
-      required: true
-      description: Report identifier
       schema:
         type: string
     extractParam_2:
@@ -749,7 +1009,17 @@ components:
       description: Name of the Extract process
       schema:
         type: string
+    reportParam:
+      name: report
+      in: path
+      required: true
+      description: Report identifier
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+x-refined-from:
+- oracle-goldengate-big-data-rest-api-openapi.yml
+- oracle-goldengate-rest-api-openapi.yml

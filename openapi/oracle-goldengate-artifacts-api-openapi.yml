@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
-  version: 21.3.0
+  title: Oracle GoldenGate Stream Analytics REST Artifacts API
+  description: REST API for managing Oracle GoldenGate Stream Analytics (GGSA) pipelines and users. Enables CI/CD integration by providing programmatic access to export, import, publish, and unpublish stream processing pipelines, as well as manage user accounts and roles. Based on Oracle GoldenGate Stream Analytics 19.1 REST API documentation.
+  version: 19.1.0
   contact:
     name: Oracle Support
     url: https://support.oracle.com
@@ -10,18 +10,18 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/rest-endpoints.html
+    description: GoldenGate Stream Analytics REST API Reference
 servers:
-- url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+- url: https://{ggsa-host}:{port}/osa
+  description: Oracle GoldenGate Stream Analytics server
   variables:
-    goldengate-host:
+    ggsa-host:
       default: localhost
-      description: GoldenGate Big Data host
+      description: GGSA server host
     port:
-      default: '443'
-      description: HTTPS port
+      default: '9080'
+      description: GGSA HTTP/S port
 security:
 - basicAuth: []
 tags:
@@ -75,7 +75,43 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    ImportResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        importedArtifacts:
+          type: integer
+          example: 10
+        messages:
+          type: array
+          items:
+            type: string
+          example: []
     ArtifactImport:
       type: object
       description: JSON document containing exported GGSA artifacts
@@ -96,43 +132,8 @@ components:
             type: object
             additionalProperties: true
           example: []
-    ImportResult:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-        importedArtifacts:
-          type: integer
-          example: 10
-        messages:
-          type: array
-          items:
-            type: string
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+      description: HTTP Basic authentication with GGSA credentials

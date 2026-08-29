@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Connection Assignments API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
-  version: 21.3.0
+  title: Oracle GoldenGate Cloud Service Connection Assignments API
+  description: Oracle Cloud Infrastructure (OCI) API for managing GoldenGate deployments, connections, deployment backups, database registrations, pipelines, connection assignments, certificates, and work requests in OCI. This is the OCI control-plane API (version 20200407) for provisioning and managing GoldenGate cloud resources. Based on the OCI GoldenGate API documentation and Python SDK reference.
+  version: '20200407'
   contact:
     name: Oracle Support
     url: https://support.oracle.com
@@ -10,20 +10,29 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/20200407/
+    description: OCI GoldenGate API Reference
+  - url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
+    description: OCI Python SDK - GoldenGate Client
 servers:
-- url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+- url: https://goldengate.{region}.oci.oraclecloud.com
+  description: OCI GoldenGate regional endpoint
   variables:
-    goldengate-host:
-      default: localhost
-      description: GoldenGate Big Data host
-    port:
-      default: '443'
-      description: HTTPS port
+    region:
+      default: us-ashburn-1
+      description: OCI region identifier
+      enum:
+      - us-ashburn-1
+      - us-phoenix-1
+      - eu-frankfurt-1
+      - uk-london-1
+      - ap-tokyo-1
+      - ap-sydney-1
+      - ca-toronto-1
+      - ap-mumbai-1
+      - sa-saopaulo-1
 security:
-- basicAuth: []
+- ociSignature: []
 tags:
 - name: Connection Assignments
   description: Manage connection-to-deployment assignments
@@ -179,44 +188,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
   schemas:
-    ConnectionAssignmentCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionAssignmentSummary'
-          example: []
     Error:
       type: object
       properties:
@@ -226,6 +198,33 @@ components:
         message:
           type: string
           example: example_value
+    ConnectionAssignmentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+    CreateConnectionAssignmentDetails:
+      type: object
+      required:
+      - connectionId
+      - deploymentId
+      properties:
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
     ConnectionAssignment:
       type: object
       properties:
@@ -252,33 +251,43 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CreateConnectionAssignmentDetails:
-      type: object
-      required:
-      - connectionId
-      - deploymentId
-      properties:
-        connectionId:
-          type: string
-          example: '500123'
-        deploymentId:
-          type: string
-          example: '500123'
-    ConnectionAssignmentSummary:
+    ConnectionAssignmentCollection:
       type: object
       properties:
-        id:
-          type: string
-          example: abc123
-        connectionId:
-          type: string
-          example: '500123'
-        deploymentId:
-          type: string
-          example: '500123'
-        lifecycleState:
-          type: string
-          example: example_value
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+          example: []
+  parameters:
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
   responses:
     NotFound:
       description: Resource not found
@@ -287,6 +296,7 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   securitySchemes:
-    basicAuth:
+    ociSignature:
       type: http
-      scheme: basic
+      scheme: bearer
+      description: OCI API request signature (RFC 7616) or bearer token authentication

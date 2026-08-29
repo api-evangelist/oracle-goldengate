@@ -1,7 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Distribution API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  title: Oracle Goldengate Distribution API
   version: 21.3.0
   contact:
     name: Oracle Support
@@ -9,9 +8,9 @@ info:
   license:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
-  x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  x-refined-note:
+  - x-documentation differs across the merged source definitions and was not carried
+  description: 'Operations tagged Distribution across 2 of this provider''s published API definitions: oracle-goldengate-big-data-rest-api-openapi.yml, oracle-goldengate-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{goldengate-host}:{port}
   description: Oracle GoldenGate for Big Data Microservices server
@@ -57,6 +56,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/sources/{distpath}:
     get:
       operationId: getDistributionPath
@@ -198,6 +207,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate for Big Data Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Big Data host
+        port:
+          default: '443'
+          description: HTTPS port
   /services/v2/sources/{distpath}/stats:
     get:
       operationId: getDistributionPathStats
@@ -230,6 +249,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
   /services/v2/exttrails:
     get:
       operationId: listExtractTrails
@@ -258,15 +287,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{goldengate-host}:{port}
+      description: Oracle GoldenGate Microservices server
+      variables:
+        goldengate-host:
+          default: localhost
+          description: GoldenGate Microservices host
+        port:
+          default: '443'
+          description: HTTPS port for the service
 components:
   parameters:
-    distpathParam_2:
-      name: distpath
-      in: path
-      required: true
-      description: Name of the distribution path
-      schema:
-        type: string
     distpathParam:
       name: distpath
       in: path
@@ -274,42 +306,51 @@ components:
       description: Distribution path name
       schema:
         type: string
+    distpathParam_2:
+      name: distpath
+      in: path
+      required: true
+      description: Name of the distribution path
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
-    DistributionPathSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        source:
-          type: string
-          example: example_value
-        target:
-          type: string
-          example: example_value
-    DistributionPathList:
-      type: object
-      properties:
-        paths:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistributionPathSummary'
-          example: []
-    CreateDistributionPathRequest:
-      type: object
-      required:
-      - source
-      - target
-      properties:
-        source:
-          type: string
-          example: example_value
-        target:
-          type: string
-          example: example_value
     DistributionPath:
       type: object
       properties:
@@ -325,25 +366,11 @@ components:
         target:
           type: string
           example: example_value
-    PathStatistics:
+    CreateDistributionPathRequest:
       type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        bytesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        messagesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        lag:
-          type: string
-          example: example_value
-    UpdateDistributionPathRequest:
-      type: object
+      required:
+      - source
+      - target
       properties:
         source:
           type: string
@@ -351,9 +378,41 @@ components:
         target:
           type: string
           example: example_value
+    DistributionPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
         status:
           type: string
           example: example_value
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    DistributionPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionPathSummary'
+          example: []
     ExtractTrailList:
       type: object
       properties:
@@ -369,31 +428,21 @@ components:
               trailPath:
                 type: string
           example: []
-    ErrorResponse_2:
+    PathStatistics:
       type: object
       properties:
-        code:
+        name:
+          type: string
+          example: Example Title
+        bytesProcessed:
           type: integer
-          description: HTTP status code
+          format: int64
           example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
+        messagesProcessed:
           type: integer
+          format: int64
           example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
+        lag:
           type: string
           example: example_value
     DistributionPath_2:
@@ -426,38 +475,55 @@ components:
           type: string
           description: Filter rule name
           example: example_value
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
+    CreateDistributionPathRequest_2:
+      type: object
+      required:
+      - source
+      - target
+      properties:
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+        targetType:
+          type: string
+          example: example_value
+        ruleName:
+          type: string
+          example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    UpdateDistributionPathRequest:
+      type: object
+      properties:
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+x-refined-from:
+- oracle-goldengate-big-data-rest-api-openapi.yml
+- oracle-goldengate-rest-api-openapi.yml

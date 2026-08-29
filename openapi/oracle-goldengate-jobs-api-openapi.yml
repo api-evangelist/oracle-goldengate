@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Jobs API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
-  version: 21.3.0
+  title: Oracle GoldenGate Veridata REST Jobs API
+  description: REST API for Oracle GoldenGate Veridata, a data comparison and repair solution that verifies data consistency between source and target databases. Provides operations for managing connections, compare groups, compare pairs, jobs, profiles, monitoring comparison results, and repairing out-of-sync data. Based on Oracle GoldenGate Veridata 23c REST API documentation.
+  version: '1.0'
   contact:
     name: Oracle Support
     url: https://support.oracle.com
@@ -10,18 +10,18 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/middleware/goldengate/veridata/23/ggvra/rest-endpoints.html
+    description: Oracle GoldenGate Veridata REST API Reference
 servers:
-- url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+- url: https://{veridata-host}:{port}/veridata/v1
+  description: Oracle GoldenGate Veridata server
   variables:
-    goldengate-host:
+    veridata-host:
       default: localhost
-      description: GoldenGate Big Data host
+      description: Veridata server host
     port:
-      default: '443'
-      description: HTTPS port
+      default: '8830'
+      description: Veridata HTTPS port
 security:
 - basicAuth: []
 tags:
@@ -212,37 +212,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        groupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          example: []
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - idle
-          - running
-          - completed
-          - failed
-          example: idle
     ReplaceJobRequest:
       type: object
       properties:
@@ -284,6 +253,14 @@ components:
           type: integer
           format: int64
           example: '500123'
+    JobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+          example: []
     ErrorResponse:
       type: object
       properties:
@@ -293,14 +270,46 @@ components:
         message:
           type: string
           example: example_value
-    JobList:
+    Job:
       type: object
       properties:
-        jobs:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
           type: array
           items:
-            $ref: '#/components/schemas/Job'
+            type: integer
+            format: int64
           example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - idle
+          - running
+          - completed
+          - failed
+          example: idle
+  parameters:
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
   responses:
     NotFound:
       description: Resource not found
@@ -320,16 +329,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    jobIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Job identifier
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+      description: HTTP Basic authentication with Veridata credentials

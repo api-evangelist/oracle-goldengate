@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Services API
-  description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
+  title: Oracle GoldenGate REST Services API
+  description: RESTful API for managing Oracle GoldenGate Microservices Architecture, including deployment configuration, extract and replicat process management, credentials, database connections, distribution and receiver services, performance metrics, and monitoring. Based on Oracle GoldenGate 21c Microservices Architecture REST API documentation.
   version: 21.3.0
   contact:
     name: Oracle Support
@@ -10,18 +10,20 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
   x-documentation:
-  - url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-    description: Oracle GoldenGate for Big Data Administration Guide
+  - url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
+    description: Oracle GoldenGate REST API Reference 21c
+  - url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
+    description: Oracle GoldenGate REST API Reference 26ai
 servers:
 - url: https://{goldengate-host}:{port}
-  description: Oracle GoldenGate for Big Data Microservices server
+  description: Oracle GoldenGate Microservices server
   variables:
     goldengate-host:
       default: localhost
-      description: GoldenGate Big Data host
+      description: GoldenGate Microservices host
     port:
       default: '443'
-      description: HTTPS port
+      description: HTTPS port for the service
 security:
 - basicAuth: []
 tags:
@@ -209,21 +211,46 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ServiceSummary:
+    UpdateServiceRequest:
       type: object
       properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
         port:
           type: integer
           example: 10
+        secure:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: example_value
+    CreateServiceRequest:
+      type: object
+      required:
+      - type
+      - port
+      properties:
+        type:
+          type: string
+          enum:
+          - AdminServer
+          - DistributionServer
+          - ReceiverServer
+          - PerformanceMetricsServer
+          example: AdminServer
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
     ErrorResponse:
       type: object
       properties:
@@ -271,46 +298,21 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
-    ServiceList:
+    ServiceSummary:
       type: object
       properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
-    UpdateServiceRequest:
-      type: object
-      properties:
-        port:
-          type: integer
-          example: 10
-        secure:
-          type: boolean
-          example: true
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
         status:
           type: string
           example: example_value
-    CreateServiceRequest:
-      type: object
-      required:
-      - type
-      - port
-      properties:
-        type:
-          type: string
-          enum:
-          - AdminServer
-          - DistributionServer
-          - ReceiverServer
-          - PerformanceMetricsServer
-          example: AdminServer
         port:
           type: integer
           example: 10
-        secure:
-          type: boolean
-          example: true
   parameters:
     serviceParam:
       name: service
@@ -349,3 +351,4 @@ components:
     basicAuth:
       type: http
       scheme: basic
+      description: HTTP Basic authentication with GoldenGate user credentials

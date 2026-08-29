@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Oracle GoldenGate for Big Data REST Artifacts Data Targets API
+  title: Oracle GoldenGate for Big Data REST Data Targets API
   description: REST API for managing Oracle GoldenGate for Big Data deployments via the Microservices Architecture. Enables configuration and monitoring of replication to big data targets including Apache Kafka, HDFS, HBase, Cassandra, MongoDB, Elasticsearch, and cloud object stores. Uses the same Microservices Architecture REST API base as the core GoldenGate product with big data-specific replicat handlers and data target types.
   version: 21.3.0
   contact:
@@ -119,29 +119,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
-          type: string
-          example: example_value
-    DataTargetTypeSchema:
-      type: object
-      description: JSON Schema describing the handler configuration properties
-      properties:
-        type:
-          type: string
-          example: example_value
-        properties:
-          type: object
-          additionalProperties: true
-          example: example_value
     DataTargetTypeList:
       type: object
       properties:
@@ -156,6 +133,29 @@ components:
               description:
                 type: string
           example: []
+    DataTargetTypeSchema:
+      type: object
+      description: JSON Schema describing the handler configuration properties
+      properties:
+        type:
+          type: string
+          example: example_value
+        properties:
+          type: object
+          additionalProperties: true
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http
