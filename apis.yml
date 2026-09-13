@@ -2711,6 +2711,13 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 tags:
+  - Change Data Capture
+  - Data Integration
+  - Data Synchronization
+  - Database
+  - Enterprise
+  - Real-Time Replication
+tags_raw:
   - CDC
   - Data Integration
   - Data Synchronization
