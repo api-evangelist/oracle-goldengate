@@ -67,7 +67,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -97,77 +98,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
-- aid: oracle-goldengate:oracle-goldengate-asyncapi-api
-  name: Oracle GoldenGate AsyncAPI API
-  description: Manage AsyncAPI specifications for data streams
-  humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
-  baseURL: https://<goldengate-host>:<port>/services/v2
-  tags:
-  - AsyncAPI
-  properties:
-  - type: OpenAPI
-    url: openapi/oracle-goldengate-asyncapi-api-openapi.yml
-  - type: Documentation
-    url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
-  - type: Authentication
-    url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/authentication.html
-  - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
-  - type: Authentication
-    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/authenticate.html
-  - type: GettingStarted
-    url: https://docs.oracle.com/en/database/goldengate/core/26/
-  - type: Tutorials
-    url: https://docs.oracle.com/en/database/goldengate/core/26/tutorials.html
-  - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/core/26/release-notes/
-  - type: Documentation
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
-  - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
-  - type: Documentation
-    url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
-  - type: APIReference
-    url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdra/index.html
-  - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/veridata/26/
-  - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/veridata/26/gvdrn/index.html
-  - type: Documentation
-    url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/latest/
-  - type: SDKs
-    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm
-  - type: CLI
-    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm
-  - type: GettingStarted
-    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/index.html
-  - type: Authentication
-    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm
-  - type: Tutorials
-    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/tutorials.html
-  - type: ChangeLog
-    url: https://docs.oracle.com/en-us/iaas/releasenotes/services/goldengate/
-  - type: SDKs
-    url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
-  - type: APIReference
-    url: https://docs.oracle.com/en-us/iaas/goldengate/doc/using-rest-api.html
-  - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
-  - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
-  - type: GettingStarted
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
-  - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
-  - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-certificates-api
   name: Oracle GoldenGate Certificates API
   description: Manage SSL certificates for deployments
@@ -195,7 +135,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -225,13 +166,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-commands-api
   name: Oracle GoldenGate Commands API
   description: Execute GoldenGate commands
@@ -259,7 +203,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -289,13 +234,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-compare-pairs-api
   name: Oracle GoldenGate Compare Pairs API
   description: Manage compare pairs within groups
@@ -323,7 +271,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -353,13 +302,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-configuration-api
   name: Oracle GoldenGate Configuration API
   description: Configuration files and settings for big data handlers
@@ -387,7 +339,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -417,13 +370,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-connection-assignments-api
   name: Oracle GoldenGate Connection Assignments API
   description: Manage connection-to-deployment assignments
@@ -451,7 +407,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -481,13 +438,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-connections-api
   name: Oracle GoldenGate Connections API
   description: Manage database and service connections
@@ -515,7 +475,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -545,13 +506,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-credentials-api
   name: Oracle GoldenGate Credentials API
   description: Manage credential store for big data target connections
@@ -579,7 +543,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -609,13 +574,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-data-streams-api
   name: Oracle GoldenGate Data Streams API
   description: Manage data stream configurations
@@ -643,7 +611,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -673,13 +642,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-data-targets-api
   name: Oracle GoldenGate Data Targets API
   description: Manage big data target type configurations
@@ -707,7 +679,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -737,13 +710,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-database-registrations-api
   name: Oracle GoldenGate Database Registrations API
   description: Manage registered source and target databases
@@ -771,7 +747,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -801,13 +778,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-deployment-backups-api
   name: Oracle GoldenGate Deployment Backups API
   description: Manage deployment backups
@@ -835,7 +815,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -865,13 +846,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-deployment-versions-api
   name: Oracle GoldenGate Deployment Versions API
   description: Query available deployment versions
@@ -899,7 +883,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -929,13 +914,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-deployments-api
   name: Oracle GoldenGate Deployments API
   description: Manage GoldenGate deployment instances
@@ -965,7 +953,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -995,13 +984,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-distribution-api
   name: Oracle GoldenGate Distribution API
   description: Distribution paths for trail data delivery
@@ -1029,7 +1021,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1059,13 +1052,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-encryption-api
   name: Oracle GoldenGate Encryption API
   description: Manage encryption keys and profiles
@@ -1093,7 +1089,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1123,13 +1120,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-execution-api
   name: Oracle GoldenGate Execution API
   description: Run and stop comparison jobs
@@ -1157,7 +1157,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1187,13 +1188,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-extracts-api
   name: Oracle GoldenGate Extracts API
   description: Manage Extract processes for source data capture
@@ -1221,7 +1225,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1251,13 +1256,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-groups-api
   name: Oracle GoldenGate Groups API
   description: Manage compare groups
@@ -1287,7 +1295,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1317,13 +1326,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-heartbeat-api
   name: Oracle GoldenGate Heartbeat API
   description: Manage heartbeat tables for lag monitoring
@@ -1351,7 +1363,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1381,13 +1394,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-import-export-api
   name: Oracle GoldenGate Import/Export API
   description: Import and export Veridata configurations
@@ -1417,7 +1433,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1447,13 +1464,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-jobs-api
   name: Oracle GoldenGate Jobs API
   description: Manage and execute comparison jobs
@@ -1483,7 +1503,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1513,13 +1534,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-logs-api
   name: Oracle GoldenGate Logs API
   description: Access service and process logs
@@ -1547,7 +1571,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1577,13 +1602,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-monitoring-api
   name: Oracle GoldenGate Monitoring API
   description: Performance metrics and process monitoring
@@ -1611,7 +1639,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1641,13 +1670,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-pipelines-api
   name: Oracle GoldenGate Pipelines API
   description: Manage data replication pipelines
@@ -1675,7 +1707,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1705,13 +1738,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-profiles-api
   name: Oracle GoldenGate Profiles API
   description: Manage comparison profiles
@@ -1739,7 +1775,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1769,13 +1806,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-receiver-api
   name: Oracle GoldenGate Receiver API
   description: Manage receiver/collector paths
@@ -1803,7 +1843,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1833,13 +1874,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-repair-api
   name: Oracle GoldenGate Repair API
   description: Repair out-of-sync data
@@ -1867,7 +1911,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1897,13 +1942,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-replicats-api
   name: Oracle GoldenGate Replicats API
   description: Manage Replicat processes targeting big data systems
@@ -1931,7 +1979,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -1961,13 +2010,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-server-api
   name: Oracle GoldenGate Server API
   description: Server information and configuration
@@ -1995,7 +2047,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2025,13 +2078,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-services-api
   name: Oracle GoldenGate Services API
   description: The Services API from Oracle GoldenGate — 2 operation(s) for services.
@@ -2059,7 +2115,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2089,13 +2146,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-tasks-api
   name: Oracle GoldenGate Tasks API
   description: Manage automated tasks
@@ -2125,7 +2185,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2155,13 +2216,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-trails-api
   name: Oracle GoldenGate Trails API
   description: Trail file management
@@ -2189,7 +2253,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2219,13 +2284,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-users-api
   name: Oracle GoldenGate Users API
   description: User management and authorization
@@ -2255,7 +2323,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2285,13 +2354,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-validation-api
   name: Oracle GoldenGate Validation API
   description: Validate connections and configurations
@@ -2319,7 +2391,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2349,13 +2422,16 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 - aid: oracle-goldengate:oracle-goldengate-work-requests-api
   name: Oracle GoldenGate Work Requests API
   description: Track asynchronous operations
@@ -2383,7 +2459,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
   - type: GettingStarted
-    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
   - type: Documentation
     url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
   - type: APIReference
@@ -2413,13 +2490,84 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: APIReference
-    url: https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
   - type: GettingStarted
     url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
   - type: ChangeLog
-    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
   - type: Documentation
-    url: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
+- aid: oracle-goldengate:oracle-goldengate-async-api-api
+  name: Oracle GoldenGate Async API
+  description: Manage AsyncAPI specifications for data streams
+  humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
+  baseURL: https://<goldengate-host>:<port>/services/v2
+  tags:
+  - Async API
+  properties:
+  - type: OpenAPI
+    url: openapi/oracle-goldengate-async-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/index.html
+  - type: Authentication
+    url: https://docs.oracle.com/en/middleware/goldengate/core/21.3/oggra/authentication.html
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/index.html
+  - type: Authentication
+    url: https://docs.oracle.com/en/database/goldengate/core/26/oggra/authenticate.html
+  - type: GettingStarted
+    url: https://docs.oracle.com/en/database/goldengate/core/26/
+  - type: Tutorials
+    url: https://docs.oracle.com/en/database/goldengate/core/26/tutorials.html
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/database/goldengate/core/26/release-notes/
+  - type: Documentation
+    url: https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/index.html
+  - type: GettingStarted
+    url: >-
+      https://docs.oracle.com/en/middleware/goldengate/big-data/21.3/gadbd/getting-started.html
+  - type: Documentation
+    url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdug/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/middleware/goldengate/veridata/12.2.1.4/gvdra/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/goldengate/veridata/26/
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/database/goldengate/veridata/26/gvdrn/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/en-us/iaas/api/#/en/goldengate/latest/
+  - type: SDKs
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm
+  - type: CLI
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm
+  - type: GettingStarted
+    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/index.html
+  - type: Authentication
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm
+  - type: Tutorials
+    url: https://docs.oracle.com/en/cloud/paas/goldengate-service/tutorials.html
+  - type: ChangeLog
+    url: https://docs.oracle.com/en-us/iaas/releasenotes/services/goldengate/
+  - type: SDKs
+    url: https://docs.oracle.com/en-us/iaas/tools/python/latest/api/golden_gate.html
+  - type: APIReference
+    url: https://docs.oracle.com/en-us/iaas/goldengate/doc/using-rest-api.html
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
+  - type: APIReference
+    url: >-
+      https://docs.oracle.com/en/middleware/fusion-middleware/osa/19.1/ggsa-rest-api/quick-start.html
+  - type: GettingStarted
+    url: https://docs.oracle.com/en/database/goldengate/stream-analytics/26/
+  - type: ChangeLog
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/stream-analytics/26/release-notes/release-notes-goldengate-stream-analytics.pdf
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 common:
 - type: Website
   url: https://oracle.com
