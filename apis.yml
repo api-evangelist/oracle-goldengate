@@ -2026,6 +2026,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - Servers
+  tags_raw:
   - Server
   properties:
   - type: OpenAPI
@@ -2506,6 +2508,8 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
+  - AsyncAPI
+  tags_raw:
   - Async API
   properties:
   - type: OpenAPI
