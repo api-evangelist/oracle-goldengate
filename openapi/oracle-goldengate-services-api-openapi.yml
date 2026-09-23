@@ -211,17 +211,20 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UpdateServiceRequest:
+    ErrorResponse:
       type: object
       properties:
-        port:
+        code:
           type: integer
+          description: HTTP status code
           example: 10
-        secure:
-          type: boolean
-          example: true
-        status:
+        message:
           type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
           example: example_value
     CreateServiceRequest:
       type: object
@@ -243,29 +246,6 @@ components:
         secure:
           type: boolean
           example: true
-    ServiceList:
-      type: object
-      properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
     Service:
       type: object
       properties:
@@ -298,6 +278,26 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    UpdateServiceRequest:
+      type: object
+      properties:
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: example_value
     ServiceSummary:
       type: object
       properties:
@@ -313,6 +313,25 @@ components:
         port:
           type: integer
           example: 10
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     serviceParam:
       name: service
@@ -328,25 +347,6 @@ components:
       description: Name of the GoldenGate deployment
       schema:
         type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

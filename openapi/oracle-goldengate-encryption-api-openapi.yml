@@ -206,27 +206,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EncryptionKey:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        algorithm:
-          type: string
-          example: example_value
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    EncryptionKeyList:
-      type: object
-      properties:
-        keys:
-          type: array
-          items:
-            $ref: '#/components/schemas/EncryptionKey'
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -242,6 +221,14 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    EncryptionKeyList:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptionKey'
+          example: []
     MasterKeyVersionList:
       type: object
       properties:
@@ -250,6 +237,19 @@ components:
           items:
             $ref: '#/components/schemas/MasterKeyVersion'
           example: []
+    EncryptionKey:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        algorithm:
+          type: string
+          example: example_value
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     MasterKeyVersion:
       type: object
       properties:
@@ -267,14 +267,14 @@ components:
           format: date-time
           example: '2026-01-15T10:30:00Z'
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

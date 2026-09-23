@@ -25,7 +25,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- name: Import/Export
+- name: Import Export
   description: Import and export Veridata configurations
 paths:
   /services/configuration/export:
@@ -34,7 +34,7 @@ paths:
       summary: Oracle Goldengate Export Veridata Configurations
       description: Exports all Veridata configurations (connections, groups, jobs, profiles) as an XML document.
       tags:
-      - Import/Export
+      - Import Export
       responses:
         '200':
           description: Configuration exported
@@ -58,7 +58,7 @@ paths:
       summary: Oracle Goldengate Import Veridata Xml Configuration
       description: Imports Veridata configurations from an XML document.
       tags:
-      - Import/Export
+      - Import Export
       requestBody:
         required: true
         content:
@@ -99,7 +99,7 @@ paths:
       summary: Oracle Goldengate Import Goldengate Parameter File
       description: Imports a GoldenGate parameter file to automatically create compare pairs from table mappings.
       tags:
-      - Import/Export
+      - Import Export
       requestBody:
         required: true
         content:

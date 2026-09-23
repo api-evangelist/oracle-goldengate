@@ -247,14 +247,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ProfileList:
-      type: object
-      properties:
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Profile'
-          example: []
     Profile:
       type: object
       properties:
@@ -283,6 +275,23 @@ components:
         reportOutOfSync:
           type: boolean
           example: true
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    ProfileList:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+          example: []
     UpdateProfileRequest:
       type: object
       properties:
@@ -321,18 +330,9 @@ components:
         deltaProcessing:
           type: boolean
           example: true
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -343,8 +343,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

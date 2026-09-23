@@ -211,16 +211,80 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    deploymentBackupIdParam:
+      name: deploymentBackupId
+      in: path
+      required: true
+      description: The OCID of the deployment backup
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
   schemas:
-    Error:
+    RestoreDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    DeploymentBackupCollection:
       type: object
       properties:
-        code:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentBackupSummary'
+          example: []
+    DeploymentBackupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        deploymentId:
+          type: string
+          example: '500123'
+        displayName:
           type: string
           example: example_value
-        message:
+        lifecycleState:
           type: string
           example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     CreateDeploymentBackupDetails:
       type: object
       required:
@@ -249,33 +313,15 @@ components:
         objectName:
           type: string
           example: example_value
-    DeploymentBackupCollection:
+    Error:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentBackupSummary'
-          example: []
-    DeploymentBackupSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        deploymentId:
-          type: string
-          example: '500123'
-        displayName:
+        code:
           type: string
           example: example_value
-        lifecycleState:
+        message:
           type: string
           example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     DeploymentBackup:
       type: object
       properties:
@@ -311,52 +357,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    RestoreDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - DEFAULT
-          example: DEFAULT
-  parameters:
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    deploymentBackupIdParam:
-      name: deploymentBackupId
-      in: path
-      required: true
-      description: The OCID of the deployment backup
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
   responses:
     NotFound:
       description: Resource not found

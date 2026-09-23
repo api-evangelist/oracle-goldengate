@@ -304,6 +304,14 @@ components:
         certificateContent:
           type: string
           example: example_value
+    CertificateCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificateSummary'
+          example: []
     Certificate:
       type: object
       properties:
@@ -365,37 +373,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CertificateCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CertificateSummary'
-          example: []
-    Certificate_2:
-      type: object
-      properties:
-        alias:
-          type: string
-          example: example_value
-        subject:
-          type: string
-          example: example_value
-        issuer:
-          type: string
-          example: example_value
-        serialNumber:
-          type: string
-          example: example_value
-        notBefore:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        notAfter:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     CertificateTypeList:
       type: object
       properties:
@@ -419,6 +396,29 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    Certificate_2:
+      type: object
+      properties:
+        alias:
+          type: string
+          example: example_value
+        subject:
+          type: string
+          example: example_value
+        issuer:
+          type: string
+          example: example_value
+        serialNumber:
+          type: string
+          example: example_value
+        notBefore:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        notAfter:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     CertificateNameList:
       type: object
       properties:
@@ -428,6 +428,19 @@ components:
             type: string
           example: []
   parameters:
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -437,28 +450,15 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

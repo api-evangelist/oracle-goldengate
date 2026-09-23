@@ -269,91 +269,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ColumnMapping:
-      type: object
-      properties:
-        sourceColumn:
-          type: string
-          example: example_value
-        targetColumn:
-          type: string
-          example: example_value
-        dataType:
-          type: string
-          example: example_value
-    ColumnMappingList:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ColumnMapping'
-          example: []
-    ReplaceComparePairRequest:
-      type: object
-      properties:
-        sourceSchema:
-          type: string
-          example: example_value
-        sourceTable:
-          type: string
-          example: example_value
-        targetSchema:
-          type: string
-          example: example_value
-        targetTable:
-          type: string
-          example: example_value
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-    ComparePairList:
-      type: object
-      properties:
-        comparePairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComparePair'
-          example: []
-    MappingObjectList:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceSchema:
-                type: string
-              sourceTable:
-                type: string
-              targetSchema:
-                type: string
-              targetTable:
-                type: string
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    MappingRulesRequest:
-      type: object
-      properties:
-        sourceSchemaPattern:
-          type: string
-          example: example_value
-        targetSchemaPattern:
-          type: string
-          example: example_value
-        tablePattern:
-          type: string
-          example: example_value
     CreateComparePairsRequest:
       type: object
       properties:
@@ -376,6 +291,27 @@ components:
               targetTable:
                 type: string
           example: []
+    MappingRulesRequest:
+      type: object
+      properties:
+        sourceSchemaPattern:
+          type: string
+          example: example_value
+        targetSchemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
     ComparePair:
       type: object
       properties:
@@ -408,15 +344,71 @@ components:
           items:
             $ref: '#/components/schemas/ColumnMapping'
           example: []
+    ReplaceComparePairRequest:
+      type: object
+      properties:
+        sourceSchema:
+          type: string
+          example: example_value
+        sourceTable:
+          type: string
+          example: example_value
+        targetSchema:
+          type: string
+          example: example_value
+        targetTable:
+          type: string
+          example: example_value
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ColumnMappingList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+          example: []
+    ComparePairList:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComparePair'
+          example: []
+    ColumnMapping:
+      type: object
+      properties:
+        sourceColumn:
+          type: string
+          example: example_value
+        targetColumn:
+          type: string
+          example: example_value
+        dataType:
+          type: string
+          example: example_value
+    MappingObjectList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
   parameters:
-    comparePairIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare pair identifier
-      schema:
-        type: integer
-        format: int64
     groupIdPathParam:
       name: groupId
       in: path
@@ -425,9 +417,17 @@ components:
       schema:
         type: integer
         format: int64
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -438,8 +438,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

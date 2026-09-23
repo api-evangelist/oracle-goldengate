@@ -935,38 +935,21 @@ paths:
           description: Veridata HTTPS port
 components:
   schemas:
-    BulkCreateUsersRequest:
+    ErrorResponse:
       type: object
       properties:
-        users:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              password:
-                type: string
-                format: password
-          example: []
-    UserList:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-          example: []
-    UpdateUserRequest:
-      type: object
-      properties:
-        password:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
           type: string
-          format: password
+          description: Error message
           example: example_value
-        description:
+        severity:
           type: string
-          example: A sample description.
+          description: Error severity level
+          example: example_value
     User:
       type: object
       properties:
@@ -999,21 +982,38 @@ components:
         description:
           type: string
           example: A sample description.
-    ErrorResponse:
+    BulkCreateUsersRequest:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              password:
+                type: string
+                format: password
+          example: []
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          example: []
+    UpdateUserRequest:
+      type: object
+      properties:
+        password:
           type: string
-          description: Error message
+          format: password
           example: example_value
-        severity:
+        description:
           type: string
-          description: Error severity level
-          example: example_value
+          example: A sample description.
     ErrorResponse_2:
       type: object
       properties:
@@ -1023,6 +1023,31 @@ components:
         message:
           type: string
           example: example_value
+    ErrorResponse_3:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    CreateUserGroupRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        permissions:
+          type: array
+          items:
+            type: string
+          example: []
     User_2:
       type: object
       properties:
@@ -1032,6 +1057,35 @@ components:
           example: abc123
         username:
           type: string
+          example: example_value
+        firstName:
+          type: string
+          example: example_value
+        lastName:
+          type: string
+          example: example_value
+        email:
+          type: string
+          example: user@example.com
+        role:
+          type: string
+          example: example_value
+        userGroupId:
+          type: integer
+          format: int64
+          example: '500123'
+    CreateUserRequest_2:
+      type: object
+      required:
+      - username
+      - password
+      properties:
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
           example: example_value
         firstName:
           type: string
@@ -1068,11 +1122,13 @@ components:
           type: integer
           format: int64
           example: '500123'
-    CreateUserGroupRequest:
+    UserGroup:
       type: object
-      required:
-      - name
       properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
         name:
           type: string
           example: Example Title
@@ -1084,44 +1140,6 @@ components:
           items:
             type: string
           example: []
-    CreateUserRequest_2:
-      type: object
-      required:
-      - username
-      - password
-      properties:
-        username:
-          type: string
-          example: example_value
-        password:
-          type: string
-          format: password
-          example: example_value
-        firstName:
-          type: string
-          example: example_value
-        lastName:
-          type: string
-          example: example_value
-        email:
-          type: string
-          example: user@example.com
-        role:
-          type: string
-          example: example_value
-        userGroupId:
-          type: integer
-          format: int64
-          example: '500123'
-    ErrorResponse_3:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
     UserGroupList:
       type: object
       properties:
@@ -1144,24 +1162,61 @@ components:
           items:
             type: string
           example: []
-    UserGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        permissions:
-          type: array
-          items:
-            type: string
-          example: []
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest_3:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    Unauthorized_3:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    NotFound_3:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
   parameters:
     userParam:
       name: user
@@ -1193,14 +1248,6 @@ components:
         - Admin
         - Operator
         - Viewer
-    userGroupIdParam:
-      name: Id
-      in: path
-      required: true
-      description: User group identifier
-      schema:
-        type: integer
-        format: int64
     userIdParam:
       name: Id
       in: path
@@ -1209,61 +1256,14 @@ components:
       schema:
         type: integer
         format: int64
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest_2:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    NotFound_3:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_3'
-    Unauthorized_3:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_3'
-    BadRequest_3:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_3'
+    userGroupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: User group identifier
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     basicAuth:
       type: http

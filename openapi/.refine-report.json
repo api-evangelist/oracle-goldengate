@@ -47,7 +47,9 @@
     "oracle-goldengate-server-api-openapi.yml",
     "oracle-goldengate-validation-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -77,11 +79,13 @@
     "tag 'Deployments' spans 2 source specs (oracle-goldengate-cloud-service-api-openapi.yml, oracle-goldengate-rest-api-openapi.yml): per-path servers applied",
     "tag 'Pipelines' spans 2 source specs (oracle-goldengate-cloud-service-api-openapi.yml, oracle-goldengate-stream-analytics-rest-api-openapi.yml): per-path servers applied",
     "tag 'Logs' spans 2 source specs (oracle-goldengate-rest-api-openapi.yml, oracle-goldengate-veridata-rest-api-openapi.yml): per-path servers applied",
-    "tag 'Users' spans 3 source specs (oracle-goldengate-rest-api-openapi.yml, oracle-goldengate-stream-analytics-rest-api-openapi.yml, oracle-goldengate-veridata-rest-api-openapi.yml): per-path servers applied"
+    "tag 'Users' spans 3 source specs (oracle-goldengate-rest-api-openapi.yml, oracle-goldengate-stream-analytics-rest-api-openapi.yml, oracle-goldengate-veridata-rest-api-openapi.yml): per-path servers applied",
+    "superseded outputs removed: oracle-goldengate-async-api-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 37 total)"
   ],
   "skipped": [
     "oracle-goldengate-artifacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "oracle-goldengate-asyncapi-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "oracle-goldengate-async-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "oracle-goldengate-certificates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "oracle-goldengate-commands-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "oracle-goldengate-compare-pairs-api-openapi.yml: previously refined output, superseded by openapi/_original/",

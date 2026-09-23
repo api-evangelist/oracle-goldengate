@@ -258,18 +258,28 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    groupIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
   schemas:
-    UpdateGroupRequest:
+    ErrorResponse:
       type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    CloneGroupRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+          example: example_value
+    CreateGroupRequest:
+      type: object
+      required:
+      - name
+      - sourceConnectionId
+      - targetConnectionId
       properties:
         name:
           type: string
@@ -277,18 +287,18 @@ components:
         description:
           type: string
           example: A sample description.
+        sourceConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        targetConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
         profileId:
           type: integer
           format: int64
           example: '500123'
-    GroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-          example: []
     Group:
       type: object
       properties:
@@ -317,12 +327,8 @@ components:
         comparePairCount:
           type: integer
           example: 10
-    CreateGroupRequest:
+    UpdateGroupRequest:
       type: object
-      required:
-      - name
-      - sourceConnectionId
-      - targetConnectionId
       properties:
         name:
           type: string
@@ -330,34 +336,25 @@ components:
         description:
           type: string
           example: A sample description.
-        sourceConnectionId:
-          type: integer
-          format: int64
-          example: '500123'
-        targetConnectionId:
-          type: integer
-          format: int64
-          example: '500123'
         profileId:
           type: integer
           format: int64
           example: '500123'
-    CloneGroupRequest:
+    GroupList:
       type: object
       properties:
-        newName:
-          type: string
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+          example: []
   responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
       content:
@@ -370,12 +367,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     basicAuth:
       type: http

@@ -222,6 +222,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: example_value
+        sessionTimeout:
+          type: integer
+          example: 10
+        username:
+          type: string
+          example: example_value
     ServerInfo:
       type: object
       properties:
@@ -249,27 +270,6 @@ components:
         reportRetentionDays:
           type: integer
           example: 10
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          example: example_value
-        sessionTimeout:
-          type: integer
-          example: 10
-        username:
-          type: string
-          example: example_value
     ServerConfiguration:
       type: object
       properties:
@@ -286,14 +286,14 @@ components:
           type: integer
           example: 10
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:

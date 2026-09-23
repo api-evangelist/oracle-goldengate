@@ -179,49 +179,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    groupIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
-    comparePairIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare pair identifier
-      schema:
-        type: integer
-        format: int64
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ValidateConnectionRequest:
-      type: object
-      required:
-      - host
-      - port
-      properties:
-        host:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -257,6 +215,18 @@ components:
           type: string
           format: password
           example: example_value
+    ValidateConnectionRequest:
+      type: object
+      required:
+      - host
+      - port
+      properties:
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
     ValidationResult:
       type: object
       properties:
@@ -273,6 +243,36 @@ components:
               message:
                 type: string
           example: []
+  parameters:
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

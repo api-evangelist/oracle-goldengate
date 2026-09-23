@@ -537,31 +537,45 @@ paths:
           description: HTTPS port for the service
 components:
   schemas:
-    CreateExtractRequest:
+    ErrorResponse:
       type: object
-      required:
-      - type
-      - trail
-      - config
       properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+        severity:
+          type: string
+          example: example_value
+    ExtractSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
         type:
           type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ProcessCommand:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
           enum:
-          - cdc
-          - initialload
-          - datapump
-          example: cdc
-        trail:
-          type: string
-          example: example_value
-        begin:
-          type: string
-          example: example_value
-        config:
-          type: array
-          items:
-            type: string
-          example: []
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          example: start
     Extract:
       type: object
       properties:
@@ -601,41 +615,6 @@ components:
         status:
           type: string
           example: example_value
-    ExtractList:
-      type: object
-      properties:
-        extracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractSummary'
-          example: []
-    ProcessCommand:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - start
-          - stop
-          - kill
-          - forcestop
-          - status
-          - stats
-          example: start
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
-          type: string
-          example: example_value
     CommandResponse:
       type: object
       properties:
@@ -649,47 +628,38 @@ components:
             message:
               type: string
           example: example_value
-    ExtractSummary:
+    ExtractList:
       type: object
       properties:
-        name:
-          type: string
-          example: Example Title
+        extracts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractSummary'
+          example: []
+    CreateExtractRequest:
+      type: object
+      required:
+      - type
+      - trail
+      - config
+      properties:
         type:
           type: string
-          example: example_value
-        status:
+          enum:
+          - cdc
+          - initialload
+          - datapump
+          example: cdc
+        trail:
           type: string
           example: example_value
-    LogList:
-      type: object
-      properties:
-        logs:
+        begin:
+          type: string
+          example: example_value
+        config:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              size:
-                type: integer
-              lastModified:
-                type: string
-                format: date-time
-          example: []
-    ReportList:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
+            type: string
           example: []
     ProcessHistory:
       type: object
@@ -713,94 +683,6 @@ components:
               reason:
                 type: string
           example: []
-    ProcessStatus:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        lag:
-          type: string
-          description: Process lag in seconds
-          example: example_value
-        checkpoint:
-          type: string
-          example: example_value
-        since:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    Checkpoints:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        readCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-        writeCheckpoint:
-          type: object
-          properties:
-            sequenceNumber:
-              type: integer
-            rba:
-              type: integer
-            timestamp:
-              type: string
-              format: date-time
-          example: example_value
-    UpdateExtractRequest_2:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        config:
-          type: array
-          items:
-            type: string
-          example: []
-        credentials:
-          type: object
-          properties:
-            domain:
-              type: string
-            alias:
-              type: string
-          example: example_value
-        begin:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-    ExtractSummary_2:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        trail:
-          type: string
-          example: example_value
     CreateExtractRequest_2:
       type: object
       required:
@@ -846,6 +728,146 @@ components:
               type: string
             alias:
               type: string
+          example: example_value
+    ReportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    ProcessStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        lag:
+          type: string
+          description: Process lag in seconds
+          example: example_value
+        checkpoint:
+          type: string
+          example: example_value
+        since:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    LogList:
+      type: object
+      properties:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    Checkpoints:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        readCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+        writeCheckpoint:
+          type: object
+          properties:
+            sequenceNumber:
+              type: integer
+            rba:
+              type: integer
+            timestamp:
+              type: string
+              format: date-time
+          example: example_value
+    Report:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+    ExtractSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        trail:
+          type: string
+          example: example_value
+    ProcessCommand_2:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          description: Command action to execute
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          - lag
+          - info
+          - getlag
+          example: start
+        options:
+          type: string
+          description: Additional command options
+          example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
           example: example_value
     Extract_2:
       type: object
@@ -904,56 +926,34 @@ components:
             alias:
               type: string
           example: example_value
-    ErrorResponse_2:
+    UpdateExtractRequest_2:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
+        description:
           type: string
-          description: Error message
+          example: A sample description.
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
           example: example_value
-        severity:
+        begin:
           type: string
-          description: Error severity level
           example: example_value
-    ProcessCommand_2:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          description: Command action to execute
-          enum:
-          - start
-          - stop
-          - kill
-          - forcestop
-          - status
-          - stats
-          - lag
-          - info
-          - getlag
-          example: start
-        options:
-          type: string
-          description: Additional command options
-          example: example_value
-    Report:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
+        status:
           type: string
           example: example_value
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -964,18 +964,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
     BadRequest_2:
       description: Bad request - invalid parameters or request body
       content:
@@ -994,6 +988,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
   parameters:
     extractParam:
       name: extract
@@ -1002,18 +1002,18 @@ components:
       description: Extract process name
       schema:
         type: string
-    extractParam_2:
-      name: extract
-      in: path
-      required: true
-      description: Name of the Extract process
-      schema:
-        type: string
     reportParam:
       name: report
       in: path
       required: true
       description: Report identifier
+      schema:
+        type: string
+    extractParam_2:
+      name: extract
+      in: path
+      required: true
+      description: Name of the Extract process
       schema:
         type: string
   securitySchemes:

@@ -188,37 +188,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    RepairStatisticsList:
+    ErrorResponse:
       type: object
       properties:
-        statistics:
-          type: array
-          items:
-            type: object
-            properties:
-              runId:
-                type: integer
-                format: int64
-              status:
-                type: string
-              rowsRepaired:
-                type: integer
-                format: int64
-              rowsFailed:
-                type: integer
-                format: int64
-          example: []
-    RepairJobRequest:
-      type: object
-      properties:
-        repairMode:
+        code:
+          type: integer
+          example: 10
+        message:
           type: string
-          enum:
-          - insert
-          - update
-          - delete
-          - all
-          example: insert
+          example: example_value
     RepairedRowDetails:
       type: object
       properties:
@@ -241,15 +219,56 @@ components:
                 type: object
                 additionalProperties: true
           example: []
-    ErrorResponse:
+    RepairJobRequest:
       type: object
       properties:
-        code:
-          type: integer
-          example: 10
-        message:
+        repairMode:
           type: string
-          example: example_value
+          enum:
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
+    RepairExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    RepairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              status:
+                type: string
+              rowsRepaired:
+                type: integer
+                format: int64
+              rowsFailed:
+                type: integer
+                format: int64
+          example: []
     RepairReport:
       type: object
       properties:
@@ -277,34 +296,15 @@ components:
           type: integer
           format: int64
           example: 10
-    RepairExecution:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - running
-          - completed
-          - stopped
-          - failed
-          example: running
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

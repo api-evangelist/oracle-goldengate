@@ -198,6 +198,50 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    UpdateCollectorPathRequest:
+      type: object
+      properties:
+        trail:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        status:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CollectorPathList:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorPathSummary'
+          example: []
+    CollectorPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
     CollectorPath:
       type: object
       properties:
@@ -218,50 +262,6 @@ components:
         port:
           type: integer
           example: 10
-    UpdateCollectorPathRequest:
-      type: object
-      properties:
-        trail:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-        status:
-          type: string
-          example: example_value
-    CollectorPathList:
-      type: object
-      properties:
-        paths:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectorPathSummary'
-          example: []
-    CollectorPathSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
     CreateCollectorPathRequest:
       type: object
       required:
@@ -274,8 +274,8 @@ components:
           type: integer
           example: 10
   responses:
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
@@ -286,8 +286,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

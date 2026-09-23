@@ -25,7 +25,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- name: AsyncAPI
+- name: Async API
   description: Manage AsyncAPI specifications for data streams
 paths:
   /services/v2/stream/{streamname}/yaml:
@@ -34,7 +34,7 @@ paths:
       summary: Oracle Goldengate Get Asyncapi Specification
       description: Retrieves the AsyncAPI YAML specification for a data stream, describing the stream's channels, messages, and schemas for downstream consumers.
       tags:
-      - AsyncAPI
+      - Async API
       parameters:
       - $ref: '#/components/parameters/streamnameParam'
       responses:
@@ -70,7 +70,7 @@ paths:
       summary: Oracle Goldengate Update Asyncapi Specification
       description: Updates the AsyncAPI YAML specification for a data stream. Allows customization of the stream metadata exposed to consumers.
       tags:
-      - AsyncAPI
+      - Async API
       parameters:
       - $ref: '#/components/parameters/streamnameParam'
       requestBody:
@@ -115,33 +115,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    streamnameParam:
-      name: streamname
-      in: path
-      required: true
-      description: Name of the data stream resource
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -152,6 +125,33 @@ components:
         message:
           type: string
           example: example_value
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    streamnameParam:
+      name: streamname
+      in: path
+      required: true
+      description: Name of the data stream resource
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

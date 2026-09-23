@@ -259,22 +259,21 @@ paths:
           description: Veridata HTTPS port
 components:
   schemas:
-    LogList:
+    ErrorResponse:
       type: object
       properties:
-        logs:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              size:
-                type: integer
-              lastModified:
-                type: string
-                format: date-time
-          example: []
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
     LogContent:
       type: object
       properties:
@@ -287,17 +286,6 @@ components:
         size:
           type: integer
           example: 10
-    ModifyLogRequest:
-      type: object
-      properties:
-        level:
-          type: string
-          enum:
-          - ERROR
-          - WARNING
-          - INFO
-          - DEBUG
-          example: ERROR
     EventList:
       type: object
       properties:
@@ -316,21 +304,33 @@ components:
               message:
                 type: string
           example: []
-    ErrorResponse:
+    LogList:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
+        logs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              size:
+                type: integer
+              lastModified:
+                type: string
+                format: date-time
+          example: []
+    ModifyLogRequest:
+      type: object
+      properties:
+        level:
           type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+          example: ERROR
     ErrorResponse_2:
       type: object
       properties:

@@ -212,55 +212,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ReplaceJobRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        groupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          example: []
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-    CreateJobRequest:
-      type: object
-      required:
-      - name
-      - groupIds
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        groupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          example: []
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-    JobList:
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -301,18 +252,58 @@ components:
           - completed
           - failed
           example: idle
-  parameters:
-    jobIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Job identifier
-      schema:
-        type: integer
-        format: int64
+    CreateJobRequest:
+      type: object
+      required:
+      - name
+      - groupIds
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ReplaceJobRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    JobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+          example: []
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -323,12 +314,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     basicAuth:
       type: http

@@ -298,95 +298,13 @@ paths:
           default: '443'
           description: HTTPS port for the service
 components:
-  parameters:
-    distpathParam:
-      name: distpath
-      in: path
-      required: true
-      description: Distribution path name
-      schema:
-        type: string
-    distpathParam_2:
-      name: distpath
-      in: path
-      required: true
-      description: Name of the distribution path
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
-    DistributionPath:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        source:
-          type: string
-          example: example_value
-        target:
-          type: string
-          example: example_value
     CreateDistributionPathRequest:
       type: object
       required:
       - source
       - target
       properties:
-        source:
-          type: string
-          example: example_value
-        target:
-          type: string
-          example: example_value
-    DistributionPathSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
         source:
           type: string
           example: example_value
@@ -405,6 +323,21 @@ components:
         severity:
           type: string
           example: example_value
+    DistributionPath:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
     DistributionPathList:
       type: object
       properties:
@@ -413,67 +346,20 @@ components:
           items:
             $ref: '#/components/schemas/DistributionPathSummary'
           example: []
-    ExtractTrailList:
-      type: object
-      properties:
-        extracts:
-          type: array
-          items:
-            type: object
-            properties:
-              extractName:
-                type: string
-              trail:
-                type: string
-              trailPath:
-                type: string
-          example: []
-    PathStatistics:
+    DistributionPathSummary:
       type: object
       properties:
         name:
           type: string
-          example: Example Title
-        bytesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        messagesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        lag:
-          type: string
-          example: example_value
-    DistributionPath_2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Distribution path name
           example: Example Title
         status:
           type: string
-          enum:
-          - running
-          - stopped
-          - error
-          example: running
+          example: example_value
         source:
           type: string
-          description: Source trail file
           example: example_value
         target:
           type: string
-          description: Target receiver URL
-          example: example_value
-        targetType:
-          type: string
-          description: Target data type
-          example: example_value
-        ruleName:
-          type: string
-          description: Filter rule name
           example: example_value
     CreateDistributionPathRequest_2:
       type: object
@@ -508,6 +394,53 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    DistributionPath_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Distribution path name
+          example: Example Title
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        source:
+          type: string
+          description: Source trail file
+          example: example_value
+        target:
+          type: string
+          description: Target receiver URL
+          example: example_value
+        targetType:
+          type: string
+          description: Target data type
+          example: example_value
+        ruleName:
+          type: string
+          description: Filter rule name
+          example: example_value
+    PathStatistics:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        bytesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        messagesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        lag:
+          type: string
+          example: example_value
     UpdateDistributionPathRequest:
       type: object
       properties:
@@ -520,6 +453,73 @@ components:
         status:
           type: string
           example: example_value
+    ExtractTrailList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            type: object
+            properties:
+              extractName:
+                type: string
+              trail:
+                type: string
+              trailPath:
+                type: string
+          example: []
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+  parameters:
+    distpathParam:
+      name: distpath
+      in: path
+      required: true
+      description: Distribution path name
+      schema:
+        type: string
+    distpathParam_2:
+      name: distpath
+      in: path
+      required: true
+      description: Name of the distribution path
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
