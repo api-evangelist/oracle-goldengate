@@ -2508,8 +2508,6 @@ apis:
   humanURL: https://docs.oracle.com/en/middleware/goldengate/core/
   baseURL: https://<goldengate-host>:<port>/services/v2
   tags:
-  - AsyncAPI
-  tags_raw:
   - Async API
   properties:
   - type: OpenAPI
@@ -2726,7 +2724,7 @@ tags:
 - Enterprise
 - Real-Time Replication
 tags_raw:
-- CDC
+- Change Data Capture
 - Data Integration
 - Data Synchronization
 - Database

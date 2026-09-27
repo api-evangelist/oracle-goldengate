@@ -188,6 +188,35 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
   schemas:
     ConnectionAssignmentSummary:
       type: object
@@ -204,14 +233,15 @@ components:
         lifecycleState:
           type: string
           example: example_value
-    ConnectionAssignmentCollection:
+    Error:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionAssignmentSummary'
-          example: []
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     CreateConnectionAssignmentDetails:
       type: object
       required:
@@ -250,44 +280,14 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    Error:
+    ConnectionAssignmentCollection:
       type: object
       properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+          example: []
   responses:
     NotFound:
       description: Resource not found

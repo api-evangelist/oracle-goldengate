@@ -209,63 +209,33 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    HeartbeatTable:
-      type: object
-      properties:
-        owner:
-          type: string
-          description: Schema owner of the heartbeat table
-          example: example_value
-        table:
-          type: string
-          description: Heartbeat table name
-          example: example_value
-        retentionTime:
-          type: integer
-          description: Retention time in days
-          example: 10
-        frequency:
-          type: integer
-          description: Update frequency in seconds
-          example: 10
-        purgeFrequency:
-          type: integer
-          description: Purge frequency in minutes
-          example: 10
-    UpdateHeartbeatTableRequest:
-      type: object
-      properties:
-        retentionTime:
-          type: integer
-          example: 10
-        frequency:
-          type: integer
-          example: 10
-        purgeFrequency:
-          type: integer
-          example: 10
     CreateHeartbeatTableRequest:
       type: object
       properties:
         owner:
           type: string
           example: example_value
+        retentionTime:
+          type: integer
+          example: 10
+        frequency:
+          type: integer
+          example: 10
+        purgeFrequency:
+          type: integer
+          example: 10
+    UpdateHeartbeatTableRequest:
+      type: object
+      properties:
         retentionTime:
           type: integer
           example: 10
@@ -296,9 +266,47 @@ components:
               lagInSeconds:
                 type: number
           example: []
+    HeartbeatTable:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: Schema owner of the heartbeat table
+          example: example_value
+        table:
+          type: string
+          description: Heartbeat table name
+          example: example_value
+        retentionTime:
+          type: integer
+          description: Retention time in days
+          example: 10
+        frequency:
+          type: integer
+          description: Update frequency in seconds
+          example: 10
+        purgeFrequency:
+          type: integer
+          description: Purge frequency in minutes
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -309,20 +317,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    connectionParam:
-      name: connection
-      in: path
-      required: true
-      description: Name of the database connection
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http

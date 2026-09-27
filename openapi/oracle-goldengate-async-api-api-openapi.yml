@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Oracle GoldenGate Data Streams REST Async API
+  title: Oracle GoldenGate Data Streams REST AsyncAPI API
   description: REST API for managing Oracle GoldenGate Data Streams, enabling real-time data distribution to downstream consumers via the Distribution Server. Provides operations for creating, retrieving, updating, and deleting data stream configurations, as well as managing AsyncAPI specifications for stream metadata. Based on Oracle GoldenGate 26ai Data Streams REST API documentation.
   version: '2.0'
   contact:
@@ -115,19 +115,9 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -138,8 +128,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
@@ -152,6 +142,16 @@ components:
       description: Name of the data stream resource
       schema:
         type: string
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http

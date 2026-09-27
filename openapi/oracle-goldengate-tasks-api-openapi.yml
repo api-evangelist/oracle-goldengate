@@ -230,29 +230,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    TaskList:
-      type: object
-      properties:
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskSummary'
-          example: []
     UpdateTaskRequest:
       type: object
       properties:
@@ -273,36 +250,14 @@ components:
               type: string
               format: date-time
           example: example_value
-    CreateTaskRequest:
+    TaskList:
       type: object
-      required:
-      - schedule
-      - action
       properties:
-        description:
-          type: string
-          example: A sample description.
-        schedule:
-          type: object
-          properties:
-            type:
-              type: string
-            interval:
-              type: string
-            startTime:
-              type: string
-              format: date-time
-          example: example_value
-        action:
-          type: object
-          properties:
-            type:
-              type: string
-            target:
-              type: string
-            command:
-              type: string
-          example: example_value
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSummary'
+          example: []
     TaskSummary:
       type: object
       properties:
@@ -354,9 +309,54 @@ components:
             command:
               type: string
           example: example_value
+    CreateTaskRequest:
+      type: object
+      required:
+      - schedule
+      - action
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+          example: example_value
+        action:
+          type: object
+          properties:
+            type:
+              type: string
+            target:
+              type: string
+            command:
+              type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -367,8 +367,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:

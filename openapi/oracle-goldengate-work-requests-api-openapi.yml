@@ -183,25 +183,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    WorkRequestSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        operationType:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        percentComplete:
-          type: number
-          example: 42.5
-        timeAccepted:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
     WorkRequest:
       type: object
       properties:
@@ -250,29 +231,14 @@ components:
               entityUri:
                 type: string
           example: []
-    WorkRequestLogEntryCollection:
+    WorkRequestCollection:
       type: object
       properties:
         items:
           type: array
           items:
-            type: object
-            properties:
-              message:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
+            $ref: '#/components/schemas/WorkRequestSummary'
           example: []
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     WorkRequestErrorCollection:
       type: object
       properties:
@@ -289,21 +255,56 @@ components:
                 type: string
                 format: date-time
           example: []
-    WorkRequestCollection:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    WorkRequestSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        operationType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        percentComplete:
+          type: number
+          example: 42.5
+        timeAccepted:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    WorkRequestLogEntryCollection:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/WorkRequestSummary'
+            type: object
+            properties:
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
           example: []
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
     compartmentIdParam:
       name: compartmentId
       in: query
@@ -320,13 +321,12 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
   securitySchemes:
     ociSignature:
       type: http

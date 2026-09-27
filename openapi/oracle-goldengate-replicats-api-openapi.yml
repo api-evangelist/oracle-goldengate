@@ -461,17 +461,32 @@ paths:
           description: HTTPS port for the service
 components:
   schemas:
-    ErrorResponse:
+    UpdateReplicatRequest:
       type: object
       properties:
-        code:
-          type: integer
-          example: 10
-        message:
+        config:
+          type: array
+          items:
+            type: string
+          example: []
+        status:
           type: string
           example: example_value
-        severity:
+    ReplicatSummary:
+      type: object
+      properties:
+        name:
           type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        handler:
+          type: string
+          description: Big data handler type (e.g., kafka, hdfs, mongodb)
           example: example_value
     Replicat:
       type: object
@@ -526,21 +541,6 @@ components:
           type: string
           description: Path to handler properties file
           example: example_value
-    ProcessCommand:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - start
-          - stop
-          - kill
-          - forcestop
-          - status
-          - stats
-          example: start
     ProcessStatus:
       type: object
       properties:
@@ -557,38 +557,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    UpdateReplicatRequest:
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: string
-          example: []
-        status:
-          type: string
-          example: example_value
-    CommandResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            code:
-              type: string
-            severity:
-              type: string
-            message:
-              type: string
-          example: example_value
-    ReplicatList:
-      type: object
-      properties:
-        replicats:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReplicatSummary'
-          example: []
     CreateReplicatRequest:
       type: object
       required:
@@ -618,117 +586,13 @@ components:
         checkpointTable:
           type: string
           example: example_value
-    ReplicatSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        handler:
-          type: string
-          description: Big data handler type (e.g., kafka, hdfs, mongodb)
-          example: example_value
-    ProcessHistory:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        history:
-          type: array
-          items:
-            type: object
-            properties:
-              startTime:
-                type: string
-                format: date-time
-              endTime:
-                type: string
-                format: date-time
-              status:
-                type: string
-              reason:
-                type: string
-          example: []
-    ErrorResponse_2:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    Replicat_2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Replicat process name
-          example: Example Title
-        type:
-          type: string
-          description: Type of replicat
-          enum:
-          - classic
-          - coordinated
-          - integrated
-          - parallel
-          example: classic
-        status:
-          type: string
-          description: Current process status
-          enum:
-          - running
-          - stopped
-          - abended
-          - starting
-          example: running
-        description:
-          type: string
-          example: A sample description.
-        trail:
-          type: string
-          description: Source trail file path
-          example: example_value
-        checkpointTable:
-          type: string
-          description: Checkpoint table name
-          example: example_value
-        config:
-          type: array
-          items:
-            type: string
-          description: Parameter file content lines
-          example: []
-        credentials:
-          type: object
-          properties:
-            domain:
-              type: string
-            alias:
-              type: string
-          example: example_value
-    ProcessCommand_2:
+    ProcessCommand:
       type: object
       required:
       - action
       properties:
         action:
           type: string
-          description: Command action to execute
           enum:
           - start
           - stop
@@ -736,13 +600,39 @@ components:
           - forcestop
           - status
           - stats
-          - lag
-          - info
-          - getlag
           example: start
-        options:
+    ReplicatList:
+      type: object
+      properties:
+        replicats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicatSummary'
+          example: []
+    CommandResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: string
+            severity:
+              type: string
+            message:
+              type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
           type: string
-          description: Additional command options
+          example: example_value
+        severity:
+          type: string
           example: example_value
     Checkpoints:
       type: object
@@ -797,20 +687,90 @@ components:
         status:
           type: string
           example: example_value
-    ReportList:
+    ReplicatSummary_2:
       type: object
       properties:
-        reports:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    ProcessHistory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        history:
           type: array
           items:
             type: object
             properties:
-              name:
-                type: string
-              timestamp:
+              startTime:
                 type: string
                 format: date-time
+              endTime:
+                type: string
+                format: date-time
+              status:
+                type: string
+              reason:
+                type: string
           example: []
+    Replicat_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Replicat process name
+          example: Example Title
+        type:
+          type: string
+          description: Type of replicat
+          enum:
+          - classic
+          - coordinated
+          - integrated
+          - parallel
+          example: classic
+        status:
+          type: string
+          description: Current process status
+          enum:
+          - running
+          - stopped
+          - abended
+          - starting
+          example: running
+        description:
+          type: string
+          example: A sample description.
+        trail:
+          type: string
+          description: Source trail file path
+          example: example_value
+        checkpointTable:
+          type: string
+          description: Checkpoint table name
+          example: example_value
+        config:
+          type: array
+          items:
+            type: string
+          description: Parameter file content lines
+          example: []
+        credentials:
+          type: object
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
     ProcessStatus_2:
       type: object
       properties:
@@ -874,21 +834,61 @@ components:
             alias:
               type: string
           example: example_value
-    ReplicatSummary_2:
+    ProcessCommand_2:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          description: Command action to execute
+          enum:
+          - start
+          - stop
+          - kill
+          - forcestop
+          - status
+          - stats
+          - lag
+          - info
+          - getlag
+          example: start
+        options:
+          type: string
+          description: Additional command options
+          example: example_value
+    ReportList:
       type: object
       properties:
-        name:
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
           type: string
-          example: Example Title
-        type:
-          type: string
+          description: Error message
           example: example_value
-        status:
+        severity:
           type: string
+          description: Error severity level
           example: example_value
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -899,20 +899,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
+    Conflict:
+      description: Resource already exists
       content:
         application/json:
           schema:
@@ -923,8 +917,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    Conflict:
-      description: Resource already exists
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:

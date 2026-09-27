@@ -259,46 +259,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    GroupList:
       type: object
       properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    CloneGroupRequest:
-      type: object
-      properties:
-        newName:
-          type: string
-          example: example_value
-    CreateGroupRequest:
-      type: object
-      required:
-      - name
-      - sourceConnectionId
-      - targetConnectionId
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        sourceConnectionId:
-          type: integer
-          format: int64
-          example: '500123'
-        targetConnectionId:
-          type: integer
-          format: int64
-          example: '500123'
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+          example: []
     Group:
       type: object
       properties:
@@ -340,21 +308,47 @@ components:
           type: integer
           format: int64
           example: '500123'
-    GroupList:
+    CreateGroupRequest:
+      type: object
+      required:
+      - name
+      - sourceConnectionId
+      - targetConnectionId
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        sourceConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        targetConnectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ErrorResponse:
       type: object
       properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-          example: []
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    CloneGroupRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+          example: example_value
   responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
       content:
@@ -363,6 +357,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

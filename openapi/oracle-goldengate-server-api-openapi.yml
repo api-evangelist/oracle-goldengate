@@ -222,27 +222,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          example: example_value
-        sessionTimeout:
-          type: integer
-          example: 10
-        username:
-          type: string
-          example: example_value
     ServerInfo:
       type: object
       properties:
@@ -258,18 +237,6 @@ components:
         javaVersion:
           type: string
           example: example_value
-    UpdateServerConfigurationRequest:
-      type: object
-      properties:
-        maxConcurrentJobs:
-          type: integer
-          example: 10
-        maxThreadsPerJob:
-          type: integer
-          example: 10
-        reportRetentionDays:
-          type: integer
-          example: 10
     ServerConfiguration:
       type: object
       properties:
@@ -285,15 +252,48 @@ components:
         oosRetentionDays:
           type: integer
           example: 10
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: example_value
+        sessionTimeout:
+          type: integer
+          example: 10
+        username:
+          type: string
+          example: example_value
+    UpdateServerConfigurationRequest:
+      type: object
+      properties:
+        maxConcurrentJobs:
+          type: integer
+          example: 10
+        maxThreadsPerJob:
+          type: integer
+          example: 10
+        reportRetentionDays:
+          type: integer
+          example: 10
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   responses:
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

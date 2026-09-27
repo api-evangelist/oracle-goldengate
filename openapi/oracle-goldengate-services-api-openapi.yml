@@ -210,42 +210,22 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
+      schema:
+        type: string
+    deploymentParam:
+      name: deployment
+      in: path
+      required: true
+      description: Name of the GoldenGate deployment
+      schema:
+        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    CreateServiceRequest:
-      type: object
-      required:
-      - type
-      - port
-      properties:
-        type:
-          type: string
-          enum:
-          - AdminServer
-          - DistributionServer
-          - ReceiverServer
-          - PerformanceMetricsServer
-          example: AdminServer
-        port:
-          type: integer
-          example: 10
-        secure:
-          type: boolean
-          example: true
     Service:
       type: object
       properties:
@@ -278,14 +258,6 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
-    ServiceList:
-      type: object
-      properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
     UpdateServiceRequest:
       type: object
       properties:
@@ -298,6 +270,26 @@ components:
         status:
           type: string
           example: example_value
+    CreateServiceRequest:
+      type: object
+      required:
+      - type
+      - port
+      properties:
+        type:
+          type: string
+          enum:
+          - AdminServer
+          - DistributionServer
+          - ReceiverServer
+          - PerformanceMetricsServer
+          example: AdminServer
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
     ServiceSummary:
       type: object
       properties:
@@ -313,9 +305,32 @@ components:
         port:
           type: integer
           example: 10
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -326,27 +341,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    serviceParam:
-      name: service
-      in: path
-      required: true
-      description: Name of the service within a deployment
-      schema:
-        type: string
-    deploymentParam:
-      name: deployment
-      in: path
-      required: true
-      description: Name of the GoldenGate deployment
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http

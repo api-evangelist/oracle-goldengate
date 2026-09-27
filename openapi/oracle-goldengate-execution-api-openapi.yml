@@ -109,14 +109,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    RunJobRequest:
       type: object
       properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
+        profileOverrides:
+          type: object
+          additionalProperties: true
           example: example_value
     JobExecution:
       type: object
@@ -145,16 +143,35 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    RunJobRequest:
+    ErrorResponse:
       type: object
       properties:
-        profileOverrides:
-          type: object
-          additionalProperties: true
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
           example: example_value
+  parameters:
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
+      schema:
+        type: integer
+        format: int64
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -165,29 +182,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    jobIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Job identifier
-      schema:
-        type: integer
-        format: int64
-    runIdParam:
-      name: runId
-      in: path
-      required: true
-      description: Job or repair run identifier
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     basicAuth:
       type: http

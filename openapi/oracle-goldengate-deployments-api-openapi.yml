@@ -596,7 +596,7 @@ paths:
           - sa-saopaulo-1
   /services/v2/deployments:
     get:
-      operationId: listDeployments
+      operationId: getServicesV2Deployments
       summary: Oracle Goldengate List All Deployments
       description: Returns a list of all GoldenGate deployments managed by the Service Manager.
       tags:
@@ -624,6 +624,8 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: listDeployments
     servers:
     - url: https://{goldengate-host}:{port}
       description: Oracle GoldenGate Microservices server
@@ -636,7 +638,7 @@ paths:
           description: HTTPS port for the service
   /services/v2/deployments/{deployment}:
     get:
-      operationId: getDeployment
+      operationId: getServicesV2DeploymentsByDeployment
       summary: Oracle Goldengate Retrieve a Deployment
       description: Returns the configuration details of a specific GoldenGate deployment.
       tags:
@@ -675,8 +677,10 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getDeployment
     post:
-      operationId: createDeployment
+      operationId: postServicesV2DeploymentsByDeployment
       summary: Oracle Goldengate Create a Deployment
       description: Creates a new GoldenGate deployment with the specified configuration.
       tags:
@@ -732,8 +736,10 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createDeployment
     patch:
-      operationId: updateDeployment
+      operationId: patchServicesV2DeploymentsByDeployment
       summary: Oracle Goldengate Update a Deployment
       description: Updates configuration properties of an existing GoldenGate deployment.
       tags:
@@ -788,8 +794,10 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateDeployment
     delete:
-      operationId: deleteDeployment
+      operationId: deleteServicesV2DeploymentsByDeployment
       summary: Oracle Goldengate Remove a Deployment
       description: Removes a GoldenGate deployment and its associated services.
       tags:
@@ -808,6 +816,8 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteDeployment
     servers:
     - url: https://{goldengate-host}:{port}
       description: Oracle GoldenGate Microservices server
@@ -819,196 +829,7 @@ paths:
           default: '443'
           description: HTTPS port for the service
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Conflict:
-      description: Resource already exists
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    CreateDeploymentDetails:
-      type: object
-      required:
-      - displayName
-      - compartmentId
-      - subnetId
-      - licenseModel
-      - cpuCoreCount
-      - isAutoScalingEnabled
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
-        subnetId:
-          type: string
-          example: '500123'
-        licenseModel:
-          type: string
-          enum:
-          - LICENSE_INCLUDED
-          - BRING_YOUR_OWN_LICENSE
-          example: LICENSE_INCLUDED
-        fqdn:
-          type: string
-          example: example_value
-        cpuCoreCount:
-          type: integer
-          example: 10
-        isAutoScalingEnabled:
-          type: boolean
-          example: true
-        isPublic:
-          type: boolean
-          example: true
-        oggData:
-          type: object
-          required:
-          - deploymentName
-          - adminUsername
-          - adminPassword
-          properties:
-            deploymentName:
-              type: string
-            adminUsername:
-              type: string
-            adminPassword:
-              type: string
-              format: password
-          example: example_value
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        definedTags:
-          type: object
-          additionalProperties:
-            type: object
-          example: example_value
-    CollectDiagnosticsDetails:
-      type: object
-      required:
-      - namespaceName
-      - bucketName
-      - diagnosticNamePrefix
-      properties:
-        namespaceName:
-          type: string
-          example: example_value
-        bucketName:
-          type: string
-          example: example_value
-        diagnosticNamePrefix:
-          type: string
-          example: example_value
-    UpdateDeploymentDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        fqdn:
-          type: string
-          example: example_value
-        cpuCoreCount:
-          type: integer
-          example: 10
-        isAutoScalingEnabled:
-          type: boolean
-          example: true
-        isPublic:
-          type: boolean
-          example: true
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-    DeploymentCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentSummary'
-          example: []
-    ChangeCompartmentDetails:
-      type: object
-      required:
-      - compartmentId
-      properties:
-        compartmentId:
-          type: string
-          example: '500123'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-    UpgradeDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - CURRENT_RELEASE
-          - SPECIFIC_RELEASE
-          example: CURRENT_RELEASE
-        oggVersion:
-          type: string
-          example: example_value
     Deployment:
       type: object
       properties:
@@ -1101,6 +922,137 @@ components:
           additionalProperties:
             type: object
           example: example_value
+    CollectDiagnosticsDetails:
+      type: object
+      required:
+      - namespaceName
+      - bucketName
+      - diagnosticNamePrefix
+      properties:
+        namespaceName:
+          type: string
+          example: example_value
+        bucketName:
+          type: string
+          example: example_value
+        diagnosticNamePrefix:
+          type: string
+          example: example_value
+    StopDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    UpdateDeploymentDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    CreateDeploymentDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - subnetId
+      - licenseModel
+      - cpuCoreCount
+      - isAutoScalingEnabled
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        subnetId:
+          type: string
+          example: '500123'
+        licenseModel:
+          type: string
+          enum:
+          - LICENSE_INCLUDED
+          - BRING_YOUR_OWN_LICENSE
+          example: LICENSE_INCLUDED
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        oggData:
+          type: object
+          required:
+          - deploymentName
+          - adminUsername
+          - adminPassword
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            adminPassword:
+              type: string
+              format: password
+          example: example_value
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+          example: example_value
+    UpgradeDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - CURRENT_RELEASE
+          - SPECIFIC_RELEASE
+          example: CURRENT_RELEASE
+        oggVersion:
+          type: string
+          example: example_value
     DeploymentSummary:
       type: object
       properties:
@@ -1135,31 +1087,39 @@ components:
           enum:
           - DEFAULT
           example: DEFAULT
-    StopDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - DEFAULT
-          example: DEFAULT
-    ErrorResponse:
+    Error:
       type: object
       properties:
         code:
-          type: integer
-          description: HTTP status code
-          example: 10
+          type: string
+          example: example_value
         message:
           type: string
-          description: Error message
           example: example_value
-        severity:
+    ChangeCompartmentDetails:
+      type: object
+      required:
+      - compartmentId
+      properties:
+        compartmentId:
           type: string
-          description: Error severity level
-          example: example_value
+          example: '500123'
+    DeploymentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary'
+          example: []
+    DeploymentList:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary_2'
+          example: []
     Deployment_2:
       type: object
       properties:
@@ -1197,18 +1157,6 @@ components:
           items:
             $ref: '#/components/schemas/ServiceSummary'
           example: []
-    DeploymentSummary_2:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
     UpdateDeploymentRequest:
       type: object
       properties:
@@ -1223,6 +1171,18 @@ components:
         autoStart:
           type: boolean
           example: true
+    DeploymentSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
     CreateDeploymentRequest:
       type: object
       required:
@@ -1259,67 +1219,26 @@ components:
         port:
           type: integer
           example: 10
-    DeploymentList:
+    ErrorResponse:
       type: object
       properties:
-        deployments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentSummary_2'
-          example: []
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   parameters:
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    sortByParam:
-      name: sortBy
-      in: query
-      schema:
-        type: string
-        enum:
-        - timeCreated
-        - displayName
-    sortOrderParam:
-      name: sortOrder
-      in: query
-      schema:
-        type: string
-        enum:
-        - ASC
-        - DESC
-    opcRetryTokenParam:
-      name: opc-retry-token
-      in: header
-      description: Idempotent retry token
-      schema:
-        type: string
     opcRequestIdParam:
       name: opc-request-id
       in: header
       description: Unique request identifier
-      schema:
-        type: string
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    displayNameParam:
-      name: displayName
-      in: query
-      description: Filter by display name
       schema:
         type: string
     lifecycleStateParam:
@@ -1340,6 +1259,26 @@ components:
         - CANCELING
         - CANCELED
         - SUCCEEDED
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -1349,10 +1288,38 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    ifMatchParam:
-      name: if-match
+    displayNameParam:
+      name: displayName
+      in: query
+      description: Filter by display name
+      schema:
+        type: string
+    sortByParam:
+      name: sortBy
+      in: query
+      schema:
+        type: string
+        enum:
+        - timeCreated
+        - displayName
+    sortOrderParam:
+      name: sortOrder
+      in: query
+      schema:
+        type: string
+        enum:
+        - ASC
+        - DESC
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    opcRetryTokenParam:
+      name: opc-retry-token
       in: header
-      description: ETag for optimistic concurrency control
+      description: Idempotent retry token
       schema:
         type: string
     deploymentParam:
@@ -1362,6 +1329,49 @@ components:
       description: Name of the GoldenGate deployment
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ociSignature:
       type: http

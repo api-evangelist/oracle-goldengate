@@ -336,7 +336,7 @@ paths:
           - sa-saopaulo-1
   /services/v1/pipelines:
     get:
-      operationId: listPipelines
+      operationId: getServicesV1Pipelines
       summary: Oracle Goldengate List Pipelines
       description: Returns a list of all GGSA pipelines with their current status. Includes published and unpublished pipelines.
       tags:
@@ -371,6 +371,8 @@ paths:
         dispatcher: FALLBACK
       security:
       - basicAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: listPipelines
     servers:
     - url: https://{ggsa-host}:{port}/osa
       description: Oracle GoldenGate Stream Analytics server
@@ -583,7 +585,100 @@ paths:
           default: '9080'
           description: GGSA HTTP/S port
 components:
+  parameters:
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    pipelineIdParam:
+      name: pipelineId
+      in: path
+      required: true
+      description: The OCID of the pipeline
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    pipelineIdParam_2:
+      name: id
+      in: path
+      required: true
+      description: Pipeline identifier
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    PipelineSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     Pipeline:
       type: object
       properties:
@@ -624,6 +719,15 @@ components:
           items:
             $ref: '#/components/schemas/PipelineSummary'
           example: []
+    UpdatePipelineDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
     CreatePipelineDetails:
       type: object
       required:
@@ -645,40 +749,6 @@ components:
         targetConnectionDetailId:
           type: string
           example: '500123'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-    PipelineSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        displayName:
-          type: string
-          example: example_value
-        lifecycleState:
-          type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    UpdatePipelineDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
     PublishPipelineRequest:
       type: object
       properties:
@@ -688,15 +758,58 @@ components:
           additionalProperties:
             type: string
           example: example_value
-    ErrorResponse:
+    PipelineTarget:
       type: object
       properties:
-        code:
-          type: integer
-          example: 10
-        message:
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          description: Target type
+          enum:
+          - Kafka
+          - GoldenGate
+          - Database
+          - REST
+          - Elasticsearch
+          - ObjectStorage
+          example: Kafka
+        connectionName:
           type: string
           example: example_value
+    PipelineStage:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          enum:
+          - Query
+          - Pattern
+          - Rule
+          - ScoreModel
+          - Custom
+          example: Query
+        description:
+          type: string
+          example: A sample description.
+    PipelineList:
+      type: object
+      properties:
+        pipelines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline_2'
+          example: []
     Pipeline_2:
       type: object
       properties:
@@ -747,6 +860,29 @@ components:
           items:
             $ref: '#/components/schemas/PipelineStage'
           example: []
+    PipelineSource:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          description: Source type
+          enum:
+          - Kafka
+          - GoldenGate
+          - JMS
+          - REST
+          - CSV
+          - Database
+          example: Kafka
+        connectionName:
+          type: string
+          example: example_value
     PipelineExport:
       type: object
       description: Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)
@@ -786,149 +922,15 @@ components:
               path:
                 type: string
           example: []
-    PipelineList:
+    ErrorResponse:
       type: object
       properties:
-        pipelines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline_2'
-          example: []
-    PipelineStage:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          enum:
-          - Query
-          - Pattern
-          - Rule
-          - ScoreModel
-          - Custom
-          example: Query
-        description:
-          type: string
-          example: A sample description.
-    PipelineSource:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          description: Source type
-          enum:
-          - Kafka
-          - GoldenGate
-          - JMS
-          - REST
-          - CSV
-          - Database
-          example: Kafka
-        connectionName:
+        code:
+          type: integer
+          example: 10
+        message:
           type: string
           example: example_value
-    PipelineTarget:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          description: Target type
-          enum:
-          - Kafka
-          - GoldenGate
-          - Database
-          - REST
-          - Elasticsearch
-          - ObjectStorage
-          example: Kafka
-        connectionName:
-          type: string
-          example: example_value
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    pipelineIdParam:
-      name: pipelineId
-      in: path
-      required: true
-      description: The OCID of the pipeline
-      schema:
-        type: string
-    pipelineIdParam_2:
-      name: id
-      in: path
-      required: true
-      description: Pipeline identifier
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ociSignature:
       type: http

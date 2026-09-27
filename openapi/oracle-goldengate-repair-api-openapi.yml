@@ -188,87 +188,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    RepairedRowDetails:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              table:
-                type: string
-              repairType:
-                type: string
-              status:
-                type: string
-              keyValues:
-                type: object
-                additionalProperties: true
-          example: []
-    RepairJobRequest:
-      type: object
-      properties:
-        repairMode:
-          type: string
-          enum:
-          - insert
-          - update
-          - delete
-          - all
-          example: insert
-    RepairExecution:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - running
-          - completed
-          - stopped
-          - failed
-          example: running
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    RepairStatisticsList:
-      type: object
-      properties:
-        statistics:
-          type: array
-          items:
-            type: object
-            properties:
-              runId:
-                type: integer
-                format: int64
-              status:
-                type: string
-              rowsRepaired:
-                type: integer
-                format: int64
-              rowsFailed:
-                type: integer
-                format: int64
-          example: []
     RepairReport:
       type: object
       properties:
@@ -296,19 +215,87 @@ components:
           type: integer
           format: int64
           example: 10
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    RepairedRowDetails:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              table:
+                type: string
+              repairType:
+                type: string
+              status:
+                type: string
+              keyValues:
+                type: object
+                additionalProperties: true
+          example: []
+    RepairExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    RepairJobRequest:
+      type: object
+      properties:
+        repairMode:
+          type: string
+          enum:
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
+    RepairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              status:
+                type: string
+              rowsRepaired:
+                type: integer
+                format: int64
+              rowsFailed:
+                type: integer
+                format: int64
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   parameters:
     runIdParam:
       name: runId
@@ -318,6 +305,19 @@ components:
       schema:
         type: integer
         format: int64
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
