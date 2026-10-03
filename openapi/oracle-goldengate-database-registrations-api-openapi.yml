@@ -234,6 +234,21 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
     ifMatchParam:
       name: if-match
       in: header
@@ -247,53 +262,8 @@ components:
       description: The OCID of the compartment
       schema:
         type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
   schemas:
-    DatabaseRegistrationCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseRegistrationSummary'
-          example: []
-    UpdateDatabaseRegistrationDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        fqdn:
-          type: string
-          example: example_value
-        username:
-          type: string
-          example: example_value
-        password:
-          type: string
-          format: password
-          example: example_value
-        connectionString:
-          type: string
-          example: example_value
-    DatabaseRegistration:
+    DatabaseRegistrationSummary:
       type: object
       properties:
         id:
@@ -302,38 +272,10 @@ components:
         displayName:
           type: string
           example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
         databaseId:
           type: string
           example: '500123'
-        connectionString:
-          type: string
-          example: example_value
-        username:
-          type: string
-          example: example_value
-        fqdn:
-          type: string
-          example: example_value
         lifecycleState:
-          type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
           type: string
           example: example_value
     CreateDatabaseRegistrationDetails:
@@ -371,7 +313,24 @@ components:
         databaseId:
           type: string
           example: '500123'
-    DatabaseRegistrationSummary:
+    DatabaseRegistrationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseRegistrationSummary'
+          example: []
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    DatabaseRegistration:
       type: object
       properties:
         id:
@@ -380,10 +339,51 @@ components:
         displayName:
           type: string
           example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
         databaseId:
           type: string
           example: '500123'
+        connectionString:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        fqdn:
+          type: string
+          example: example_value
         lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    UpdateDatabaseRegistrationDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        fqdn:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        connectionString:
           type: string
           example: example_value
   responses:

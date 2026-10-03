@@ -211,13 +211,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    serviceParam:
-      name: service
-      in: path
-      required: true
-      description: Name of the service within a deployment
-      schema:
-        type: string
     deploymentParam:
       name: deployment
       in: path
@@ -225,7 +218,49 @@ components:
       description: Name of the GoldenGate deployment
       schema:
         type: string
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
+      schema:
+        type: string
   schemas:
+    UpdateServiceRequest:
+      type: object
+      properties:
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: example_value
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
     Service:
       type: object
       properties:
@@ -258,18 +293,6 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
-    UpdateServiceRequest:
-      type: object
-      properties:
-        port:
-          type: integer
-          example: 10
-        secure:
-          type: boolean
-          example: true
-        status:
-          type: string
-          example: example_value
     CreateServiceRequest:
       type: object
       required:
@@ -290,29 +313,6 @@ components:
         secure:
           type: boolean
           example: true
-    ServiceSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-    ServiceList:
-      type: object
-      properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -335,14 +335,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:

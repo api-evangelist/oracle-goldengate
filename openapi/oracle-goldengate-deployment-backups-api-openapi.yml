@@ -212,17 +212,10 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
+    pageParam:
+      name: page
       in: query
-      required: true
-      description: The OCID of the compartment
+      description: Pagination token
       schema:
         type: string
     limitParam:
@@ -234,17 +227,24 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
     deploymentBackupIdParam:
       name: deploymentBackupId
       in: path
       required: true
       description: The OCID of the deployment backup
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
       schema:
         type: string
   schemas:
@@ -276,6 +276,42 @@ components:
         objectName:
           type: string
           example: example_value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    DeploymentBackupCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentBackupSummary'
+          example: []
+    DeploymentBackupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        deploymentId:
+          type: string
+          example: '500123'
+        displayName:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     RestoreDeploymentDetails:
       type: object
       required:
@@ -286,15 +322,6 @@ components:
           enum:
           - DEFAULT
           example: DEFAULT
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     DeploymentBackup:
       type: object
       properties:
@@ -324,33 +351,6 @@ components:
           - FULL
           example: INCREMENTAL
         oggVersion:
-          type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    DeploymentBackupCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentBackupSummary'
-          example: []
-    DeploymentBackupSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        deploymentId:
-          type: string
-          example: '500123'
-        displayName:
-          type: string
-          example: example_value
-        lifecycleState:
           type: string
           example: example_value
         timeCreated:

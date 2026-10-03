@@ -105,31 +105,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    DataTargetTypeSchema:
-      type: object
-      description: JSON Schema describing the handler configuration properties
-      properties:
-        type:
-          type: string
-          example: example_value
-        properties:
-          type: object
-          additionalProperties: true
-          example: example_value
     DataTargetTypeList:
       type: object
       properties:
@@ -156,6 +132,30 @@ components:
         severity:
           type: string
           example: example_value
+    DataTargetTypeSchema:
+      type: object
+      description: JSON Schema describing the handler configuration properties
+      properties:
+        type:
+          type: string
+          example: example_value
+        properties:
+          type: object
+          additionalProperties: true
+          example: example_value
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

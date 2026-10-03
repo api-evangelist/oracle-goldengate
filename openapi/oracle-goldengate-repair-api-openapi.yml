@@ -187,7 +187,97 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
   schemas:
+    RepairJobRequest:
+      type: object
+      properties:
+        repairMode:
+          type: string
+          enum:
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
+    RepairedRowDetails:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              table:
+                type: string
+              repairType:
+                type: string
+              status:
+                type: string
+              keyValues:
+                type: object
+                additionalProperties: true
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    RepairStatisticsList:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: integer
+                format: int64
+              status:
+                type: string
+              rowsRepaired:
+                type: integer
+                format: int64
+              rowsFailed:
+                type: integer
+                format: int64
+          example: []
+    RepairExecution:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - stopped
+          - failed
+          example: running
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     RepairReport:
       type: object
       properties:
@@ -215,96 +305,6 @@ components:
           type: integer
           format: int64
           example: 10
-    RepairedRowDetails:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              table:
-                type: string
-              repairType:
-                type: string
-              status:
-                type: string
-              keyValues:
-                type: object
-                additionalProperties: true
-          example: []
-    RepairExecution:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - running
-          - completed
-          - stopped
-          - failed
-          example: running
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    RepairJobRequest:
-      type: object
-      properties:
-        repairMode:
-          type: string
-          enum:
-          - insert
-          - update
-          - delete
-          - all
-          example: insert
-    RepairStatisticsList:
-      type: object
-      properties:
-        statistics:
-          type: array
-          items:
-            type: object
-            properties:
-              runId:
-                type: integer
-                format: int64
-              status:
-                type: string
-              rowsRepaired:
-                type: integer
-                format: int64
-              rowsFailed:
-                type: integer
-                format: int64
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-  parameters:
-    runIdParam:
-      name: runId
-      in: path
-      required: true
-      description: Job or repair run identifier
-      schema:
-        type: integer
-        format: int64
   responses:
     NotFound:
       description: Resource not found

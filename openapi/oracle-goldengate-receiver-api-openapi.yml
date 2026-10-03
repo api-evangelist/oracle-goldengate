@@ -198,6 +198,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CollectorPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
     CollectorPathList:
       type: object
       properties:
@@ -206,6 +215,33 @@ components:
           items:
             $ref: '#/components/schemas/CollectorPathSummary'
           example: []
+    UpdateCollectorPathRequest:
+      type: object
+      properties:
+        trail:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        status:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
     CollectorPath:
       type: object
       properties:
@@ -226,27 +262,6 @@ components:
         port:
           type: integer
           example: 10
-    UpdateCollectorPathRequest:
-      type: object
-      properties:
-        trail:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-        status:
-          type: string
-          example: example_value
-    CollectorPathSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
     CreateCollectorPathRequest:
       type: object
       required:
@@ -258,30 +273,17 @@ components:
         port:
           type: integer
           example: 10
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
+  parameters:
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: Name of the collector/receiver path
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
@@ -292,14 +294,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: Name of the collector/receiver path
-      schema:
-        type: string
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

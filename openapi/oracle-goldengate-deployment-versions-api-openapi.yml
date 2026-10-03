@@ -68,14 +68,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
   schemas:
     DeploymentVersionCollection:
       type: object
@@ -97,6 +89,14 @@ components:
                 type: string
                 format: date-time
           example: []
+  parameters:
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
   securitySchemes:
     ociSignature:
       type: http

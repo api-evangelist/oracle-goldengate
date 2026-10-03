@@ -299,22 +299,15 @@ paths:
           description: HTTPS port for the service
 components:
   schemas:
-    DistributionPath:
+    DistributionPathList:
       type: object
       properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        source:
-          type: string
-          example: example_value
-        target:
-          type: string
-          example: example_value
-    DistributionPathSummary:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistributionPathSummary'
+          example: []
+    DistributionPath:
       type: object
       properties:
         name:
@@ -341,14 +334,6 @@ components:
         target:
           type: string
           example: example_value
-    DistributionPathList:
-      type: object
-      properties:
-        paths:
-          type: array
-          items:
-            $ref: '#/components/schemas/DistributionPathSummary'
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -361,18 +346,36 @@ components:
         severity:
           type: string
           example: example_value
-    UpdateDistributionPathRequest:
+    DistributionPathSummary:
       type: object
       properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
         source:
           type: string
           example: example_value
         target:
           type: string
           example: example_value
-        status:
-          type: string
-          example: example_value
+    ExtractTrailList:
+      type: object
+      properties:
+        extracts:
+          type: array
+          items:
+            type: object
+            properties:
+              extractName:
+                type: string
+              trail:
+                type: string
+              trailPath:
+                type: string
+          example: []
     DistributionPath_2:
       type: object
       properties:
@@ -403,38 +406,6 @@ components:
           type: string
           description: Filter rule name
           example: example_value
-    PathStatistics:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        bytesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        messagesProcessed:
-          type: integer
-          format: int64
-          example: 10
-        lag:
-          type: string
-          example: example_value
-    ExtractTrailList:
-      type: object
-      properties:
-        extracts:
-          type: array
-          items:
-            type: object
-            properties:
-              extractName:
-                type: string
-              trail:
-                type: string
-              trailPath:
-                type: string
-          example: []
     CreateDistributionPathRequest_2:
       type: object
       required:
@@ -468,15 +439,38 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    UpdateDistributionPathRequest:
+      type: object
+      properties:
+        source:
+          type: string
+          example: example_value
+        target:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+    PathStatistics:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        bytesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        messagesProcessed:
+          type: integer
+          format: int64
+          example: 10
+        lag:
+          type: string
+          example: example_value
   responses:
     NotFound:
       description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
       content:
         application/json:
           schema:
@@ -487,20 +481,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound_2:
       description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:

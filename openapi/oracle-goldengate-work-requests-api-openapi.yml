@@ -182,7 +182,96 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
   schemas:
+    WorkRequestSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        operationType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        percentComplete:
+          type: number
+          example: 42.5
+        timeAccepted:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    WorkRequestErrorCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    WorkRequestCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRequestSummary'
+          example: []
+    WorkRequestLogEntryCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
     WorkRequest:
       type: object
       properties:
@@ -231,72 +320,6 @@ components:
               entityUri:
                 type: string
           example: []
-    WorkRequestCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkRequestSummary'
-          example: []
-    WorkRequestErrorCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
-          example: []
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-    WorkRequestSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        operationType:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        percentComplete:
-          type: number
-          example: 42.5
-        timeAccepted:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    WorkRequestLogEntryCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
-          example: []
   responses:
     NotFound:
       description: Resource not found
@@ -304,29 +327,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
   securitySchemes:
     ociSignature:
       type: http

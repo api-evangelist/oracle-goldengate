@@ -269,6 +269,113 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    MappingObjectList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
+    ColumnMappingList:
+      type: object
+      properties:
+        mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnMapping'
+          example: []
+    ColumnMapping:
+      type: object
+      properties:
+        sourceColumn:
+          type: string
+          example: example_value
+        targetColumn:
+          type: string
+          example: example_value
+        dataType:
+          type: string
+          example: example_value
+    CreateComparePairsRequest:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            type: object
+            required:
+            - sourceSchema
+            - sourceTable
+            - targetSchema
+            - targetTable
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
+    MappingRulesRequest:
+      type: object
+      properties:
+        sourceSchemaPattern:
+          type: string
+          example: example_value
+        targetSchemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    ReplaceComparePairRequest:
+      type: object
+      properties:
+        sourceSchema:
+          type: string
+          example: example_value
+        sourceTable:
+          type: string
+          example: example_value
+        targetSchema:
+          type: string
+          example: example_value
+        targetTable:
+          type: string
+          example: example_value
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+    ComparePairList:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComparePair'
+          example: []
     ComparePair:
       type: object
       properties:
@@ -301,122 +408,26 @@ components:
           items:
             $ref: '#/components/schemas/ColumnMapping'
           example: []
-    ColumnMapping:
-      type: object
-      properties:
-        sourceColumn:
-          type: string
-          example: example_value
-        targetColumn:
-          type: string
-          example: example_value
-        dataType:
-          type: string
-          example: example_value
-    MappingRulesRequest:
-      type: object
-      properties:
-        sourceSchemaPattern:
-          type: string
-          example: example_value
-        targetSchemaPattern:
-          type: string
-          example: example_value
-        tablePattern:
-          type: string
-          example: example_value
-    ReplaceComparePairRequest:
-      type: object
-      properties:
-        sourceSchema:
-          type: string
-          example: example_value
-        sourceTable:
-          type: string
-          example: example_value
-        targetSchema:
-          type: string
-          example: example_value
-        targetTable:
-          type: string
-          example: example_value
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-    ColumnMappingList:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ColumnMapping'
-          example: []
-    CreateComparePairsRequest:
-      type: object
-      properties:
-        comparePairs:
-          type: array
-          items:
-            type: object
-            required:
-            - sourceSchema
-            - sourceTable
-            - targetSchema
-            - targetTable
-            properties:
-              sourceSchema:
-                type: string
-              sourceTable:
-                type: string
-              targetSchema:
-                type: string
-              targetTable:
-                type: string
-          example: []
-    MappingObjectList:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceSchema:
-                type: string
-              sourceTable:
-                type: string
-              targetSchema:
-                type: string
-              targetTable:
-                type: string
-          example: []
-    ComparePairList:
-      type: object
-      properties:
-        comparePairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComparePair'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
+  parameters:
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdPathParam:
+      name: groupId
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
   responses:
     NotFound:
       description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
       content:
         application/json:
           schema:
@@ -427,23 +438,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    groupIdPathParam:
-      name: groupId
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
-    comparePairIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare pair identifier
-      schema:
-        type: integer
-        format: int64
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

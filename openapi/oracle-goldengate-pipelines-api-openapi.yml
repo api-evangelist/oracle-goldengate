@@ -586,24 +586,10 @@ paths:
           description: GGSA HTTP/S port
 components:
   parameters:
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    pipelineIdParam:
-      name: pipelineId
-      in: path
-      required: true
-      description: The OCID of the pipeline
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
+    pageParam:
+      name: page
       in: query
-      required: true
-      description: The OCID of the compartment
+      description: Pagination token
       schema:
         type: string
     limitParam:
@@ -615,10 +601,24 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    pageParam:
-      name: page
+    pipelineIdParam:
+      name: pipelineId
+      in: path
+      required: true
+      description: The OCID of the pipeline
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
       in: query
-      description: Pagination token
+      required: true
+      description: The OCID of the compartment
       schema:
         type: string
     pipelineIdParam_2:
@@ -628,41 +628,7 @@ components:
       description: Pipeline identifier
       schema:
         type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound_2:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     PipelineSummary:
       type: object
       properties:
@@ -679,6 +645,45 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    CreatePipelineDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        sourceConnectionDetailId:
+          type: string
+          example: '500123'
+        targetConnectionDetailId:
+          type: string
+          example: '500123'
+    UpdatePipelineDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     Pipeline:
       type: object
       properties:
@@ -719,45 +724,66 @@ components:
           items:
             $ref: '#/components/schemas/PipelineSummary'
           example: []
-    UpdatePipelineDetails:
+    PipelineExport:
+      type: object
+      description: Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)
+      properties:
+        pipeline:
+          $ref: '#/components/schemas/Pipeline_2'
+        connections:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              configuration:
+                type: object
+                additionalProperties: true
+          example: []
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+          example: []
+        customJars:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              path:
+                type: string
+          example: []
+    PipelineStage:
       type: object
       properties:
-        displayName:
+        id:
           type: string
-          example: example_value
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          enum:
+          - Query
+          - Pattern
+          - Rule
+          - ScoreModel
+          - Custom
+          example: Query
         description:
           type: string
           example: A sample description.
-    CreatePipelineDetails:
-      type: object
-      required:
-      - displayName
-      - compartmentId
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
-        sourceConnectionDetailId:
-          type: string
-          example: '500123'
-        targetConnectionDetailId:
-          type: string
-          example: '500123'
-    PublishPipelineRequest:
-      type: object
-      properties:
-        sparkConfig:
-          type: object
-          description: Optional Spark configuration overrides
-          additionalProperties:
-            type: string
-          example: example_value
     PipelineTarget:
       type: object
       properties:
@@ -781,7 +807,7 @@ components:
         connectionName:
           type: string
           example: example_value
-    PipelineStage:
+    PipelineSource:
       type: object
       properties:
         id:
@@ -792,24 +818,18 @@ components:
           example: Example Title
         type:
           type: string
+          description: Source type
           enum:
-          - Query
-          - Pattern
-          - Rule
-          - ScoreModel
-          - Custom
-          example: Query
-        description:
+          - Kafka
+          - GoldenGate
+          - JMS
+          - REST
+          - CSV
+          - Database
+          example: Kafka
+        connectionName:
           type: string
-          example: A sample description.
-    PipelineList:
-      type: object
-      properties:
-        pipelines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline_2'
-          example: []
+          example: example_value
     Pipeline_2:
       type: object
       properties:
@@ -860,68 +880,6 @@ components:
           items:
             $ref: '#/components/schemas/PipelineStage'
           example: []
-    PipelineSource:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          description: Source type
-          enum:
-          - Kafka
-          - GoldenGate
-          - JMS
-          - REST
-          - CSV
-          - Database
-          example: Kafka
-        connectionName:
-          type: string
-          example: example_value
-    PipelineExport:
-      type: object
-      description: Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)
-      properties:
-        pipeline:
-          $ref: '#/components/schemas/Pipeline_2'
-        connections:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-              configuration:
-                type: object
-                additionalProperties: true
-          example: []
-        references:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-          example: []
-        customJars:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              path:
-                type: string
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -931,6 +889,48 @@ components:
         message:
           type: string
           example: example_value
+    PipelineList:
+      type: object
+      properties:
+        pipelines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline_2'
+          example: []
+    PublishPipelineRequest:
+      type: object
+      properties:
+        sparkConfig:
+          type: object
+          description: Optional Spark configuration overrides
+          additionalProperties:
+            type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound_2:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ociSignature:
       type: http

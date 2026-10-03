@@ -1070,136 +1070,7 @@ paths:
           default: '8830'
           description: Veridata HTTPS port
 components:
-  parameters:
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    connectionIdParam:
-      name: connectionId
-      in: path
-      required: true
-      description: The OCID of the connection
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    connectionParam:
-      name: connection
-      in: path
-      required: true
-      description: Name of the database connection
-      schema:
-        type: string
-    connectionIdParam_2:
-      name: Id
-      in: path
-      required: true
-      description: Connection identifier
-      schema:
-        type: integer
-        format: int64
   schemas:
-    CreateConnectionDetails:
-      type: object
-      required:
-      - displayName
-      - compartmentId
-      - connectionType
-      - technologyType
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
-        connectionType:
-          type: string
-          example: example_value
-        technologyType:
-          type: string
-          example: example_value
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-    ConnectionCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionSummary'
-          example: []
-    ConnectionSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        displayName:
-          type: string
-          example: example_value
-        connectionType:
-          type: string
-          example: example_value
-        lifecycleState:
-          type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    UpdateConnectionDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     Connection:
       type: object
       properties:
@@ -1260,13 +1131,166 @@ components:
           additionalProperties:
             type: string
           example: example_value
-    DatabaseNameList:
+    UpdateConnectionDetails:
       type: object
       properties:
-        databases:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    CreateConnectionDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - connectionType
+      - technologyType
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        connectionType:
+          type: string
+          example: example_value
+        technologyType:
+          type: string
+          example: example_value
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+    ConnectionSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        connectionType:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ConnectionCollection:
+      type: object
+      properties:
+        items:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ConnectionSummary'
+          example: []
+    TrandataRequest:
+      type: object
+      required:
+      - operation
+      properties:
+        operation:
+          type: string
+          enum:
+          - add
+          - delete
+          - info
+          example: add
+        name:
+          type: string
+          description: Table or schema name
+          example: Example Title
+    TableList:
+      type: object
+      properties:
+        tables:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              owner:
+                type: string
+          example: []
+    TrandataResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    CreateConnectionRequest:
+      type: object
+      required:
+      - credentials
+      properties:
+        type:
+          type: string
+          example: example_value
+        connectionString:
+          type: string
+          example: example_value
+        credentials:
+          type: object
+          required:
+          - domain
+          - alias
+          properties:
+            domain:
+              type: string
+            alias:
+              type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ConnectionList:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseConnection'
           example: []
     DatabaseConnection:
       type: object
@@ -1291,135 +1315,13 @@ components:
             alias:
               type: string
           example: example_value
-    TableList:
+    DatabaseNameList:
       type: object
       properties:
-        tables:
+        databases:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              owner:
-                type: string
-          example: []
-    ConnectionList:
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseConnection'
-          example: []
-    CreateConnectionRequest:
-      type: object
-      required:
-      - credentials
-      properties:
-        type:
-          type: string
-          example: example_value
-        connectionString:
-          type: string
-          example: example_value
-        credentials:
-          type: object
-          required:
-          - domain
-          - alias
-          properties:
-            domain:
-              type: string
-            alias:
-              type: string
-          example: example_value
-    TrandataRequest:
-      type: object
-      required:
-      - operation
-      properties:
-        operation:
-          type: string
-          enum:
-          - add
-          - delete
-          - info
-          example: add
-        name:
-          type: string
-          description: Table or schema name
-          example: Example Title
-    TrandataResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    UpdateConnectionRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        host:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-        username:
-          type: string
-          example: example_value
-        password:
-          type: string
-          format: password
-          example: example_value
-    ConnectionStatus:
-      type: object
-      properties:
-        connectionId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - connected
-          - disconnected
-          - error
-          example: connected
-        message:
-          type: string
-          example: example_value
-    ConnectionList_2:
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection_2'
+            type: string
           example: []
     Connection_2:
       type: object
@@ -1463,6 +1365,45 @@ components:
         agentPort:
           type: integer
           example: 10
+    UpdateConnectionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+    ConnectionStatus:
+      type: object
+      properties:
+        connectionId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - connected
+          - disconnected
+          - error
+          example: connected
+        message:
+          type: string
+          example: example_value
     CreateConnectionRequest_2:
       type: object
       required:
@@ -1536,15 +1477,6 @@ components:
                           primaryKey:
                             type: boolean
           example: []
-    MetadataRequest:
-      type: object
-      properties:
-        schemaPattern:
-          type: string
-          example: example_value
-        tablePattern:
-          type: string
-          example: example_value
     ErrorResponse_2:
       type: object
       properties:
@@ -1554,6 +1486,74 @@ components:
         message:
           type: string
           example: example_value
+    ConnectionList_2:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection_2'
+          example: []
+    MetadataRequest:
+      type: object
+      properties:
+        schemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    connectionIdParam:
+      name: connectionId
+      in: path
+      required: true
+      description: The OCID of the connection
+      schema:
+        type: string
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
+    connectionIdParam_2:
+      name: Id
+      in: path
+      required: true
+      description: Connection identifier
+      schema:
+        type: integer
+        format: int64
   responses:
     NotFound:
       description: Resource not found
@@ -1573,14 +1573,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:

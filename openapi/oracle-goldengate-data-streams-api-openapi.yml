@@ -270,6 +270,14 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    streamnameParam:
+      name: streamname
+      in: path
+      required: true
+      description: Name of the data stream resource
+      schema:
+        type: string
   schemas:
     CreateDataStreamRequest:
       type: object
@@ -338,6 +346,68 @@ components:
           items:
             $ref: '#/components/schemas/DataStreamSummary'
           example: []
+    DataStreamSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Data stream name
+          example: Example Title
+        status:
+          type: string
+          description: Stream status
+          example: example_value
+        source:
+          type: string
+          description: Source trail or extract
+          example: example_value
+    UpdateDataStreamRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        target:
+          type: object
+          properties:
+            type:
+              type: string
+            uri:
+              type: string
+            topicName:
+              type: string
+            format:
+              type: string
+          example: example_value
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              schema:
+                type: string
+              table:
+                type: string
+              operations:
+                type: array
+                items:
+                  type: string
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
     DataStream:
       type: object
       properties:
@@ -432,83 +502,9 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    DataStreamSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Data stream name
-          example: Example Title
-        status:
-          type: string
-          description: Stream status
-          example: example_value
-        source:
-          type: string
-          description: Source trail or extract
-          example: example_value
-    UpdateDataStreamRequest:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          example: active
-        target:
-          type: object
-          properties:
-            type:
-              type: string
-            uri:
-              type: string
-            topicName:
-              type: string
-            format:
-              type: string
-          example: example_value
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              schema:
-                type: string
-              table:
-                type: string
-              operations:
-                type: array
-                items:
-                  type: string
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
   responses:
-    Conflict:
-      description: Resource already exists
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
       content:
         application/json:
           schema:
@@ -519,14 +515,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    streamnameParam:
-      name: streamname
-      in: path
-      required: true
-      description: Name of the data stream resource
-      schema:
-        type: string
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

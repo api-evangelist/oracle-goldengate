@@ -189,23 +189,10 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
     pageParam:
       name: page
       in: query
       description: Pagination token
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
       schema:
         type: string
     limitParam:
@@ -217,7 +204,40 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
   schemas:
+    ConnectionAssignmentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+          example: []
+    CreateConnectionAssignmentDetails:
+      type: object
+      required:
+      - connectionId
+      - deploymentId
+      properties:
+        connectionId:
+          type: string
+          example: '500123'
+        deploymentId:
+          type: string
+          example: '500123'
     ConnectionAssignmentSummary:
       type: object
       properties:
@@ -242,18 +262,6 @@ components:
         message:
           type: string
           example: example_value
-    CreateConnectionAssignmentDetails:
-      type: object
-      required:
-      - connectionId
-      - deploymentId
-      properties:
-        connectionId:
-          type: string
-          example: '500123'
-        deploymentId:
-          type: string
-          example: '500123'
     ConnectionAssignment:
       type: object
       properties:
@@ -280,14 +288,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    ConnectionAssignmentCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionAssignmentSummary'
-          example: []
   responses:
     NotFound:
       description: Resource not found

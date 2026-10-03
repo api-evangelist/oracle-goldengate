@@ -830,115 +830,15 @@ paths:
           description: HTTPS port for the service
 components:
   schemas:
-    Deployment:
+    ChangeCompartmentDetails:
       type: object
+      required:
+      - compartmentId
       properties:
-        id:
-          type: string
-          description: OCID of the deployment
-          example: abc123
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
         compartmentId:
           type: string
           example: '500123'
-        subnetId:
-          type: string
-          example: '500123'
-        licenseModel:
-          type: string
-          enum:
-          - LICENSE_INCLUDED
-          - BRING_YOUR_OWN_LICENSE
-          example: LICENSE_INCLUDED
-        fqdn:
-          type: string
-          example: example_value
-        cpuCoreCount:
-          type: integer
-          example: 10
-        isAutoScalingEnabled:
-          type: boolean
-          example: true
-        isPublic:
-          type: boolean
-          example: true
-        publicIpAddress:
-          type: string
-          example: example_value
-        privateIpAddress:
-          type: string
-          example: example_value
-        deploymentUrl:
-          type: string
-          example: https://www.example.com
-        lifecycleState:
-          type: string
-          enum:
-          - CREATING
-          - UPDATING
-          - ACTIVE
-          - INACTIVE
-          - DELETING
-          - DELETED
-          - FAILED
-          - NEEDS_ATTENTION
-          - IN_PROGRESS
-          - CANCELING
-          - CANCELED
-          - SUCCEEDED
-          example: CREATING
-        oggData:
-          type: object
-          properties:
-            deploymentName:
-              type: string
-            adminUsername:
-              type: string
-            oggVersion:
-              type: string
-            certificate:
-              type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        timeUpdated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        definedTags:
-          type: object
-          additionalProperties:
-            type: object
-          example: example_value
-    CollectDiagnosticsDetails:
-      type: object
-      required:
-      - namespaceName
-      - bucketName
-      - diagnosticNamePrefix
-      properties:
-        namespaceName:
-          type: string
-          example: example_value
-        bucketName:
-          type: string
-          example: example_value
-        diagnosticNamePrefix:
-          type: string
-          example: example_value
-    StopDeploymentDetails:
+    StartDeploymentDetails:
       type: object
       required:
       - type
@@ -948,6 +848,30 @@ components:
           enum:
           - DEFAULT
           example: DEFAULT
+    DeploymentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OCID of the deployment
+          example: abc123
+        displayName:
+          type: string
+          example: example_value
+        compartmentId:
+          type: string
+          example: '500123'
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        timeUpdated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     UpdateDeploymentDetails:
       type: object
       properties:
@@ -1053,7 +977,23 @@ components:
         oggVersion:
           type: string
           example: example_value
-    DeploymentSummary:
+    CollectDiagnosticsDetails:
+      type: object
+      required:
+      - namespaceName
+      - bucketName
+      - diagnosticNamePrefix
+      properties:
+        namespaceName:
+          type: string
+          example: example_value
+        bucketName:
+          type: string
+          example: example_value
+        diagnosticNamePrefix:
+          type: string
+          example: example_value
+    Deployment:
       type: object
       properties:
         id:
@@ -1063,11 +1003,69 @@ components:
         displayName:
           type: string
           example: example_value
+        description:
+          type: string
+          example: A sample description.
         compartmentId:
           type: string
           example: '500123'
+        subnetId:
+          type: string
+          example: '500123'
+        licenseModel:
+          type: string
+          enum:
+          - LICENSE_INCLUDED
+          - BRING_YOUR_OWN_LICENSE
+          example: LICENSE_INCLUDED
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        publicIpAddress:
+          type: string
+          example: example_value
+        privateIpAddress:
+          type: string
+          example: example_value
+        deploymentUrl:
+          type: string
+          example: https://www.example.com
         lifecycleState:
           type: string
+          enum:
+          - CREATING
+          - UPDATING
+          - ACTIVE
+          - INACTIVE
+          - DELETING
+          - DELETED
+          - FAILED
+          - NEEDS_ATTENTION
+          - IN_PROGRESS
+          - CANCELING
+          - CANCELED
+          - SUCCEEDED
+          example: CREATING
+        oggData:
+          type: object
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            oggVersion:
+              type: string
+            certificate:
+              type: string
           example: example_value
         timeCreated:
           type: string
@@ -1077,16 +1075,16 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    StartDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - DEFAULT
-          example: DEFAULT
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+          example: example_value
     Error:
       type: object
       properties:
@@ -1096,14 +1094,16 @@ components:
         message:
           type: string
           example: example_value
-    ChangeCompartmentDetails:
+    StopDeploymentDetails:
       type: object
       required:
-      - compartmentId
+      - type
       properties:
-        compartmentId:
+        type:
           type: string
-          example: '500123'
+          enum:
+          - DEFAULT
+          example: DEFAULT
     DeploymentCollection:
       type: object
       properties:
@@ -1120,6 +1120,56 @@ components:
           items:
             $ref: '#/components/schemas/DeploymentSummary_2'
           example: []
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    CreateDeploymentRequest:
+      type: object
+      required:
+      - oggHome
+      properties:
+        oggHome:
+          type: string
+          description: Oracle GoldenGate home directory path
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        autoStart:
+          type: boolean
+          description: Whether to automatically start the deployment
+          example: true
+    UpdateDeploymentRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        autoStart:
+          type: boolean
+          example: true
     Deployment_2:
       type: object
       properties:
@@ -1157,68 +1207,6 @@ components:
           items:
             $ref: '#/components/schemas/ServiceSummary'
           example: []
-    UpdateDeploymentRequest:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        environmentVariables:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        autoStart:
-          type: boolean
-          example: true
-    DeploymentSummary_2:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-    CreateDeploymentRequest:
-      type: object
-      required:
-      - oggHome
-      properties:
-        oggHome:
-          type: string
-          description: Oracle GoldenGate home directory path
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        environmentVariables:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        autoStart:
-          type: boolean
-          description: Whether to automatically start the deployment
-          example: true
-    ServiceSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -1234,13 +1222,19 @@ components:
           type: string
           description: Error severity level
           example: example_value
+    DeploymentSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
   parameters:
-    opcRequestIdParam:
-      name: opc-request-id
-      in: header
-      description: Unique request identifier
-      schema:
-        type: string
     lifecycleStateParam:
       name: lifecycleState
       in: query
@@ -1259,39 +1253,10 @@ components:
         - CANCELING
         - CANCELED
         - SUCCEEDED
-    ifMatchParam:
-      name: if-match
+    opcRetryTokenParam:
+      name: opc-retry-token
       in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    displayNameParam:
-      name: displayName
-      in: query
-      description: Filter by display name
+      description: Idempotent retry token
       schema:
         type: string
     sortByParam:
@@ -1302,6 +1267,25 @@ components:
         enum:
         - timeCreated
         - displayName
+    opcRequestIdParam:
+      name: opc-request-id
+      in: header
+      description: Unique request identifier
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
     sortOrderParam:
       name: sortOrder
       in: query
@@ -1310,16 +1294,32 @@ components:
         enum:
         - ASC
         - DESC
-    pageParam:
-      name: page
+    limitParam:
+      name: limit
       in: query
-      description: Pagination token
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
       schema:
         type: string
-    opcRetryTokenParam:
-      name: opc-retry-token
-      in: header
-      description: Idempotent retry token
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    displayNameParam:
+      name: displayName
+      in: query
+      description: Filter by display name
       schema:
         type: string
     deploymentParam:
@@ -1330,6 +1330,12 @@ components:
       schema:
         type: string
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication required
       content:
@@ -1342,32 +1348,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Resource already exists
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound_2:
       description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
