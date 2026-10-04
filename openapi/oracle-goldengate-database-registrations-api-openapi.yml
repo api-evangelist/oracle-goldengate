@@ -233,36 +233,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
   schemas:
+    DatabaseRegistrationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseRegistrationSummary'
+          example: []
     DatabaseRegistrationSummary:
       type: object
       properties:
@@ -276,58 +255,6 @@ components:
           type: string
           example: '500123'
         lifecycleState:
-          type: string
-          example: example_value
-    CreateDatabaseRegistrationDetails:
-      type: object
-      required:
-      - displayName
-      - compartmentId
-      - fqdn
-      - username
-      - password
-      - connectionString
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
-        fqdn:
-          type: string
-          example: example_value
-        username:
-          type: string
-          example: example_value
-        password:
-          type: string
-          format: password
-          example: example_value
-        connectionString:
-          type: string
-          example: example_value
-        databaseId:
-          type: string
-          example: '500123'
-    DatabaseRegistrationCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseRegistrationSummary'
-          example: []
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
           type: string
           example: example_value
     DatabaseRegistration:
@@ -364,6 +291,50 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    CreateDatabaseRegistrationDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - fqdn
+      - username
+      - password
+      - connectionString
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        fqdn:
+          type: string
+          example: example_value
+        username:
+          type: string
+          example: example_value
+        password:
+          type: string
+          format: password
+          example: example_value
+        connectionString:
+          type: string
+          example: example_value
+        databaseId:
+          type: string
+          example: '500123'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     UpdateDatabaseRegistrationDetails:
       type: object
       properties:
@@ -386,6 +357,35 @@ components:
         connectionString:
           type: string
           example: example_value
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
   responses:
     NotFound:
       description: Resource not found

@@ -204,12 +204,6 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
     compartmentIdParam:
       name: compartmentId
       in: query
@@ -217,15 +211,13 @@ components:
       description: The OCID of the compartment
       schema:
         type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
   schemas:
-    ConnectionAssignmentCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionAssignmentSummary'
-          example: []
     CreateConnectionAssignmentDetails:
       type: object
       required:
@@ -262,6 +254,14 @@ components:
         message:
           type: string
           example: example_value
+    ConnectionAssignmentCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionAssignmentSummary'
+          example: []
     ConnectionAssignment:
       type: object
       properties:

@@ -269,23 +269,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MappingObjectList:
+    ComparePairList:
       type: object
       properties:
-        mappings:
+        comparePairs:
           type: array
           items:
-            type: object
-            properties:
-              sourceSchema:
-                type: string
-              sourceTable:
-                type: string
-              targetSchema:
-                type: string
-              targetTable:
-                type: string
+            $ref: '#/components/schemas/ComparePair'
           example: []
+    MappingRulesRequest:
+      type: object
+      properties:
+        sourceSchemaPattern:
+          type: string
+          example: example_value
+        targetSchemaPattern:
+          type: string
+          example: example_value
+        tablePattern:
+          type: string
+          example: example_value
     ColumnMappingList:
       type: object
       properties:
@@ -306,18 +309,13 @@ components:
         dataType:
           type: string
           example: example_value
-    CreateComparePairsRequest:
+    MappingObjectList:
       type: object
       properties:
-        comparePairs:
+        mappings:
           type: array
           items:
             type: object
-            required:
-            - sourceSchema
-            - sourceTable
-            - targetSchema
-            - targetTable
             properties:
               sourceSchema:
                 type: string
@@ -328,27 +326,6 @@ components:
               targetTable:
                 type: string
           example: []
-    MappingRulesRequest:
-      type: object
-      properties:
-        sourceSchemaPattern:
-          type: string
-          example: example_value
-        targetSchemaPattern:
-          type: string
-          example: example_value
-        tablePattern:
-          type: string
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
     ReplaceComparePairRequest:
       type: object
       properties:
@@ -368,14 +345,6 @@ components:
           type: integer
           format: int64
           example: '500123'
-    ComparePairList:
-      type: object
-      properties:
-        comparePairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComparePair'
-          example: []
     ComparePair:
       type: object
       properties:
@@ -408,32 +377,46 @@ components:
           items:
             $ref: '#/components/schemas/ColumnMapping'
           example: []
-  parameters:
-    comparePairIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare pair identifier
-      schema:
-        type: integer
-        format: int64
-    groupIdPathParam:
-      name: groupId
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
+    CreateComparePairsRequest:
+      type: object
+      properties:
+        comparePairs:
+          type: array
+          items:
+            type: object
+            required:
+            - sourceSchema
+            - sourceTable
+            - targetSchema
+            - targetTable
+            properties:
+              sourceSchema:
+                type: string
+              sourceTable:
+                type: string
+              targetSchema:
+                type: string
+              targetTable:
+                type: string
+          example: []
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -444,6 +427,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    groupIdPathParam:
+      name: groupId
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     basicAuth:
       type: http

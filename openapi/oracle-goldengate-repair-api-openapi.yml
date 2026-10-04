@@ -187,58 +187,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    runIdParam:
-      name: runId
-      in: path
-      required: true
-      description: Job or repair run identifier
-      schema:
-        type: integer
-        format: int64
   schemas:
-    RepairJobRequest:
-      type: object
-      properties:
-        repairMode:
-          type: string
-          enum:
-          - insert
-          - update
-          - delete
-          - all
-          example: insert
-    RepairedRowDetails:
-      type: object
-      properties:
-        runId:
-          type: integer
-          format: int64
-          example: '500123'
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              table:
-                type: string
-              repairType:
-                type: string
-              status:
-                type: string
-              keyValues:
-                type: object
-                additionalProperties: true
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
     RepairStatisticsList:
       type: object
       properties:
@@ -305,6 +254,48 @@ components:
           type: integer
           format: int64
           example: 10
+    RepairedRowDetails:
+      type: object
+      properties:
+        runId:
+          type: integer
+          format: int64
+          example: '500123'
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              table:
+                type: string
+              repairType:
+                type: string
+              status:
+                type: string
+              keyValues:
+                type: object
+                additionalProperties: true
+          example: []
+    RepairJobRequest:
+      type: object
+      properties:
+        repairMode:
+          type: string
+          enum:
+          - insert
+          - update
+          - delete
+          - all
+          example: insert
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   responses:
     NotFound:
       description: Resource not found
@@ -318,6 +309,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    runIdParam:
+      name: runId
+      in: path
+      required: true
+      description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
   securitySchemes:
     basicAuth:
       type: http

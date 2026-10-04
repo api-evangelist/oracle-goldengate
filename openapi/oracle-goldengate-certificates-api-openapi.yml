@@ -293,42 +293,7 @@ paths:
           default: '443'
           description: HTTPS port for the service
 components:
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
   schemas:
-    CreateCertificateDetails:
-      type: object
-      required:
-      - key
-      - certificateContent
-      properties:
-        key:
-          type: string
-          example: example_value
-        certificateContent:
-          type: string
-          example: example_value
     Certificate:
       type: object
       properties:
@@ -382,6 +347,18 @@ components:
           items:
             $ref: '#/components/schemas/CertificateSummary'
           example: []
+    CreateCertificateDetails:
+      type: object
+      required:
+      - key
+      - certificateContent
+      properties:
+        key:
+          type: string
+          example: example_value
+        certificateContent:
+          type: string
+          example: example_value
     CertificateSummary:
       type: object
       properties:
@@ -398,29 +375,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CertificateNameList:
-      type: object
-      properties:
-        certificates:
-          type: array
-          items:
-            type: string
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
     Certificate_2:
       type: object
       properties:
@@ -444,6 +398,14 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    CertificateNameList:
+      type: object
+      properties:
+        certificates:
+          type: array
+          items:
+            type: string
+          example: []
     CertificateTypeList:
       type: object
       properties:
@@ -452,6 +414,44 @@ components:
           items:
             type: string
           example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+  parameters:
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
   responses:
     NotFound:
       description: The requested resource was not found

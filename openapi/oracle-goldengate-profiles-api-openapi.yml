@@ -246,7 +246,63 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    profileIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Profile identifier
+      schema:
+        type: integer
+        format: int64
   schemas:
+    UpdateProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        comparisonMethod:
+          type: string
+          example: example_value
+        maxConcurrentComparePairs:
+          type: integer
+          example: 10
+    CreateProfileRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        comparisonMethod:
+          type: string
+          enum:
+          - row
+          - hash
+          example: row
+        maxConcurrentComparePairs:
+          type: integer
+          example: 10
+        deltaProcessing:
+          type: boolean
+          example: true
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
     ProfileList:
       type: object
       properties:
@@ -283,62 +339,15 @@ components:
         reportOutOfSync:
           type: boolean
           example: true
-    CreateProfileRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        comparisonMethod:
-          type: string
-          enum:
-          - row
-          - hash
-          example: row
-        maxConcurrentComparePairs:
-          type: integer
-          example: 10
-        deltaProcessing:
-          type: boolean
-          example: true
-    UpdateProfileRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        comparisonMethod:
-          type: string
-          example: example_value
-        maxConcurrentComparePairs:
-          type: integer
-          example: 10
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -349,15 +358,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    profileIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Profile identifier
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     basicAuth:
       type: http

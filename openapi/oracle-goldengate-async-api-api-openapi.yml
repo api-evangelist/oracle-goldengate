@@ -115,23 +115,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    streamnameParam:
-      name: streamname
-      in: path
-      required: true
-      description: Name of the data stream resource
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -152,6 +144,14 @@ components:
         message:
           type: string
           example: example_value
+  parameters:
+    streamnameParam:
+      name: streamname
+      in: path
+      required: true
+      description: Name of the data stream resource
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

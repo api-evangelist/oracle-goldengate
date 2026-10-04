@@ -210,21 +210,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    deploymentParam:
-      name: deployment
-      in: path
-      required: true
-      description: Name of the GoldenGate deployment
-      schema:
-        type: string
-    serviceParam:
-      name: service
-      in: path
-      required: true
-      description: Name of the service within a deployment
-      schema:
-        type: string
   schemas:
     UpdateServiceRequest:
       type: object
@@ -238,29 +223,6 @@ components:
         status:
           type: string
           example: example_value
-    ServiceList:
-      type: object
-      properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
-    ServiceSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
     Service:
       type: object
       properties:
@@ -293,6 +255,44 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
     CreateServiceRequest:
       type: object
       required:
@@ -313,30 +313,15 @@ components:
         secure:
           type: boolean
           example: true
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
   responses:
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -347,6 +332,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
+      schema:
+        type: string
+    deploymentParam:
+      name: deployment
+      in: path
+      required: true
+      description: Name of the GoldenGate deployment
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

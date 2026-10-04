@@ -592,6 +592,13 @@ components:
       description: Pagination token
       schema:
         type: string
+    pipelineIdParam:
+      name: pipelineId
+      in: path
+      required: true
+      description: The OCID of the pipeline
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -601,24 +608,17 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
-    pipelineIdParam:
-      name: pipelineId
-      in: path
+    compartmentIdParam:
+      name: compartmentId
+      in: query
       required: true
-      description: The OCID of the pipeline
+      description: The OCID of the compartment
       schema:
         type: string
     ifMatchParam:
       name: if-match
       in: header
       description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
       schema:
         type: string
     pipelineIdParam_2:
@@ -629,6 +629,23 @@ components:
       schema:
         type: string
   schemas:
+    UpdatePipelineDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    PipelineCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineSummary'
+          example: []
     PipelineSummary:
       type: object
       properties:
@@ -645,6 +662,15 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     CreatePipelineDetails:
       type: object
       required:
@@ -666,24 +692,6 @@ components:
         targetConnectionDetailId:
           type: string
           example: '500123'
-    UpdatePipelineDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     Pipeline:
       type: object
       properties:
@@ -716,14 +724,50 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    PipelineCollection:
+    PipelineStage:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineSummary'
-          example: []
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          enum:
+          - Query
+          - Pattern
+          - Rule
+          - ScoreModel
+          - Custom
+          example: Query
+        description:
+          type: string
+          example: A sample description.
+    PipelineSource:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          description: Source type
+          enum:
+          - Kafka
+          - GoldenGate
+          - JMS
+          - REST
+          - CSV
+          - Database
+          example: Kafka
+        connectionName:
+          type: string
+          example: example_value
     PipelineExport:
       type: object
       description: Complete pipeline export including all dependencies (sources, targets, connections, references, predictive models, geo fences, visualizations, and custom jars)
@@ -763,27 +807,15 @@ components:
               path:
                 type: string
           example: []
-    PipelineStage:
+    PublishPipelineRequest:
       type: object
       properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          enum:
-          - Query
-          - Pattern
-          - Rule
-          - ScoreModel
-          - Custom
-          example: Query
-        description:
-          type: string
-          example: A sample description.
+        sparkConfig:
+          type: object
+          description: Optional Spark configuration overrides
+          additionalProperties:
+            type: string
+          example: example_value
     PipelineTarget:
       type: object
       properties:
@@ -807,29 +839,23 @@ components:
         connectionName:
           type: string
           example: example_value
-    PipelineSource:
+    ErrorResponse:
       type: object
       properties:
-        id:
-          type: string
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          description: Source type
-          enum:
-          - Kafka
-          - GoldenGate
-          - JMS
-          - REST
-          - CSV
-          - Database
-          example: Kafka
-        connectionName:
+        code:
+          type: integer
+          example: 10
+        message:
           type: string
           example: example_value
+    PipelineList:
+      type: object
+      properties:
+        pipelines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline_2'
+          example: []
     Pipeline_2:
       type: object
       properties:
@@ -880,32 +906,6 @@ components:
           items:
             $ref: '#/components/schemas/PipelineStage'
           example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    PipelineList:
-      type: object
-      properties:
-        pipelines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline_2'
-          example: []
-    PublishPipelineRequest:
-      type: object
-      properties:
-        sparkConfig:
-          type: object
-          description: Optional Spark configuration overrides
-          additionalProperties:
-            type: string
-          example: example_value
   responses:
     NotFound:
       description: Resource not found
@@ -913,14 +913,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound_2:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound_2:
+      description: Resource not found
       content:
         application/json:
           schema:

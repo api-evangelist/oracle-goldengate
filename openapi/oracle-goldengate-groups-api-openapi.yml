@@ -259,6 +259,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CloneGroupRequest:
+      type: object
+      properties:
+        newName:
+          type: string
+          example: example_value
     Group:
       type: object
       properties:
@@ -312,6 +318,23 @@ components:
           type: integer
           format: int64
           example: '500123'
+    GroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
     UpdateGroupRequest:
       type: object
       properties:
@@ -325,38 +348,24 @@ components:
           type: integer
           format: int64
           example: '500123'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-    GroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-          example: []
-    CloneGroupRequest:
-      type: object
-      properties:
-        newName:
-          type: string
-          example: example_value
+  parameters:
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -367,15 +376,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    groupIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
   securitySchemes:
     basicAuth:
       type: http

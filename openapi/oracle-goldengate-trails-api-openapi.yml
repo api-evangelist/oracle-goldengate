@@ -67,18 +67,6 @@ paths:
           description: HTTPS port
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
-        severity:
-          type: string
-          example: example_value
     TrailList:
       type: object
       properties:
@@ -94,20 +82,17 @@ components:
               sequence:
                 type: integer
           example: []
-    ErrorResponse_2:
+    ErrorResponse:
       type: object
       properties:
         code:
           type: integer
-          description: HTTP status code
           example: 10
         message:
           type: string
-          description: Error message
           example: example_value
         severity:
           type: string
-          description: Error severity level
           example: example_value
     TrailList_2:
       type: object
@@ -126,6 +111,21 @@ components:
               size:
                 type: integer
           example: []
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   responses:
     Unauthorized:
       description: Authentication required

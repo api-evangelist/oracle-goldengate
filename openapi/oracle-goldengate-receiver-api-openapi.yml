@@ -198,15 +198,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CollectorPathSummary:
+    CreateCollectorPathRequest:
       type: object
+      required:
+      - trail
       properties:
-        name:
-          type: string
-          example: Example Title
-        status:
+        trail:
           type: string
           example: example_value
+        port:
+          type: integer
+          example: 10
     CollectorPathList:
       type: object
       properties:
@@ -226,21 +228,6 @@ components:
           example: 10
         status:
           type: string
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
           example: example_value
     CollectorPath:
       type: object
@@ -262,34 +249,39 @@ components:
         port:
           type: integer
           example: 10
-    CreateCollectorPathRequest:
+    ErrorResponse:
       type: object
-      required:
-      - trail
       properties:
-        trail:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CollectorPathSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
           type: string
           example: example_value
-        port:
-          type: integer
-          example: 10
-  parameters:
-    pathParam:
-      name: path
-      in: path
-      required: true
-      description: Name of the collector/receiver path
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -300,6 +292,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    pathParam:
+      name: path
+      in: path
+      required: true
+      description: Name of the collector/receiver path
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

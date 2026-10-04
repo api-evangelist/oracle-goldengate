@@ -259,17 +259,6 @@ paths:
           description: Veridata HTTPS port
 components:
   schemas:
-    ModifyLogRequest:
-      type: object
-      properties:
-        level:
-          type: string
-          enum:
-          - ERROR
-          - WARNING
-          - INFO
-          - DEBUG
-          example: ERROR
     EventList:
       type: object
       properties:
@@ -288,18 +277,6 @@ components:
               message:
                 type: string
           example: []
-    LogContent:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
-          type: string
-          example: example_value
-        size:
-          type: integer
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -331,6 +308,29 @@ components:
                 type: string
                 format: date-time
           example: []
+    ModifyLogRequest:
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+          example: ERROR
+    LogContent:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+        size:
+          type: integer
+          example: 10
     ErrorResponse_2:
       type: object
       properties:

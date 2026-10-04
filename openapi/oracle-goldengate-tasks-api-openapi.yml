@@ -229,38 +229,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    taskParam:
-      name: task
-      in: path
-      required: true
-      description: Name of the automated task
-      schema:
-        type: string
   schemas:
-    TaskList:
-      type: object
-      properties:
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskSummary'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
     Task:
       type: object
       properties:
@@ -300,6 +269,34 @@ components:
             command:
               type: string
           example: example_value
+    UpdateTaskRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        status:
+          type: string
+          example: example_value
+        schedule:
+          type: object
+          properties:
+            type:
+              type: string
+            interval:
+              type: string
+            startTime:
+              type: string
+              format: date-time
+          example: example_value
+    TaskList:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSummary'
+          example: []
     CreateTaskRequest:
       type: object
       required:
@@ -330,6 +327,21 @@ components:
             command:
               type: string
           example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
     TaskSummary:
       type: object
       properties:
@@ -342,35 +354,15 @@ components:
         schedule:
           type: string
           example: example_value
-    UpdateTaskRequest:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        status:
-          type: string
-          example: example_value
-        schedule:
-          type: object
-          properties:
-            type:
-              type: string
-            interval:
-              type: string
-            startTime:
-              type: string
-              format: date-time
-          example: example_value
   responses:
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -381,6 +373,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    taskParam:
+      name: task
+      in: path
+      required: true
+      description: Name of the automated task
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

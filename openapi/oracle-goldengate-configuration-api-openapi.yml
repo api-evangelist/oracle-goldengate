@@ -458,12 +458,11 @@ components:
                 type: string
                 format: date-time
           example: []
-    ConfigFile:
+    ConfigFileContent:
       type: object
+      required:
+      - content
       properties:
-        name:
-          type: string
-          example: Example Title
         content:
           type: string
           example: example_value
@@ -479,22 +478,33 @@ components:
         severity:
           type: string
           example: example_value
-    ConfigFileContent:
+    ConfigFile:
       type: object
-      required:
-      - content
       properties:
+        name:
+          type: string
+          example: Example Title
         content:
           type: string
           example: example_value
-    ConfigTypeList:
+    ConfigSummary:
       type: object
       properties:
-        types:
-          type: array
-          items:
-            type: string
-          example: []
+        serviceType:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        deploymentName:
+          type: string
+          example: example_value
     ParameterInfo:
       type: object
       properties:
@@ -515,77 +525,6 @@ components:
           items:
             type: string
           example: []
-    ConfigFile_2:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
-          type: string
-          example: example_value
-        lastModified:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    ApiVersionList:
-      type: object
-      properties:
-        versions:
-          type: array
-          items:
-            type: object
-            properties:
-              version:
-                type: string
-              isLatest:
-                type: boolean
-              links:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Link'
-          example: []
-    ErrorResponse_2:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    ParameterNameList:
-      type: object
-      properties:
-        parameters:
-          type: array
-          items:
-            type: string
-          example: []
-    ConfigSummary:
-      type: object
-      properties:
-        serviceType:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        host:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-        deploymentName:
-          type: string
-          example: example_value
     Link:
       type: object
       properties:
@@ -598,6 +537,14 @@ components:
         mediaType:
           type: string
           example: example_value
+    ConfigTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+          example: []
     ApiVersionDetails:
       type: object
       properties:
@@ -615,6 +562,23 @@ components:
           items:
             $ref: '#/components/schemas/Link'
           example: []
+    ApiVersionList:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+              isLatest:
+                type: boolean
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+          example: []
     ConfigFileContent_2:
       type: object
       required:
@@ -624,15 +588,51 @@ components:
           type: string
           description: File content
           example: example_value
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    ConfigFile_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+        lastModified:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    ParameterNameList:
+      type: object
+      properties:
+        parameters:
+          type: array
+          items:
+            type: string
+          example: []
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -643,14 +643,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound_2:
-      description: The requested resource was not found
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse_2'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
+    NotFound_2:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

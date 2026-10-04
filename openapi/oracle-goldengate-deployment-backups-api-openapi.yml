@@ -211,42 +211,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    deploymentBackupIdParam:
-      name: deploymentBackupId
-      in: path
-      required: true
-      description: The OCID of the deployment backup
-      schema:
-        type: string
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
   schemas:
     CreateDeploymentBackupDetails:
       type: object
@@ -276,23 +240,6 @@ components:
         objectName:
           type: string
           example: example_value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
-    DeploymentBackupCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentBackupSummary'
-          example: []
     DeploymentBackupSummary:
       type: object
       properties:
@@ -322,6 +269,15 @@ components:
           enum:
           - DEFAULT
           example: DEFAULT
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     DeploymentBackup:
       type: object
       properties:
@@ -357,6 +313,50 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    DeploymentBackupCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentBackupSummary'
+          example: []
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    deploymentBackupIdParam:
+      name: deploymentBackupId
+      in: path
+      required: true
+      description: The OCID of the deployment backup
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
   responses:
     NotFound:
       description: Resource not found
