@@ -2571,6 +2571,10 @@ apis:
     url: >-
       https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-datastream-rest-api.html
 common:
+- type: RateLimits
+  url: rate-limits/oracle-goldengate-rate-limits.yml
+- type: FinOps
+  url: finops/oracle-goldengate-finops.yml
 - type: Plans
   url: plans/oracle-goldengate-plans-pricing.yml
 - type: Website
