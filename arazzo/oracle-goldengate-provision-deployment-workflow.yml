@@ -40,7 +40,7 @@ workflows:
   steps:
   - stepId: createDeployment
     description: Create the deployment with auto-start enabled.
-    operationId: createDeployment
+    operationId: postServicesV2DeploymentsByDeployment
     parameters:
     - name: Authorization
       in: header
@@ -63,7 +63,7 @@ workflows:
     description: >-
       Poll the deployment record until it reports running, looping while it is
       still stopped.
-    operationId: getDeployment
+    operationId: getServicesV2DeploymentsByDeployment
     parameters:
     - name: Authorization
       in: header

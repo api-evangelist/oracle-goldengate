@@ -51,7 +51,7 @@ workflows:
   steps:
   - stepId: createConnection
     description: Create the database connection bound to the supplied credential alias.
-    operationId: createConnection
+    operationId: postServicesConfigurationConnections
     parameters:
     - name: Authorization
       in: header
