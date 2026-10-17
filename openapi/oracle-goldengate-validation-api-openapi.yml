@@ -179,6 +179,36 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    comparePairIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare pair identifier
+      schema:
+        type: integer
+        format: int64
+    groupIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Compare group identifier
+      schema:
+        type: integer
+        format: int64
   schemas:
     ValidateConnectionRequest:
       type: object
@@ -208,15 +238,6 @@ components:
               message:
                 type: string
           example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
     ValidateDatabaseRequest:
       type: object
       required:
@@ -243,36 +264,15 @@ components:
           type: string
           format: password
           example: example_value
-  parameters:
-    groupIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare group identifier
-      schema:
-        type: integer
-        format: int64
-    comparePairIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Compare pair identifier
-      schema:
-        type: integer
-        format: int64
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http

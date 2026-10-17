@@ -339,26 +339,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CertificateCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CertificateSummary'
-          example: []
-    CreateCertificateDetails:
-      type: object
-      required:
-      - key
-      - certificateContent
-      properties:
-        key:
-          type: string
-          example: example_value
-        certificateContent:
-          type: string
-          example: example_value
     CertificateSummary:
       type: object
       properties:
@@ -375,6 +355,26 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    CreateCertificateDetails:
+      type: object
+      required:
+      - key
+      - certificateContent
+      properties:
+        key:
+          type: string
+          example: example_value
+        certificateContent:
+          type: string
+          example: example_value
+    CertificateCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificateSummary'
+          example: []
     Certificate_2:
       type: object
       properties:
@@ -398,18 +398,18 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CertificateNameList:
-      type: object
-      properties:
-        certificates:
-          type: array
-          items:
-            type: string
-          example: []
     CertificateTypeList:
       type: object
       properties:
         types:
+          type: array
+          items:
+            type: string
+          example: []
+    CertificateNameList:
+      type: object
+      properties:
+        certificates:
           type: array
           items:
             type: string
@@ -430,19 +430,6 @@ components:
           description: Error severity level
           example: example_value
   parameters:
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
     limitParam:
       name: limit
       in: query
@@ -452,15 +439,28 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

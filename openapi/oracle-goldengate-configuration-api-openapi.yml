@@ -443,7 +443,61 @@ paths:
           default: '443'
           description: HTTPS port for the service
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    NotFound_2:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
+    ConfigFileContent:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          example: example_value
+    ConfigFile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
     ConfigFileList:
       type: object
       properties:
@@ -458,14 +512,6 @@ components:
                 type: string
                 format: date-time
           example: []
-    ConfigFileContent:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -476,33 +522,6 @@ components:
           type: string
           example: example_value
         severity:
-          type: string
-          example: example_value
-    ConfigFile:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
-          type: string
-          example: example_value
-    ConfigSummary:
-      type: object
-      properties:
-        serviceType:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        host:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-        deploymentName:
           type: string
           example: example_value
     ParameterInfo:
@@ -525,43 +544,32 @@ components:
           items:
             type: string
           example: []
-    Link:
+    ParameterNameList:
       type: object
       properties:
-        rel:
-          type: string
-          example: example_value
-        href:
-          type: string
-          example: example_value
-        mediaType:
-          type: string
-          example: example_value
-    ConfigTypeList:
-      type: object
-      properties:
-        types:
+        parameters:
           type: array
           items:
             type: string
           example: []
-    ApiVersionDetails:
+    ConfigSummary:
       type: object
       properties:
-        version:
+        serviceType:
           type: string
           example: example_value
-        isLatest:
-          type: boolean
-          example: true
-        lifecycle:
+        status:
           type: string
           example: example_value
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-          example: []
+        host:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+        deploymentName:
+          type: string
+          example: example_value
     ApiVersionList:
       type: object
       properties:
@@ -579,6 +587,18 @@ components:
                 items:
                   $ref: '#/components/schemas/Link'
           example: []
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: example_value
+        href:
+          type: string
+          example: example_value
+        mediaType:
+          type: string
+          example: example_value
     ConfigFileContent_2:
       type: object
       required:
@@ -588,6 +608,27 @@ components:
           type: string
           description: File content
           example: example_value
+    ConfigTypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+          example: []
+    ConfigFile_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+        lastModified:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     ErrorResponse_2:
       type: object
       properties:
@@ -603,64 +644,23 @@ components:
           type: string
           description: Error severity level
           example: example_value
-    ConfigFile_2:
+    ApiVersionDetails:
       type: object
       properties:
-        name:
-          type: string
-          example: Example Title
-        content:
+        version:
           type: string
           example: example_value
-        lastModified:
+        isLatest:
+          type: boolean
+          example: true
+        lifecycle:
           type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    ParameterNameList:
-      type: object
-      properties:
-        parameters:
+          example: example_value
+        links:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Link'
           example: []
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    NotFound_2:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
   securitySchemes:
     basicAuth:
       type: http

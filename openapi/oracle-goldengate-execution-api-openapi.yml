@@ -108,6 +108,25 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     JobExecution:
       type: object
@@ -152,39 +171,20 @@ components:
           type: object
           additionalProperties: true
           example: example_value
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    jobIdParam:
-      name: Id
-      in: path
-      required: true
-      description: Job identifier
-      schema:
-        type: integer
-        format: int64
     runIdParam:
       name: runId
       in: path
       required: true
       description: Job or repair run identifier
+      schema:
+        type: integer
+        format: int64
+    jobIdParam:
+      name: Id
+      in: path
+      required: true
+      description: Job identifier
       schema:
         type: integer
         format: int64

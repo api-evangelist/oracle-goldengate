@@ -198,6 +198,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CollectorPath:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          enum:
+          - running
+          - stopped
+          - error
+          example: running
+        trail:
+          type: string
+          description: Target trail file
+          example: example_value
+        port:
+          type: integer
+          example: 10
     CreateCollectorPathRequest:
       type: object
       required:
@@ -229,7 +249,7 @@ components:
         status:
           type: string
           example: example_value
-    CollectorPath:
+    CollectorPathSummary:
       type: object
       properties:
         name:
@@ -237,18 +257,7 @@ components:
           example: Example Title
         status:
           type: string
-          enum:
-          - running
-          - stopped
-          - error
-          example: running
-        trail:
-          type: string
-          description: Target trail file
           example: example_value
-        port:
-          type: integer
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -264,18 +273,9 @@ components:
           type: string
           description: Error severity level
           example: example_value
-    CollectorPathSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
@@ -286,8 +286,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:

@@ -258,7 +258,49 @@ paths:
           default: '8830'
           description: Veridata HTTPS port
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized_2:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_2'
   schemas:
+    LogContent:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        content:
+          type: string
+          example: example_value
+        size:
+          type: integer
+          example: 10
+    ModifyLogRequest:
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+          example: ERROR
     EventList:
       type: object
       properties:
@@ -308,38 +350,6 @@ components:
                 type: string
                 format: date-time
           example: []
-    ModifyLogRequest:
-      type: object
-      properties:
-        level:
-          type: string
-          enum:
-          - ERROR
-          - WARNING
-          - INFO
-          - DEBUG
-          example: ERROR
-    LogContent:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        content:
-          type: string
-          example: example_value
-        size:
-          type: integer
-          example: 10
-    ErrorResponse_2:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 10
-        message:
-          type: string
-          example: example_value
     ServerLogs:
       type: object
       properties:
@@ -356,25 +366,15 @@ components:
               message:
                 type: string
           example: []
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_2'
+    ErrorResponse_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 10
+        message:
+          type: string
+          example: example_value
   securitySchemes:
     basicAuth:
       type: http

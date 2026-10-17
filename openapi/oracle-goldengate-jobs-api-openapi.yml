@@ -239,37 +239,6 @@ components:
           type: integer
           format: int64
           example: '500123'
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: abc123
-        name:
-          type: string
-          example: Example Title
-        description:
-          type: string
-          example: A sample description.
-        groupIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          example: []
-        profileId:
-          type: integer
-          format: int64
-          example: '500123'
-        status:
-          type: string
-          enum:
-          - idle
-          - running
-          - completed
-          - failed
-          example: idle
     CreateJobRequest:
       type: object
       required:
@@ -301,9 +270,40 @@ components:
         message:
           type: string
           example: example_value
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: abc123
+        name:
+          type: string
+          example: Example Title
+        description:
+          type: string
+          example: A sample description.
+        groupIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: []
+        profileId:
+          type: integer
+          format: int64
+          example: '500123'
+        status:
+          type: string
+          enum:
+          - idle
+          - running
+          - completed
+          - failed
+          example: idle
   responses:
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
@@ -314,8 +314,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

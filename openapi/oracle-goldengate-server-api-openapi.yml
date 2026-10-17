@@ -222,16 +222,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    LoginResponse:
+    UpdateServerConfigurationRequest:
       type: object
       properties:
-        token:
-          type: string
-          example: example_value
-        sessionTimeout:
+        maxConcurrentJobs:
           type: integer
           example: 10
-        username:
+        maxThreadsPerJob:
+          type: integer
+          example: 10
+        reportRetentionDays:
+          type: integer
+          example: 10
+    ServerInfo:
+      type: object
+      properties:
+        version:
+          type: string
+          example: example_value
+        buildNumber:
+          type: string
+          example: example_value
+        uptime:
+          type: string
+          example: example_value
+        javaVersion:
           type: string
           example: example_value
     ServerConfiguration:
@@ -249,18 +264,6 @@ components:
         oosRetentionDays:
           type: integer
           example: 10
-    UpdateServerConfigurationRequest:
-      type: object
-      properties:
-        maxConcurrentJobs:
-          type: integer
-          example: 10
-        maxThreadsPerJob:
-          type: integer
-          example: 10
-        reportRetentionDays:
-          type: integer
-          example: 10
     ErrorResponse:
       type: object
       properties:
@@ -270,30 +273,27 @@ components:
         message:
           type: string
           example: example_value
-    ServerInfo:
+    LoginResponse:
       type: object
       properties:
-        version:
+        token:
           type: string
           example: example_value
-        buildNumber:
-          type: string
-          example: example_value
-        uptime:
-          type: string
-          example: example_value
-        javaVersion:
+        sessionTimeout:
+          type: integer
+          example: 10
+        username:
           type: string
           example: example_value
   responses:
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

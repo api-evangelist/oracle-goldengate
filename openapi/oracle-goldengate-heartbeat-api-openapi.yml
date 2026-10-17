@@ -209,65 +209,29 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    connectionParam:
-      name: connection
-      in: path
-      required: true
-      description: Name of the database connection
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    HeartbeatTable:
+    UpdateHeartbeatTableRequest:
       type: object
       properties:
-        owner:
-          type: string
-          description: Schema owner of the heartbeat table
-          example: example_value
-        table:
-          type: string
-          description: Heartbeat table name
-          example: example_value
-        retentionTime:
-          type: integer
-          description: Retention time in days
-          example: 10
-        frequency:
-          type: integer
-          description: Update frequency in seconds
-          example: 10
-        purgeFrequency:
-          type: integer
-          description: Purge frequency in minutes
-          example: 10
-    HeartbeatEntries:
-      type: object
-      properties:
-        entries:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceProcess:
-                type: string
-              targetProcess:
-                type: string
-              lastHeartbeatSent:
-                type: string
-                format: date-time
-              lastHeartbeatReceived:
-                type: string
-                format: date-time
-              lagInSeconds:
-                type: number
-          example: []
-    CreateHeartbeatTableRequest:
-      type: object
-      properties:
-        owner:
-          type: string
-          example: example_value
         retentionTime:
           type: integer
           example: 10
@@ -292,9 +256,35 @@ components:
           type: string
           description: Error severity level
           example: example_value
-    UpdateHeartbeatTableRequest:
+    HeartbeatTable:
       type: object
       properties:
+        owner:
+          type: string
+          description: Schema owner of the heartbeat table
+          example: example_value
+        table:
+          type: string
+          description: Heartbeat table name
+          example: example_value
+        retentionTime:
+          type: integer
+          description: Retention time in days
+          example: 10
+        frequency:
+          type: integer
+          description: Update frequency in seconds
+          example: 10
+        purgeFrequency:
+          type: integer
+          description: Purge frequency in minutes
+          example: 10
+    CreateHeartbeatTableRequest:
+      type: object
+      properties:
+        owner:
+          type: string
+          example: example_value
         retentionTime:
           type: integer
           example: 10
@@ -304,25 +294,35 @@ components:
         purgeFrequency:
           type: integer
           example: 10
-  responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    HeartbeatEntries:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceProcess:
+                type: string
+              targetProcess:
+                type: string
+              lastHeartbeatSent:
+                type: string
+                format: date-time
+              lastHeartbeatReceived:
+                type: string
+                format: date-time
+              lagInSeconds:
+                type: number
+          example: []
+  parameters:
+    connectionParam:
+      name: connection
+      in: path
+      required: true
+      description: Name of the database connection
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

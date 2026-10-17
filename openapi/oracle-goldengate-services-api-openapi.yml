@@ -211,6 +211,21 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
     UpdateServiceRequest:
       type: object
       properties:
@@ -223,6 +238,49 @@ components:
         status:
           type: string
           example: example_value
+    ServiceList:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
+    CreateServiceRequest:
+      type: object
+      required:
+      - type
+      - port
+      properties:
+        type:
+          type: string
+          enum:
+          - AdminServer
+          - DistributionServer
+          - ReceiverServer
+          - PerformanceMetricsServer
+          example: AdminServer
+        port:
+          type: integer
+          example: 10
+        secure:
+          type: boolean
+          example: true
     Service:
       type: object
       properties:
@@ -255,67 +313,9 @@ components:
           type: boolean
           description: Whether the service uses SSL/TLS
           example: true
-    ServiceList:
-      type: object
-      properties:
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceSummary'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
-    ServiceSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-    CreateServiceRequest:
-      type: object
-      required:
-      - type
-      - port
-      properties:
-        type:
-          type: string
-          enum:
-          - AdminServer
-          - DistributionServer
-          - ReceiverServer
-          - PerformanceMetricsServer
-          example: AdminServer
-        port:
-          type: integer
-          example: 10
-        secure:
-          type: boolean
-          example: true
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters or request body
+    Unauthorized:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
@@ -326,25 +326,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required or invalid credentials
+    BadRequest:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    serviceParam:
-      name: service
-      in: path
-      required: true
-      description: Name of the service within a deployment
-      schema:
-        type: string
     deploymentParam:
       name: deployment
       in: path
       required: true
       description: Name of the GoldenGate deployment
+      schema:
+        type: string
+    serviceParam:
+      name: service
+      in: path
+      required: true
+      description: Name of the service within a deployment
       schema:
         type: string
   securitySchemes:

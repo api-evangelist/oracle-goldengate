@@ -183,6 +183,53 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    WorkRequestCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkRequestSummary'
+          example: []
+    WorkRequestLogEntryCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    WorkRequestErrorCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+          example: []
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     WorkRequest:
       type: object
       properties:
@@ -231,53 +278,6 @@ components:
               entityUri:
                 type: string
           example: []
-    WorkRequestErrorCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
-          example: []
-    WorkRequestCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkRequestSummary'
-          example: []
-    WorkRequestLogEntryCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-              timestamp:
-                type: string
-                format: date-time
-          example: []
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
     WorkRequestSummary:
       type: object
       properties:
@@ -298,12 +298,6 @@ components:
           format: date-time
           example: '2026-01-15T10:30:00Z'
   parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
     limitParam:
       name: limit
       in: query
@@ -313,6 +307,12 @@ components:
         minimum: 1
         maximum: 1000
         default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
     compartmentIdParam:
       name: compartmentId
       in: query

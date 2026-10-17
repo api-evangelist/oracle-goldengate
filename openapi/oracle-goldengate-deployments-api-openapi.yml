@@ -830,45 +830,16 @@ paths:
           description: HTTPS port for the service
 components:
   parameters:
-    deploymentIdParam:
-      name: deploymentId
-      in: path
-      required: true
-      description: The OCID of the deployment
-      schema:
-        type: string
     opcRequestIdParam:
       name: opc-request-id
       in: header
       description: Unique request identifier
       schema:
         type: string
-    displayNameParam:
-      name: displayName
+    pageParam:
+      name: page
       in: query
-      description: Filter by display name
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
+      description: Pagination token
       schema:
         type: string
     sortOrderParam:
@@ -879,12 +850,6 @@ components:
         enum:
         - ASC
         - DESC
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
     lifecycleStateParam:
       name: lifecycleState
       in: query
@@ -911,10 +876,45 @@ components:
         enum:
         - timeCreated
         - displayName
+    displayNameParam:
+      name: displayName
+      in: query
+      description: Filter by display name
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
     opcRetryTokenParam:
       name: opc-retry-token
       in: header
       description: Idempotent retry token
+      schema:
+        type: string
+    deploymentIdParam:
+      name: deploymentId
+      in: path
+      required: true
+      description: The OCID of the deployment
       schema:
         type: string
     deploymentParam:
@@ -949,32 +949,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    CollectDiagnosticsDetails:
-      type: object
-      required:
-      - namespaceName
-      - bucketName
-      - diagnosticNamePrefix
-      properties:
-        namespaceName:
-          type: string
-          example: example_value
-        bucketName:
-          type: string
-          example: example_value
-        diagnosticNamePrefix:
-          type: string
-          example: example_value
-    StopDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - DEFAULT
-          example: DEFAULT
     UpdateDeploymentDetails:
       type: object
       properties:
@@ -1001,72 +975,23 @@ components:
           additionalProperties:
             type: string
           example: example_value
-    CreateDeploymentDetails:
+    CollectDiagnosticsDetails:
       type: object
       required:
-      - displayName
-      - compartmentId
-      - subnetId
-      - licenseModel
-      - cpuCoreCount
-      - isAutoScalingEnabled
+      - namespaceName
+      - bucketName
+      - diagnosticNamePrefix
       properties:
-        displayName:
+        namespaceName:
           type: string
           example: example_value
-        description:
-          type: string
-          example: A sample description.
-        compartmentId:
-          type: string
-          example: '500123'
-        subnetId:
-          type: string
-          example: '500123'
-        licenseModel:
-          type: string
-          enum:
-          - LICENSE_INCLUDED
-          - BRING_YOUR_OWN_LICENSE
-          example: LICENSE_INCLUDED
-        fqdn:
+        bucketName:
           type: string
           example: example_value
-        cpuCoreCount:
-          type: integer
-          example: 10
-        isAutoScalingEnabled:
-          type: boolean
-          example: true
-        isPublic:
-          type: boolean
-          example: true
-        oggData:
-          type: object
-          required:
-          - deploymentName
-          - adminUsername
-          - adminPassword
-          properties:
-            deploymentName:
-              type: string
-            adminUsername:
-              type: string
-            adminPassword:
-              type: string
-              format: password
+        diagnosticNamePrefix:
+          type: string
           example: example_value
-        freeformTags:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        definedTags:
-          type: object
-          additionalProperties:
-            type: object
-          example: example_value
-    UpgradeDeploymentDetails:
+    StopDeploymentDetails:
       type: object
       required:
       - type
@@ -1074,21 +999,8 @@ components:
         type:
           type: string
           enum:
-          - CURRENT_RELEASE
-          - SPECIFIC_RELEASE
-          example: CURRENT_RELEASE
-        oggVersion:
-          type: string
-          example: example_value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
-          type: string
-          example: example_value
+          - DEFAULT
+          example: DEFAULT
     Deployment:
       type: object
       properties:
@@ -1181,6 +1093,102 @@ components:
           additionalProperties:
             type: object
           example: example_value
+    ChangeCompartmentDetails:
+      type: object
+      required:
+      - compartmentId
+      properties:
+        compartmentId:
+          type: string
+          example: '500123'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
+    UpgradeDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - CURRENT_RELEASE
+          - SPECIFIC_RELEASE
+          example: CURRENT_RELEASE
+        oggVersion:
+          type: string
+          example: example_value
+    CreateDeploymentDetails:
+      type: object
+      required:
+      - displayName
+      - compartmentId
+      - subnetId
+      - licenseModel
+      - cpuCoreCount
+      - isAutoScalingEnabled
+      properties:
+        displayName:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+        compartmentId:
+          type: string
+          example: '500123'
+        subnetId:
+          type: string
+          example: '500123'
+        licenseModel:
+          type: string
+          enum:
+          - LICENSE_INCLUDED
+          - BRING_YOUR_OWN_LICENSE
+          example: LICENSE_INCLUDED
+        fqdn:
+          type: string
+          example: example_value
+        cpuCoreCount:
+          type: integer
+          example: 10
+        isAutoScalingEnabled:
+          type: boolean
+          example: true
+        isPublic:
+          type: boolean
+          example: true
+        oggData:
+          type: object
+          required:
+          - deploymentName
+          - adminUsername
+          - adminPassword
+          properties:
+            deploymentName:
+              type: string
+            adminUsername:
+              type: string
+            adminPassword:
+              type: string
+              format: password
+          example: example_value
+        freeformTags:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        definedTags:
+          type: object
+          additionalProperties:
+            type: object
+          example: example_value
     StartDeploymentDetails:
       type: object
       required:
@@ -1199,34 +1207,6 @@ components:
           items:
             $ref: '#/components/schemas/DeploymentSummary'
           example: []
-    ChangeCompartmentDetails:
-      type: object
-      required:
-      - compartmentId
-      properties:
-        compartmentId:
-          type: string
-          example: '500123'
-    DeploymentList:
-      type: object
-      properties:
-        deployments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentSummary_2'
-          example: []
-    DeploymentSummary_2:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        status:
-          type: string
-          example: example_value
-        description:
-          type: string
-          example: A sample description.
     CreateDeploymentRequest:
       type: object
       required:
@@ -1248,50 +1228,6 @@ components:
           type: boolean
           description: Whether to automatically start the deployment
           example: true
-    UpdateDeploymentRequest:
-      type: object
-      properties:
-        description:
-          type: string
-          example: A sample description.
-        environmentVariables:
-          type: object
-          additionalProperties:
-            type: string
-          example: example_value
-        autoStart:
-          type: boolean
-          example: true
-    ServiceSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Title
-        type:
-          type: string
-          example: example_value
-        status:
-          type: string
-          example: example_value
-        port:
-          type: integer
-          example: 10
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Error message
-          example: example_value
-        severity:
-          type: string
-          description: Error severity level
-          example: example_value
     Deployment_2:
       type: object
       properties:
@@ -1329,15 +1265,79 @@ components:
           items:
             $ref: '#/components/schemas/ServiceSummary'
           example: []
+    ServiceSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        type:
+          type: string
+          example: example_value
+        status:
+          type: string
+          example: example_value
+        port:
+          type: integer
+          example: 10
+    UpdateDeploymentRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: A sample description.
+        environmentVariables:
+          type: object
+          additionalProperties:
+            type: string
+          example: example_value
+        autoStart:
+          type: boolean
+          example: true
+    DeploymentSummary_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        status:
+          type: string
+          example: example_value
+        description:
+          type: string
+          example: A sample description.
+    DeploymentList:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentSummary_2'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Error message
+          example: example_value
+        severity:
+          type: string
+          description: Error severity level
+          example: example_value
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -1348,14 +1348,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Conflict:
-      description: Resource already exists
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Bad request - invalid parameters or request body
+    Unauthorized_2:
+      description: Authentication required or invalid credentials
       content:
         application/json:
           schema:
@@ -1366,8 +1360,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized_2:
-      description: Authentication required or invalid credentials
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Bad request - invalid parameters or request body
       content:
         application/json:
           schema:

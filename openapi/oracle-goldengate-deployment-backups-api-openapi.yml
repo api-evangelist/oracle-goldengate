@@ -211,6 +211,49 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    deploymentBackupIdParam:
+      name: deploymentBackupId
+      in: path
+      required: true
+      description: The OCID of the deployment backup
+      schema:
+        type: string
+    compartmentIdParam:
+      name: compartmentId
+      in: query
+      required: true
+      description: The OCID of the compartment
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 10
+    pageParam:
+      name: page
+      in: query
+      description: Pagination token
+      schema:
+        type: string
+    ifMatchParam:
+      name: if-match
+      in: header
+      description: ETag for optimistic concurrency control
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     CreateDeploymentBackupDetails:
       type: object
@@ -238,44 +281,6 @@ components:
           type: string
           example: example_value
         objectName:
-          type: string
-          example: example_value
-    DeploymentBackupSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        deploymentId:
-          type: string
-          example: '500123'
-        displayName:
-          type: string
-          example: example_value
-        lifecycleState:
-          type: string
-          example: example_value
-        timeCreated:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    RestoreDeploymentDetails:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - DEFAULT
-          example: DEFAULT
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          example: example_value
-        message:
           type: string
           example: example_value
     DeploymentBackup:
@@ -313,6 +318,44 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    RestoreDeploymentDetails:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DEFAULT
+          example: DEFAULT
+    DeploymentBackupSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        deploymentId:
+          type: string
+          example: '500123'
+        displayName:
+          type: string
+          example: example_value
+        lifecycleState:
+          type: string
+          example: example_value
+        timeCreated:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: example_value
+        message:
+          type: string
+          example: example_value
     DeploymentBackupCollection:
       type: object
       properties:
@@ -321,49 +364,6 @@ components:
           items:
             $ref: '#/components/schemas/DeploymentBackupSummary'
           example: []
-  parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Pagination token
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        default: 10
-    deploymentBackupIdParam:
-      name: deploymentBackupId
-      in: path
-      required: true
-      description: The OCID of the deployment backup
-      schema:
-        type: string
-    compartmentIdParam:
-      name: compartmentId
-      in: query
-      required: true
-      description: The OCID of the compartment
-      schema:
-        type: string
-    ifMatchParam:
-      name: if-match
-      in: header
-      description: ETag for optimistic concurrency control
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ociSignature:
       type: http
